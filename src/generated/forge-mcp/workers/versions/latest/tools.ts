@@ -135,10 +135,17 @@ import {
   workers_single_step_migrations as workers_single_step_migrations$,
   workers_worker_export as workers_worker_export$,
 } from "../../../schemas.js";
-import { workers_container_item, workers_containers } from "../../outputs.js";
+import {
+  workers_container_item,
+  workers_containers,
+  workers_env,
+  workers_env_binding_item,
+} from "../../outputs.js";
 import {
   workers_container_item as workers_container_item$,
   workers_containers as workers_containers$,
+  workers_env as workers_env$,
+  workers_env_binding_item as workers_env_binding_item$,
 } from "../../schemas.js";
 import { workers_Version } from "../outputs.js";
 import { workers_Version as workers_Version$ } from "../schemas.js";
@@ -268,6 +275,8 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_renamed_export": workers_durable_object_renamed_export$,
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export$,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options$,
+        "workers_env": workers_env$,
+        "workers_env_binding_item": workers_env_binding_item$,
         "workers_export_config": workers_export_config$,
         "workers_exports_config_map": workers_exports_config_map$,
         "workers_migration_step": workers_migration_step$,
@@ -351,6 +360,8 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_renamed_export": workers_durable_object_renamed_export,
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
+        "workers_env": workers_env,
+        "workers_env_binding_item": workers_env_binding_item,
         "workers_export_config": workers_export_config,
         "workers_exports_config_map": workers_exports_config_map,
         "workers_exports_reconciliation_info": workers_exports_reconciliation_info,
@@ -484,6 +495,8 @@ export const tools: readonly Tool[] = [
           "workers_durable_object_renamed_export": workers_durable_object_renamed_export,
           "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
           "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
+          "workers_env": workers_env,
+          "workers_env_binding_item": workers_env_binding_item,
           "workers_export_config": workers_export_config,
           "workers_exports_config_map": workers_exports_config_map,
           "workers_exports_reconciliation_error": workers_exports_reconciliation_error,

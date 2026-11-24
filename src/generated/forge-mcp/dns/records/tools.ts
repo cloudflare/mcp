@@ -40,6 +40,7 @@ import {
   dns$$records_dns_response_batch,
   dns$$records_dns_response_collection,
   dns$$records_dns_response_import_scan,
+  dns$$records_dns_response_list,
   dns$$records_dns_response_review_scan,
   dns$$records_dns_response_single,
   dns$$records_dns_response_trigger_scan,
@@ -90,7 +91,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "dns_records_batch",
+    name: "dns_records_bulkApply",
     title: "Batch DNS Records",
     description: "Send a Batch of DNS Record API calls to be executed together.\n\nNotes:\n- Although Cloudflare will execute the batched operations in a single database transaction, Cloudflare's distributed KV store must treat each record change as a single key-value pair. This means that the propagation of changes is not atomic. See [the documentation](https://developers.cloudflare.com/dns/manage-dns-records/how-to/batch-record-changes/ \"Batch DNS records\") for more information.\n- The operations you specify within the /batch request body are always executed in the following order:\n\n    - Deletes\n    - Patches\n    - Puts\n    - Posts\n\nPOST /zones/{zone_id}/dns_records/batch",
     inputSchema: {
@@ -762,7 +763,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_export",
     title: "Export DNS Records",
-    description: "You can export your [BIND config](https://en.wikipedia.org/wiki/Zone_file \"Zone file\") through this endpoint.\n\nSee [the documentation](https://developers.cloudflare.com/dns/manage-dns-records/how-to/import-and-export/ \"Import and export records\") for more information.\n\nGET /zones/{zone_id}/dns_records/export",
+    description: "Export your [BIND config](https://en.wikipedia.org/wiki/Zone_file \"Zone file\") through this endpoint. Use the same record filters as the List DNS Records endpoint to export only matching stored records.\n\nBy default, the SOA record (stored or generated) and assigned apex NS records, where applicable, are included regardless of filters. Secondary zones must have a stored SOA record to export in this mode. Set `include_generated_records=false` to export only matching stored records, without adding the SOA/nameserver section or requiring secondary zones to have an SOA record. Matching stored SOA and NS records are still exported. This may produce a partial zone rather than a complete zone. Workers-managed records are never exported.\n\nThe export returns at most 5,000,000 matching stored records, in addition to any automatically included SOA and assigned apex NS records. It is not paginated and does not support `page`, `per_page`, `order`, `direction`, `cursor`, or `prev_cursor`.\n\n`include_shadow_metadata=true` is required when using `shadowed_by_name`; it does not add shadow metadata to the BIND output.\n\nSee [the documentation](https://developers.cloudflare.com/dns/manage-dns-records/how-to/import-and-export/ \"Import and export records\") for more information.\n\nGET /zones/{zone_id}/dns_records/export",
     inputSchema: {
       type: "object",
       properties: {
@@ -777,6 +778,180 @@ export const tools: readonly Tool[] = [
           "required": [
             "zone_id"
           ],
+          "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "comment": {
+              "description": "Exact value of the DNS record comment. This is a convenience alias for `comment.exact`.",
+              "type": "string"
+            },
+            "comment.absent": {
+              "description": "If this parameter is present, only records *without* a comment are returned.",
+              "type": "string"
+            },
+            "comment.contains": {
+              "description": "Substring of the DNS record comment. Comment filters are case-insensitive.",
+              "type": "string"
+            },
+            "comment.endswith": {
+              "description": "Suffix of the DNS record comment. Comment filters are case-insensitive.",
+              "type": "string"
+            },
+            "comment.exact": {
+              "description": "Exact value of the DNS record comment. Comment filters are case-insensitive.",
+              "type": "string"
+            },
+            "comment.present": {
+              "description": "If this parameter is present, only records *with* a comment are returned.",
+              "type": "string"
+            },
+            "comment.startswith": {
+              "description": "Prefix of the DNS record comment. Comment filters are case-insensitive.",
+              "type": "string"
+            },
+            "content": {
+              "description": "Exact value of the DNS record content. This is a convenience alias for `content.exact`.",
+              "type": "string"
+            },
+            "content.contains": {
+              "description": "Substring of the DNS record content. Content filters are case-insensitive.",
+              "type": "string"
+            },
+            "content.endswith": {
+              "description": "Suffix of the DNS record content. Content filters are case-insensitive.",
+              "type": "string"
+            },
+            "content.exact": {
+              "description": "Exact value of the DNS record content. Content filters are case-insensitive.",
+              "type": "string"
+            },
+            "content.startswith": {
+              "description": "Prefix of the DNS record content. Content filters are case-insensitive.",
+              "type": "string"
+            },
+            "include_generated_records": {
+              "default": true,
+              "description": "Whether to add the SOA and assigned apex NS records independently of the record filters. Set to `false` to export only matching stored records. Matching stored SOA and NS records are still exported.",
+              "type": "boolean"
+            },
+            "include_shadow_metadata": {
+              "default": false,
+              "description": "Set to `true` to enable the `shadowed_by_name` filter. This does not add shadow metadata to the BIND output.",
+              "type": "boolean"
+            },
+            "match": {
+              "default": "all",
+              "description": "Whether to match all search requirements or at least one (any). If set to `all`, acts like a logical AND between filters. If set to `any`, acts like a logical OR instead. Note that the interaction between tag filters is controlled by the `tag-match` parameter instead.",
+              "enum": [
+                "any",
+                "all"
+              ],
+              "type": "string"
+            },
+            "name": {
+              "description": "Exact value of the DNS record name. This is a convenience alias for `name.exact`.",
+              "type": "string"
+            },
+            "name.contains": {
+              "description": "Substring of the DNS record name. Name filters are case-insensitive.",
+              "type": "string"
+            },
+            "name.endswith": {
+              "description": "Suffix of the DNS record name. Name filters are case-insensitive.",
+              "type": "string"
+            },
+            "name.exact": {
+              "description": "Exact value of the DNS record name. Name filters are case-insensitive.",
+              "type": "string"
+            },
+            "name.startswith": {
+              "description": "Prefix of the DNS record name. Name filters are case-insensitive.",
+              "type": "string"
+            },
+            "proxied": {
+              "default": false,
+              "description": "Whether the record is receiving the performance and security benefits of Cloudflare.",
+              "type": "boolean"
+            },
+            "search": {
+              "description": "Allows searching in multiple properties of a DNS record simultaneously. This parameter is intended for human users, not automation. Its exact behavior is intentionally left unspecified and is subject to change in the future. This parameter works independently of the `match` setting. For automated searches, please use the other available parameters.",
+              "type": "string"
+            },
+            "shadowed_by_name": {
+              "description": "Filters the response to records at or below the specified NS delegation name. NS, DS, and NSEC records at the delegation name are excluded because they are not shadowed by that delegation. Those record types are included only when they exist below the delegation. The value must be a non-apex subdomain of the zone. Requires `include_shadow_metadata=true`. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).",
+              "type": "string"
+            },
+            "shadowing_name": {
+              "description": "Returns NS records that shadow the given name, searching at the name itself and each of its ancestor names within the zone, excluding the zone apex. The value must be a subdomain of the zone; the zone apex is not accepted. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).",
+              "type": "string"
+            },
+            "tag": {
+              "description": "Condition on the DNS record tag.\n\nParameter values can be of the form `<tag-name>:<tag-value>` to search for an exact `name:value` pair, or just `<tag-name>` to search for records with a specific tag name regardless of its value.\n\nThis is a convenience shorthand for the more powerful `tag.<predicate>` parameters.\nExamples:\n- `tag=important` is equivalent to `tag.present=important`\n- `tag=team:DNS` is equivalent to `tag.exact=team:DNS`",
+              "type": "string"
+            },
+            "tag.absent": {
+              "description": "Name of a tag which must *not* be present on the DNS record. Tag filters are case-insensitive.",
+              "type": "string"
+            },
+            "tag.contains": {
+              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value contains `<tag-value>`. Tag filters are case-insensitive.",
+              "type": "string"
+            },
+            "tag.endswith": {
+              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value ends with `<tag-value>`. Tag filters are case-insensitive.",
+              "type": "string"
+            },
+            "tag.exact": {
+              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value is `<tag-value>`. Tag filters are case-insensitive.",
+              "type": "string"
+            },
+            "tag.present": {
+              "description": "Name of a tag which must be present on the DNS record. Tag filters are case-insensitive.",
+              "type": "string"
+            },
+            "tag.startswith": {
+              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value starts with `<tag-value>`. Tag filters are case-insensitive.",
+              "type": "string"
+            },
+            "tag_match": {
+              "default": "all",
+              "description": "Whether to match all tag search requirements or at least one (any). If set to `all`, acts like a logical AND between tag filters. If set to `any`, acts like a logical OR instead. Note that the regular `match` parameter is still used to combine the resulting condition with other filters that aren't related to tags. The legacy `tag-match` parameter is an alias for this parameter.",
+              "enum": [
+                "any",
+                "all"
+              ],
+              "type": "string"
+            },
+            "type": {
+              "description": "Record type.",
+              "enum": [
+                "A",
+                "AAAA",
+                "CAA",
+                "CERT",
+                "CNAME",
+                "DNSKEY",
+                "DS",
+                "HTTPS",
+                "LOC",
+                "MX",
+                "NAPTR",
+                "NS",
+                "OPENPGPKEY",
+                "PTR",
+                "SMIMEA",
+                "SRV",
+                "SSHFP",
+                "SVCB",
+                "TLSA",
+                "TXT",
+                "URI"
+              ],
+              "type": "string"
+            }
+          },
           "type": "object"
         }
       },
@@ -796,6 +971,41 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/zones/{zone_id}/dns_records/export",
       pathOf: encodePath`/zones/${"zone_id"}/dns_records/export`,
+      query: [
+        { name: "include_generated_records", explode: true },
+        { name: "name", explode: true },
+        { name: "name.exact", explode: true },
+        { name: "name.contains", explode: true },
+        { name: "name.startswith", explode: true },
+        { name: "name.endswith", explode: true },
+        { name: "type", explode: true },
+        { name: "content", explode: true },
+        { name: "content.exact", explode: true },
+        { name: "content.contains", explode: true },
+        { name: "content.startswith", explode: true },
+        { name: "content.endswith", explode: true },
+        { name: "proxied", explode: true },
+        { name: "match", explode: true },
+        { name: "comment", explode: true },
+        { name: "comment.present", explode: true },
+        { name: "comment.absent", explode: true },
+        { name: "comment.exact", explode: true },
+        { name: "comment.contains", explode: true },
+        { name: "comment.startswith", explode: true },
+        { name: "comment.endswith", explode: true },
+        { name: "tag", explode: true },
+        { name: "tag.present", explode: true },
+        { name: "tag.absent", explode: true },
+        { name: "tag.exact", explode: true },
+        { name: "tag.contains", explode: true },
+        { name: "tag.startswith", explode: true },
+        { name: "tag.endswith", explode: true },
+        { name: "search", explode: true },
+        { name: "tag_match", explode: true },
+        { name: "include_shadow_metadata", explode: true },
+        { name: "shadowed_by_name", explode: true },
+        { name: "shadowing_name", explode: true },
+      ],
       extensions: {
         "x-api-token-group": [
           "DNS Read",
@@ -1081,7 +1291,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_list",
     title: "List DNS Records",
-    description: "List, search, sort, and filter a zones' DNS records.\n\nGET /zones/{zone_id}/dns_records",
+    description: "List, search, sort, and filter a zone's DNS records. Requests with `cursor` or `prev_cursor` use cursor pagination. Otherwise, the endpoint uses offset pagination. To start cursor pagination, set `cursor` to an empty value, then pass `result_info.cursor` from the previous response to request the next page. Cursor-paginated responses do not include `page`, `total_count`, or `total_pages`. Cursor tokens are opaque and can vary in length. Pass them back unchanged and do not assume a fixed length.\n\nGET /zones/{zone_id}/dns_records",
     inputSchema: {
       type: "object",
       properties: {
@@ -1149,6 +1359,10 @@ export const tools: readonly Tool[] = [
               "description": "Prefix of the DNS record content. Content filters are case-insensitive.",
               "type": "string"
             },
+            "cursor": {
+              "description": "Opaque token for cursor pagination, obtained from `result_info.cursor` of the previous response. An empty value starts cursor pagination. Mutually exclusive with `page` and `prev_cursor`.",
+              "type": "string"
+            },
             "direction": {
               "default": "asc",
               "description": "Direction to order DNS records in.",
@@ -1205,14 +1419,17 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "page": {
-              "default": 1,
-              "description": "Page number of paginated results.",
+              "description": "Page number for offset pagination.",
               "type": "number"
             },
             "per_page": {
               "default": 100,
               "description": "Number of DNS records per page.",
               "type": "number"
+            },
+            "prev_cursor": {
+              "description": "Opaque token for requesting the previous page in cursor pagination, obtained from `result_info.prev_cursor` of the previous response. Mutually exclusive with `page` and `cursor`.",
+              "type": "string"
             },
             "proxied": {
               "default": false,
@@ -1261,7 +1478,7 @@ export const tools: readonly Tool[] = [
             },
             "tag_match": {
               "default": "all",
-              "description": "Whether to match all tag search requirements or at least one (any). If set to `all`, acts like a logical AND between tag filters. If set to `any`, acts like a logical OR instead. Note that the regular `match` parameter is still used to combine the resulting condition with other filters that aren't related to tags.",
+              "description": "Whether to match all tag search requirements or at least one (any). If set to `all`, acts like a logical AND between tag filters. If set to `any`, acts like a logical OR instead. Note that the regular `match` parameter is still used to combine the resulting condition with other filters that aren't related to tags. The legacy `tag-match` parameter is an alias for this parameter.",
               "enum": [
                 "any",
                 "all"
@@ -1305,7 +1522,7 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-records_dns_response_collection",
+      "$ref": "#/$defs/dns-records_dns_response_list",
       $defs: {
         "dns-records_AAAARecord": dns$$records_AAAARecord,
         "dns-records_ARecord": dns$$records_ARecord,
@@ -1334,7 +1551,7 @@ export const tools: readonly Tool[] = [
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
-        "dns-records_dns_response_collection": dns$$records_dns_response_collection,
+        "dns-records_dns_response_list": dns$$records_dns_response_list,
         "dns-records_messages": dns$$records_messages,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
@@ -1381,6 +1598,8 @@ export const tools: readonly Tool[] = [
         { name: "tag.endswith", explode: true },
         { name: "search", explode: true },
         { name: "tag_match", explode: true },
+        { name: "cursor", explode: true },
+        { name: "prev_cursor", explode: true },
         { name: "page", explode: true },
         { name: "per_page", explode: true },
         { name: "order", explode: true },
@@ -1414,7 +1633,7 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/dns-records_dns_response_collection"
+            "$ref": "#/$defs/dns-records_dns_response_list"
           },
           "4XX": {
             "$ref": "#/$defs/dns-records_api-response-common-failure"
@@ -1449,7 +1668,7 @@ export const tools: readonly Tool[] = [
           "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
           "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
           "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
-          "dns-records_dns_response_collection": dns$$records_dns_response_collection,
+          "dns-records_dns_response_list": dns$$records_dns_response_list,
           "dns-records_messages": dns$$records_messages,
           "dns-records_settings": dns$$records_settings,
           "dns-records_tags": dns$$records_tags,

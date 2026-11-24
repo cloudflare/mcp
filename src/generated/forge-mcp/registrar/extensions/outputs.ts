@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `registrar-api_extension-item` in responses.
+ * The schema of `registrar_extension-item` in responses.
  */
-export const registrar$$api_extension$$item: JSONObject = {
+export const registrar_extension$$item: JSONObject = {
   "properties": {
     "metadata": {
       "properties": {
@@ -39,18 +39,18 @@ export const registrar$$api_extension$$item: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api_extension-response-collection` in responses.
+ * The schema of `registrar_extension-response-collection` in responses.
  */
-export const registrar$$api_extension$$response$$collection: JSONObject = {
+export const registrar_extension$$response$$collection: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/registrar-api_api-response-common"
+      "$ref": "#/$defs/registrar_api-response-common"
     },
     {
       "properties": {
         "result": {
           "items": {
-            "$ref": "#/$defs/registrar-api_extension-item"
+            "$ref": "#/$defs/registrar_extension-item"
           },
           "type": "array"
         },
@@ -75,17 +75,17 @@ export const registrar$$api_extension$$response$$collection: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api_extension-response-single` in responses.
+ * The schema of `registrar_extension-response-single` in responses.
  */
-export const registrar$$api_extension$$response$$single: JSONObject = {
+export const registrar_extension$$response$$single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/registrar-api_api-response-common"
+      "$ref": "#/$defs/registrar_api-response-common"
     },
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/registrar-api_extension-item"
+          "$ref": "#/$defs/registrar_extension-item"
         }
       },
       "type": "object"

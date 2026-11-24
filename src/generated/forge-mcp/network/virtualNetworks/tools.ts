@@ -437,6 +437,14 @@ export const tools: readonly Tool[] = [
             "name": {
               "description": "A user-friendly name for the virtual network.",
               "type": "string"
+            },
+            "page": {
+              "description": "Page number of paginated results, starting at 1. Defaults to 1.",
+              "type": "integer"
+            },
+            "per_page": {
+              "description": "Number of virtual networks per page, up to 1000. Defaults to 1000.",
+              "type": "integer"
             }
           },
           "type": "object"
@@ -470,6 +478,8 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/teamnet/virtual_networks",
       pathOf: encodePath`/accounts/${"account_id"}/teamnet/virtual_networks`,
       query: [
+        { name: "page", explode: true },
+        { name: "per_page", explode: true },
         { name: "id", explode: true },
         { name: "name", explode: true },
         { name: "is_default", explode: true },

@@ -5,10 +5,10 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
   google$$tag$$gateway_api$$response$$common,
   google$$tag$$gateway_api$$response$$common$$failure,
-  google$$tag$$gateway_google$$tag$$gateway$$config,
+  google$$tag$$gateway_google$$tag$$gateway$$config$$response,
   google$$tag$$gateway_messages,
 } from "./outputs.js";
-import { google$$tag$$gateway_google$$tag$$gateway$$config as google$$tag$$gateway_google$$tag$$gateway$$config$ } from "./schemas.js";
+import { google$$tag$$gateway_google$$tag$$gateway$$config } from "./schemas.js";
 
 /**
  * The tools of `googleTagGateway.config`.
@@ -48,7 +48,7 @@ export const tools: readonly Tool[] = [
         {
           "properties": {
             "result": {
-              "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+              "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config-response"
             }
           },
           "type": "object"
@@ -56,7 +56,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "google-tag-gateway_api-response-common": google$$tag$$gateway_api$$response$$common,
-        "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config,
+        "google-tag-gateway_google-tag-gateway-config-response": google$$tag$$gateway_google$$tag$$gateway$$config$$response,
         "google-tag-gateway_messages": google$$tag$$gateway_messages,
       },
     },
@@ -99,7 +99,7 @@ export const tools: readonly Tool[] = [
               {
                 "properties": {
                   "result": {
-                    "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+                    "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config-response"
                   }
                 },
                 "type": "object"
@@ -113,7 +113,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "google-tag-gateway_api-response-common": google$$tag$$gateway_api$$response$$common,
           "google-tag-gateway_api-response-common-failure": google$$tag$$gateway_api$$response$$common$$failure,
-          "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config,
+          "google-tag-gateway_google-tag-gateway-config-response": google$$tag$$gateway_google$$tag$$gateway$$config$$response,
           "google-tag-gateway_messages": google$$tag$$gateway_messages,
         },
       },
@@ -149,7 +149,7 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config$,
+        "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config,
       },
     },
     outputSchema: {
@@ -160,7 +160,7 @@ export const tools: readonly Tool[] = [
         {
           "properties": {
             "result": {
-              "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+              "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config-response"
             }
           },
           "type": "object"
@@ -168,7 +168,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "google-tag-gateway_api-response-common": google$$tag$$gateway_api$$response$$common,
-        "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config,
+        "google-tag-gateway_google-tag-gateway-config-response": google$$tag$$gateway_google$$tag$$gateway$$config$$response,
         "google-tag-gateway_messages": google$$tag$$gateway_messages,
       },
     },
@@ -211,7 +211,7 @@ export const tools: readonly Tool[] = [
               {
                 "properties": {
                   "result": {
-                    "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+                    "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config-response"
                   }
                 },
                 "type": "object"
@@ -225,7 +225,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "google-tag-gateway_api-response-common": google$$tag$$gateway_api$$response$$common,
           "google-tag-gateway_api-response-common-failure": google$$tag$$gateway_api$$response$$common$$failure,
-          "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config,
+          "google-tag-gateway_google-tag-gateway-config-response": google$$tag$$gateway_google$$tag$$gateway$$config$$response,
           "google-tag-gateway_messages": google$$tag$$gateway_messages,
         },
       },

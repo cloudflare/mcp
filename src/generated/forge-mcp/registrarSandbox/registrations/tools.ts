@@ -3,34 +3,34 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  registrar$$api$$sandbox_api$$response$$common,
-  registrar$$api$$sandbox_api$$response$$common$$failure,
-  registrar$$api$$sandbox_messages,
+  registrar$$sandbox_api$$response$$common,
+  registrar$$sandbox_api$$response$$common$$failure,
+  registrar$$sandbox_messages,
 } from "../outputs.js";
 import {
-  registrar$$api$$sandbox_cursor_result_info,
-  registrar$$api$$sandbox_domain_check_response,
-  registrar$$api$$sandbox_domain_check_result,
-  registrar$$api$$sandbox_domain_search_response,
-  registrar$$api$$sandbox_domain_search_result,
-  registrar$$api$$sandbox_pricing_base,
-  registrar$$api$$sandbox_pricing_registration,
-  registrar$$api$$sandbox_registration,
-  registrar$$api$$sandbox_registration$$response$$collection,
-  registrar$$api$$sandbox_registration$$response$$single,
-  registrar$$api$$sandbox_workflow$$status$$response$$single,
-  registrar$$api$$sandbox_workflow_error,
-  registrar$$api$$sandbox_workflow_links,
-  registrar$$api$$sandbox_workflow_status,
+  registrar$$sandbox_cursor_result_info,
+  registrar$$sandbox_domain_check_response,
+  registrar$$sandbox_domain_check_result,
+  registrar$$sandbox_domain_search_response,
+  registrar$$sandbox_domain_search_result,
+  registrar$$sandbox_pricing_base,
+  registrar$$sandbox_pricing_registration,
+  registrar$$sandbox_registration,
+  registrar$$sandbox_registration$$response$$collection,
+  registrar$$sandbox_registration$$response$$single,
+  registrar$$sandbox_workflow$$status$$response$$single,
+  registrar$$sandbox_workflow_error,
+  registrar$$sandbox_workflow_links,
+  registrar$$sandbox_workflow_status,
 } from "./outputs.js";
 import {
-  registrar$$api$$sandbox_domain_check_request,
-  registrar$$api$$sandbox_registration_contact,
-  registrar$$api$$sandbox_registration_contact_address,
-  registrar$$api$$sandbox_registration_contact_postal_info,
-  registrar$$api$$sandbox_registration_contacts,
-  registrar$$api$$sandbox_registration_create_request,
-  registrar$$api$$sandbox_registration_update_request,
+  registrar$$sandbox_domain_check_request,
+  registrar$$sandbox_registration_contact,
+  registrar$$sandbox_registration_contact_address,
+  registrar$$sandbox_registration_contact_postal_info,
+  registrar$$sandbox_registration_contacts,
+  registrar$$sandbox_registration_create_request,
+  registrar$$sandbox_registration_update_request,
 } from "./schemas.js";
 
 /**
@@ -45,7 +45,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/registrar-api-sandbox_domain_check_request",
+          "$ref": "#/$defs/registrar-sandbox_domain_check_request",
           "description": "List of fully qualified domain names (FQDNs) to check. Each domain must include the extension (e.g., \"example.com\", not \"example\")."
         },
         "path": {
@@ -68,18 +68,18 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "registrar-api-sandbox_domain_check_request": registrar$$api$$sandbox_domain_check_request,
+        "registrar-sandbox_domain_check_request": registrar$$sandbox_domain_check_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api-sandbox_domain_check_response",
+      "$ref": "#/$defs/registrar-sandbox_domain_check_response",
       $defs: {
-        "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-        "registrar-api-sandbox_domain_check_response": registrar$$api$$sandbox_domain_check_response,
-        "registrar-api-sandbox_domain_check_result": registrar$$api$$sandbox_domain_check_result,
-        "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-        "registrar-api-sandbox_pricing_base": registrar$$api$$sandbox_pricing_base,
-        "registrar-api-sandbox_pricing_registration": registrar$$api$$sandbox_pricing_registration,
+        "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+        "registrar-sandbox_domain_check_response": registrar$$sandbox_domain_check_response,
+        "registrar-sandbox_domain_check_result": registrar$$sandbox_domain_check_result,
+        "registrar-sandbox_messages": registrar$$sandbox_messages,
+        "registrar-sandbox_pricing_base": registrar$$sandbox_pricing_base,
+        "registrar-sandbox_pricing_registration": registrar$$sandbox_pricing_registration,
       },
     },
     annotations: {
@@ -104,20 +104,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api-sandbox_domain_check_response"
+            "$ref": "#/$defs/registrar-sandbox_domain_check_response"
           },
           "400": {
-            "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+            "$ref": "#/$defs/registrar-sandbox_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-          "registrar-api-sandbox_api-response-common-failure": registrar$$api$$sandbox_api$$response$$common$$failure,
-          "registrar-api-sandbox_domain_check_response": registrar$$api$$sandbox_domain_check_response,
-          "registrar-api-sandbox_domain_check_result": registrar$$api$$sandbox_domain_check_result,
-          "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-          "registrar-api-sandbox_pricing_base": registrar$$api$$sandbox_pricing_base,
-          "registrar-api-sandbox_pricing_registration": registrar$$api$$sandbox_pricing_registration,
+          "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+          "registrar-sandbox_api-response-common-failure": registrar$$sandbox_api$$response$$common$$failure,
+          "registrar-sandbox_domain_check_response": registrar$$sandbox_domain_check_response,
+          "registrar-sandbox_domain_check_result": registrar$$sandbox_domain_check_result,
+          "registrar-sandbox_messages": registrar$$sandbox_messages,
+          "registrar-sandbox_pricing_base": registrar$$sandbox_pricing_base,
+          "registrar-sandbox_pricing_registration": registrar$$sandbox_pricing_registration,
         },
       },
     },
@@ -130,7 +130,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/registrar-api-sandbox_registration_create_request"
+          "$ref": "#/$defs/registrar-sandbox_registration_create_request"
         },
         "headers": {
           "additionalProperties": false,
@@ -162,22 +162,22 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "registrar-api-sandbox_registration_contact": registrar$$api$$sandbox_registration_contact,
-        "registrar-api-sandbox_registration_contact_address": registrar$$api$$sandbox_registration_contact_address,
-        "registrar-api-sandbox_registration_contact_postal_info": registrar$$api$$sandbox_registration_contact_postal_info,
-        "registrar-api-sandbox_registration_contacts": registrar$$api$$sandbox_registration_contacts,
-        "registrar-api-sandbox_registration_create_request": registrar$$api$$sandbox_registration_create_request,
+        "registrar-sandbox_registration_contact": registrar$$sandbox_registration_contact,
+        "registrar-sandbox_registration_contact_address": registrar$$sandbox_registration_contact_address,
+        "registrar-sandbox_registration_contact_postal_info": registrar$$sandbox_registration_contact_postal_info,
+        "registrar-sandbox_registration_contacts": registrar$$sandbox_registration_contacts,
+        "registrar-sandbox_registration_create_request": registrar$$sandbox_registration_create_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api-sandbox_workflow-status-response-single",
+      "$ref": "#/$defs/registrar-sandbox_workflow-status-response-single",
       $defs: {
-        "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-        "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-        "registrar-api-sandbox_workflow-status-response-single": registrar$$api$$sandbox_workflow$$status$$response$$single,
-        "registrar-api-sandbox_workflow_error": registrar$$api$$sandbox_workflow_error,
-        "registrar-api-sandbox_workflow_links": registrar$$api$$sandbox_workflow_links,
-        "registrar-api-sandbox_workflow_status": registrar$$api$$sandbox_workflow_status,
+        "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+        "registrar-sandbox_messages": registrar$$sandbox_messages,
+        "registrar-sandbox_workflow-status-response-single": registrar$$sandbox_workflow$$status$$response$$single,
+        "registrar-sandbox_workflow_error": registrar$$sandbox_workflow_error,
+        "registrar-sandbox_workflow_links": registrar$$sandbox_workflow_links,
+        "registrar-sandbox_workflow_status": registrar$$sandbox_workflow_status,
       },
     },
     annotations: {
@@ -196,23 +196,23 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "201": {
-            "$ref": "#/$defs/registrar-api-sandbox_workflow-status-response-single"
+            "$ref": "#/$defs/registrar-sandbox_workflow-status-response-single"
           },
           "202": {
-            "$ref": "#/$defs/registrar-api-sandbox_workflow-status-response-single"
+            "$ref": "#/$defs/registrar-sandbox_workflow-status-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+            "$ref": "#/$defs/registrar-sandbox_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-          "registrar-api-sandbox_api-response-common-failure": registrar$$api$$sandbox_api$$response$$common$$failure,
-          "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-          "registrar-api-sandbox_workflow-status-response-single": registrar$$api$$sandbox_workflow$$status$$response$$single,
-          "registrar-api-sandbox_workflow_error": registrar$$api$$sandbox_workflow_error,
-          "registrar-api-sandbox_workflow_links": registrar$$api$$sandbox_workflow_links,
-          "registrar-api-sandbox_workflow_status": registrar$$api$$sandbox_workflow_status,
+          "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+          "registrar-sandbox_api-response-common-failure": registrar$$sandbox_api$$response$$common$$failure,
+          "registrar-sandbox_messages": registrar$$sandbox_messages,
+          "registrar-sandbox_workflow-status-response-single": registrar$$sandbox_workflow$$status$$response$$single,
+          "registrar-sandbox_workflow_error": registrar$$sandbox_workflow_error,
+          "registrar-sandbox_workflow_links": registrar$$sandbox_workflow_links,
+          "registrar-sandbox_workflow_status": registrar$$sandbox_workflow_status,
         },
       },
     },
@@ -249,12 +249,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api-sandbox_registration-response-single",
+      "$ref": "#/$defs/registrar-sandbox_registration-response-single",
       $defs: {
-        "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-        "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-        "registrar-api-sandbox_registration": registrar$$api$$sandbox_registration,
-        "registrar-api-sandbox_registration-response-single": registrar$$api$$sandbox_registration$$response$$single,
+        "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+        "registrar-sandbox_messages": registrar$$sandbox_messages,
+        "registrar-sandbox_registration": registrar$$sandbox_registration,
+        "registrar-sandbox_registration-response-single": registrar$$sandbox_registration$$response$$single,
       },
     },
     annotations: {
@@ -271,18 +271,18 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api-sandbox_registration-response-single"
+            "$ref": "#/$defs/registrar-sandbox_registration-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+            "$ref": "#/$defs/registrar-sandbox_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-          "registrar-api-sandbox_api-response-common-failure": registrar$$api$$sandbox_api$$response$$common$$failure,
-          "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-          "registrar-api-sandbox_registration": registrar$$api$$sandbox_registration,
-          "registrar-api-sandbox_registration-response-single": registrar$$api$$sandbox_registration$$response$$single,
+          "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+          "registrar-sandbox_api-response-common-failure": registrar$$sandbox_api$$response$$common$$failure,
+          "registrar-sandbox_messages": registrar$$sandbox_messages,
+          "registrar-sandbox_registration": registrar$$sandbox_registration,
+          "registrar-sandbox_registration-response-single": registrar$$sandbox_registration$$response$$single,
         },
       },
     },
@@ -319,14 +319,14 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api-sandbox_workflow-status-response-single",
+      "$ref": "#/$defs/registrar-sandbox_workflow-status-response-single",
       $defs: {
-        "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-        "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-        "registrar-api-sandbox_workflow-status-response-single": registrar$$api$$sandbox_workflow$$status$$response$$single,
-        "registrar-api-sandbox_workflow_error": registrar$$api$$sandbox_workflow_error,
-        "registrar-api-sandbox_workflow_links": registrar$$api$$sandbox_workflow_links,
-        "registrar-api-sandbox_workflow_status": registrar$$api$$sandbox_workflow_status,
+        "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+        "registrar-sandbox_messages": registrar$$sandbox_messages,
+        "registrar-sandbox_workflow-status-response-single": registrar$$sandbox_workflow$$status$$response$$single,
+        "registrar-sandbox_workflow_error": registrar$$sandbox_workflow_error,
+        "registrar-sandbox_workflow_links": registrar$$sandbox_workflow_links,
+        "registrar-sandbox_workflow_status": registrar$$sandbox_workflow_status,
       },
     },
     annotations: {
@@ -343,20 +343,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api-sandbox_workflow-status-response-single"
+            "$ref": "#/$defs/registrar-sandbox_workflow-status-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+            "$ref": "#/$defs/registrar-sandbox_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-          "registrar-api-sandbox_api-response-common-failure": registrar$$api$$sandbox_api$$response$$common$$failure,
-          "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-          "registrar-api-sandbox_workflow-status-response-single": registrar$$api$$sandbox_workflow$$status$$response$$single,
-          "registrar-api-sandbox_workflow_error": registrar$$api$$sandbox_workflow_error,
-          "registrar-api-sandbox_workflow_links": registrar$$api$$sandbox_workflow_links,
-          "registrar-api-sandbox_workflow_status": registrar$$api$$sandbox_workflow_status,
+          "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+          "registrar-sandbox_api-response-common-failure": registrar$$sandbox_api$$response$$common$$failure,
+          "registrar-sandbox_messages": registrar$$sandbox_messages,
+          "registrar-sandbox_workflow-status-response-single": registrar$$sandbox_workflow$$status$$response$$single,
+          "registrar-sandbox_workflow_error": registrar$$sandbox_workflow_error,
+          "registrar-sandbox_workflow_links": registrar$$sandbox_workflow_links,
+          "registrar-sandbox_workflow_status": registrar$$sandbox_workflow_status,
         },
       },
     },
@@ -393,14 +393,14 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api-sandbox_workflow-status-response-single",
+      "$ref": "#/$defs/registrar-sandbox_workflow-status-response-single",
       $defs: {
-        "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-        "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-        "registrar-api-sandbox_workflow-status-response-single": registrar$$api$$sandbox_workflow$$status$$response$$single,
-        "registrar-api-sandbox_workflow_error": registrar$$api$$sandbox_workflow_error,
-        "registrar-api-sandbox_workflow_links": registrar$$api$$sandbox_workflow_links,
-        "registrar-api-sandbox_workflow_status": registrar$$api$$sandbox_workflow_status,
+        "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+        "registrar-sandbox_messages": registrar$$sandbox_messages,
+        "registrar-sandbox_workflow-status-response-single": registrar$$sandbox_workflow$$status$$response$$single,
+        "registrar-sandbox_workflow_error": registrar$$sandbox_workflow_error,
+        "registrar-sandbox_workflow_links": registrar$$sandbox_workflow_links,
+        "registrar-sandbox_workflow_status": registrar$$sandbox_workflow_status,
       },
     },
     annotations: {
@@ -417,20 +417,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api-sandbox_workflow-status-response-single"
+            "$ref": "#/$defs/registrar-sandbox_workflow-status-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+            "$ref": "#/$defs/registrar-sandbox_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-          "registrar-api-sandbox_api-response-common-failure": registrar$$api$$sandbox_api$$response$$common$$failure,
-          "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-          "registrar-api-sandbox_workflow-status-response-single": registrar$$api$$sandbox_workflow$$status$$response$$single,
-          "registrar-api-sandbox_workflow_error": registrar$$api$$sandbox_workflow_error,
-          "registrar-api-sandbox_workflow_links": registrar$$api$$sandbox_workflow_links,
-          "registrar-api-sandbox_workflow_status": registrar$$api$$sandbox_workflow_status,
+          "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+          "registrar-sandbox_api-response-common-failure": registrar$$sandbox_api$$response$$common$$failure,
+          "registrar-sandbox_messages": registrar$$sandbox_messages,
+          "registrar-sandbox_workflow-status-response-single": registrar$$sandbox_workflow$$status$$response$$single,
+          "registrar-sandbox_workflow_error": registrar$$sandbox_workflow_error,
+          "registrar-sandbox_workflow_links": registrar$$sandbox_workflow_links,
+          "registrar-sandbox_workflow_status": registrar$$sandbox_workflow_status,
         },
       },
     },
@@ -496,13 +496,13 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api-sandbox_registration-response-collection",
+      "$ref": "#/$defs/registrar-sandbox_registration-response-collection",
       $defs: {
-        "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-        "registrar-api-sandbox_cursor_result_info": registrar$$api$$sandbox_cursor_result_info,
-        "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-        "registrar-api-sandbox_registration": registrar$$api$$sandbox_registration,
-        "registrar-api-sandbox_registration-response-collection": registrar$$api$$sandbox_registration$$response$$collection,
+        "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+        "registrar-sandbox_cursor_result_info": registrar$$sandbox_cursor_result_info,
+        "registrar-sandbox_messages": registrar$$sandbox_messages,
+        "registrar-sandbox_registration": registrar$$sandbox_registration,
+        "registrar-sandbox_registration-response-collection": registrar$$sandbox_registration$$response$$collection,
       },
     },
     annotations: {
@@ -525,19 +525,19 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api-sandbox_registration-response-collection"
+            "$ref": "#/$defs/registrar-sandbox_registration-response-collection"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+            "$ref": "#/$defs/registrar-sandbox_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-          "registrar-api-sandbox_api-response-common-failure": registrar$$api$$sandbox_api$$response$$common$$failure,
-          "registrar-api-sandbox_cursor_result_info": registrar$$api$$sandbox_cursor_result_info,
-          "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-          "registrar-api-sandbox_registration": registrar$$api$$sandbox_registration,
-          "registrar-api-sandbox_registration-response-collection": registrar$$api$$sandbox_registration$$response$$collection,
+          "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+          "registrar-sandbox_api-response-common-failure": registrar$$sandbox_api$$response$$common$$failure,
+          "registrar-sandbox_cursor_result_info": registrar$$sandbox_cursor_result_info,
+          "registrar-sandbox_messages": registrar$$sandbox_messages,
+          "registrar-sandbox_registration": registrar$$sandbox_registration,
+          "registrar-sandbox_registration-response-collection": registrar$$sandbox_registration$$response$$collection,
         },
       },
     },
@@ -596,14 +596,14 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api-sandbox_domain_search_response",
+      "$ref": "#/$defs/registrar-sandbox_domain_search_response",
       $defs: {
-        "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-        "registrar-api-sandbox_domain_search_response": registrar$$api$$sandbox_domain_search_response,
-        "registrar-api-sandbox_domain_search_result": registrar$$api$$sandbox_domain_search_result,
-        "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-        "registrar-api-sandbox_pricing_base": registrar$$api$$sandbox_pricing_base,
-        "registrar-api-sandbox_pricing_registration": registrar$$api$$sandbox_pricing_registration,
+        "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+        "registrar-sandbox_domain_search_response": registrar$$sandbox_domain_search_response,
+        "registrar-sandbox_domain_search_result": registrar$$sandbox_domain_search_result,
+        "registrar-sandbox_messages": registrar$$sandbox_messages,
+        "registrar-sandbox_pricing_base": registrar$$sandbox_pricing_base,
+        "registrar-sandbox_pricing_registration": registrar$$sandbox_pricing_registration,
       },
     },
     annotations: {
@@ -625,20 +625,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api-sandbox_domain_search_response"
+            "$ref": "#/$defs/registrar-sandbox_domain_search_response"
           },
           "400": {
-            "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+            "$ref": "#/$defs/registrar-sandbox_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-          "registrar-api-sandbox_api-response-common-failure": registrar$$api$$sandbox_api$$response$$common$$failure,
-          "registrar-api-sandbox_domain_search_response": registrar$$api$$sandbox_domain_search_response,
-          "registrar-api-sandbox_domain_search_result": registrar$$api$$sandbox_domain_search_result,
-          "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-          "registrar-api-sandbox_pricing_base": registrar$$api$$sandbox_pricing_base,
-          "registrar-api-sandbox_pricing_registration": registrar$$api$$sandbox_pricing_registration,
+          "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+          "registrar-sandbox_api-response-common-failure": registrar$$sandbox_api$$response$$common$$failure,
+          "registrar-sandbox_domain_search_response": registrar$$sandbox_domain_search_response,
+          "registrar-sandbox_domain_search_result": registrar$$sandbox_domain_search_result,
+          "registrar-sandbox_messages": registrar$$sandbox_messages,
+          "registrar-sandbox_pricing_base": registrar$$sandbox_pricing_base,
+          "registrar-sandbox_pricing_registration": registrar$$sandbox_pricing_registration,
         },
       },
     },
@@ -651,7 +651,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/registrar-api-sandbox_registration_update_request"
+          "$ref": "#/$defs/registrar-sandbox_registration_update_request"
         },
         "headers": {
           "additionalProperties": false,
@@ -691,18 +691,18 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "registrar-api-sandbox_registration_update_request": registrar$$api$$sandbox_registration_update_request,
+        "registrar-sandbox_registration_update_request": registrar$$sandbox_registration_update_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api-sandbox_workflow-status-response-single",
+      "$ref": "#/$defs/registrar-sandbox_workflow-status-response-single",
       $defs: {
-        "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-        "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-        "registrar-api-sandbox_workflow-status-response-single": registrar$$api$$sandbox_workflow$$status$$response$$single,
-        "registrar-api-sandbox_workflow_error": registrar$$api$$sandbox_workflow_error,
-        "registrar-api-sandbox_workflow_links": registrar$$api$$sandbox_workflow_links,
-        "registrar-api-sandbox_workflow_status": registrar$$api$$sandbox_workflow_status,
+        "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+        "registrar-sandbox_messages": registrar$$sandbox_messages,
+        "registrar-sandbox_workflow-status-response-single": registrar$$sandbox_workflow$$status$$response$$single,
+        "registrar-sandbox_workflow_error": registrar$$sandbox_workflow_error,
+        "registrar-sandbox_workflow_links": registrar$$sandbox_workflow_links,
+        "registrar-sandbox_workflow_status": registrar$$sandbox_workflow_status,
       },
     },
     annotations: {
@@ -721,23 +721,23 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api-sandbox_workflow-status-response-single"
+            "$ref": "#/$defs/registrar-sandbox_workflow-status-response-single"
           },
           "202": {
-            "$ref": "#/$defs/registrar-api-sandbox_workflow-status-response-single"
+            "$ref": "#/$defs/registrar-sandbox_workflow-status-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+            "$ref": "#/$defs/registrar-sandbox_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-          "registrar-api-sandbox_api-response-common-failure": registrar$$api$$sandbox_api$$response$$common$$failure,
-          "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
-          "registrar-api-sandbox_workflow-status-response-single": registrar$$api$$sandbox_workflow$$status$$response$$single,
-          "registrar-api-sandbox_workflow_error": registrar$$api$$sandbox_workflow_error,
-          "registrar-api-sandbox_workflow_links": registrar$$api$$sandbox_workflow_links,
-          "registrar-api-sandbox_workflow_status": registrar$$api$$sandbox_workflow_status,
+          "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+          "registrar-sandbox_api-response-common-failure": registrar$$sandbox_api$$response$$common$$failure,
+          "registrar-sandbox_messages": registrar$$sandbox_messages,
+          "registrar-sandbox_workflow-status-response-single": registrar$$sandbox_workflow$$status$$response$$single,
+          "registrar-sandbox_workflow_error": registrar$$sandbox_workflow_error,
+          "registrar-sandbox_workflow_links": registrar$$sandbox_workflow_links,
+          "registrar-sandbox_workflow_status": registrar$$sandbox_workflow_status,
         },
       },
     },

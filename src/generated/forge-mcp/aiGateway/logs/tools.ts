@@ -1010,6 +1010,7 @@ export const tools: readonly Tool[] = [
             },
             "page": {
               "default": 1,
+              "description": "Page number, from 1. A high page reads every page before it again. To read further back in a listing sorted by created_at, ask for page 1 again with a created_at lt filter set to the created_at of the last log returned. Logs in the same millisecond as that log can be left out: to include them, set the filter 1 ms later and drop the logs already returned.",
               "type": "integer"
             },
             "per_page": {
@@ -1192,6 +1193,9 @@ export const tools: readonly Tool[] = [
             },
             "total_count": {
               "type": "number"
+            },
+            "truncated": {
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -1414,6 +1418,9 @@ export const tools: readonly Tool[] = [
                   },
                   "total_count": {
                     "type": "number"
+                  },
+                  "truncated": {
+                    "type": "boolean"
                   }
                 },
                 "type": "object"

@@ -20,7 +20,9 @@ export const argo$$analytics_api$$response$$common: JSONObject = {
           "type": "object"
         },
         {
-          "items": {},
+          "items": {
+            "type": "object"
+          },
           "type": "array"
         },
         {

@@ -4,6 +4,89 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `workers-kv_bulk-get-result` in responses.
+ */
+export const workers$$kv_bulk$$get$$result: JSONObject = {
+  "properties": {
+    "values": {
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "object"
+          }
+        ]
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `workers-kv_bulk-get-result-with-metadata` in responses.
+ */
+export const workers$$kv_bulk$$get$$result$$with$$metadata: JSONObject = {
+  "properties": {
+    "values": {
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "properties": {
+              "expiration": {
+                "type": "number"
+              },
+              "metadata": {
+                "$ref": "#/$defs/workers-kv_any"
+              },
+              "value": {
+                "$ref": "#/$defs/workers-kv_any"
+              }
+            },
+            "required": [
+              "metadata",
+              "value"
+            ],
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `workers-kv_bulk-result` in responses.
+ */
+export const workers$$kv_bulk$$result: JSONObject = {
+  "properties": {
+    "successful_key_count": {
+      "type": "number"
+    },
+    "unsuccessful_keys": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `workers-kv_cursor_result_info` in responses.
  */
 export const workers$$kv_cursor_result_info: JSONObject = {

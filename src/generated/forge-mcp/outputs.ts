@@ -5196,6 +5196,143 @@ export const mconn_response: JSONObject = {
 };
 
 /**
+ * The schema of `nel-config_api_message` in responses.
+ */
+export const nel$$config_api_message: JSONObject = {
+  "properties": {
+    "code": {
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `nel-config_api_response_failure` in responses.
+ */
+export const nel$$config_api_response_failure: JSONObject = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/nel-config_api_message"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/nel-config_api_message"
+      },
+      "type": "array"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `nel-config_nel_setting` in responses.
+ */
+export const nel$$config_nel_setting: JSONObject = {
+  "properties": {
+    "editable": {
+      "type": "boolean"
+    },
+    "id": {
+      "enum": [
+        "nel"
+      ],
+      "type": "string"
+    },
+    "modified_on": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "value": {
+      "$ref": "#/$defs/nel-config_nel_value"
+    }
+  },
+  "required": [
+    "editable",
+    "id",
+    "modified_on",
+    "value"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `nel-config_nel_setting_response` in responses.
+ */
+export const nel$$config_nel_setting_response: JSONObject = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/nel-config_api_message"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/nel-config_api_message"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/nel-config_nel_setting"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `nel-config_nel_value` in responses.
+ */
+export const nel$$config_nel_value: JSONObject = {
+  "properties": {
+    "enabled": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "enabled"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `organizations-api_LegacyAccount` in responses.
  */
 export const organizations$$api_LegacyAccount: JSONObject = {
@@ -10675,12 +10812,6 @@ export const workers_observability$$2: JSONObject = {
       "oneOf": [
         {
           "properties": {
-            "destinations": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
             "enabled": {
               "type": "boolean"
             },

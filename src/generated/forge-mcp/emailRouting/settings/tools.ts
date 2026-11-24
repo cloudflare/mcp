@@ -14,9 +14,9 @@ import { email_update_email_routing_settings_properties } from "./schemas.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "emailRouting_settings_apply",
-    title: "Apply Email Routing settings",
-    description: "Apply the provided settings to your Email Routing zone. Omitted settings retain their current values, as with PATCH.\n\nPUT /zones/{zone_id}/email/routing",
+    name: "emailRouting_settings_edit",
+    title: "Update Email Routing settings",
+    description: "Update the settings for your Email Routing zone.\n\nPATCH /zones/{zone_id}/email/routing",
     inputSchema: {
       type: "object",
       properties: {
@@ -56,14 +56,14 @@ export const tools: readonly Tool[] = [
       },
     },
     annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Apply Email Routing settings"
+      "title": "Update Email Routing settings"
     },
     [OPERATION]: {
-      method: "PUT",
+      method: "PATCH",
       path: "/zones/{zone_id}/email/routing",
       pathOf: encodePath`/zones/${"zone_id"}/email/routing`,
       body: { mediaTypes: ["application/json"] },
@@ -179,9 +179,9 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "emailRouting_settings_update",
-    title: "Update Email Routing settings",
-    description: "Update the settings for your Email Routing zone.\n\nPATCH /zones/{zone_id}/email/routing",
+    name: "emailRouting_settings_replace",
+    title: "Apply Email Routing settings",
+    description: "Apply the provided settings to your Email Routing zone. Omitted settings retain their current values, as with PATCH.\n\nPUT /zones/{zone_id}/email/routing",
     inputSchema: {
       type: "object",
       properties: {
@@ -221,14 +221,14 @@ export const tools: readonly Tool[] = [
       },
     },
     annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
+      "destructiveHint": true,
+      "idempotentHint": true,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Update Email Routing settings"
+      "title": "Apply Email Routing settings"
     },
     [OPERATION]: {
-      method: "PATCH",
+      method: "PUT",
       path: "/zones/{zone_id}/email/routing",
       pathOf: encodePath`/zones/${"zone_id"}/email/routing`,
       body: { mediaTypes: ["application/json"] },

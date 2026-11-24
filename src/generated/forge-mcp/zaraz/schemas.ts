@@ -52,10 +52,11 @@ export const zaraz_base$$mc: JSONObject = {
           "type": "object"
         },
         "component": {
-          "description": "Tool's internal name.",
+          "description": "Name of the Managed Component the tool runs, for example `google-analytics_v4`.",
           "type": "string"
         },
         "neoEvents": {
+          "deprecated": true,
           "description": "DEPRECATED - List of actions configured on a tool. Either this or actions field is required. If both are present, actions field will take precedence.",
           "items": {
             "properties": {
@@ -244,12 +245,14 @@ export const zaraz_custom$$managed$$component: JSONObject = {
           "type": "string"
         },
         "worker": {
-          "description": "Cloudflare worker that acts as a managed component.",
+          "description": "Cloudflare Worker that acts as a Managed Component.",
           "properties": {
             "escapedWorkerName": {
+              "description": "Name of the Worker script.",
               "type": "string"
             },
             "workerTag": {
+              "description": "Tag of the Worker script.",
               "type": "string"
             }
           },
@@ -777,6 +780,10 @@ export const zaraz_zaraz$$config$$base: JSONObject = {
         "autoInjectScript": {
           "description": "Automatic injection of Zaraz scripts enabled.",
           "type": "boolean"
+        },
+        "botScoreThreshold": {
+          "description": "Minimum bot score required to load Zaraz.",
+          "type": "integer"
         },
         "contextEnricher": {
           "description": "Details of the worker that receives and edits Zaraz Context object.",

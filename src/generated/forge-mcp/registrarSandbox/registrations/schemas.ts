@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `registrar-api-sandbox_domain_check_request`.
+ * The schema of `registrar-sandbox_domain_check_request`.
  */
-export const registrar$$api$$sandbox_domain_check_request: JSONObject = {
+export const registrar$$sandbox_domain_check_request: JSONObject = {
   "description": "Request body for checking domain availability.",
   "properties": {
     "domains": {
@@ -26,9 +26,9 @@ export const registrar$$api$$sandbox_domain_check_request: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_registration_contact`.
+ * The schema of `registrar-sandbox_registration_contact`.
  */
-export const registrar$$api$$sandbox_registration_contact: JSONObject = {
+export const registrar$$sandbox_registration_contact: JSONObject = {
   "description": "Contact data for the domain registration. This information\nis submitted to the domain registry and, depending on extension and\nprivacy settings, may appear in public WHOIS records.",
   "properties": {
     "email": {
@@ -44,7 +44,7 @@ export const registrar$$api$$sandbox_registration_contact: JSONObject = {
       "type": "string"
     },
     "postal_info": {
-      "$ref": "#/$defs/registrar-api-sandbox_registration_contact_postal_info",
+      "$ref": "#/$defs/registrar-sandbox_registration_contact_postal_info",
       "description": "Postal/mailing information for the contact. The `name` field is the\ncomplete contact name in one string. Some registries require a complete\npersonal name, including a family or last name where applicable, but this\nAPI does not accept separate first-name and last-name fields for\nregistration contacts."
     }
   },
@@ -57,9 +57,9 @@ export const registrar$$api$$sandbox_registration_contact: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_registration_contact_address`.
+ * The schema of `registrar-sandbox_registration_contact_address`.
  */
-export const registrar$$api$$sandbox_registration_contact_address: JSONObject = {
+export const registrar$$sandbox_registration_contact_address: JSONObject = {
   "description": "Physical mailing address for the registrant contact.",
   "properties": {
     "city": {
@@ -94,13 +94,13 @@ export const registrar$$api$$sandbox_registration_contact_address: JSONObject = 
 };
 
 /**
- * The schema of `registrar-api-sandbox_registration_contact_postal_info`.
+ * The schema of `registrar-sandbox_registration_contact_postal_info`.
  */
-export const registrar$$api$$sandbox_registration_contact_postal_info: JSONObject = {
+export const registrar$$sandbox_registration_contact_postal_info: JSONObject = {
   "description": "Postal/mailing information for the contact. The `name` field is the\ncomplete contact name in one string. Some registries require a complete\npersonal name, including a family or last name where applicable, but this\nAPI does not accept separate first-name and last-name fields for\nregistration contacts.",
   "properties": {
     "address": {
-      "$ref": "#/$defs/registrar-api-sandbox_registration_contact_address",
+      "$ref": "#/$defs/registrar-sandbox_registration_contact_address",
       "description": "Physical mailing address for the registrant contact."
     },
     "name": {
@@ -120,25 +120,25 @@ export const registrar$$api$$sandbox_registration_contact_postal_info: JSONObjec
 };
 
 /**
- * The schema of `registrar-api-sandbox_registration_contacts`.
+ * The schema of `registrar-sandbox_registration_contacts`.
  */
-export const registrar$$api$$sandbox_registration_contacts: JSONObject = {
+export const registrar$$sandbox_registration_contacts: JSONObject = {
   "description": "Provides contact data for the registration request.\n\nThe per-extension schema from\n`GET /accounts/{account_id}/registrar/extensions/{extension}` defines the\naccepted contact roles. Every currently supported extension requires only\n`contacts.registrant` from API callers. Callers may provide additional roles\nsuch as `technical`, `administrator`, and `billing` when the extension\nschema includes them. When a registry requires an omitted role, Cloudflare\nmay derive that contact from `contacts.registrant`.\n\nWhen the request omits either the entire `contacts` object or\n`contacts.registrant`, the system uses the account's default address book\nentry as the registrant contact. The account owner must configure this\ndefault at `https://dash.cloudflare.com/{account_id}/domains/registrations`,\nwhere they can create or update the address book entry and accept the\nrequired agreement. Dashboard settings currently provide the only way to\nmanage address book entries.\n\nWithout either a default address book entry or a registrant contact, the\nregistration request fails validation.",
   "properties": {
     "administrator": {
-      "$ref": "#/$defs/registrar-api-sandbox_registration_contact",
+      "$ref": "#/$defs/registrar-sandbox_registration_contact",
       "description": "Optional administrator contact. Accepted only when the extension\nschema includes this role. When the registry requires an omitted\ncontact, Cloudflare may derive it from `contacts.registrant`."
     },
     "billing": {
-      "$ref": "#/$defs/registrar-api-sandbox_registration_contact",
+      "$ref": "#/$defs/registrar-sandbox_registration_contact",
       "description": "Optional billing contact. Accepted only when the extension schema\nincludes this role. When the registry requires an omitted contact,\nCloudflare may derive it from `contacts.registrant`."
     },
     "registrant": {
-      "$ref": "#/$defs/registrar-api-sandbox_registration_contact",
+      "$ref": "#/$defs/registrar-sandbox_registration_contact",
       "description": "Optional registrant contact. If omitted, the account's default\naddress book entry is used instead."
     },
     "technical": {
-      "$ref": "#/$defs/registrar-api-sandbox_registration_contact",
+      "$ref": "#/$defs/registrar-sandbox_registration_contact",
       "description": "Optional technical contact. Accepted only when the extension schema\nincludes this role. When the registry requires an omitted contact,\nCloudflare may derive it from `contacts.registrant`."
     }
   },
@@ -146,9 +146,9 @@ export const registrar$$api$$sandbox_registration_contacts: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_registration_create_request`.
+ * The schema of `registrar-sandbox_registration_create_request`.
  */
-export const registrar$$api$$sandbox_registration_create_request: JSONObject = {
+export const registrar$$sandbox_registration_create_request: JSONObject = {
   "properties": {
     "acknowledgements": {
       "description": "Provides user acknowledgements for a specific extension or premium\nregistration flow. The extension registration schema from the\nextension discovery endpoint identifies the required keys.",
@@ -164,7 +164,7 @@ export const registrar$$api$$sandbox_registration_create_request: JSONObject = {
       "type": "object"
     },
     "contacts": {
-      "$ref": "#/$defs/registrar-api-sandbox_registration_contacts"
+      "$ref": "#/$defs/registrar-sandbox_registration_contacts"
     },
     "domain_name": {
       "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.",
@@ -191,9 +191,9 @@ export const registrar$$api$$sandbox_registration_create_request: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_registration_update_request`.
+ * The schema of `registrar-sandbox_registration_update_request`.
  */
-export const registrar$$api$$sandbox_registration_update_request: JSONObject = {
+export const registrar$$sandbox_registration_update_request: JSONObject = {
   "description": "Request to update an existing domain registration.\n\nThis endpoint currently supports updating `auto_renew` only.",
   "properties": {
     "auto_renew": {

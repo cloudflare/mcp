@@ -58,13 +58,15 @@ const oauthProvider = new OAuthProvider<Env>({
   // The consent page adds the rest; Minimal, the default, adds nothing until step-up asks.
   requiredScopes: [...REQUIRED_SCOPES],
   accessTokenTTL: 3600,
-  refreshTokenTTL: 2592000 // 30 days
+  refreshTokenTTL: 2_592_000 // 30 days
 })
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)
-    if (url.pathname.startsWith('/events/ans/')) return handleAnsCallback(request, env)
+    if (url.pathname.startsWith('/events/ans/')) {
+      return handleAnsCallback(request, env)
+    }
     if (url.pathname === OPENAI_APPS_CHALLENGE_PATH) {
       return new Response(OPENAI_APPS_CHALLENGE_TOKEN, {
         headers: { 'Content-Type': 'text/plain; charset=utf-8' }
@@ -84,8 +86,12 @@ export default {
       // Validate Host and browser Origin before authentication so an invalid
       // request cannot spend a bearer token on Cloudflare API identity probes.
       const rejected = rejectInvalidMcpRequest(request, env.MCP_RESOURCE)
-      if (rejected) return rejected
-      if (request.method === 'OPTIONS') return handleMcpPreflight(request)
+      if (rejected) {
+        return rejected
+      }
+      if (request.method === 'OPTIONS') {
+        return handleMcpPreflight(request)
+      }
     }
 
     // Temporary: record which clients workers-oauth-provider 1.2's redirect URI policy refuses.

@@ -33,13 +33,15 @@
     "zod": "^4.6.6"
   },
   "devDependencies": {
-    "@cloudflare/forge": "https://pkg.pr.new/cloudflare/forge/@cloudflare/forge@0d1877431691b07cbe3b042a4b64cb0bd8e81c03",
+    "@cloudflare/forge": "0.2.0",
+    "@cloudflare/oxlint-config": "0.2.0",
     "@cloudflare/vitest-plugin": "^1.4.9",
     "@modelcontextprotocol/client": "2.3.1",
     "@types/node": "^25.0.6",
     "msw": "^2.14.6",
     "oxfmt": "^0.74.0",
-    "oxlint": "^1.46.0",
+    "oxlint": "1.94.0",
+    "tsrs": "7.1.0-beta.tsrs4",
     "tsx": "^4.22.4",
     "typescript": "^5.7.0",
     "vitest": "^4.1.12",

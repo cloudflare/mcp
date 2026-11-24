@@ -4,15 +4,15 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `registrar-api-sandbox_api-response-common` in responses.
+ * The schema of `registrar-sandbox_api-response-common` in responses.
  */
-export const registrar$$api$$sandbox_api$$response$$common: JSONObject = {
+export const registrar$$sandbox_api$$response$$common: JSONObject = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/registrar-api-sandbox_messages"
+      "$ref": "#/$defs/registrar-sandbox_messages"
     },
     "messages": {
-      "$ref": "#/$defs/registrar-api-sandbox_messages"
+      "$ref": "#/$defs/registrar-sandbox_messages"
     },
     "result": {
       "anyOf": [
@@ -47,16 +47,15 @@ export const registrar$$api$$sandbox_api$$response$$common: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_api-response-common-failure` in
- * responses.
+ * The schema of `registrar-sandbox_api-response-common-failure` in responses.
  */
-export const registrar$$api$$sandbox_api$$response$$common$$failure: JSONObject = {
+export const registrar$$sandbox_api$$response$$common$$failure: JSONObject = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/registrar-api-sandbox_messages"
+      "$ref": "#/$defs/registrar-sandbox_messages"
     },
     "messages": {
-      "$ref": "#/$defs/registrar-api-sandbox_messages"
+      "$ref": "#/$defs/registrar-sandbox_messages"
     },
     "result": {
       "type": "null"
@@ -78,9 +77,9 @@ export const registrar$$api$$sandbox_api$$response$$common$$failure: JSONObject 
 };
 
 /**
- * The schema of `registrar-api-sandbox_messages` in responses.
+ * The schema of `registrar-sandbox_messages` in responses.
  */
-export const registrar$$api$$sandbox_messages: JSONObject = {
+export const registrar$$sandbox_messages: JSONObject = {
   "items": {
     "properties": {
       "code": {

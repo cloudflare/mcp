@@ -401,6 +401,12 @@ export const mconn$$telemetry_snapshot: JSONObject = {
     "platform": {
       "type": "string"
     },
+    "qdiscs": {
+      "items": {
+        "$ref": "#/$defs/mconn-telemetry_snapshot_qdisc"
+      },
+      "type": "array"
+    },
     "routes": {
       "items": {
         "$ref": "#/$defs/mconn-telemetry_snapshot_route"
@@ -972,6 +978,282 @@ export const mconn$$telemetry_snapshot_netdev: JSONObject = {
     "sent_errs",
     "sent_fifo",
     "sent_packets"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `mconn-telemetry_snapshot_qdisc` in responses.
+ */
+export const mconn$$telemetry_snapshot_qdisc: JSONObject = {
+  "properties": {
+    "backlog": {
+      "type": "number"
+    },
+    "bytes": {
+      "type": "number"
+    },
+    "cake_stats": {
+      "$ref": "#/$defs/mconn-telemetry_snapshot_qdisc_cake"
+    },
+    "dev": {
+      "type": "string"
+    },
+    "drops": {
+      "type": "number"
+    },
+    "handle": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "overlimits": {
+      "type": "number"
+    },
+    "packets": {
+      "type": "number"
+    },
+    "parent": {
+      "type": "string"
+    },
+    "qlen": {
+      "type": "number"
+    },
+    "requeues": {
+      "type": "number"
+    },
+    "root": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "backlog",
+    "bytes",
+    "dev",
+    "drops",
+    "handle",
+    "kind",
+    "overlimits",
+    "packets",
+    "qlen",
+    "requeues"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `mconn-telemetry_snapshot_qdisc_cake` in responses.
+ */
+export const mconn$$telemetry_snapshot_qdisc_cake: JSONObject = {
+  "properties": {
+    "avg_hdr_offset": {
+      "type": "number"
+    },
+    "capacity_estimate": {
+      "type": "number"
+    },
+    "max_adj_size": {
+      "type": "number"
+    },
+    "max_network_size": {
+      "type": "number"
+    },
+    "memory_limit": {
+      "type": "number"
+    },
+    "memory_used": {
+      "type": "number"
+    },
+    "min_adj_size": {
+      "type": "number"
+    },
+    "min_network_size": {
+      "type": "number"
+    },
+    "options": {
+      "$ref": "#/$defs/mconn-telemetry_snapshot_qdisc_cake_options"
+    },
+    "tins": {
+      "items": {
+        "$ref": "#/$defs/mconn-telemetry_snapshot_qdisc_cake_tin"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "avg_hdr_offset",
+    "capacity_estimate",
+    "max_adj_size",
+    "max_network_size",
+    "memory_limit",
+    "memory_used",
+    "min_adj_size",
+    "min_network_size",
+    "options",
+    "tins"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `mconn-telemetry_snapshot_qdisc_cake_options` in responses.
+ */
+export const mconn$$telemetry_snapshot_qdisc_cake_options: JSONObject = {
+  "properties": {
+    "ack_filter": {
+      "type": "string"
+    },
+    "atm": {
+      "type": "string"
+    },
+    "autorate": {
+      "type": "string"
+    },
+    "bandwidth": {
+      "type": "number"
+    },
+    "diffserv": {
+      "type": "string"
+    },
+    "flowmode": {
+      "type": "string"
+    },
+    "fwmark": {
+      "type": "string"
+    },
+    "ingress": {
+      "type": "boolean"
+    },
+    "memlimit": {
+      "type": "number"
+    },
+    "mpu": {
+      "type": "number"
+    },
+    "nat": {
+      "type": "boolean"
+    },
+    "overhead": {
+      "type": "number"
+    },
+    "raw": {
+      "type": "boolean"
+    },
+    "rtt": {
+      "type": "number"
+    },
+    "split_gso": {
+      "type": "boolean"
+    },
+    "wash": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "ack_filter",
+    "bandwidth",
+    "diffserv",
+    "flowmode",
+    "fwmark",
+    "ingress",
+    "nat",
+    "overhead",
+    "raw",
+    "rtt",
+    "split_gso",
+    "wash"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `mconn-telemetry_snapshot_qdisc_cake_tin` in responses.
+ */
+export const mconn$$telemetry_snapshot_qdisc_cake_tin: JSONObject = {
+  "properties": {
+    "ack_drops": {
+      "type": "number"
+    },
+    "avg_delay_us": {
+      "type": "number"
+    },
+    "backlog_bytes": {
+      "type": "number"
+    },
+    "base_delay_us": {
+      "type": "number"
+    },
+    "bulk_flows": {
+      "type": "number"
+    },
+    "drops": {
+      "type": "number"
+    },
+    "ecn_mark": {
+      "type": "number"
+    },
+    "flow_quantum": {
+      "type": "number"
+    },
+    "interval_us": {
+      "type": "number"
+    },
+    "max_pkt_len": {
+      "type": "number"
+    },
+    "peak_delay_us": {
+      "type": "number"
+    },
+    "sent_bytes": {
+      "type": "number"
+    },
+    "sent_packets": {
+      "type": "number"
+    },
+    "sparse_flows": {
+      "type": "number"
+    },
+    "target_us": {
+      "type": "number"
+    },
+    "threshold_rate": {
+      "type": "number"
+    },
+    "unresponsive_flows": {
+      "type": "number"
+    },
+    "way_collisions": {
+      "type": "number"
+    },
+    "way_indirect_hits": {
+      "type": "number"
+    },
+    "way_misses": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "ack_drops",
+    "avg_delay_us",
+    "backlog_bytes",
+    "base_delay_us",
+    "bulk_flows",
+    "drops",
+    "ecn_mark",
+    "flow_quantum",
+    "interval_us",
+    "max_pkt_len",
+    "peak_delay_us",
+    "sent_bytes",
+    "sent_packets",
+    "sparse_flows",
+    "target_us",
+    "threshold_rate",
+    "unresponsive_flows",
+    "way_collisions",
+    "way_indirect_hits",
+    "way_misses"
   ],
   "type": "object"
 };

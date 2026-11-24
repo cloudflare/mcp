@@ -18,7 +18,96 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "network_subnets_initialResolvedIp_edit",
+    name: "network_subnets_initialResolvedIp_get",
+    title: "Get Initial Resolved IP Subnet",
+    description: "Returns the account's default Initial Resolved IP Subnet for the given address family.\n\nGET /accounts/{account_id}/zerotrust/subnets/initial_resolved_ip/{address_family}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID",
+              "type": "string"
+            },
+            "address_family": {
+              "description": "IP address family, either `v4` (IPv4) or `v6` (IPv6)",
+              "enum": [
+                "v4",
+                "v6"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "address_family"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "$ref": "#/$defs/tunnel_subnet_response_single",
+      $defs: {
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet": tunnel_subnet,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get Initial Resolved IP Subnet"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/accounts/{account_id}/zerotrust/subnets/initial_resolved_ip/{address_family}",
+      pathOf: encodePath`/accounts/${"account_id"}/zerotrust/subnets/initial_resolved_ip/${"address_family"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Cloudflare One Networks Write",
+          "Cloudflare One Networks Read"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "$ref": "#/$defs/tunnel_subnet_response_single"
+          },
+          "4XX": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/tunnel_subnet_response_single"
+              },
+              {
+                "$ref": "#/$defs/tunnel_api-response-common-failure"
+              }
+            ]
+          }
+        },
+        $defs: {
+          "tunnel_api-response-common": tunnel_api$$response$$common,
+          "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
+          "tunnel_messages": tunnel_messages,
+          "tunnel_subnet": tunnel_subnet,
+          "tunnel_subnet_capacity": tunnel_subnet_capacity,
+          "tunnel_subnet_response_single": tunnel_subnet_response_single,
+        },
+      },
+    },
+  },
+  {
+    name: "network_subnets_initialResolvedIp_replace",
     title: "Update Initial Resolved IP Subnet",
     description: "Updates the CIDR for the account's default Initial Resolved IP Subnet of the given address\nfamily. The new CIDR must not conflict with existing private routes in the account.\n\nPUT /accounts/{account_id}/zerotrust/subnets/initial_resolved_ip/{address_family}",
     inputSchema: {
@@ -93,95 +182,6 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/zerotrust/subnets/initial_resolved_ip/{address_family}",
       pathOf: encodePath`/accounts/${"account_id"}/zerotrust/subnets/initial_resolved_ip/${"address_family"}`,
       body: { mediaTypes: ["application/json"] },
-      responses: {
-        schemas: {
-          "200": {
-            "$ref": "#/$defs/tunnel_subnet_response_single"
-          },
-          "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/tunnel_subnet_response_single"
-              },
-              {
-                "$ref": "#/$defs/tunnel_api-response-common-failure"
-              }
-            ]
-          }
-        },
-        $defs: {
-          "tunnel_api-response-common": tunnel_api$$response$$common,
-          "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-          "tunnel_messages": tunnel_messages,
-          "tunnel_subnet": tunnel_subnet,
-          "tunnel_subnet_capacity": tunnel_subnet_capacity,
-          "tunnel_subnet_response_single": tunnel_subnet_response_single,
-        },
-      },
-    },
-  },
-  {
-    name: "network_subnets_initialResolvedIp_get",
-    title: "Get Initial Resolved IP Subnet",
-    description: "Returns the account's default Initial Resolved IP Subnet for the given address family.\n\nGET /accounts/{account_id}/zerotrust/subnets/initial_resolved_ip/{address_family}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Cloudflare account ID",
-              "type": "string"
-            },
-            "address_family": {
-              "description": "IP address family, either `v4` (IPv4) or `v6` (IPv6)",
-              "enum": [
-                "v4",
-                "v6"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "address_family"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "$ref": "#/$defs/tunnel_subnet_response_single",
-      $defs: {
-        "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_messages": tunnel_messages,
-        "tunnel_subnet": tunnel_subnet,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity,
-        "tunnel_subnet_response_single": tunnel_subnet_response_single,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get Initial Resolved IP Subnet"
-    },
-    [OPERATION]: {
-      method: "GET",
-      path: "/accounts/{account_id}/zerotrust/subnets/initial_resolved_ip/{address_family}",
-      pathOf: encodePath`/accounts/${"account_id"}/zerotrust/subnets/initial_resolved_ip/${"address_family"}`,
-      extensions: {
-        "x-api-token-group": [
-          "Cloudflare One Networks Write",
-          "Cloudflare One Networks Read"
-        ]
-      },
       responses: {
         schemas: {
           "200": {

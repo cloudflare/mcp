@@ -1,16 +1,13 @@
-import {
-  ExternalTokenError,
-  type ResolveExternalTokenInput,
-  type ResolveExternalTokenResult
+import { ExternalTokenError } from '@cloudflare/workers-oauth-provider'
+import type {
+  ResolveExternalTokenInput,
+  ResolveExternalTokenResult
 } from '@cloudflare/workers-oauth-provider'
 
-import {
-  CloudflareIdentitySchema,
-  resolveCloudflareCredential,
-  type CloudflareIdentity,
-  type CloudflareTokenOwner
-} from './cloudflare-identity'
-import { AUTH_PROPS_VERSION, type AuthProps } from './types'
+import { CloudflareIdentitySchema, resolveCloudflareCredential } from './cloudflare-identity'
+import type { CloudflareIdentity, CloudflareTokenOwner } from './cloudflare-identity'
+import { AUTH_PROPS_VERSION } from './types'
+import type { AuthProps } from './types'
 import { OAuthError } from './workers-oauth-utils'
 import { z } from 'zod'
 
@@ -18,8 +15,12 @@ const API_TOKEN_IDENTITY_CACHE_TTL_SECONDS = 2_592_000
 
 /** Prefixes are ownership hints; unprefixed legacy credentials remain supported. */
 export function cloudflareTokenOwner(token: string): CloudflareTokenOwner {
-  if (token.startsWith('cfat_')) return 'account'
-  if (token.startsWith('cfut_') || token.startsWith('cfoat_')) return 'user'
+  if (token.startsWith('cfat_')) {
+    return 'account'
+  }
+  if (token.startsWith('cfut_') || token.startsWith('cfoat_')) {
+    return 'user'
+  }
   return 'unknown'
 }
 
@@ -75,7 +76,9 @@ async function heldRefusal(holdKey: string, kv: KVNamespace): Promise<OAuthError
   try {
     const hold = ProbeHoldSchema.safeParse(await kv.get(holdKey, 'json'))
     const remainingMs = hold.success ? hold.data.until - Date.now() : 0
-    if (!hold.success || remainingMs <= 0) return undefined
+    if (!hold.success || remainingMs <= 0) {
+      return undefined
+    }
     const seconds = Math.ceil(remainingMs / 1000)
     if (hold.data.refusal === 'invalid_token') {
       console.log(
@@ -109,7 +112,9 @@ function holdFor(
 /** Hold the credential a probe was refused for, so the next request doesn't probe it again. */
 async function holdRefused(holdKey: string, error: OAuthError, kv: KVNamespace): Promise<void> {
   const hold = holdFor(error)
-  if (!hold) return
+  if (!hold) {
+    return
+  }
   try {
     const stored: ProbeHold = { until: Date.now() + hold.seconds * 1000, refusal: hold.refusal }
     await kv.put(holdKey, JSON.stringify(stored), {
@@ -133,7 +138,9 @@ async function getCachedIdentity(
     const cachedValue = await kv.get(cacheKey, 'json')
     if (cachedValue !== null) {
       const cached = CloudflareIdentitySchema.safeParse(cachedValue)
-      if (cached.success) return cached.data
+      if (cached.success) {
+        return cached.data
+      }
       console.warn('api_token_identity_probe ignored invalid cache entry')
     }
   } catch (error) {
@@ -141,13 +148,17 @@ async function getCachedIdentity(
   }
 
   const held = await heldRefusal(holdKey, kv)
-  if (held) throw held
+  if (held) {
+    throw held
+  }
 
   let identity: CloudflareIdentity
   try {
     identity = await resolveCloudflareCredential(token, tokenOwner)
   } catch (error) {
-    if (error instanceof OAuthError) await holdRefused(holdKey, error, kv)
+    if (error instanceof OAuthError) {
+      await holdRefused(holdKey, error, kv)
+    }
     throw error
   }
 
@@ -250,7 +261,9 @@ export async function resolveExternalToken({
       audience: env.MCP_RESOURCE
     }
   } catch (error) {
-    if (error instanceof OAuthError) throw externalTokenError(error, tokenOwner)
+    if (error instanceof OAuthError) {
+      throw externalTokenError(error, tokenOwner)
+    }
     throw error
   }
 }

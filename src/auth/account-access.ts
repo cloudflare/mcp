@@ -1,4 +1,5 @@
-import { LEGACY_ACCOUNTS_PAGE_SIZE, type AccountSchema, type AuthProps } from './types'
+import { LEGACY_ACCOUNTS_PAGE_SIZE } from './types'
+import type { AccountSchema, AuthProps } from './types'
 
 /** Concise Code-Mode guidance for unresolved multi-account execution errors. */
 export const ACCOUNT_DISCOVERY_GUIDANCE = 'Call GET /accounts to discover available accounts.'
@@ -19,8 +20,12 @@ export const ACCOUNT_DISCOVERY_DESCRIPTION = `${ACCOUNT_DISCOVERY_GUIDANCE} Pagi
  * caller must choose (or there is no account context).
  */
 export function autoResolvedAccountId(props?: AuthProps): string | undefined {
-  if (props?.type === 'account_token') return props.account.id
-  if (props?.type === 'user_token' && props.accounts.length === 1) return props.accounts[0].id
+  if (props?.type === 'account_token') {
+    return props.account.id
+  }
+  if (props?.type === 'user_token' && props.accounts.length === 1) {
+    return props.accounts[0].id
+  }
   return undefined
 }
 
@@ -32,9 +37,13 @@ export function autoResolvedAccountId(props?: AuthProps): string | undefined {
  * The list is a snapshot from when the grant was issued, so it is only used to
  * explain failures, never to reject an account_id up front.
  */
-function knownAccounts(props: AuthProps): AccountSchema[] | undefined {
-  if (props.type === 'account_token') return [props.account]
-  if (props.accounts.length === 0 && props.accountCount !== undefined) return undefined
+function knownAccounts(props: AuthProps): Array<AccountSchema> | undefined {
+  if (props.type === 'account_token') {
+    return [props.account]
+  }
+  if (props.accounts.length === 0 && props.accountCount !== undefined) {
+    return undefined
+  }
   if (props.version === undefined && props.accounts.length === LEGACY_ACCOUNTS_PAGE_SIZE) {
     return undefined
   }
@@ -45,7 +54,7 @@ function formatAccount(account: AccountSchema): string {
   return `${account.id} (${account.name})`
 }
 
-function formatAccounts(accounts: AccountSchema[]): string {
+function formatAccounts(accounts: Array<AccountSchema>): string {
   return accounts.map((account) => `- ${formatAccount(account)}`).join('\n')
 }
 
@@ -64,8 +73,9 @@ export function missingAccountMessage(
   if (accounts?.length) {
     return `No account selected. Pass ${argument} with one of this session's accounts:\n${formatAccounts(accounts)}`
   }
-  if (accounts)
+  if (accounts) {
     return 'No account selected: no Cloudflare accounts are authorized for this session.'
+  }
 
   const count = props.type === 'user_token' ? props.accountCount : undefined
   return `No account selected: this token has access to ${count ?? 'multiple'} accounts. ${discoveryGuidance}`
@@ -78,7 +88,9 @@ export function missingAccountMessage(
  */
 export function unknownAccountHint(props: AuthProps, accountId: string): string {
   const accounts = knownAccounts(props)
-  if (!accounts || accounts.some((account) => account.id === accountId)) return ''
+  if (!accounts || accounts.some((account) => account.id === accountId)) {
+    return ''
+  }
 
   if (props.type === 'account_token') {
     return `account_id ${accountId} is not this token's account. This token is scoped to ${formatAccount(props.account)}; omit account_id to use it.`
@@ -92,7 +104,9 @@ export function unknownAccountHint(props: AuthProps, accountId: string): string 
  */
 export function unknownPathAccountHint(props: AuthProps, accountId: string): string {
   const accounts = knownAccounts(props)
-  if (!accounts || accounts.some((account) => account.id === accountId)) return ''
+  if (!accounts || accounts.some((account) => account.id === accountId)) {
+    return ''
+  }
 
   if (props.type === 'account_token') {
     return `The request's account ${accountId} is not this token's account. This token is scoped to ${formatAccount(props.account)}; use \`accountId\` in the path.`

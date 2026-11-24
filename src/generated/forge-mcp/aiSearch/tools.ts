@@ -1175,6 +1175,11 @@ export const tools: readonly Tool[] = [
               "oneOf": [
                 {
                   "properties": {
+                    "file_summary": {
+                      "default": false,
+                      "description": "Generates a per-file summary, topics, and keywords during indexing for text files and media transcripts of at least three chunks. The summary and keywords are stored as the item's context metadata (a context you set is kept), and the topics are added to chunk context headers where they fit. Best effort: a file whose summary fails is indexed without one. The model calls are billed to your account through the instance's AI Gateway. Changing this triggers a full re-index. Defaults to false.",
+                      "type": "boolean"
+                    },
                     "keyword_tokenizer": {
                       "default": "porter",
                       "description": "Tokenizer used for keyword search indexing. porter provides word-level tokenization with Porter stemming (good for natural language queries). trigram enables character-level substring matching (good for partial matches, code, identifiers). Changing this triggers a full re-index. Defaults to porter.",
@@ -1785,6 +1790,9 @@ export const tools: readonly Tool[] = [
               "oneOf": [
                 {
                   "properties": {
+                    "file_summary": {
+                      "type": "boolean"
+                    },
                     "keyword_tokenizer": {
                       "enum": [
                         "porter",
@@ -2421,6 +2429,9 @@ export const tools: readonly Tool[] = [
                     "oneOf": [
                       {
                         "properties": {
+                          "file_summary": {
+                            "type": "boolean"
+                          },
                           "keyword_tokenizer": {
                             "enum": [
                               "porter",
@@ -3250,6 +3261,9 @@ export const tools: readonly Tool[] = [
               "oneOf": [
                 {
                   "properties": {
+                    "file_summary": {
+                      "type": "boolean"
+                    },
                     "keyword_tokenizer": {
                       "enum": [
                         "porter",
@@ -3875,6 +3889,9 @@ export const tools: readonly Tool[] = [
                     "oneOf": [
                       {
                         "properties": {
+                          "file_summary": {
+                            "type": "boolean"
+                          },
                           "keyword_tokenizer": {
                             "enum": [
                               "porter",
@@ -4570,6 +4587,9 @@ export const tools: readonly Tool[] = [
               "oneOf": [
                 {
                   "properties": {
+                    "file_summary": {
+                      "type": "boolean"
+                    },
                     "keyword_tokenizer": {
                       "enum": [
                         "porter",
@@ -5195,6 +5215,9 @@ export const tools: readonly Tool[] = [
                     "oneOf": [
                       {
                         "properties": {
+                          "file_summary": {
+                            "type": "boolean"
+                          },
                           "keyword_tokenizer": {
                             "enum": [
                               "porter",
@@ -5925,6 +5948,9 @@ export const tools: readonly Tool[] = [
                 "oneOf": [
                   {
                     "properties": {
+                      "file_summary": {
+                        "type": "boolean"
+                      },
                       "keyword_tokenizer": {
                         "enum": [
                           "porter",
@@ -6724,6 +6750,9 @@ export const tools: readonly Tool[] = [
                       "oneOf": [
                         {
                           "properties": {
+                            "file_summary": {
+                              "type": "boolean"
+                            },
                             "keyword_tokenizer": {
                               "enum": [
                                 "porter",
@@ -10824,6 +10853,11 @@ export const tools: readonly Tool[] = [
               "oneOf": [
                 {
                   "properties": {
+                    "file_summary": {
+                      "default": false,
+                      "description": "Generates a per-file summary, topics, and keywords during indexing for text files and media transcripts of at least three chunks. The summary and keywords are stored as the item's context metadata (a context you set is kept), and the topics are added to chunk context headers where they fit. Best effort: a file whose summary fails is indexed without one. The model calls are billed to your account through the instance's AI Gateway. Changing this triggers a full re-index. Defaults to false.",
+                      "type": "boolean"
+                    },
                     "keyword_tokenizer": {
                       "default": "porter",
                       "description": "Tokenizer used for keyword search indexing. porter provides word-level tokenization with Porter stemming (good for natural language queries). trigram enables character-level substring matching (good for partial matches, code, identifiers). Changing this triggers a full re-index. Defaults to porter.",
@@ -11227,9 +11261,13 @@ export const tools: readonly Tool[] = [
             },
             "summarization": {
               "default": false,
+              "deprecated": true,
+              "description": "Deprecated and ignored during indexing and search; changing it still re-indexes existing files on the next sync. Use indexing_options.file_summary instead.",
               "type": "boolean"
             },
             "summarization_model": {
+              "deprecated": true,
+              "description": "Deprecated and ignored during indexing and search; changing it still re-indexes existing files on the next sync. Use indexing_options.file_summary instead.",
               "oneOf": [
                 {
                   "type": "string"
@@ -11264,6 +11302,8 @@ export const tools: readonly Tool[] = [
               ]
             },
             "system_prompt_index_summarization": {
+              "deprecated": true,
+              "description": "Deprecated and has no effect. Use indexing_options.file_summary instead.",
               "oneOf": [
                 {
                   "type": "string"
@@ -11462,6 +11502,9 @@ export const tools: readonly Tool[] = [
               "oneOf": [
                 {
                   "properties": {
+                    "file_summary": {
+                      "type": "boolean"
+                    },
                     "keyword_tokenizer": {
                       "enum": [
                         "porter",
@@ -12094,6 +12137,9 @@ export const tools: readonly Tool[] = [
                     "oneOf": [
                       {
                         "properties": {
+                          "file_summary": {
+                            "type": "boolean"
+                          },
                           "keyword_tokenizer": {
                             "enum": [
                               "porter",

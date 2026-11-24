@@ -4,6 +4,7 @@ import { registerForgeTools } from './tools/forge-tools'
 import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
 import { registerWhoamiTool } from './tools/whoami'
+import { registerSubmitFeedbackTool } from './tools/submit-feedback'
 import { registerSkills } from './skills/handlers'
 import { attachMetrics } from './metrics'
 import { SERVER_INFO } from './constants'
@@ -11,7 +12,8 @@ import { stringifyResponse, truncateResponse } from './truncate'
 import type { AuthProps } from './auth/types'
 import { registerEventMethods } from './events/methods'
 import type { EventEnvironment } from './events/state'
-import { DIRECT_CONNECTION, type Connection } from './api-permissions'
+import { DIRECT_CONNECTION } from './api-permissions'
+import type { Connection } from './api-permissions'
 import { ScopeChallenge } from './scope-challenge'
 
 /** Per-request options the client picks through the MCP URL query string. */
@@ -79,7 +81,9 @@ export function createServer(
   server.server.registerCapabilities({ tools: { listChanged: false } })
   // Skills (io.modelcontextprotocol/skills) are served in both tool modes.
   registerSkills(server)
-  if (events) registerEventMethods(server, events.env, props, events.bearer)
+  if (events) {
+    registerEventMethods(server, events.env, props, events.bearer)
+  }
   if (!codemode) {
     const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
     registerForgeTools(server, props, formatResult, connection, scopeChallenge, {
@@ -95,6 +99,7 @@ export function createServer(
   registerSearchTool(server, truncateToolResult)
   registerExecuteTool(server, props, truncateToolResult, connection, scopeChallenge)
   registerWhoamiTool(server, props)
+  registerSubmitFeedbackTool(server, props)
 
   return server
 }

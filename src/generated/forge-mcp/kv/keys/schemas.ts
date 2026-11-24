@@ -4,6 +4,60 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `workers-kv_bulk_delete`.
+ */
+export const workers$$kv_bulk_delete: JSONObject = {
+  "items": {
+    "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid.",
+    "type": "string"
+  },
+  "maxItems": 10000,
+  "type": "array"
+};
+
+/**
+ * The schema of `workers-kv_bulk_write`.
+ */
+export const workers$$kv_bulk_write: JSONObject = {
+  "items": {
+    "properties": {
+      "base64": {
+        "default": false,
+        "description": "Indicates whether or not the server should base64 decode the value before storing it. Useful for writing values that wouldn't otherwise be valid JSON strings, such as images.",
+        "type": "boolean"
+      },
+      "expiration": {
+        "description": "Expires the key at a certain time, measured in number of seconds since the UNIX epoch.",
+        "type": "number"
+      },
+      "expiration_ttl": {
+        "description": "Number of seconds until the key expires. Must be at least 60. Takes precedence over `expiration` when both are specified.",
+        "type": "number"
+      },
+      "key": {
+        "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid.",
+        "type": "string"
+      },
+      "metadata": {
+        "$ref": "#/$defs/workers-kv_list_metadata",
+        "description": "Arbitrary JSON that is associated with a key."
+      },
+      "value": {
+        "description": "A UTF-8 encoded string to be stored, up to 25 MiB in length.",
+        "type": "string"
+      }
+    },
+    "required": [
+      "key",
+      "value"
+    ],
+    "type": "object"
+  },
+  "maxItems": 10000,
+  "type": "array"
+};
+
+/**
  * The schema of `workers-kv_metadata`.
  */
 export const workers$$kv_metadata: JSONObject = {

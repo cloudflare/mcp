@@ -145,6 +145,9 @@ export const cloudforce$$one$$events_PirTopic: JSONObject = {
       },
       "type": "array"
     },
+    "family": {
+      "type": "string"
+    },
     "filter_revision": {
       "type": "integer"
     },
@@ -295,6 +298,7 @@ export const cloudforce$$one$$events_PirTopic: JSONObject = {
     "actor_types",
     "coverage_notes",
     "event_rules",
+    "family",
     "filter_revision",
     "intent_revision",
     "motivations",
@@ -306,6 +310,25 @@ export const cloudforce$$one$$events_PirTopic: JSONObject = {
     "suggested_actors",
     "title",
     "topic_id"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cloudforce-one-events_PirTopicFamily` in responses.
+ */
+export const cloudforce$$one$$events_PirTopicFamily: JSONObject = {
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "label"
   ],
   "type": "object"
 };

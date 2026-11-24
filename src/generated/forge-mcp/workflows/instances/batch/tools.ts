@@ -483,4 +483,427 @@ export const tools: readonly Tool[] = [
       },
     },
   },
+  {
+    name: "workflows_instances_batch_delete",
+    title: "Batch delete instances of a workflow",
+    description: "Deletes multiple workflow instances in a single batch operation.\n\nConfirm with the user before calling this tool. This operation permanently deletes the Workflow instances.\n\nPOST /accounts/{account_id}/workflows/{workflow_name}/instances/batch/delete",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "instances": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 100,
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "required": [
+            "instances"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "workflow_name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "workflow_name"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "deleted": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "id",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "deleted",
+            "errors"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Batch delete instances of a workflow"
+    },
+    [OPERATION]: {
+      method: "POST",
+      path: "/accounts/{account_id}/workflows/{workflow_name}/instances/batch/delete",
+      pathOf: encodePath`/accounts/${"account_id"}/workflows/${"workflow_name"}/instances/batch/delete`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Workers Scripts Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.api.workers.write",
+            "com.cloudflare.api.workers.read"
+          ]
+        },
+        "x-cfPlanAvailability": {
+          "business": true,
+          "enterprise": true,
+          "free": true,
+          "pro": true
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 0,
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "result": {
+                "properties": {
+                  "deleted": {
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "errors": {
+                    "items": {
+                      "properties": {
+                        "code": {
+                          "type": "number"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "id",
+                        "message"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "deleted",
+                  "errors"
+                ],
+                "type": "object"
+              },
+              "result_info": {
+                "properties": {
+                  "count": {
+                    "type": "number"
+                  },
+                  "cursor": {
+                    "type": "string"
+                  },
+                  "page": {
+                    "type": "number"
+                  },
+                  "per_page": {
+                    "type": "number"
+                  },
+                  "total_count": {
+                    "type": "number"
+                  },
+                  "total_pages": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "count",
+                  "per_page",
+                  "total_count"
+                ],
+                "type": "object"
+              },
+              "success": {
+                "enum": [
+                  true
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "result",
+              "success"
+            ],
+            "type": "object"
+          },
+          "400": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "result": {
+                "type": "null"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "result",
+              "success"
+            ],
+            "type": "object"
+          },
+          "404": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "result": {
+                "type": "null"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "result",
+              "success"
+            ],
+            "type": "object"
+          }
+        },
+      },
+    },
+  },
 ];

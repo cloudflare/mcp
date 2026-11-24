@@ -24,7 +24,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "workers_secrets_bulk",
+    name: "workers_secrets_bulkEdit",
     title: "Patch multiple Worker script secrets",
     description: "Create, update, or delete multiple secrets on a Worker script in a single operation using JSON Merge Patch (RFC 7396).\nThis operation creates a single version with all changes included.\nPrefer this API instead of changing many secrets individually.\n\nUsage:\n\n- To create or update a secret, set its value to a secret object.\n- To delete a secret, set its value to `null`.\n- Secrets not included in the request are left unchanged.\n\nPATCH /accounts/{account_id}/workers/scripts/{script_name}/secrets-bulk",
     inputSchema: {

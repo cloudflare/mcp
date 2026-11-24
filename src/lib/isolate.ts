@@ -91,7 +91,9 @@ function value<T>(load: () => Promise<T>, options: IsolateValueOptions = {}): Is
         current.settled = true
       },
       () => {
-        if (entry === current) entry = undefined
+        if (entry === current) {
+          entry = undefined
+        }
       }
     )
     return promise
@@ -100,8 +102,12 @@ function value<T>(load: () => Promise<T>, options: IsolateValueOptions = {}): Is
   return register({
     get(): Promise<T> {
       const at = now()
-      if (!entry || entry.expiresAt <= at) return start(at)
-      if (entry.settled) return entry.promise
+      if (!entry || entry.expiresAt <= at) {
+        return start(at)
+      }
+      if (entry.settled) {
+        return entry.promise
+      }
       // Another request is loading. Wait for it, but take the load over if the
       // wait fails or goes on too long. If a third request already has, share its load.
       const waitedOn = entry
@@ -109,7 +115,9 @@ function value<T>(load: () => Promise<T>, options: IsolateValueOptions = {}): Is
         entry && entry !== waitedOn ? entry.promise : start(now())
       let timer: ReturnType<typeof setTimeout> | undefined
       const tooLong = new Promise<T>((resolve, reject) => {
-        timer = setTimeout(() => takeOver().then(resolve, reject), sharedLoadWaitMs)
+        timer = setTimeout(() => {
+          void takeOver().then(resolve, reject)
+        }, sharedLoadWaitMs)
       })
       // Awaited here, in this request: workerd rejects the await itself when the load's
       // request has ended, and the load's own promise never settles.
@@ -121,7 +129,9 @@ function value<T>(load: () => Promise<T>, options: IsolateValueOptions = {}): Is
         }
       })()
       return Promise.race([shared, tooLong]).finally(() => {
-        if (timer !== undefined) clearTimeout(timer)
+        if (timer !== undefined) {
+          clearTimeout(timer)
+        }
       })
     },
     reset() {
@@ -146,14 +156,17 @@ export interface IsolateLazy<T> {
  */
 function lazy<T>(build: () => T): IsolateLazy<T> {
   let built: { value: T } | undefined
-  const get = (() => {
+  const get = () => {
     built ??= { value: build() }
     return built.value
-  }) as IsolateLazy<T>
-  get.reset = () => {
-    built = undefined
   }
-  return register(get)
+  return register(
+    Object.assign(get, {
+      reset() {
+        built = undefined
+      }
+    })
+  )
 }
 
 /** Values by key, kept per isolate. */
@@ -197,7 +210,9 @@ function map<K, V>(options: IsolateMapOptions<V> = {}): IsolateMap<K, V> {
     get: (key) => entries.get(key),
     set(key, value) {
       const valueSize = sizeOf(value)
-      if (valueSize > maxSize) return value
+      if (valueSize > maxSize) {
+        return value
+      }
       const previous = entries.get(key)
       if (previous !== undefined) {
         entries.delete(key)
@@ -212,7 +227,10 @@ function map<K, V>(options: IsolateMapOptions<V> = {}): IsolateMap<K, V> {
       return value
     },
     getOrSet(key, compute) {
-      if (entries.has(key)) return entries.get(key) as V
+      if (entries.has(key)) {
+        // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Map.has confirms the key is present, even when its cached value is undefined.
+        return entries.get(key) as V
+      }
       return cache.set(key, compute(key))
     },
     get size() {
@@ -246,23 +264,28 @@ export interface IsolateDerived<S extends object, T> {
  */
 function derived<S extends object, T>(compute: (source: S) => T): IsolateDerived<S, T> {
   let computed = new WeakMap<S, { value: T }>()
-  const get = ((source: S) => {
+  const get = (source: S) => {
     let hit = computed.get(source)
     if (!hit) {
       hit = { value: compute(source) }
       computed.set(source, hit)
     }
     return hit.value
-  }) as IsolateDerived<S, T>
-  get.reset = () => {
-    computed = new WeakMap()
   }
-  return register(get)
+  return register(
+    Object.assign(get, {
+      reset() {
+        computed = new WeakMap()
+      }
+    })
+  )
 }
 
 /** Drop every isolate cache, as if the isolate had just started. For tests. */
 function resetAll(): void {
-  for (const cache of registry) cache.reset()
+  for (const cache of registry) {
+    cache.reset()
+  }
 }
 
 /** Isolate-lifetime caches. See the module documentation. */

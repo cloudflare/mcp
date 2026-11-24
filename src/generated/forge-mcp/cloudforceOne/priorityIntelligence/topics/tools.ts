@@ -5,6 +5,7 @@ import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
   cloudforce$$one$$events_PirOrganizationType,
   cloudforce$$one$$events_PirTopic,
+  cloudforce$$one$$events_PirTopicFamily,
 } from "./outputs.js";
 
 /**
@@ -14,7 +15,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_topics_list",
     title: "List managed PIR topics",
-    description: "Returns the managed topics a structured PIR can follow, with their default question, relevance criteria, suggested actors and event rules. Suggested actors the account cannot see are left out. Topics change centrally; PIRs follow a topic's defaults wherever the customer has not changed them. Also returns `organization_types` for the organization profile form.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/topics",
+    description: "Returns the managed topics a structured PIR can follow, with their family, default question, relevance criteria, suggested actors and event rules. Suggested actors the account cannot see are left out. Topics change centrally; PIRs follow a topic's defaults wherever the customer has not changed them. Also returns `topic_families`, the picker's groups in display order, and `organization_types` for the organization profile form.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/topics",
     inputSchema: {
       type: "object",
       properties: {
@@ -74,6 +75,12 @@ export const tools: readonly Tool[] = [
               },
               "type": "array"
             },
+            "topic_families": {
+              "items": {
+                "$ref": "#/$defs/cloudforce-one-events_PirTopicFamily"
+              },
+              "type": "array"
+            },
             "topics": {
               "items": {
                 "$ref": "#/$defs/cloudforce-one-events_PirTopic"
@@ -83,6 +90,7 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "organization_types",
+            "topic_families",
             "topics"
           ],
           "type": "object"
@@ -104,6 +112,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloudforce-one-events_PirOrganizationType": cloudforce$$one$$events_PirOrganizationType,
         "cloudforce-one-events_PirTopic": cloudforce$$one$$events_PirTopic,
+        "cloudforce-one-events_PirTopicFamily": cloudforce$$one$$events_PirTopicFamily,
       },
     },
     annotations: {
@@ -164,6 +173,12 @@ export const tools: readonly Tool[] = [
                     },
                     "type": "array"
                   },
+                  "topic_families": {
+                    "items": {
+                      "$ref": "#/$defs/cloudforce-one-events_PirTopicFamily"
+                    },
+                    "type": "array"
+                  },
                   "topics": {
                     "items": {
                       "$ref": "#/$defs/cloudforce-one-events_PirTopic"
@@ -173,6 +188,7 @@ export const tools: readonly Tool[] = [
                 },
                 "required": [
                   "organization_types",
+                  "topic_families",
                   "topics"
                 ],
                 "type": "object"
@@ -197,6 +213,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "cloudforce-one-events_PirOrganizationType": cloudforce$$one$$events_PirOrganizationType,
           "cloudforce-one-events_PirTopic": cloudforce$$one$$events_PirTopic,
+          "cloudforce-one-events_PirTopicFamily": cloudforce$$one$$events_PirTopicFamily,
         },
       },
     },

@@ -1151,6 +1151,40 @@ export const load$$balancing_schemas$$header: JSONObject = {
 };
 
 /**
+ * The schema of `nel-config_nel_setting_patch`.
+ */
+export const nel$$config_nel_setting_patch: JSONObject = {
+  "description": "Request body for updating the NEL setting.",
+  "properties": {
+    "value": {
+      "$ref": "#/$defs/nel-config_nel_value",
+      "description": "The NEL configuration value."
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `nel-config_nel_value`.
+ */
+export const nel$$config_nel_value: JSONObject = {
+  "description": "The NEL configuration value.",
+  "properties": {
+    "enabled": {
+      "description": "Whether Network Error Logging is enabled for the zone. When enabled, browsers report network errors to Cloudflare's NEL endpoint.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "enabled"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `organizations-api_ModifyProfileRequest`.
  */
 export const organizations$$api_ModifyProfileRequest: JSONObject = {
@@ -3682,13 +3716,6 @@ export const workers_observability$$2: JSONObject = {
       "oneOf": [
         {
           "properties": {
-            "destinations": {
-              "description": "A list of destinations where Agents observability data will be exported to.",
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
             "enabled": {
               "description": "Whether Agents observability is enabled for the Worker.",
               "type": "boolean"

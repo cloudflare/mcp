@@ -13,11 +13,14 @@ import {
   originValidationResponse
 } from '@modelcontextprotocol/server'
 import type { McpServer } from '@modelcontextprotocol/server'
-import { createServer, type RequestContext, type ServerOptions } from './server'
+import { createServer } from './server'
+import type { RequestContext, ServerOptions } from './server'
 import { connectionFromAuth } from './api-permissions'
 import { ScopeChallenge } from './scope-challenge'
-import { identifyClient, type ClientBehavior } from './clients'
-import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
+import { identifyClient } from './clients'
+import type { ClientBehavior } from './clients'
+import { AuthProps as AuthPropsSchema } from './auth/types'
+import type { AuthProps } from './auth/types'
 import { cachedToolListResponse } from './tools/tool-list-response'
 import { getForgeToolList } from './isolate-cache'
 
@@ -49,11 +52,11 @@ const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
 function serverOptionsFromUrl(url: string): ServerOptions {
   const params = new URL(url).searchParams
   const truncate = params.get('truncateToolResult')
-  return {
+  const options = {
     codemode: params.get('codemode') !== 'false',
-    experimentalOutputSchema: params.get('experimentalOutputSchema') === 'true',
-    ...(truncate === null ? {} : { truncateToolResult: truncate !== 'false' })
+    experimentalOutputSchema: params.get('experimentalOutputSchema') === 'true'
   }
+  return truncate === null ? options : { ...options, truncateToolResult: truncate !== 'false' }
 }
 
 /** `/mcp?scopeChallenge=http|tool` overrides the client's challenge delivery, for testing a client. */
@@ -125,15 +128,19 @@ export function rejectInvalidMcpRequest(
   )
 }
 
-function deployedHostnameOf(mcpResource: string | undefined): string[] {
-  if (!mcpResource || !URL.canParse(mcpResource)) return []
+function deployedHostnameOf(mcpResource: string | undefined): Array<string> {
+  if (!mcpResource || !URL.canParse(mcpResource)) {
+    return []
+  }
   const url = new URL(mcpResource)
   return url.protocol === 'https:' ? [url.hostname] : []
 }
 
 function corsHeaders(request: Request): Headers | undefined {
   const origin = request.headers.get('Origin')
-  if (!origin) return undefined
+  if (!origin) {
+    return undefined
+  }
 
   const requestedHeaders = request.headers.get('Access-Control-Request-Headers')
   const headers = new Headers({
@@ -151,10 +158,14 @@ function corsHeaders(request: Request): Headers | undefined {
 
 function withCors(response: Response, request: Request): Response {
   const cors = corsHeaders(request)
-  if (!cors) return response
+  if (!cors) {
+    return response
+  }
 
   const headers = new Headers(response.headers)
-  for (const [name, value] of cors) headers.set(name, value)
+  for (const [name, value] of cors) {
+    headers.set(name, value)
+  }
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
@@ -168,7 +179,7 @@ export function handleMcpPreflight(request: Request): Response {
 }
 
 /** Reads a registered OAuth client's redirect URIs. */
-export type LookupRedirectUris = (clientId: string) => Promise<readonly string[]>
+export type LookupRedirectUris = (clientId: string) => Promise<ReadonlyArray<string>>
 
 /**
  * How this request's client takes a step-up challenge: the URL override, else
@@ -181,7 +192,9 @@ async function challengeDelivery(
   lookupRedirectUris: LookupRedirectUris
 ): Promise<ClientBehavior['scopeChallenge']> {
   const override = challengeDeliveryOverride(url)
-  if (override) return override
+  if (override) {
+    return override
+  }
   const { behavior } = await identifyClient({
     clientId,
     redirectUris: () => lookupRedirectUris(clientId)
@@ -216,14 +229,18 @@ export async function handleAuthenticatedMcpRequest(
   }
 
   const rejected = rejectInvalidMcpRequest(request, env?.MCP_RESOURCE)
-  if (rejected) return rejected
+  if (rejected) {
+    return rejected
+  }
 
   const props = AuthPropsSchema.parse(rawProps)
   const options = serverOptionsFromUrl(request.url)
   if (!options.codemode) {
     // 2025-era listings never carry output schemas.
     const listed = await cachedToolListResponse(request, () => getForgeToolList())
-    if (listed) return withCors(listed, request)
+    if (listed) {
+      return withCors(listed, request)
+    }
   }
   const connection = connectionFromAuth(auth)
   // Only tokens this server issued can step up; their tools can ask for a scope.

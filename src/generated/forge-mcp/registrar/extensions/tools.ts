@@ -3,14 +3,14 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  registrar$$api_api$$response$$common,
-  registrar$$api_api$$response$$common$$failure,
-  registrar$$api_messages,
+  registrar_api$$response$$common,
+  registrar_api$$response$$common$$failure,
+  registrar_messages,
 } from "../outputs.js";
 import {
-  registrar$$api_extension$$item,
-  registrar$$api_extension$$response$$collection,
-  registrar$$api_extension$$response$$single,
+  registrar_extension$$item,
+  registrar_extension$$response$$collection,
+  registrar_extension$$response$$single,
 } from "./outputs.js";
 
 /**
@@ -49,12 +49,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_extension-response-single",
+      "$ref": "#/$defs/registrar_extension-response-single",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_extension-item": registrar$$api_extension$$item,
-        "registrar-api_extension-response-single": registrar$$api_extension$$response$$single,
-        "registrar-api_messages": registrar$$api_messages,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_extension-item": registrar_extension$$item,
+        "registrar_extension-response-single": registrar_extension$$response$$single,
+        "registrar_messages": registrar_messages,
       },
     },
     annotations: {
@@ -71,19 +71,19 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api_extension-response-single"
+            "$ref": "#/$defs/registrar_extension-response-single"
           },
           "304": null,
           "4XX": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_extension-item": registrar$$api_extension$$item,
-          "registrar-api_extension-response-single": registrar$$api_extension$$response$$single,
-          "registrar-api_messages": registrar$$api_messages,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_extension-item": registrar_extension$$item,
+          "registrar_extension-response-single": registrar_extension$$response$$single,
+          "registrar_messages": registrar_messages,
         },
       },
     },
@@ -153,12 +153,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_extension-response-collection",
+      "$ref": "#/$defs/registrar_extension-response-collection",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_extension-item": registrar$$api_extension$$item,
-        "registrar-api_extension-response-collection": registrar$$api_extension$$response$$collection,
-        "registrar-api_messages": registrar$$api_messages,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_extension-item": registrar_extension$$item,
+        "registrar_extension-response-collection": registrar_extension$$response$$collection,
+        "registrar_messages": registrar_messages,
       },
     },
     annotations: {
@@ -182,19 +182,19 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api_extension-response-collection"
+            "$ref": "#/$defs/registrar_extension-response-collection"
           },
           "304": null,
           "4XX": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_extension-item": registrar$$api_extension$$item,
-          "registrar-api_extension-response-collection": registrar$$api_extension$$response$$collection,
-          "registrar-api_messages": registrar$$api_messages,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_extension-item": registrar_extension$$item,
+          "registrar_extension-response-collection": registrar_extension$$response$$collection,
+          "registrar_messages": registrar_messages,
         },
       },
     },

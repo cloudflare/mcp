@@ -121,6 +121,14 @@ export const billable$$usage$$api_v2_usage_query: JSONObject = {
       "$ref": "#/$defs/billable-usage-api_v2_filter_by",
       "description": "Usage filters. Filters of different kinds are combined with AND, so a record must match every filter present to be returned."
     },
+    "Granularity": {
+      "description": "Optional time bucket to sum records over. `DAILY` returns one record per day. `PERIOD` returns one record for the whole time period. When set with `Metric` `cost`, cost is summed across pricing tiers into one record per billable metric per bucket. When omitted, records are not summed: `usage` returns daily records and `cost` returns one record per rated breakdown. Available only on `POST` account usage.",
+      "enum": [
+        "DAILY",
+        "PERIOD"
+      ],
+      "type": "string"
+    },
     "GroupBy": {
       "description": "Grouping definitions used to split result rows. At most two unique keys may be supplied.",
       "items": {
