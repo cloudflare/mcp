@@ -2,6 +2,23 @@
 @source './d1-studio-app.tsx';
 
 /*
+ * Paper Mono, the dashboard Studio's mono, Copyright 2025 Lost Coast Labs, Inc.
+ * (Paper Design), based on Geist Mono, Copyright 2023 Vercel, in collaboration
+ * with basement.studio. SIL Open Font License 1.1: fonts/PaperMono-LICENSE.txt
+ * (github.com/paper-design/paper-mono @ 74fc5537). Regular only, subset to
+ * Latin, Latin-1, Latin Extended-A and the few symbols the view draws (16 KB,
+ * inlined by the build: the App's CSP allows no font host). Any other glyph
+ * falls back to the system mono.
+ */
+@font-face {
+  font-family: 'Paper Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/PaperMono-Regular.subset.woff2') format('woff2');
+}
+
+/*
  * D1 Studio. Kumo tokens on one card. Glyphs centre on
  * 22 px (a 16 px column at 14), text starts at 40 px, the right edge is 8 px,
  * radii nest (card 12, controls 6). The Cloudflare mark is the title's first
@@ -38,8 +55,7 @@
   );
   --sql: 12px;
   --sql-lh: 18px;
-  /* Stratus's --font-mono. Paper Mono is not shipped (the App's CSP allows no font host and the woff2 isn't inlined
-     yet), so it renders only where it is installed; elsewhere the system mono. */
+  /* Stratus's --font-mono: Paper Mono, bundled above, then the system mono. */
   --font-mono:
     'Paper Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
     'Courier New', monospace;
