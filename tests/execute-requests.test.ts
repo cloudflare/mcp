@@ -22,6 +22,12 @@ const ACCOUNT = '00000000000000000000000000000001'
 const ZONE = '00000000000000000000000000000002'
 const API_TOKEN = 'test-api-token-execute-requests'
 
+function uploadToken(purpose = 'upload', lifetime = 300): string {
+  const encode = (value: object) =>
+    btoa(JSON.stringify(value)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+  return `${encode({ alg: 'HS256', typ: 'JWT' })}.${encode({ exp: Math.floor(Date.now() / 1000) + lifetime, purpose })}.${encode({ test: true })}`
+}
+
 afterEach(async () => {
   await clearKv(env.OAUTH_KV)
   await clearSpec()
@@ -294,6 +300,169 @@ describe('execute: how headers are sent', () => {
       }`
     )
     expect(received[0].headers.get('authorization')).toBe(`Bearer ${API_TOKEN}`)
+  })
+
+  it('uses the Pages upload JWT for the three asset calls, but not for deployment', async () => {
+    const uploadJwt = uploadToken()
+    const project = `/accounts/${ACCOUNT}/pages/projects/site`
+    const { received, isError, text } = await run(
+      `async () => {
+        const { result } = await cloudflare.request({ method: "GET", path: "${project}/upload-token" });
+        const headers = { Authorization: "Bearer " + result.jwt };
+        const { result: missing } = await cloudflare.request({ method: "POST", path: "/pages/assets/check-missing", headers, body: { hashes: ["file-hash"] } });
+        await cloudflare.request({ method: "POST", path: "/pages/assets/upload", headers, body: missing.map(key => ({ key, value: "aGk=", metadata: { contentType: "text/plain" }, base64: true })) });
+        await cloudflare.request({ method: "POST", path: "/pages/assets/upsert-hashes", headers, body: { hashes: ["file-hash"] } });
+        const form = new FormData();
+        form.set("manifest", JSON.stringify({ "/index.html": "file-hash" }));
+        return cloudflare.request({ method: "POST", path: "${project}/deployments", headers, body: form });
+      }`,
+      ({ path }) =>
+        HttpResponse.json(
+          cfSuccess(
+            path.endsWith('/upload-token')
+              ? { jwt: uploadJwt }
+              : path.endsWith('/check-missing')
+                ? ['file-hash']
+                : {}
+          )
+        )
+    )
+    expect(isError, text).toBe(false)
+    expect(
+      received.map(({ method, path, headers }) => [method, path, headers.get('authorization')])
+    ).toEqual([
+      ['GET', `${project}/upload-token`, `Bearer ${API_TOKEN}`],
+      ['POST', '/pages/assets/check-missing', `Bearer ${uploadJwt}`],
+      ['POST', '/pages/assets/upload', `Bearer ${uploadJwt}`],
+      ['POST', '/pages/assets/upsert-hashes', `Bearer ${uploadJwt}`],
+      ['POST', `${project}/deployments`, `Bearer ${API_TOKEN}`]
+    ])
+    expect(JSON.parse(received[2].text)).toEqual([
+      { key: 'file-hash', value: 'aGk=', metadata: { contentType: 'text/plain' }, base64: true }
+    ])
+    expect((await formOf(received[4])).get('manifest')).toBe('{"/index.html":"file-hash"}')
+  })
+
+  it('uses the Workers upload JWT for multipart assets and the completion JWT in version metadata', async () => {
+    const uploadJwt = `cfwau_${uploadToken()}`
+    const completionJwt = uploadToken('complete')
+    const script = `/accounts/${ACCOUNT}/workers/scripts/site`
+    const upload = `/accounts/${ACCOUNT}/workers/assets/upload`
+    const { received, isError, text } = await run(
+      `async () => {
+        const { result } = await cloudflare.request({ method: "POST", path: "${script}/assets-upload-session", body: { manifest: { "/index.html": { hash: "file-hash", size: 2 } } } });
+        const form = new FormData();
+        form.append("file-hash", new Blob(["aGk="], { type: "text/html" }), "file-hash");
+        const response = await fetch("${API_BASE}${upload}?base64=true", { method: "POST", headers: { authorization: "Bearer " + result.jwt }, body: form });
+        if (!response.ok) throw new Error("Upload failed: " + response.status);
+        const { result: completion } = await response.json();
+        const version = new FormData();
+        version.set("metadata", new Blob([JSON.stringify({ assets: { jwt: completion.jwt } })], { type: "application/json" }));
+        return cloudflare.request({ method: "POST", path: "${script}/versions", body: version });
+      }`,
+      ({ path }) =>
+        HttpResponse.json(
+          cfSuccess(
+            path === upload
+              ? { jwt: completionJwt }
+              : path.endsWith('/assets-upload-session')
+                ? { jwt: uploadJwt, buckets: [['file-hash']] }
+                : {}
+          )
+        )
+    )
+    expect(isError, text).toBe(false)
+    expect(
+      received.map(({ method, path, headers }) => [method, path, headers.get('authorization')])
+    ).toEqual([
+      ['POST', `${script}/assets-upload-session`, `Bearer ${API_TOKEN}`],
+      ['POST', upload, `Bearer ${uploadJwt}`],
+      ['POST', `${script}/versions`, `Bearer ${API_TOKEN}`]
+    ])
+    expect(received[1].query.get('base64')).toBe('true')
+    const asset = (await formOf(received[1])).get('file-hash')
+    expect(asset).toBeInstanceOf(File)
+    expect(asset).toMatchObject({ name: 'file-hash', type: 'text/html' })
+    expect(await (asset as File).text()).toBe('aGk=')
+    const metadata = (await formOf(received[2])).get('metadata')
+    expect(await (metadata as File).text()).toBe(JSON.stringify({ assets: { jwt: completionJwt } }))
+  })
+
+  it.each([
+    ['missing', ''],
+    ['malformed', 'headers: { Authorization: "Bearer not-an-upload-token" },'],
+    ['expired', `headers: { Authorization: "Bearer ${uploadToken('expired', -120)}" },`]
+  ])('does not send an asset upload with a %s JWT', async (_, headers) => {
+    const { received, text, isError } = await run(
+      `async () => cloudflare.request({ method: "POST", path: "/pages/assets/check-missing", ${headers} body: { hashes: ["a"] } })`
+    )
+    expect(received).toHaveLength(0)
+    expect(isError).toBe(true)
+    expect(text).toContain('upload JWT')
+  })
+
+  it.each([
+    `http://${new URL(API_BASE).host}${new URL(API_BASE).pathname}/pages/assets/upload`,
+    `${new URL(API_BASE).origin}/other/v4a/pages/assets/upload`
+  ])('does not send credentials outside the configured API base (%s)', async (url) => {
+    let calls = 0
+    server.use(
+      http.post(url, () => {
+        calls++
+        return HttpResponse.json(cfSuccess({}))
+      })
+    )
+    const { text } = await run(
+      `async () => (await fetch("${url}", { method: "POST", headers: { Authorization: "Bearer ${uploadToken()}" } })).status`
+    )
+    expect(calls).toBe(0)
+    expect(text).toContain('403')
+  })
+
+  it('does not follow an upload redirect to a different path', async () => {
+    const path = `/accounts/${ACCOUNT}/workers/assets/upload`
+    const { received, text, isError } = await run(
+      `async () => cloudflare.request({ method: "POST", path: "${path}", query: { base64: true }, headers: { Authorization: "Bearer ${uploadToken()}" }, body: new FormData() })`,
+      (_, count) =>
+        count === 1
+          ? new HttpResponse(null, {
+              status: 307,
+              headers: { Location: `${API_BASE}/pages/assets/upload` }
+            })
+          : HttpResponse.json(cfSuccess({}))
+    )
+    expect(received.map(({ path }) => path)).toEqual([path])
+    expect(isError, text).toBe(true)
+    expect(text).toContain('HTTP 307')
+  })
+
+  it('does not replay an asset upload after an ambiguous network failure', async () => {
+    const { received, isError } = await run(
+      `async () => cloudflare.request({ method: "POST", path: "/pages/assets/upload", headers: { Authorization: "Bearer ${uploadToken()}" }, body: [] })`,
+      () => HttpResponse.error()
+    )
+    expect(received).toHaveLength(1)
+    expect(isError).toBe(true)
+  })
+
+  it("sends the session's token when the code names a JWT for any other path", async () => {
+    const received = await send(
+      `method: "GET", path: "${PATH}", headers: { Authorization: "Bearer ${uploadToken()}" }`
+    )
+    expect(received.headers.get('authorization')).toBe(`Bearer ${API_TOKEN}`)
+  })
+
+  it('reads a refused asset upload as Cloudflare sent it, without asking for a scope', async () => {
+    const { text, isError } = await run(
+      `async () => cloudflare.request({ method: "POST", path: "/pages/assets/check-missing", headers: { Authorization: "Bearer ${uploadToken()}" }, body: {} })`,
+      () =>
+        HttpResponse.json(cfError([{ code: 8000013, message: 'Authorization failed' }]), {
+          status: 403
+        })
+    )
+    expect(isError).toBe(true)
+    expect(text).toContain('8000013')
+    expect(text).not.toContain('insufficient_scope')
   })
 
   it('leaves out a header whose value is undefined or null', async () => {

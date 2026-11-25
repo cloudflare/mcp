@@ -32,6 +32,7 @@ const GET_DNS = `async () => cloudflare.request({ method: "GET", path: "${DNS_PA
 const ACCOUNT_ID = 'acc-1'
 const KV_PATH = `/accounts/${ACCOUNT_ID}/storage/kv/namespaces`
 const CREATE_KV = `async () => cloudflare.request({ method: "POST", path: "${KV_PATH}", body: { title: "t" } })`
+const WORKERS_UPLOAD_PATH = '/accounts/0123456789abcdef0123456789abcdef/workers/assets/upload'
 const CHATGPT_REDIRECT = 'https://chatgpt.com/connector_platform_oauth_redirect'
 
 beforeEach(async () => {
@@ -54,6 +55,9 @@ beforeEach(async () => {
       },
       '/accounts/{account_id}/storage/kv/namespaces': {
         post: { summary: 'Create a Namespace', 'x-api-token-group': ['Workers KV Storage Write'] }
+      },
+      '/accounts/{account_id}/workers/assets/upload': {
+        post: { summary: 'Upload Worker Assets', 'x-api-token-group': ['Workers Scripts Write'] }
       }
     },
     ['dns']
@@ -110,6 +114,29 @@ describe('execute', () => {
   it('treats a 401 as a missing scope when the connection holds none the endpoint accepts', async () => {
     const token = await connectWithOAuth(BASELINE)
     expectChallenge(await executeModern(token, CREATE_KV), 'workers-kv-storage.write')
+  })
+
+  it('does not request more OAuth scopes when the upload JWT is refused', async () => {
+    const token = await connectWithOAuth(BASELINE)
+    const uploadJwt = `eyJhbGciOiJIUzI1NiJ9.${btoa(JSON.stringify({ exp: Math.floor(Date.now() / 1000) + 300 })).replace(/=+$/, '')}.signature`
+    server.use(
+      http.post(`${API_BASE}${WORKERS_UPLOAD_PATH}`, ({ request }) => {
+        expect(request.headers.get('Authorization')).toBe(`Bearer ${uploadJwt}`)
+        return HttpResponse.json(cfError([{ code: 10000, message: 'Authentication error' }]), {
+          status: 401
+        })
+      })
+    )
+    const response = await executeModern(
+      token,
+      `async () => cloudflare.request({ method: "POST", path: "${WORKERS_UPLOAD_PATH}", query: { base64: true }, headers: { Authorization: "Bearer ${uploadJwt}" }, body: new FormData() })`
+    )
+    const body = await parseMcpResult(response)
+    expect(response.status).toBe(200)
+    expect(response.headers.has('WWW-Authenticate')).toBe(false)
+    expect(body.result?._meta).not.toHaveProperty('mcp/www_authenticate')
+    expect(body.result?.isError).toBe(true)
+    expect(toolText(body)).toMatch(/HTTP 401[\s\S]*10000/)
   })
 
   it('does not challenge a 401 when the connection holds an accepted scope', async () => {
