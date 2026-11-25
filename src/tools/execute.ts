@@ -17,7 +17,12 @@ import {
 import type { AuthProps } from '../auth/types'
 import type { Connection } from '../api-permissions'
 import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
-import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
+import {
+  ERROR_KIND_HEADER,
+  MISSING_SCOPE_HEADER,
+  REFUSAL_HINT_HEADER,
+  reviewResponse
+} from '../api-refusals'
 import { policyRefusalHint, sameSubscription, subscriptionCreate } from '../policy-guards'
 import type { SubscriptionKey } from '../policy-guards'
 import {
@@ -32,6 +37,13 @@ import {
 } from '../charge-confirmation'
 import { WWW_AUTHENTICATE_META_KEY } from '../scope-challenge'
 import type { ScopeChallenge } from '../scope-challenge'
+import {
+  apiFailureKind,
+  classified,
+  isToolErrorKind,
+  refusalKind,
+  type ToolErrorKind
+} from '../tool-errors'
 import {
   getWaitBudgetMs,
   FIRST_BACKOFF_MS,
@@ -73,12 +85,40 @@ const Evaluation = z.union([
     // The analytics permission a failed GraphQL query lacked, by dataset kind.
     graphqlRefusal: z.enum(['zone', 'account']).optional(),
     // Whether every request the code sent was a read or was refused, so rerunning repeats no change.
-    replaySafe: z.boolean()
+    replaySafe: z.boolean(),
+    // Why it failed, for metrics only: the failing request's status, the kind
+    // GlobalOutbound named (any other string is dropped), whether it was never
+    // sent, whether the code read a missing accountId, and whether the run was stopped.
+    apiStatus: z.number().int().optional(),
+    errorKind: z
+      .string()
+      .optional()
+      .transform((kind) => (isToolErrorKind(kind) ? kind : undefined)),
+    notSent: z.boolean().optional(),
+    needsAccount: z.boolean().optional(),
+    stopped: z.boolean().optional()
   })
 ])
 
 /** The outcome of running the agent's code. */
 type Execution = z.infer<typeof Evaluation>
+
+/** Why a run failed, for metrics, from what the sandbox reported about the error its code ended with. */
+export function executionErrorKind(
+  execution: Extract<Execution, { ok: false }>,
+  connection: Connection
+): ToolErrorKind {
+  if (execution.needsAccount) return 'needs_account'
+  if (execution.stopped) return 'run_stopped'
+  if (execution.graphqlRefusal) {
+    const permissions = GRAPHQL_PERMISSIONS[execution.graphqlRefusal]
+    return refusalKind(authorize(connection, GRAPHQL_REQUEST, permissions).kind)
+  }
+  if (execution.errorKind) return execution.errorKind
+  if (execution.notSent) return 'not_sent'
+  if (execution.apiStatus !== undefined) return apiFailureKind(execution.apiStatus)
+  return 'code_error'
+}
 
 type GlobalOutboundProps = {
   apiToken: string
@@ -115,6 +155,7 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
           status: 403,
           headers: {
             [NOT_SENT_HEADER]: '1',
+            [ERROR_KIND_HEADER]: 'policy_refused',
             ...(subscription && {
               [NEEDS_CONFIRMATION_HEADER]: reportSubscription(subscription.accountId, body)
             })
@@ -178,7 +219,9 @@ async function runExecute(
   const accountIdPrelude = accountId
     ? `const accountId = ${JSON.stringify(accountId)};`
     : `Object.defineProperty(globalThis, "accountId", { configurable: true, get() {
-        throw new Error(${JSON.stringify(unresolvedAccountMessage)});
+        const error = new Error(${JSON.stringify(unresolvedAccountMessage)});
+        error.needsAccount = true;
+        throw error;
       } });`
 
   const worker = env.LOADER.get(workerId, () => ({
@@ -398,6 +441,12 @@ function apiError(method, path, response, body) {
     notice.hint || ""].filter(Boolean).join("\\n\\n"));
   const missingScope = response.headers.get(${JSON.stringify(MISSING_SCOPE_HEADER)});
   if (missingScope) error.missingScope = missingScope;
+  // Why it failed, for metrics: the status, and the kind GlobalOutbound named.
+  // A request this sandbox or GlobalOutbound answered itself has no Cloudflare status.
+  error.notSent = response.headers.has(${JSON.stringify(NOT_SENT_HEADER)});
+  if (!error.notSent) error.apiStatus = response.status;
+  const errorKind = response.headers.get(${JSON.stringify(ERROR_KIND_HEADER)});
+  if (errorKind) error.errorKind = errorKind;
   const needsConfirmation = response.headers.get(${JSON.stringify(NEEDS_CONFIRMATION_HEADER)});
   if (needsConfirmation) error.needsConfirmation = refusedSubscription = needsConfirmation;
   return error;
@@ -555,6 +604,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
           if (graphqlErrors.length > 0 && (data.data === null || data.data === undefined)) {
             const error = new Error("GraphQL error: " + graphqlErrors.map(e => e.message).join(", "));
             error.graphqlRefusal = graphqlRefusal(graphqlErrors);
+            error.apiStatus = response.status;
             throw error;
           }
           return data;
@@ -587,7 +637,12 @@ export default class CodeExecutor extends WorkerEntrypoint {
         needsConfirmation: typeof err?.needsConfirmation === "string" ? err.needsConfirmation : undefined,
         graphqlRefusal: err?.graphqlRefusal === "zone" || err?.graphqlRefusal === "account" ? err.graphqlRefusal : undefined,
         replaySafe: sentRequests.every(({ read, status }) => read || status === 401 || status === 403),
-        rateLimits: rateLimitStats
+        rateLimits: rateLimitStats,
+        apiStatus: typeof err?.apiStatus === "number" ? err.apiStatus : undefined,
+        errorKind: typeof err?.errorKind === "string" ? err.errorKind : undefined,
+        notSent: err?.notSent === true,
+        needsAccount: err?.needsAccount === true,
+        stopped: runIsStopped
       };
     }
   }
@@ -741,7 +796,7 @@ export function registerExecuteTool(
         // A retry carries the user's answer about the subscription the code creates.
         const answered = answeredSubscription(ctx)
         if (answered?.confirmation === 'declined') {
-          return formatError(DECLINED_HINT)
+          return classified(formatError(DECLINED_HINT), 'declined')
         }
         const confirmed = answered?.confirmation === 'confirmed' ? answered.subscription : undefined
 
@@ -774,7 +829,11 @@ export function registerExecuteTool(
           return { content: [{ type: 'text', text }] }
         }
 
-        const failure = formatError(execution.message)
+        const failure = classified(
+          formatError(execution.message),
+          executionErrorKind(execution, connection),
+          execution.apiStatus
+        )
         const pathAccount = account_id ? undefined : refusedAccountId(execution.message)
         const hint = account_id
           ? unknownAccountHint(props, account_id)
@@ -814,11 +873,15 @@ export function registerExecuteTool(
           return failure
         }
         const challenge = scopeChallenge.require(scope)
-        return challenge
-          ? { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } }
-          : failure
+        if (!challenge) return failure
+        const kind = executionErrorKind(execution, connection)
+        return classified(
+          { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } },
+          kind,
+          execution.apiStatus
+        )
       } catch (error) {
-        const failure = formatError(error)
+        const failure = classified(formatError(error), 'internal')
         const hint = account_id ? unknownAccountHint(props, account_id) : ''
         if (hint) {
           failure.content[0].text += `\n\n${hint}`

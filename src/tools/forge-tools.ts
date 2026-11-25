@@ -84,12 +84,18 @@ export function registerForgeTools(
         const parsed = z.object({ query: z.string() }).safeParse(args)
         result = parsed.success
           ? await runDocsTool(parsed.data.query)
-          : toolError(`Invalid arguments for tool ${name}: ${parsed.error.message}`)
+          : toolError(
+              `Invalid arguments for tool ${name}: ${parsed.error.message}`,
+              'invalid_arguments'
+            )
       } else if (name === WHOAMI_TOOL.name) {
         const parsed = WhoamiInputSchema.safeParse(args)
         result = parsed.success
           ? runWhoamiTool(props)
-          : toolError(`Invalid arguments for tool ${name}: ${parsed.error.message}`)
+          : toolError(
+              `Invalid arguments for tool ${name}: ${parsed.error.message}`,
+              'invalid_arguments'
+            )
       } else if (name === SUBMIT_FEEDBACK_TOOL.name && feedbackTools().length > 0) {
         result = await runSubmitFeedbackTool(args, 'direct', props)
       } else {
@@ -105,15 +111,10 @@ export function registerForgeTools(
         })
       }
     } catch (error) {
-      result = toolError(error instanceof Error ? error.message : String(error))
+      result = toolError(error instanceof Error ? error.message : String(error), 'internal')
     }
 
-    recordToolCall(
-      props,
-      name,
-      'isError' in result && result.isError === true,
-      client && toolCallClient(client, ctx)
-    )
+    recordToolCall(props, name, result, client && toolCallClient(client, ctx))
     return result
   })
 }
@@ -132,12 +133,13 @@ async function callForgeTool(
 ): Promise<CallToolResult | InputRequiredResult> {
   switch (plan.kind) {
     case 'unknown':
-      return toolError(`Tool ${name} not found`)
+      return toolError(`Tool ${name} not found`, 'unknown_tool')
     case 'invalid':
-      return toolError(plan.message)
+      return toolError(plan.message, 'invalid_arguments')
     case 'needs_account':
       return toolError(
-        missingAccountMessage(props, FORGE_ACCOUNT_DISCOVERY_GUIDANCE, plan.argument)
+        missingAccountMessage(props, FORGE_ACCOUNT_DISCOVERY_GUIDANCE, plan.argument),
+        'needs_account'
       )
     case 'request':
       break
@@ -152,12 +154,12 @@ async function callForgeTool(
       return await askToConfirm(subscription)
     }
     if (confirmation === 'declined') {
-      return toolError(DECLINED_HINT)
+      return toolError(DECLINED_HINT, 'declined')
     }
   }
   const refusal = await policyRefusalHint(request, subscription)
   if (refusal) {
-    return toolError(refusal)
+    return toolError(refusal, 'policy_refused')
   }
 
   const response = await fetchWithRetry(

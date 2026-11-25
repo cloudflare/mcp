@@ -23,9 +23,12 @@
  *   blob8   = protocol: the 2026-07-28 envelope's protocol version, else `2025`
  *   blob9   = tool mode (`codemode` | `direct`)
  *   blob10  = connection kind (`oauth` | `direct`)
- * Events written before these fields existed leave them empty. The OAuth
- * client ID is left out: a registered one is a stable per-installation ID,
- * and blob5–blob7 already name the client.
+ * A failed call also says why (see `src/tool-errors.ts`):
+ *   blob11  = error kind (`refused_missing_scope`, `api_5xx`, `code_error`, …)
+ *   double2 = HTTP status of the Cloudflare API answer that failed it, else 0
+ * A successful call leaves both out. Events written before these fields
+ * existed leave them empty. The OAuth client ID is left out: a registered one
+ * is a stable per-installation ID, and blob5–blob7 already name the client.
  *
  * `response_schema_mismatch` (a direct-tool response that doesn't match its
  * OpenAPI response schema, see `src/response-validation.ts`) adds:
@@ -60,6 +63,8 @@ import type { McpServer, ServerContext } from '@modelcontextprotocol/server'
 import type { AuthProps } from './auth/types'
 import { SERVER_INFO } from './constants'
 import type { ServerInfo } from './constants'
+import { toolErrorOf } from './tool-errors'
+import type { ToolError } from './tool-errors'
 
 export enum MetricsEventIndexId {
   AUTH_USER = 'auth_user',
@@ -187,29 +192,36 @@ export class ToolCall extends MetricsEvent {
       toolName: string
       errorCode?: number
       client?: ToolCallClient
+      /** Why the call failed; a failed call without it is recorded as `other`. */
+      error?: ToolError
     }
   ) {
     super()
   }
 
   toDataPoint(): AnalyticsEngineDataPoint {
-    const { client } = this.toolCall
+    const { client, error } = this.toolCall
+    const failed: ToolError | undefined =
+      error ?? (this.toolCall.errorCode === undefined ? undefined : { kind: 'other' })
     return {
       indexes: [MetricsEventIndexId.TOOL_CALL],
       blobs: this.mapBlobs({
         blob3: this.toolCall.userId,
         blob4: this.toolCall.toolName,
-        ...(client && {
-          blob5: client.name,
-          blob6: client.version,
-          blob7: client.userAgent,
-          blob8: client.protocol,
-          blob9: client.mode,
-          blob10: client.connection
-        })
+        // Blobs are positional: a failure without a client still fills blob5-blob10.
+        ...((client || failed) && {
+          blob5: client?.name,
+          blob6: client?.version,
+          blob7: client?.userAgent,
+          blob8: client?.protocol,
+          blob9: client?.mode,
+          blob10: client?.connection
+        }),
+        ...(failed && { blob11: failed.kind })
       }),
       doubles: this.mapDoubles({
-        double1: this.toolCall.errorCode
+        double1: this.toolCall.errorCode,
+        ...(failed && { double2: failed.status ?? 0 })
       })
     }
   }
@@ -368,20 +380,22 @@ export function toolCallClient(request: RequestClient, ctx?: ServerContext): Too
   }
 }
 
-/** Record one tool call from a low-level protocol handler. */
+/** Record one tool call, and why its result failed, from a low-level protocol handler. */
 export function recordToolCall(
   props: AuthProps,
   toolName: string,
-  isError: boolean,
+  result: unknown,
   client?: ToolCallClient
 ): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
+  const error = toolErrorOf(result)
   metrics.logEvent(
     new ToolCall({
       toolName,
       userId: userIdFromProps(props),
-      errorCode: isError ? -1 : undefined,
-      client
+      errorCode: error ? -1 : undefined,
+      client,
+      error
     })
   )
 }
@@ -407,7 +421,7 @@ function errorCodeOf(error: unknown): number {
 
 /**
  * Wire Analytics Engine metrics into a server instance: log a `tool_call` for
- * every tool invocation (with an `errorCode` on failure). Monkey-patches
+ * every tool invocation (with an `errorCode` and error kind on failure). Monkey-patches
  * `registerTool` so every tool registered after this call is tracked
  * identically. Tolerant of a missing MCP_METRICS binding (becomes a no-op).
  *
@@ -426,16 +440,24 @@ export function attachMetrics(server: McpServer, props?: AuthProps, request?: Re
     // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The SDK always passes its ServerContext as the last callback argument.
     request && toolCallClient(request, cbArgs.at(-1) as ServerContext | undefined)
 
-  const log = (name: string, cbArgs: Array<unknown>, errorCode: number | undefined) =>
-    metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode, client: clientOf(cbArgs) }))
+  const log = (
+    name: string,
+    cbArgs: Array<unknown>,
+    errorCode: number | undefined,
+    error: ToolError | undefined
+  ) =>
+    metrics.logEvent(
+      new ToolCall({ toolName: name, userId, errorCode, client: clientOf(cbArgs), error })
+    )
 
   // Our tool callbacks signal failure by returning `{ isError: true }` rather
   // than throwing, so inspect the resolved result as well as the thrown path.
   const logResult = (name: string, cbArgs: Array<unknown>, result: unknown) => {
-    const failed =
-      result !== null && typeof result === 'object' && 'isError' in result && result.isError
-    log(name, cbArgs, failed ? -1 : undefined)
+    const error = toolErrorOf(result)
+    log(name, cbArgs, error ? -1 : undefined, error)
   }
+  const logThrown = (name: string, cbArgs: Array<unknown>, error: unknown) =>
+    log(name, cbArgs, errorCodeOf(error), { kind: 'internal' })
 
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The metrics wrapper preserves the SDK's runtime registration contract.
   const originalRegisterTool = server.registerTool.bind(server) as (
@@ -465,14 +487,14 @@ export function attachMetrics(server: McpServer, props?: AuthProps, request?: Re
               return r
             })
             .catch((error: unknown) => {
-              log(name, cbArgs, errorCodeOf(error))
+              logThrown(name, cbArgs, error)
               throw error
             })
         }
         logResult(name, cbArgs, out)
         return out
       } catch (error) {
-        log(name, cbArgs, errorCodeOf(error))
+        logThrown(name, cbArgs, error)
         throw error
       }
     }

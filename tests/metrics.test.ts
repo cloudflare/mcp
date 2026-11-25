@@ -11,7 +11,7 @@ import {
   toolCallClient,
   userAgentProduct
 } from '../src/metrics'
-import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
+import { API_BASE, cfError, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
 import {
@@ -43,7 +43,7 @@ describe('ToolCall', () => {
     event.serverInfo = SERVER_INFO
     const dp = event.toDataPoint()
 
-    expect(dp.doubles).toEqual([-32602])
+    expect(dp.doubles?.[0]).toBe(-32602)
   })
 
   it('puts the client in blob5-blob10, keeping the shared slots in place', () => {
@@ -73,6 +73,54 @@ describe('ToolCall', () => {
       'codemode', // blob9 tool mode
       'oauth' // blob10 connection kind
     ])
+  })
+
+  it('puts the error kind in blob11 and the HTTP status in double2 for a failed call', () => {
+    const event = new ToolCall({
+      toolName: 'd1_list',
+      errorCode: -1,
+      client: { protocol: '2025', mode: 'direct', connection: 'oauth' },
+      error: { kind: 'refused_missing_scope', status: 403 }
+    })
+    event.serverInfo = SERVER_INFO
+    const dp = event.toDataPoint()
+
+    expect(dp.blobs?.slice(7)).toEqual(['2025', 'direct', 'oauth', 'refused_missing_scope'])
+    expect(dp.doubles).toEqual([-1, 403])
+  })
+
+  it('keeps blob11 in place for a failure without a client, and writes 0 with no status', () => {
+    const event = new ToolCall({
+      toolName: 'execute',
+      errorCode: -1,
+      error: { kind: 'code_error' }
+    })
+    event.serverInfo = SERVER_INFO
+    const dp = event.toDataPoint()
+
+    expect(dp.blobs).toEqual([
+      'cloudflare-api',
+      '0.1.0',
+      null,
+      'execute',
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      'code_error'
+    ])
+    expect(dp.doubles).toEqual([-1, 0])
+  })
+
+  it('records an error code without a kind as other', () => {
+    const event = new ToolCall({ toolName: 'search', errorCode: -32602 })
+    event.serverInfo = SERVER_INFO
+    const dp = event.toDataPoint()
+
+    expect(dp.blobs?.[10]).toBe('other')
+    expect(dp.doubles).toEqual([-32602, 0])
   })
 
   it('writes null for client fields it does not know', () => {
@@ -286,7 +334,7 @@ describe('MetricsTracker', () => {
   it('records an errorCode for a tool call that failed (isError result)', () => {
     const event = new ToolCall({ userId: 'user-1', toolName: 'execute', errorCode: -1 })
     event.serverInfo = SERVER_INFO
-    expect(event.toDataPoint().doubles).toEqual([-1])
+    expect(event.toDataPoint().doubles?.[0]).toBe(-1)
   })
 
   it('swallows write errors so tool calls are never broken by metrics', () => {
@@ -416,5 +464,107 @@ describe('tool_call emission via the real worker', () => {
     expect(dp).toBeTruthy()
     expect(dp!.blobs?.[3]).toBe('execute')
     expect(dp!.doubles?.[0]).toBe(-1) // isError -> -1
+    expect(dp!.blobs?.[10]).toBe('code_error') // blob11 = error kind
+    expect(dp!.doubles?.[1]).toBe(0) // double2 = no API status
+  })
+
+  it('records why execute failed: the API status of the request the code ended with', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/d1/database`, () =>
+        HttpResponse.json(cfError([{ code: 7500, message: 'Internal error' }]), { status: 500 })
+      )
+    )
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+
+    await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: "/accounts/${ACCOUNT_ID}/d1/database" })`
+    })
+
+    const dp = findToolCall(writeSpy)!
+    expect(dp.blobs?.[10]).toBe('api_5xx')
+    expect(dp.doubles?.slice(0, 2)).toEqual([-1, 500])
+  })
+
+  it('records a refused execute request as a refusal', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/d1/database`, () =>
+        HttpResponse.json(cfError([{ code: 10000, message: 'Authentication error' }]), {
+          status: 403
+        })
+      )
+    )
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+
+    await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: "/accounts/${ACCOUNT_ID}/d1/database" })`
+    })
+
+    // A directly resolved token: Cloudflare refused it, and no scope would help.
+    const dp = findToolCall(writeSpy)!
+    expect(dp.blobs?.[10]).toBe('refused_other')
+    expect(dp.doubles?.[1]).toBe(403)
+  })
+
+  it('records a request this server refused as policy_refused', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+
+    await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "POST", path: "/accounts/${ACCOUNT_ID}/ai/run/bytedance/seedream-5-pro", body: {} })`
+    })
+
+    const dp = findToolCall(writeSpy)!
+    expect(dp.blobs?.[10]).toBe('policy_refused')
+    expect(dp.doubles?.[1]).toBe(0) // never sent, so no Cloudflare status
+  })
+
+  it('records code that read a missing accountId as needs_account', async () => {
+    // A user token on two accounts has no account to default to.
+    mockIdentityProbe({
+      user: { id: 'user-1', email: 'user@example.com' },
+      accounts: [
+        { id: ACCOUNT_ID, name: 'Acc' },
+        { id: '00000000000000000000000000000002', name: 'Other' }
+      ]
+    })
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+
+    await callTool(API_TOKEN, 'execute', { code: 'async () => accountId' })
+
+    expect(findToolCall(writeSpy)!.blobs?.[10]).toBe('needs_account')
+  })
+
+  it('records why a direct tool failed', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    server.use(
+      http.get(`${API_BASE}/zones`, () =>
+        HttpResponse.json(cfError([{ code: 1000, message: 'Unavailable' }]), { status: 503 })
+      )
+    )
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+    const base = mcpToolCallRequest(API_TOKEN, 'zones_list', {})
+
+    await parseMcpResult(
+      await exports.default.fetch(new Request(`${MCP_URL}?codemode=false`, base))
+    )
+
+    const dp = findToolCall(writeSpy)!
+    expect(dp.blobs?.[3]).toBe('zones_list')
+    expect(dp.blobs?.[10]).toBe('api_5xx')
+    expect(dp.doubles?.slice(0, 2)).toEqual([-1, 503])
+  })
+
+  it('records an unknown direct tool as unknown_tool', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+    const base = mcpToolCallRequest(API_TOKEN, 'no_such_tool', {})
+
+    await parseMcpResult(
+      await exports.default.fetch(new Request(`${MCP_URL}?codemode=false`, base))
+    )
+
+    expect(findToolCall(writeSpy)!.blobs?.[10]).toBe('unknown_tool')
   })
 })

@@ -6,6 +6,7 @@ import { SPEC_TYPES } from '../openapi'
 import { getProducts } from '../isolate-cache'
 import { formatterFor, TRUNCATE_ARGUMENT_DESCRIPTION } from '../truncate'
 import { formatError } from '../utils/errors'
+import { classified } from '../tool-errors'
 
 /**
  * Runs sandboxed read-only JavaScript against the pre-resolved OpenAPI spec.
@@ -97,7 +98,7 @@ export function registerSearchTool(server: McpServer, truncateByDefault: boolean
         const text = formatterFor(truncate, truncateByDefault)(result)
         return { content: [{ type: 'text', text }] }
       } catch (error) {
-        return formatError(error)
+        return classified(formatError(error), 'code_error')
       }
     }
   )

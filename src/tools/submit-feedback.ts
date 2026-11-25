@@ -4,6 +4,7 @@ import type { CallToolResult, McpServer, Tool } from '@modelcontextprotocol/serv
 import type { AuthProps } from '../auth/types'
 import { USER_AGENT } from '../constants'
 import { withCachedJsonSchema } from '../lib/isolate-json-schema'
+import { apiFailureKind, classified } from '../tool-errors'
 import { toolError } from './tool-error'
 
 const NAME = 'submit_feedback'
@@ -190,9 +191,13 @@ function refusal(response: Response): CallToolResult {
   if (response.status === 429) {
     const seconds = retryAfterSeconds(response.headers.get('Retry-After'), Date.now())
     const wait = seconds === undefined ? '' : ` Try again in ${seconds} seconds.`
-    return toolError(`Cloudflare is receiving too much feedback right now.${wait}`)
+    return toolError(`Cloudflare is receiving too much feedback right now.${wait}`, 'rate_limited')
   }
-  return toolError(`Cloudflare did not accept the feedback (HTTP ${response.status}).`)
+  return classified(
+    toolError(`Cloudflare did not accept the feedback (HTTP ${response.status}).`, 'api_other'),
+    apiFailureKind(response.status),
+    response.status
+  )
 }
 
 async function send(
@@ -203,11 +208,12 @@ async function send(
 ): Promise<CallToolResult> {
   if (isPlaceholderMessage(input.message)) {
     return toolError(
-      '`message` is a placeholder. Describe what was attempted and what went wrong, or skip this tool if there is nothing to report.'
+      '`message` is a placeholder. Describe what was attempted and what went wrong, or skip this tool if there is nothing to report.',
+      'invalid_arguments'
     )
   }
   if (!(await withinCallerLimit(props))) {
-    return toolError(PER_CALLER_LIMIT_TEXT)
+    return toolError(PER_CALLER_LIMIT_TEXT, 'policy_refused')
   }
   const submissionId = crypto.randomUUID()
   let response: Response
@@ -220,7 +226,7 @@ async function send(
       redirect: 'manual'
     })
   } catch {
-    return toolError('Could not reach the Cloudflare feedback service.')
+    return toolError('Could not reach the Cloudflare feedback service.', 'internal')
   }
   if (response.status !== 202) {
     return refusal(response)
@@ -245,11 +251,14 @@ export async function runSubmitFeedbackTool(
 ): Promise<CallToolResult> {
   const url = feedbackUrl()
   if (!url) {
-    return toolError(`Unknown tool: ${NAME}`)
+    return toolError(`Unknown tool: ${NAME}`, 'unknown_tool')
   }
   const parsed = InputSchema.safeParse(args)
   if (!parsed.success) {
-    return toolError(`Invalid arguments for tool ${NAME}: ${parsed.error.message}`)
+    return toolError(
+      `Invalid arguments for tool ${NAME}: ${parsed.error.message}`,
+      'invalid_arguments'
+    )
   }
   return send(parsed.data, mode, url, props)
 }
