@@ -335,18 +335,22 @@ describe('Client ID Metadata Documents', () => {
     expect(await response.text()).toContain('name="handle"')
   })
 
-  it('requires a fresh authorization when metadata fails during the callback', async () => {
+  /** Authorize and approve with a healthy document, then reach the callback once its host answers `status`. */
+  async function callbackAfterMetadataFails(
+    status: number,
+    clientId = CIMD_CLIENT_ID
+  ): Promise<{ callback: Response; metadataFetches: number }> {
     let metadataFetches = 0
     server.use(
-      http.get(CIMD_CLIENT_ID, () => {
+      http.get(clientId, () => {
         metadataFetches++
         return metadataFetches <= 2
-          ? HttpResponse.json(cimdMetadata())
-          : new HttpResponse(null, { status: 502 })
+          ? HttpResponse.json(cimdMetadata(clientId))
+          : new HttpResponse(null, { status })
       })
     )
 
-    const authorization = await exports.default.fetch(new Request(authorizeUrl()))
+    const authorization = await exports.default.fetch(new Request(authorizeUrl(clientId)))
     expect(authorization.status).toBe(200)
     const html = await authorization.text()
     const handle = html.match(/name="handle" value="([^"]+)"/)?.[1]
@@ -374,6 +378,27 @@ describe('Client ID Metadata Documents', () => {
         { headers: { Cookie: cookiesFrom(approval) }, redirect: 'manual' }
       )
     )
+
+    return { callback, metadataFetches }
+  }
+
+  it('completes the callback from the last validated metadata when the host fails', async () => {
+    // Its own client ID: the provider caches the copy it fell back to, and the cache
+    // outlives the test.
+    const { callback, metadataFetches } = await callbackAfterMetadataFails(
+      502,
+      'https://outage.example.com/oauth/client.json'
+    )
+
+    expect(metadataFetches).toBe(3)
+    expect(callback.status).toBe(302)
+    expect(new URL(callback.headers.get('location')!).searchParams.get('code')).toBeTruthy()
+    expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(1)
+  })
+
+  it('requires a fresh authorization when the host refuses the metadata during the callback', async () => {
+    // A 403 never falls back to the last validated copy.
+    const { callback, metadataFetches } = await callbackAfterMetadataFails(403)
 
     expect(metadataFetches).toBe(3)
     expect(callback.status).toBe(500)
