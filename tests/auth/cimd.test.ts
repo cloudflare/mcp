@@ -72,6 +72,60 @@ function useCloudflareAuthSuccess(): void {
   )
 }
 
+/** Run the full CIMD authorization and code exchange, returning the issued refresh token. */
+async function authorizeAndExchange(): Promise<string> {
+  const authorization = await exports.default.fetch(new Request(authorizeUrl()))
+  const handle = (await authorization.text()).match(/name="handle" value="([^"]+)"/)?.[1]
+  const approval = await exports.default.fetch(
+    new Request(`${MCP_ORIGIN}/authorize`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Cookie: cookiesFrom(authorization)
+      },
+      body: new URLSearchParams({ handle: handle!, scopes: 'user:read' }).toString(),
+      redirect: 'manual'
+    })
+  )
+  const upstreamState = new URL(approval.headers.get('location')!).searchParams.get('state')
+  const callback = await exports.default.fetch(
+    new Request(
+      `${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(upstreamState!)}`,
+      { headers: { Cookie: cookiesFrom(approval) }, redirect: 'manual' }
+    )
+  )
+  const code = new URL(callback.headers.get('location')!).searchParams.get('code')
+  const tokenResponse = await exports.default.fetch(
+    new Request(`${MCP_ORIGIN}/token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'authorization_code',
+        code: code!,
+        client_id: CIMD_CLIENT_ID,
+        redirect_uri: REDIRECT_URI,
+        code_verifier: DOWNSTREAM_CODE_VERIFIER,
+        resource: MCP_RESOURCE
+      }).toString()
+    })
+  )
+  expect(tokenResponse.status).toBe(200)
+  return ((await tokenResponse.json()) as { refresh_token: string }).refresh_token
+}
+
+function refreshRequest(refreshToken: string): Request {
+  return new Request(`${MCP_ORIGIN}/token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+      client_id: CIMD_CLIENT_ID,
+      resource: MCP_RESOURCE
+    }).toString()
+  })
+}
+
 afterEach(async () => {
   await clearKv(env.OAUTH_KV)
 })
@@ -168,6 +222,23 @@ describe('Client ID Metadata Documents', () => {
 
     expect(metadataFetches).toBeGreaterThan(0)
     expect((await env.OAUTH_KV.list({ prefix: 'client:' })).keys).toHaveLength(0)
+  })
+
+  it('keeps an earlier grant when the same user authorizes the same CIMD client again', async () => {
+    // A hosted CIMD client (one client ID, one callback) can hold several independent
+    // connections for one Cloudflare user; a new one must not revoke the others.
+    server.use(http.get(CIMD_CLIENT_ID, () => HttpResponse.json(cimdMetadata())))
+    useCloudflareAuthSuccess()
+
+    const first = await authorizeAndExchange()
+    const second = await authorizeAndExchange()
+    expect(first.split(':')[1]).not.toBe(second.split(':')[1])
+    expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(2)
+
+    const firstRefresh = await exports.default.fetch(refreshRequest(first))
+    expect(firstRefresh.status).toBe(200)
+    const secondRefresh = await exports.default.fetch(refreshRequest(second))
+    expect(secondRefresh.status).toBe(200)
   })
 
   it('returns a local retryable error when metadata cannot be fetched', async () => {
