@@ -16,7 +16,8 @@ import {
   missingAccountMessage,
   unknownAccountHint
 } from '../auth/account-access'
-import { recordToolCall, toolCallClient, type RequestClient } from '../metrics'
+import { recordToolCall, toolCallClient } from '../metrics'
+import type { RequestClient } from '../metrics'
 import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'

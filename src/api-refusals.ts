@@ -8,7 +8,8 @@ import {
 } from './api-permissions'
 import type { Authorization, Connection } from './api-permissions'
 import { getPermissionPaths } from './isolate-cache'
-import { refusalKind, type ToolErrorKind } from './tool-errors'
+import { refusalKind } from './tool-errors'
+import type { ToolErrorKind } from './tool-errors'
 
 /**
  * Header `GlobalOutbound` sets on a refused response so the `execute` sandbox

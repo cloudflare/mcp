@@ -37,13 +37,8 @@ import {
 } from '../charge-confirmation'
 import { WWW_AUTHENTICATE_META_KEY } from '../scope-challenge'
 import type { ScopeChallenge } from '../scope-challenge'
-import {
-  apiFailureKind,
-  classified,
-  isToolErrorKind,
-  refusalKind,
-  type ToolErrorKind
-} from '../tool-errors'
+import { apiFailureKind, classified, isToolErrorKind, refusalKind } from '../tool-errors'
+import type { ToolErrorKind } from '../tool-errors'
 import {
   getWaitBudgetMs,
   FIRST_BACKOFF_MS,
@@ -108,15 +103,25 @@ export function executionErrorKind(
   execution: Extract<Execution, { ok: false }>,
   connection: Connection
 ): ToolErrorKind {
-  if (execution.needsAccount) return 'needs_account'
-  if (execution.stopped) return 'run_stopped'
+  if (execution.needsAccount) {
+    return 'needs_account'
+  }
+  if (execution.stopped) {
+    return 'run_stopped'
+  }
   if (execution.graphqlRefusal) {
     const permissions = GRAPHQL_PERMISSIONS[execution.graphqlRefusal]
     return refusalKind(authorize(connection, GRAPHQL_REQUEST, permissions).kind)
   }
-  if (execution.errorKind) return execution.errorKind
-  if (execution.notSent) return 'not_sent'
-  if (execution.apiStatus !== undefined) return apiFailureKind(execution.apiStatus)
+  if (execution.errorKind) {
+    return execution.errorKind
+  }
+  if (execution.notSent) {
+    return 'not_sent'
+  }
+  if (execution.apiStatus !== undefined) {
+    return apiFailureKind(execution.apiStatus)
+  }
   return 'code_error'
 }
 
@@ -873,7 +878,9 @@ export function registerExecuteTool(
           return failure
         }
         const challenge = scopeChallenge.require(scope)
-        if (!challenge) return failure
+        if (!challenge) {
+          return failure
+        }
         const kind = executionErrorKind(execution, connection)
         return classified(
           { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } },

@@ -66,26 +66,40 @@ export function classified<T extends object>(result: T, kind: ToolErrorKind, sta
  * `undefined` for a result that isn't an error.
  */
 export function toolErrorOf(result: unknown): ToolError | undefined {
-  if (typeof result !== 'object' || result === null) return undefined
-  if ((result as { isError?: unknown }).isError !== true) return undefined
+  if (typeof result !== 'object' || result === null) {
+    return undefined
+  }
+  if ((result as { isError?: unknown }).isError !== true) {
+    return undefined
+  }
   return errors.get(result) ?? { kind: 'other' }
 }
 
 export function isToolErrorKind(value: unknown): value is ToolErrorKind {
-  return typeof value === 'string' && (TOOL_ERROR_KINDS as readonly string[]).includes(value)
+  return typeof value === 'string' && (TOOL_ERROR_KINDS as ReadonlyArray<string>).includes(value)
 }
 
 /** The kind of a refusal, from the permission check's decision. */
 export function refusalKind(authorization: Authorization['kind']): ToolErrorKind {
-  if (authorization === 'missing') return 'refused_missing_scope'
-  if (authorization === 'unreachable') return 'refused_no_oauth_scope'
+  if (authorization === 'missing') {
+    return 'refused_missing_scope'
+  }
+  if (authorization === 'unreachable') {
+    return 'refused_no_oauth_scope'
+  }
   return 'refused_other'
 }
 
 /** The kind of a failed Cloudflare answer that isn't a refusal. */
 export function apiFailureKind(status: number): ToolErrorKind {
-  if (status === 429) return 'rate_limited'
-  if (status >= 400 && status < 500) return 'api_4xx'
-  if (status >= 500) return 'api_5xx'
+  if (status === 429) {
+    return 'rate_limited'
+  }
+  if (status >= 400 && status < 500) {
+    return 'api_4xx'
+  }
+  if (status >= 500) {
+    return 'api_5xx'
+  }
   return 'api_other'
 }

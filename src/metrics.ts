@@ -60,6 +60,7 @@
 import { env } from 'cloudflare:workers'
 import { CLIENT_INFO_META_KEY, PROTOCOL_VERSION_META_KEY } from '@modelcontextprotocol/server'
 import type { McpServer, ServerContext } from '@modelcontextprotocol/server'
+import { z } from 'zod'
 import type { AuthProps } from './auth/types'
 import { SERVER_INFO } from './constants'
 import type { ServerInfo } from './constants'
@@ -345,8 +346,13 @@ export interface RequestClient {
 
 const MAX_CLIENT_FIELD = 128
 
+// Loose on purpose: clientField() drops anything that isn't a usable string.
+const ClientInfo = z.object({ name: z.unknown(), version: z.unknown() })
+
 function clientField(value: unknown): string | undefined {
-  if (typeof value !== 'string') return undefined
+  if (typeof value !== 'string') {
+    return undefined
+  }
   const trimmed = value.trim()
   return trimmed ? trimmed.slice(0, MAX_CLIENT_FIELD) : undefined
 }
@@ -365,8 +371,10 @@ export function userAgentProduct(userAgent: string | null | undefined): string |
  * `initialize`, which is a request of its own here, so its User-Agent stands in.
  */
 export function toolCallClient(request: RequestClient, ctx?: ServerContext): ToolCallClient {
-  const envelope = ctx?.mcpReq?.envelope as Record<string, unknown> | undefined
-  const info = envelope?.[CLIENT_INFO_META_KEY] as { name?: unknown; version?: unknown } | undefined
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The SDK envelope type omits the client info and protocol keys read below.
+  const envelope: Record<string, unknown> | undefined = ctx?.mcpReq?.envelope
+  const parsedInfo = ClientInfo.safeParse(envelope?.[CLIENT_INFO_META_KEY])
+  const info = parsedInfo.success ? parsedInfo.data : undefined
   const protocol = clientField(envelope?.[PROTOCOL_VERSION_META_KEY]) ?? '2025'
   const name = clientField(info?.name)
   const [uaName, uaVersion] = request.userAgent?.split('/', 2) ?? []

@@ -1,5 +1,6 @@
 import type { CallToolResult } from '@modelcontextprotocol/server'
-import { classified, type ToolErrorKind } from '../tool-errors'
+import { classified } from '../tool-errors'
+import type { ToolErrorKind } from '../tool-errors'
 
 /** A tool error result with `message`, tagged with why it failed for metrics. */
 export function toolError(message: string, kind: ToolErrorKind): CallToolResult {
