@@ -190,24 +190,24 @@ describe('generated direct tools (?codemode=false)', () => {
 
   it('fills in the account for a merged path called with accounts, and needs the ID for zones', async () => {
     server.use(
-      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/access/apps`, () =>
-        HttpResponse.json(cfSuccess([{ id: 'app-1' }]))
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/waiting_rooms`, () =>
+        HttpResponse.json(cfSuccess([{ id: 'room-1' }]))
       ),
-      http.get(`${API_BASE}/zones/${ZONE_ID}/access/apps`, () =>
-        HttpResponse.json(cfSuccess([{ id: 'zone-app' }]))
+      http.get(`${API_BASE}/zones/${ZONE_ID}/waiting_rooms`, () =>
+        HttpResponse.json(cfSuccess([{ id: 'zone-room' }]))
       )
     )
     const call = (args: Record<string, unknown>) =>
-      callForgeTool(ACCOUNT_TOKEN, 'zeroTrust_access_applications_list', args)
+      callForgeTool(ACCOUNT_TOKEN, 'waitingRooms_accountWaitingRooms_list', args)
 
     const accounts = await call({ path: { account_or_zone: 'accounts' } })
     const zoneWithoutId = await call({ path: { account_or_zone: 'zones' } })
     const zone = await call({ path: { account_or_zone: 'zones', account_or_zone_id: ZONE_ID } })
 
-    expect(toolText(accounts)).toContain('app-1')
+    expect(toolText(accounts)).toContain('room-1')
     expect(zoneWithoutId.result?.isError).toBe(true)
     expect(toolText(zoneWithoutId)).toBe('Missing path parameter: account_or_zone_id')
-    expect(toolText(zone)).toContain('zone-app')
+    expect(toolText(zone)).toContain('zone-room')
   })
 
   it('asks for path.account_id when the session has several accounts', async () => {
