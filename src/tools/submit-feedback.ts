@@ -4,7 +4,7 @@ import type { CallToolResult, McpServer, Tool } from '@modelcontextprotocol/serv
 import type { AuthProps } from '../auth/types'
 import { USER_AGENT } from '../constants'
 import { withCachedJsonSchema } from '../lib/isolate-json-schema'
-import { apiFailureKind, classified } from '../tool-errors'
+import { apiFailureKind } from '../tool-errors'
 import { toolError } from './tool-error'
 
 const NAME = 'submit_feedback'
@@ -191,10 +191,14 @@ function refusal(response: Response): CallToolResult {
   if (response.status === 429) {
     const seconds = retryAfterSeconds(response.headers.get('Retry-After'), Date.now())
     const wait = seconds === undefined ? '' : ` Try again in ${seconds} seconds.`
-    return toolError(`Cloudflare is receiving too much feedback right now.${wait}`, 'rate_limited')
+    return toolError(
+      `Cloudflare is receiving too much feedback right now.${wait}`,
+      'rate_limited',
+      response.status
+    )
   }
-  return classified(
-    toolError(`Cloudflare did not accept the feedback (HTTP ${response.status}).`, 'api_other'),
+  return toolError(
+    `Cloudflare did not accept the feedback (HTTP ${response.status}).`,
     apiFailureKind(response.status),
     response.status
   )

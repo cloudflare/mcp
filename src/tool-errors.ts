@@ -69,7 +69,7 @@ export function toolErrorOf(result: unknown): ToolError | undefined {
   if (typeof result !== 'object' || result === null) {
     return undefined
   }
-  if ((result as { isError?: unknown }).isError !== true) {
+  if (!('isError' in result) || result.isError !== true) {
     return undefined
   }
   return errors.get(result) ?? { kind: 'other' }

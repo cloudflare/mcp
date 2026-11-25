@@ -366,6 +366,25 @@ export function userAgentProduct(userAgent: string | null | undefined): string |
 }
 
 /**
+ * A User-Agent product token's name and version, split at the first `/`
+ * (`foo/1.0/beta` is `foo` at `1.0/beta`). A version with no name is dropped,
+ * so blob6 never names a version blob5 doesn't name a client for.
+ */
+function userAgentNameAndVersion(
+  product: string | undefined
+): Pick<ToolCallClient, 'name' | 'version'> {
+  if (!product) {
+    return {}
+  }
+  const slash = product.indexOf('/')
+  const name = clientField(slash === -1 ? product : product.slice(0, slash))
+  if (!name) {
+    return {}
+  }
+  return { name, version: slash === -1 ? undefined : clientField(product.slice(slash + 1)) }
+}
+
+/**
  * Who made one tool call. A 2026-07-28 request names its client and protocol
  * in its `_meta` envelope. A 2025-era request names its client only in
  * `initialize`, which is a request of its own here, so its User-Agent stands in.
@@ -377,10 +396,10 @@ export function toolCallClient(request: RequestClient, ctx?: ServerContext): Too
   const info = parsedInfo.success ? parsedInfo.data : undefined
   const protocol = clientField(envelope?.[PROTOCOL_VERSION_META_KEY]) ?? '2025'
   const name = clientField(info?.name)
-  const [uaName, uaVersion] = request.userAgent?.split('/', 2) ?? []
+  const ua = userAgentNameAndVersion(request.userAgent)
   return {
-    name: name ?? clientField(uaName),
-    version: name ? clientField(info?.version) : clientField(uaVersion),
+    name: name ?? ua.name,
+    version: name ? clientField(info?.version) : ua.version,
     userAgent: request.userAgent,
     protocol,
     mode: request.mode,
@@ -417,6 +436,17 @@ export function recordResponseSchemaMismatch(
   metrics.logEvent(new ResponseSchemaMismatch({ ...mismatch, userId: userIdFromProps(props) }))
 }
 
+// Only `mcpReq` is read from the context, so it is all this checks.
+function isServerContext(value: unknown): value is ServerContext {
+  return (
+    value !== null &&
+    typeof value === 'object' &&
+    'mcpReq' in value &&
+    value.mcpReq !== null &&
+    typeof value.mcpReq === 'object'
+  )
+}
+
 function errorCodeOf(error: unknown): number {
   if (error !== null && typeof error === 'object' && 'code' in error) {
     const code = error.code
@@ -444,9 +474,13 @@ export function attachMetrics(server: McpServer, props?: AuthProps, request?: Re
   const userId = userIdFromProps(props)
 
   // The SDK passes the call's context last: `(args, ctx)`, or `(ctx)` for a tool without input.
-  const clientOf = (cbArgs: Array<unknown>): ToolCallClient | undefined =>
-    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The SDK always passes its ServerContext as the last callback argument.
-    request && toolCallClient(request, cbArgs.at(-1) as ServerContext | undefined)
+  const clientOf = (cbArgs: Array<unknown>): ToolCallClient | undefined => {
+    if (!request) {
+      return undefined
+    }
+    const ctx = cbArgs.at(-1)
+    return toolCallClient(request, isServerContext(ctx) ? ctx : undefined)
+  }
 
   const log = (
     name: string,

@@ -15,6 +15,7 @@ import {
   retryAfterSeconds,
   runSubmitFeedbackTool
 } from '../src/tools/submit-feedback'
+import { toolErrorOf } from '../src/tool-errors'
 import { mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { MCP_URL, mcpToolListRequest, modernMcpRequest, parseMcpResult } from './helpers/mcp'
@@ -237,32 +238,41 @@ describe('submit_feedback report', () => {
 
     expect(result).toMatchObject({ isError: true })
     expect(result.content).toEqual([{ type: 'text', text: expect.stringContaining('60 seconds') }])
+    expect(toolErrorOf(result)).toEqual({ kind: 'rate_limited', status: 429 })
   })
 
   it('reports a refused or unreachable endpoint as an error', async () => {
     respondWith(() => HttpResponse.json({ error: 'invalid' }, { status: 422 }))
-    expect(
-      await runSubmitFeedbackTool(
-        { ...REPORT, message: 'the docs search returned nothing' },
-        'codemode',
-        freshUser()
-      )
-    ).toMatchObject({
+    const refused = await runSubmitFeedbackTool(
+      { ...REPORT, message: 'the docs search returned nothing' },
+      'codemode',
+      freshUser()
+    )
+    expect(refused).toMatchObject({
       isError: true,
       content: [{ type: 'text', text: expect.stringContaining('HTTP 422') }]
     })
+    expect(toolErrorOf(refused)).toEqual({ kind: 'api_4xx', status: 422 })
+
+    respondWith(() => HttpResponse.json({ error: 'down' }, { status: 503 }))
+    const failed = await runSubmitFeedbackTool(
+      { ...REPORT, message: 'the docs search returned nothing' },
+      'codemode',
+      freshUser()
+    )
+    expect(toolErrorOf(failed)).toEqual({ kind: 'api_5xx', status: 503 })
 
     respondWith(() => HttpResponse.error())
-    expect(
-      await runSubmitFeedbackTool(
-        { ...REPORT, message: 'the docs search returned nothing' },
-        'codemode',
-        freshUser()
-      )
-    ).toMatchObject({
+    const unreachable = await runSubmitFeedbackTool(
+      { ...REPORT, message: 'the docs search returned nothing' },
+      'codemode',
+      freshUser()
+    )
+    expect(unreachable).toMatchObject({
       isError: true,
       content: [{ type: 'text', text: expect.stringContaining('Could not reach') }]
     })
+    expect(toolErrorOf(unreachable)).toEqual({ kind: 'internal' })
   })
 
   it('sends a message up to 32,000 characters and refuses a longer one without sending', async () => {
@@ -296,6 +306,7 @@ describe('submit_feedback report', () => {
     )
 
     expect(result).toMatchObject({ isError: true })
+    expect(toolErrorOf(result)).toEqual({ kind: 'invalid_arguments' })
     expect(received).toHaveLength(0)
   })
 
@@ -346,6 +357,7 @@ describe('submit_feedback report', () => {
         isError: true,
         content: [{ type: 'text', text: expect.stringContaining('placeholder') }]
       })
+      expect(toolErrorOf(result)).toEqual({ kind: 'invalid_arguments' })
       expect(received).toHaveLength(0)
     }
   )
@@ -376,6 +388,7 @@ describe('submit_feedback report', () => {
     const sixth = await runSubmitFeedbackTool({ ...REPORT, message: 'r5' }, 'direct', user)
 
     expect(sixth).toMatchObject({ isError: true })
+    expect(toolErrorOf(sixth)).toEqual({ kind: 'policy_refused' })
     expect(received).toHaveLength(5)
     expect(
       (await runSubmitFeedbackTool({ ...REPORT, message: 'other user' }, 'direct', freshUser()))

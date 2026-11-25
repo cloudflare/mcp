@@ -208,6 +208,15 @@ describe('toolCallClient', () => {
     const ctx = contextWith({ 'io.modelcontextprotocol/clientInfo': { name: 42 } })
     expect(toolCallClient(request, ctx).name).toBe('node')
   })
+
+  it.each([
+    ['node', 'node', undefined],
+    ['foo/', 'foo', undefined],
+    ['/1.0', undefined, undefined],
+    ['foo/1.0/beta', 'foo', '1.0/beta']
+  ])('splits the User-Agent %j into name %j and version %j', (userAgent, name, version) => {
+    expect(toolCallClient({ ...request, userAgent })).toMatchObject({ name, version })
+  })
 })
 
 describe('AuthUser', () => {
@@ -566,5 +575,47 @@ describe('tool_call emission via the real worker', () => {
     )
 
     expect(findToolCall(writeSpy)!.blobs?.[10]).toBe('unknown_tool')
+  })
+
+  it('records arguments a direct tool refused as invalid_arguments', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+    const base = mcpToolCallRequest(API_TOKEN, 'zones_list', { query: { no_such_parameter: 1 } })
+
+    await parseMcpResult(
+      await exports.default.fetch(new Request(`${MCP_URL}?codemode=false`, base))
+    )
+
+    expect(findToolCall(writeSpy)!.blobs?.[10]).toBe('invalid_arguments')
+  })
+
+  it('records a direct tool that needs an account the session cannot pick as needs_account', async () => {
+    mockIdentityProbe({
+      user: { id: 'user-1', email: 'user@example.com' },
+      accounts: [
+        { id: ACCOUNT_ID, name: 'Acc' },
+        { id: '00000000000000000000000000000002', name: 'Other' }
+      ]
+    })
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+    const base = mcpToolCallRequest(API_TOKEN, 'd1_list', {})
+
+    await parseMcpResult(
+      await exports.default.fetch(new Request(`${MCP_URL}?codemode=false`, base))
+    )
+
+    expect(findToolCall(writeSpy)!.blobs?.[10]).toBe('needs_account')
+  })
+
+  it('records search code that threw as code_error', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+
+    await callTool(API_TOKEN, 'search', { code: 'async () => { throw new Error("boom") }' })
+
+    const dp = findToolCall(writeSpy)!
+    expect(dp.blobs?.[3]).toBe('search')
+    expect(dp.blobs?.[10]).toBe('code_error')
+    expect(dp.doubles?.[1]).toBe(0)
   })
 })

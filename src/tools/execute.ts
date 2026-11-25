@@ -834,11 +834,8 @@ export function registerExecuteTool(
           return { content: [{ type: 'text', text }] }
         }
 
-        const failure = classified(
-          formatError(execution.message),
-          executionErrorKind(execution, connection),
-          execution.apiStatus
-        )
+        const kind = executionErrorKind(execution, connection)
+        const failure = classified(formatError(execution.message), kind, execution.apiStatus)
         const pathAccount = account_id ? undefined : refusedAccountId(execution.message)
         const hint = account_id
           ? unknownAccountHint(props, account_id)
@@ -881,7 +878,6 @@ export function registerExecuteTool(
         if (!challenge) {
           return failure
         }
-        const kind = executionErrorKind(execution, connection)
         return classified(
           { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } },
           kind,
