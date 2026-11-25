@@ -39,6 +39,11 @@ interface AuthEnv extends Env {
   OAUTH_PROVIDER: OAuthHelpers
 }
 
+/** The provider has already validated the client; only a CIMD client ID is an https URL. */
+function isClientIdMetadataDocumentUrl(clientId: string): boolean {
+  return clientId.startsWith('https://')
+}
+
 // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The OAuth provider attaches this helper binding at runtime.
 const env = cloudflareEnv as AuthEnv
 const ALLOWED_SCOPES = new Set<string>(ALL_SCOPES)
@@ -372,6 +377,10 @@ export function createAuthHandlers() {
       const { redirectTo } = await env.OAUTH_PROVIDER.completeAuthorization({
         request: oauthReqInfo,
         userId: identity.user.id,
+        // A CIMD client ID and its callback are shared by every connection a hosted client
+        // holds, so replacing "existing" grants revokes the user's other live connections.
+        // Registered clients get a client ID per install and keep replacement.
+        revokeExistingGrants: !isClientIdMetadataDocumentUrl(oauthReqInfo.clientId),
         metadata: { label: identity.user.email },
         scope: grantedScopes(oauthReqInfo.scope, upstreamScope),
         props: {
