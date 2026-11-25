@@ -23,9 +23,14 @@ export interface MountOptions<Output extends z.ZodType> {
   /**
    * Render while the tool runs. Defaults to `copy.pending` as text. `toolName`
    * is the host's `toolInfo`, for an App one view serves for several tools;
-   * it is absent until the host connects.
+   * it is absent until the host connects. `input` is the call's arguments once
+   * the host sends them (`ui/notifications/tool-input`), so the pending view
+   * can show what is running; it is absent before that.
    */
-  readonly renderPending?: (toolName: string | undefined) => ReactNode
+  readonly renderPending?: (
+    toolName: string | undefined,
+    input: Record<string, unknown> | undefined
+  ) => ReactNode
   /**
    * Render a tool error (`isError`), with its text. `retry` calls the tool
    * again with the same arguments, through the host, and renders what it
@@ -44,12 +49,26 @@ export interface MountOptions<Output extends z.ZodType> {
    * and date formats. Defaults to English only. See `./locale.ts`.
    */
   readonly languages?: readonly [string, ...string[]]
+  /**
+   * The view's height to report to the host, in px. Defaults to the SDK's
+   * (the document at `max-content`). An App whose view stretches to fill a
+   * frame taller than itself reports its natural height instead, or the
+   * frame could never shrink back to it.
+   */
+  readonly measure?: () => number
 }
 
 function applyTheme(mode: string | undefined) {
   if (!mode) return
   document.documentElement.dataset.mode = mode
   document.documentElement.style.colorScheme = mode
+}
+
+/** Set `data-display` (`inline`, `fullscreen`, `pip`) for CSS. True when it changed, so the view redraws. */
+function applyDisplayMode(mode: string | undefined): boolean {
+  if (!mode || document.documentElement.dataset.display === mode) return false
+  document.documentElement.dataset.display = mode
+  return true
 }
 
 /**
@@ -70,7 +89,11 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
     ...options.copy
   }
   const root = createRoot(document.getElementById('root')!)
-  const app = new App({ name: options.name, version: options.version ?? '1.0.0' }, {})
+  const app = new App(
+    { name: options.name, version: options.version ?? '1.0.0' },
+    {},
+    { autoResize: !options.measure }
+  )
   const mounted: MountedApp = { app }
 
   // The last thing drawn, so a locale change re-renders it in the new formats and direction.
@@ -89,18 +112,27 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
     const context = app.getHostContext()
     applyTheme(context?.theme)
     const relocalised = applyLocale(resolveLocale(context?.locale, options.languages ?? ['en']))
-    if (relocalised || toolName() !== drawnFor) root.render(last())
+    const redisplayed = applyDisplayMode(context?.displayMode)
+    if (relocalised || redisplayed || toolName() !== drawnFor) root.render(last())
   }
-  const pending = () =>
-    draw(() => options.renderPending?.(toolName()) ?? <p role="status">{copy.pending}</p>)
   let input: Record<string, unknown> | undefined
+  const pending = () =>
+    draw(() => options.renderPending?.(toolName(), input) ?? <p role="status">{copy.pending}</p>)
+  // The pending view is the only one drawn from the input; a result or error already on screen stays.
+  let settled = false
+  // A result or error has been drawn: a late cancel or a failed connect doesn't take it off the screen.
+  let answered = false
   const show = (result: CallToolResult) => {
+    settled = true
+    answered = true
     if (result.isError && options.renderError) {
       const text = result.content.flatMap((c) => (c.type === 'text' ? [c.text] : [])).join('\n')
       // Decided at each draw, from the host's current context: `toolInfo` can arrive after the error.
+      // Only with the call's own arguments: a retry without them would run the tool on nothing.
       const retryFor = (name: string | undefined) =>
-        name && app.getHostCapabilities()?.serverTools
+        name && input && app.getHostCapabilities()?.serverTools
           ? () => {
+              settled = false
               pending()
               app
                 .callServerTool({ name, arguments: input ?? {} })
@@ -122,15 +154,60 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
   app.onhostcontextchanged = followHost
   app.ontoolinput = (params) => {
     input = params.arguments
+    // Settled, the view on screen stays; redrawn, an error offers Try again now that the arguments are known.
+    if (!settled) pending()
+    else root.render(last())
   }
   app.ontoolresult = (result) => {
     followHost()
     show(result)
   }
-  app.ontoolcancelled = () => draw(() => <p role="status">{copy.cancelled}</p>)
-  app
-    .connect()
+  app.ontoolcancelled = () => {
+    if (answered) return
+    // Settled: a late tool-input doesn't bring the pending view back.
+    settled = true
+    draw(() => <p role="status">{copy.cancelled}</p>)
+  }
+  app.connect().then(
     // With the host's `toolInfo` now known, `followHost` redraws the pending view for its tool.
-    .then(followHost)
-    .catch(() => draw(() => <p role="alert">{copy.disconnected}</p>))
+    () => {
+      followHost()
+      if (options.measure) reportSize(app, options.measure)
+    },
+    // Only the connect failing: a throw in the redraw above isn't a lost host.
+    () => {
+      if (!answered) draw(() => <p role="alert">{copy.disconnected}</p>)
+    }
+  )
+}
+
+/** Report `measure()` to the host whenever the document's size may have changed, once a frame. */
+function reportSize(app: App, measure: () => number) {
+  let queued = false
+  let width = 0
+  let height = 0
+  const send = () => {
+    if (queued) return
+    queued = true
+    requestAnimationFrame(() => {
+      queued = false
+      const h = Math.ceil(measure())
+      const w = Math.ceil(window.innerWidth)
+      if (w === width && h === height) return
+      width = w
+      height = h
+      void app.sendSizeChanged({ width: w, height: h }).catch(() => undefined)
+    })
+  }
+  send()
+  const ro = new ResizeObserver(send)
+  ro.observe(document.documentElement)
+  ro.observe(document.body)
+  // Content that changes without resizing the document (a card that fills the frame) still changes what is measured.
+  new MutationObserver(send).observe(document.body, {
+    subtree: true,
+    childList: true,
+    attributes: true,
+    characterData: true
+  })
 }

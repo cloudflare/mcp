@@ -26,6 +26,7 @@ import {
   MCP_APP_GENERATED_TOOLS,
   MCP_APP_TEXT_TOOLS,
   MCP_APP_TOOLS,
+  appToolRefusal,
   mcpAppNamed
 } from '../mcp-apps/registry'
 import type { AppContext } from '../mcp-apps/define'
@@ -177,12 +178,16 @@ export function registerAppGeneratedTools(
         ...(tool._meta && { _meta: tool._meta }),
         inputSchema: listedAs(tool.inputSchema)
       },
-      (args: Record<string, unknown>) =>
-        callGeneratedTool(tool.name, args, context.props, stringifyResponse, {
+      (args: Record<string, unknown>) => {
+        // What the App promises about its writes (D1 Studio: reads only) holds on the server, not only in the view.
+        const refusal = appToolRefusal(tool.name, args)
+        if (refusal) return Promise.resolve(toolError(refusal))
+        return callGeneratedTool(tool.name, args, context.props, stringifyResponse, {
           connection: context.connection,
           scopeChallenge: context.scopeChallenge,
           structured: false
         })
+      }
     )
   }
 }
