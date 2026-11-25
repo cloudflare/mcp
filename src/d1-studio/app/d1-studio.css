@@ -3303,12 +3303,3 @@ button.dq-diff {
   padding-left: 8px;
 }
 
-/* In the App the console is the whole document the host's fullscreen gives the view. */
-:root[data-display='fullscreen'],
-:root[data-display='fullscreen'] body,
-:root[data-display='fullscreen'] #root {
-  height: 100%;
-}
-:root[data-display='fullscreen'] .dq.cx {
-  height: 100vh;
-}
