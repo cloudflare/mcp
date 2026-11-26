@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import type { CallToolResult, McpServer, Tool } from '@modelcontextprotocol/server'
 import type { AuthProps } from '../auth/types'
+import { classified } from '../tool-errors'
 
 const TITLE = 'Current Cloudflare Identity'
 
@@ -110,10 +111,13 @@ export function runWhoamiTool(props: AuthProps): CallToolResult {
   // OpenAI requires an error here rather than a placeholder identity.
   const whoami = whoamiFor(props)
   if (!whoami) {
-    return {
-      content: [{ type: 'text', text: 'This credential has no Cloudflare user or account ID.' }],
-      isError: true
-    }
+    return classified(
+      {
+        content: [{ type: 'text', text: 'This credential has no Cloudflare user or account ID.' }],
+        isError: true
+      },
+      'internal'
+    )
   }
   return {
     content: [{ type: 'text', text: JSON.stringify(whoami) }],

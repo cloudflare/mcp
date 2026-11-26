@@ -4,6 +4,7 @@ import type { Connection } from '../api-permissions'
 import { filteredListBody, refusalFor } from '../api-refusals'
 import { WWW_AUTHENTICATE_META_KEY } from '../scope-challenge'
 import type { ScopeChallenge } from '../scope-challenge'
+import { apiFailureKind, classified } from '../tool-errors'
 import type { FormatToolResult } from '../truncate'
 
 /** One Cloudflare API request a direct tool sent, and Cloudflare's answer. */
@@ -63,5 +64,12 @@ export function apiCallResult(
     .join('\n\n')
   const failure: CallToolResult = { content: [{ type: 'text', text }], isError: true }
   const challenge = refusal?.scope ? scopeChallenge.require(refusal.scope) : undefined
-  return challenge ? { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } } : failure
+  const result = challenge
+    ? { ...failure, _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } }
+    : failure
+  return classified(
+    result,
+    refusal?.kind ?? apiFailureKind(call.status),
+    refusal?.status ?? call.status
+  )
 }

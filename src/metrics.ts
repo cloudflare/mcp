@@ -14,6 +14,22 @@
  *   blob4   = toolName (tool_call, response_schema_mismatch) | errorMessage (auth_user)
  *   double1 = errorCode (tool_call; always 0 for response_schema_mismatch)
  *
+ * `tool_call` adds who made the call (see {@link ToolCallClient}), so usage can
+ * be broken down by harness:
+ *   blob5   = client name: the 2026-07-28 `_meta` clientInfo name, else the
+ *             User-Agent's product name
+ *   blob6   = client version, from the same source as blob5
+ *   blob7   = User-Agent's first product token (`claude-code/2.1.0`)
+ *   blob8   = protocol: the 2026-07-28 envelope's protocol version, else `2025`
+ *   blob9   = tool mode (`codemode` | `direct`)
+ *   blob10  = connection kind (`oauth` | `direct`)
+ * A failed call also says why (see `src/tool-errors.ts`):
+ *   blob11  = error kind (`refused_missing_scope`, `api_5xx`, `code_error`, …)
+ *   double2 = HTTP status of the Cloudflare API answer that failed it, else 0
+ * A successful call leaves both out. Events written before these fields
+ * existed leave them empty. The OAuth client ID is left out: a registered one
+ * is a stable per-installation ID, and blob5–blob7 already name the client.
+ *
  * `response_schema_mismatch` (a direct-tool response that doesn't match its
  * OpenAPI response schema, see `src/response-validation.ts`) adds:
  *   blob5   = HTTP method (`GET`)
@@ -37,16 +53,19 @@
  * emit `session_start` events the way the Durable-Object-backed Cloudflare MCP
  * servers do. MCP 2026-07-28 has no protocol session or initialize handshake;
  * the 2025 compatibility path also retains no initialization state between
- * requests. The slots reserved upstream for session client info remain unused,
- * keeping shared-dataset queries compatible. Client identity is available at
- * the HTTP layer via the User-Agent header instead.
+ * requests. There is no `session_start` to carry client info, so each
+ * `tool_call` carries it instead (blob5–blob10).
  */
 
 import { env } from 'cloudflare:workers'
-import type { McpServer } from '@modelcontextprotocol/server'
+import { CLIENT_INFO_META_KEY, PROTOCOL_VERSION_META_KEY } from '@modelcontextprotocol/server'
+import type { McpServer, ServerContext } from '@modelcontextprotocol/server'
+import { z } from 'zod'
 import type { AuthProps } from './auth/types'
 import { SERVER_INFO } from './constants'
 import type { ServerInfo } from './constants'
+import { toolErrorOf } from './tool-errors'
+import type { ToolError } from './tool-errors'
 
 export enum MetricsEventIndexId {
   AUTH_USER = 'auth_user',
@@ -157,26 +176,53 @@ export abstract class MetricsEvent {
   }
 }
 
+/** Who made a tool call: the client, its protocol, the tool mode and the credential. */
+export interface ToolCallClient {
+  readonly name?: string
+  readonly version?: string
+  readonly userAgent?: string
+  readonly protocol: string
+  readonly mode: 'codemode' | 'direct'
+  readonly connection: 'oauth' | 'direct'
+}
+
 export class ToolCall extends MetricsEvent {
   constructor(
     private toolCall: {
       userId?: string
       toolName: string
       errorCode?: number
+      client?: ToolCallClient
+      /** Why the call failed; a failed call without it is recorded as `other`. */
+      error?: ToolError
     }
   ) {
     super()
   }
 
   toDataPoint(): AnalyticsEngineDataPoint {
+    const { client, error } = this.toolCall
+    const failed: ToolError | undefined =
+      error ?? (this.toolCall.errorCode === undefined ? undefined : { kind: 'other' })
     return {
       indexes: [MetricsEventIndexId.TOOL_CALL],
       blobs: this.mapBlobs({
         blob3: this.toolCall.userId,
-        blob4: this.toolCall.toolName
+        blob4: this.toolCall.toolName,
+        // Blobs are positional: a failure without a client still fills blob5-blob10.
+        ...((client || failed) && {
+          blob5: client?.name,
+          blob6: client?.version,
+          blob7: client?.userAgent,
+          blob8: client?.protocol,
+          blob9: client?.mode,
+          blob10: client?.connection
+        }),
+        ...(failed && { blob11: failed.kind })
       }),
       doubles: this.mapDoubles({
-        double1: this.toolCall.errorCode
+        double1: this.toolCall.errorCode,
+        ...(failed && { double2: failed.status ?? 0 })
       })
     }
   }
@@ -287,14 +333,96 @@ function userIdFromProps(props?: AuthProps): string | undefined {
   return props?.type === 'user_token' ? props.user.id : undefined
 }
 
-/** Record one tool call from a low-level protocol handler. */
-export function recordToolCall(props: AuthProps, toolName: string, isError: boolean): void {
+/**
+ * What the HTTP request says about its client, the same for every tool call in
+ * it. Built once per request in `src/mcp-handler.ts`.
+ */
+export interface RequestClient {
+  readonly mode: ToolCallClient['mode']
+  readonly connection: ToolCallClient['connection']
+  /** The User-Agent's first product token, from {@link userAgentProduct}. */
+  readonly userAgent?: string
+}
+
+const MAX_CLIENT_FIELD = 128
+
+// Loose on purpose: clientField() drops anything that isn't a usable string.
+const ClientInfo = z.object({ name: z.unknown(), version: z.unknown() })
+
+function clientField(value: unknown): string | undefined {
+  if (typeof value !== 'string') {
+    return undefined
+  }
+  const trimmed = value.trim()
+  return trimmed ? trimmed.slice(0, MAX_CLIENT_FIELD) : undefined
+}
+
+/**
+ * The first product token of a User-Agent (`claude-code/2.1.0 (darwin)` →
+ * `claude-code/2.1.0`). The rest, such as the OS and platform, is left out.
+ */
+export function userAgentProduct(userAgent: string | null | undefined): string | undefined {
+  return clientField(userAgent?.trim().split(/\s+/, 1)[0])
+}
+
+/**
+ * A User-Agent product token's name and version, split at the first `/`
+ * (`foo/1.0/beta` is `foo` at `1.0/beta`). A version with no name is dropped,
+ * so blob6 never names a version blob5 doesn't name a client for.
+ */
+function userAgentNameAndVersion(
+  product: string | undefined
+): Pick<ToolCallClient, 'name' | 'version'> {
+  if (!product) {
+    return {}
+  }
+  const slash = product.indexOf('/')
+  const name = clientField(slash === -1 ? product : product.slice(0, slash))
+  if (!name) {
+    return {}
+  }
+  return { name, version: slash === -1 ? undefined : clientField(product.slice(slash + 1)) }
+}
+
+/**
+ * Who made one tool call. A 2026-07-28 request names its client and protocol
+ * in its `_meta` envelope. A 2025-era request names its client only in
+ * `initialize`, which is a request of its own here, so its User-Agent stands in.
+ */
+export function toolCallClient(request: RequestClient, ctx?: ServerContext): ToolCallClient {
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The SDK envelope type omits the client info and protocol keys read below.
+  const envelope: Record<string, unknown> | undefined = ctx?.mcpReq?.envelope
+  const parsedInfo = ClientInfo.safeParse(envelope?.[CLIENT_INFO_META_KEY])
+  const info = parsedInfo.success ? parsedInfo.data : undefined
+  const protocol = clientField(envelope?.[PROTOCOL_VERSION_META_KEY]) ?? '2025'
+  const name = clientField(info?.name)
+  const ua = userAgentNameAndVersion(request.userAgent)
+  return {
+    name: name ?? ua.name,
+    version: name ? clientField(info?.version) : ua.version,
+    userAgent: request.userAgent,
+    protocol,
+    mode: request.mode,
+    connection: request.connection
+  }
+}
+
+/** Record one tool call, and why its result failed, from a low-level protocol handler. */
+export function recordToolCall(
+  props: AuthProps,
+  toolName: string,
+  result: unknown,
+  client?: ToolCallClient
+): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
+  const error = toolErrorOf(result)
   metrics.logEvent(
     new ToolCall({
       toolName,
       userId: userIdFromProps(props),
-      errorCode: isError ? -1 : undefined
+      errorCode: error ? -1 : undefined,
+      client,
+      error
     })
   )
 }
@@ -306,6 +434,17 @@ export function recordResponseSchemaMismatch(
 ): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
   metrics.logEvent(new ResponseSchemaMismatch({ ...mismatch, userId: userIdFromProps(props) }))
+}
+
+// Only `mcpReq` is read from the context, so it is all this checks.
+function isServerContext(value: unknown): value is ServerContext {
+  return (
+    value !== null &&
+    typeof value === 'object' &&
+    'mcpReq' in value &&
+    value.mcpReq !== null &&
+    typeof value.mcpReq === 'object'
+  )
 }
 
 function errorCodeOf(error: unknown): number {
@@ -320,28 +459,47 @@ function errorCodeOf(error: unknown): number {
 
 /**
  * Wire Analytics Engine metrics into a server instance: log a `tool_call` for
- * every tool invocation (with an `errorCode` on failure). Monkey-patches
+ * every tool invocation (with an `errorCode` and error kind on failure). Monkey-patches
  * `registerTool` so every tool registered after this call is tracked
  * identically. Tolerant of a missing MCP_METRICS binding (becomes a no-op).
  *
  * Note: unlike the Durable-Object-backed Cloudflare MCP servers, this server is
  * stateless (a fresh McpServer per request), so there is no meaningful
  * `session_start` to log. Modern MCP has no initialize handshake, and the
- * stateless 2025 fallback retains no client lifecycle between requests. Client
- * identity is instead available at the HTTP layer via the User-Agent header.
+ * stateless 2025 fallback retains no client lifecycle between requests. Each
+ * `tool_call` names its client instead, from `request` and the call's context.
  */
-export function attachMetrics(server: McpServer, props?: AuthProps): void {
+export function attachMetrics(server: McpServer, props?: AuthProps, request?: RequestClient): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
   const userId = userIdFromProps(props)
 
+  // The SDK passes the call's context last: `(args, ctx)`, or `(ctx)` for a tool without input.
+  const clientOf = (cbArgs: Array<unknown>): ToolCallClient | undefined => {
+    if (!request) {
+      return undefined
+    }
+    const ctx = cbArgs.at(-1)
+    return toolCallClient(request, isServerContext(ctx) ? ctx : undefined)
+  }
+
+  const log = (
+    name: string,
+    cbArgs: Array<unknown>,
+    errorCode: number | undefined,
+    error: ToolError | undefined
+  ) =>
+    metrics.logEvent(
+      new ToolCall({ toolName: name, userId, errorCode, client: clientOf(cbArgs), error })
+    )
+
   // Our tool callbacks signal failure by returning `{ isError: true }` rather
   // than throwing, so inspect the resolved result as well as the thrown path.
-  const logResult = (name: string, result: unknown) => {
-    const failed =
-      result !== null && typeof result === 'object' && 'isError' in result && result.isError
-    const errorCode = failed ? -1 : undefined
-    metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode }))
+  const logResult = (name: string, cbArgs: Array<unknown>, result: unknown) => {
+    const error = toolErrorOf(result)
+    log(name, cbArgs, error ? -1 : undefined, error)
   }
+  const logThrown = (name: string, cbArgs: Array<unknown>, error: unknown) =>
+    log(name, cbArgs, errorCodeOf(error), { kind: 'internal' })
 
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The metrics wrapper preserves the SDK's runtime registration contract.
   const originalRegisterTool = server.registerTool.bind(server) as (
@@ -367,20 +525,18 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
         if (out instanceof Promise) {
           return out
             .then((r: unknown) => {
-              logResult(name, r)
+              logResult(name, cbArgs, r)
               return r
             })
             .catch((error: unknown) => {
-              metrics.logEvent(
-                new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(error) })
-              )
+              logThrown(name, cbArgs, error)
               throw error
             })
         }
-        logResult(name, out)
+        logResult(name, cbArgs, out)
         return out
       } catch (error) {
-        metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(error) }))
+        logThrown(name, cbArgs, error)
         throw error
       }
     }

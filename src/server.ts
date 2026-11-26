@@ -7,6 +7,7 @@ import { registerWhoamiTool } from './tools/whoami'
 import { registerSubmitFeedbackTool } from './tools/submit-feedback'
 import { registerSkills } from './skills/handlers'
 import { attachMetrics } from './metrics'
+import type { RequestClient } from './metrics'
 import { SERVER_INFO } from './constants'
 import { stringifyResponse, truncateResponse } from './truncate'
 import type { AuthProps } from './auth/types'
@@ -50,6 +51,8 @@ export interface RequestContext {
   readonly scopeChallenge: ScopeChallenge
   /** MCP Events, served when the Worker environment is available. */
   readonly events?: { readonly env: EventEnvironment; readonly bearer: string }
+  /** What the HTTP request says about its client, for `tool_call` metrics. */
+  readonly client?: { readonly userAgent?: string }
 }
 
 /** A request whose credential can't step up and that serves no events, e.g. in tests. */
@@ -72,8 +75,13 @@ export function createServer(
     experimentalOutputSchema = false,
     truncateToolResult = codemode
   }: ServerOptions = {},
-  { connection, scopeChallenge, events }: RequestContext = directRequestContext()
+  { connection, scopeChallenge, events, client }: RequestContext = directRequestContext()
 ): McpServer {
+  const requestClient: RequestClient = {
+    ...client,
+    mode: codemode ? 'codemode' : 'direct',
+    connection: connection.kind
+  }
   const server = new McpServer(SERVER_INFO)
   // The tool set is fixed for the life of each per-request server, so this
   // server never sends notifications/tools/list_changed. Declare that before
@@ -87,14 +95,15 @@ export function createServer(
   if (!codemode) {
     const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
     registerForgeTools(server, props, formatResult, connection, scopeChallenge, {
-      outputSchema: experimentalOutputSchema
+      outputSchema: experimentalOutputSchema,
+      client: requestClient
     })
     return server
   }
 
   // Track tool_call metrics for every Code-Mode tool registered below. The
   // metrics wrapper also mirrors tool.title into annotations.title.
-  attachMetrics(server, props)
+  attachMetrics(server, props, requestClient)
   registerDocsTool(server)
   registerSearchTool(server, truncateToolResult)
   registerExecuteTool(server, props, truncateToolResult, connection, scopeChallenge)

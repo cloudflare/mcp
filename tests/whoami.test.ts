@@ -4,6 +4,7 @@ import { InMemoryTransport, McpServer } from '@modelcontextprotocol/server'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
 import { runWhoamiTool, registerWhoamiTool, WHOAMI_TOOL } from '../src/tools/whoami'
+import { toolErrorOf } from '../src/tool-errors'
 import { mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { MCP_URL, modernMcpRequest, parseMcpResult } from './helpers/mcp'
@@ -100,6 +101,7 @@ describe('whoami result', () => {
     const anonymous: AuthProps = { ...user, user: { id: '', email: 'alice@example.com' } }
     expect(runWhoamiTool(anonymous)).toMatchObject({ isError: true })
     expect(runWhoamiTool(anonymous)).not.toHaveProperty('structuredContent')
+    expect(toolErrorOf(runWhoamiTool(anonymous))).toEqual({ kind: 'internal' })
   })
 })
 

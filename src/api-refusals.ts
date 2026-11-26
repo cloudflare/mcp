@@ -8,6 +8,8 @@ import {
 } from './api-permissions'
 import type { Authorization, Connection } from './api-permissions'
 import { getPermissionPaths } from './isolate-cache'
+import { refusalKind } from './tool-errors'
+import type { ToolErrorKind } from './tool-errors'
 
 /**
  * Header `GlobalOutbound` sets on a refused response so the `execute` sandbox
@@ -17,6 +19,13 @@ export const REFUSAL_HINT_HEADER = 'X-Cloudflare-MCP-Refusal-Hint'
 
 /** Header `GlobalOutbound` sets on a refused response naming the OAuth scope to challenge for. */
 export const MISSING_SCOPE_HEADER = 'X-Cloudflare-MCP-Missing-Scope'
+
+/**
+ * Header `GlobalOutbound` sets on a refused response with its error kind for
+ * metrics (`src/tool-errors.ts`). The sandbox reports it back; the host only
+ * accepts a known kind.
+ */
+export const ERROR_KIND_HEADER = 'X-Cloudflare-MCP-Error-Kind'
 
 /** A Cloudflare API answer that refused the request, and what it tells the agent and the client. */
 export interface Refusal {
@@ -28,6 +37,8 @@ export interface Refusal {
   readonly scope: string | undefined
   /** Whether Cloudflare answered with an empty list that this server refused instead. */
   readonly filtered: boolean
+  /** Why it was refused, for metrics. */
+  readonly kind: ToolErrorKind
 }
 
 /** Why a `200` with an empty list became a 403. Stands in for Cloudflare's errors. */
@@ -122,7 +133,13 @@ export function refusalFor(
     if (!refusesCredential(status, body)) {
       return undefined
     }
-    return { status, hint: explainRefusal(status, authorization), scope, filtered: false }
+    return {
+      status,
+      hint: explainRefusal(status, authorization),
+      scope,
+      filtered: false,
+      kind: refusalKind(authorization.kind)
+    }
   }
   if (
     status >= 200 &&
@@ -130,7 +147,13 @@ export function refusalFor(
     isEmptyList(body) &&
     emptyListProvesNothing(method, authorization, permissions)
   ) {
-    return { status: 403, hint: explainRefusal(403, authorization), scope, filtered: true }
+    return {
+      status: 403,
+      hint: explainRefusal(403, authorization),
+      scope,
+      filtered: true,
+      kind: refusalKind(authorization.kind)
+    }
   }
   return undefined
 }
@@ -250,6 +273,7 @@ function withRefusalHeaders(response: Response, body: BodyInit | null, refusal: 
   if (refusal.scope) {
     headers.set(MISSING_SCOPE_HEADER, refusal.scope)
   }
+  headers.set(ERROR_KIND_HEADER, refusal.kind)
   return new Response(body, {
     status: response.status,
     statusText: response.statusText,

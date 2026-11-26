@@ -3,6 +3,7 @@ import { withCachedJsonSchema } from '../lib/isolate-json-schema'
 import { env } from 'cloudflare:workers'
 import type { McpServer, Tool } from '@modelcontextprotocol/server'
 import { formatError } from '../utils/errors'
+import { classified } from '../tool-errors'
 
 const AiSearchResponseSchema = z.object({
   object: z.string(),
@@ -100,7 +101,10 @@ export const DOCS_TOOL: Tool = {
 
 export async function runDocsTool(query: string) {
   if (!env.AI) {
-    return formatError('Cloudflare docs search is not configured in this environment.')
+    return classified(
+      formatError('Cloudflare docs search is not configured in this environment.'),
+      'internal'
+    )
   }
 
   const structuredContent: DocsSearchOutput = {
