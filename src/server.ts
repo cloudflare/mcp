@@ -14,7 +14,8 @@ import { stringifyResponse, truncateResponse } from './truncate'
 import type { AuthProps } from './auth/types'
 import { registerEventMethods } from './events/methods'
 import type { EventEnvironment } from './events/state'
-import { DIRECT_CONNECTION, type Connection } from './api-permissions'
+import { DIRECT_CONNECTION } from './api-permissions'
+import type { Connection } from './api-permissions'
 import { ScopeChallenge } from './scope-challenge'
 
 /** Per-request options the client picks through the MCP URL query string. */
@@ -98,7 +99,9 @@ export function createServer(
   // to clients that declared MCP Apps. Reading one always works: the HTML is
   // static and the same for everyone.
   registerSkills(server, MCP_APP_RESOURCES, { listStatic: mcpApps })
-  if (events) registerEventMethods(server, events.env, props, events.bearer)
+  if (events) {
+    registerEventMethods(server, events.env, props, events.bearer)
+  }
   if (!codemode) {
     const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
     registerForgeTools(server, props, formatResult, connection, scopeChallenge, {

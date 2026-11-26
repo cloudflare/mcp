@@ -40,7 +40,7 @@ type DocsSearchResult = {
 }
 
 type DocsSearchOutput = {
-  results: DocsSearchResult[]
+  results: Array<DocsSearchResult>
 }
 
 export const docsToolDescription = `Search the Cloudflare documentation.
@@ -152,7 +152,7 @@ export function registerDocsTool(server: McpServer) {
   )
 }
 
-export async function queryCloudflareDocs(ai: Ai, query: string): Promise<DocsSearchResult[]> {
+export async function queryCloudflareDocs(ai: Ai, query: string): Promise<Array<DocsSearchResult>> {
   const rawResponse = await doWithRetries(() =>
     ai.autorag('docs-mcp-rag').search({
       query
@@ -170,7 +170,7 @@ export async function queryCloudflareDocs(ai: Ai, query: string): Promise<DocsSe
   }))
 }
 
-export function formatDocsResults(results: DocsSearchResult[]): string {
+export function formatDocsResults(results: Array<DocsSearchResult>): string {
   return results
     .map(
       (result) => `<result>
@@ -204,10 +204,10 @@ export function extractTitle(filename: string): string {
     .replace(/\/$/, '')
     .replace(/\.mdx?$/, '')
     .split('/')
-  const lastPart = parts[parts.length - 1]
+  const lastPart = parts.at(-1)
 
   if (lastPart === 'index') {
-    return titleCase(parts[parts.length - 2] || 'Documentation')
+    return titleCase(parts.at(-2) || 'Documentation')
   }
 
   return titleCase(lastPart || 'Documentation')
@@ -236,6 +236,7 @@ async function doWithRetries<T>(action: () => Promise<T>): Promise<T> {
 
 function isRetryableError(error: unknown): boolean {
   if (error && typeof error === 'object' && 'status' in error) {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The upstream HTTP error carries the status used by the retry policy.
     const status = (error as { status: number }).status
     return status >= 500 || status === 429
   }
@@ -254,5 +255,5 @@ function isRetryableError(error: unknown): boolean {
 }
 
 function titleCase(value: string): string {
-  return value.replace(/[-_]/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())
+  return value.replaceAll(/[-_]/g, ' ').replaceAll(/\b\w/g, (letter) => letter.toUpperCase())
 }

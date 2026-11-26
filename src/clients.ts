@@ -25,7 +25,7 @@ export interface ClientIdentity {
   /** The OAuth client ID: a Client ID Metadata Document URL or a registered ID. */
   readonly clientId: string
   /** Redirect URIs of a registered client. Read only when the client ID alone doesn't decide. */
-  readonly redirectUris: () => Promise<readonly string[]>
+  readonly redirectUris: () => Promise<ReadonlyArray<string>>
 }
 
 interface KnownClient {
@@ -34,14 +34,14 @@ interface KnownClient {
   /** The exact client ID the client publishes as its Client ID Metadata Document. */
   readonly clientIdMetadataDocument?: string
   /** A registered client is this one when any of its redirect URIs is on one of these hosts. */
-  readonly redirectUriHosts?: readonly string[]
+  readonly redirectUriHosts?: ReadonlyArray<string>
   readonly behavior: Partial<ClientBehavior>
 }
 
 /** Behavior for every client that isn't listed in {@link KNOWN_CLIENTS}. */
 export const SPEC_BEHAVIOR: ClientBehavior = { scopeChallenge: 'http' }
 
-const KNOWN_CLIENTS: readonly KnownClient[] = [
+const KNOWN_CLIENTS: ReadonlyArray<KnownClient> = [
   {
     id: 'codex',
     name: 'Codex',
@@ -82,9 +82,11 @@ export async function identifyClient(
 }
 
 async function matchRegisteredClient(identity: ClientIdentity): Promise<KnownClient | undefined> {
-  if (!KNOWN_CLIENTS.some((client) => client.redirectUriHosts)) return undefined
-  const hosts = (await identity.redirectUris().catch(() => [])).map(hostname)
+  if (!KNOWN_CLIENTS.some((client) => client.redirectUriHosts)) {
+    return undefined
+  }
+  const hosts = new Set((await identity.redirectUris().catch(() => [])).map(hostname))
   return KNOWN_CLIENTS.find((client) =>
-    (client.redirectUriHosts ?? []).some((host) => hosts.includes(host))
+    (client.redirectUriHosts ?? []).some((host) => hosts.has(host))
   )
 }

@@ -4,6 +4,7 @@ import { PROTOCOL_VERSION_META_KEY } from '@modelcontextprotocol/server'
 import type {
   McpServer,
   CallToolResult,
+  InputRequiredResult,
   ServerContext,
   StandardSchemaWithJSON,
   Tool
@@ -31,14 +32,16 @@ import {
 import type { AppContext } from '../mcp-apps/define'
 import { stringifyResponse } from '../truncate'
 import type { AuthProps } from '../auth/types'
-import { acceptedPermissions, type Connection } from '../api-permissions'
+import { acceptedPermissions } from '../api-permissions'
+import type { Connection } from '../api-permissions'
 import { apiCallResult } from './api-call-result'
 import { toolError } from './tool-error'
 import { binaryContent, bodyValue, readResponse } from './response-body'
 import type { ScopeChallenge } from '../scope-challenge'
 import type { CallPlan } from '../forge-tools/plan'
 import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE, PERMISSIONS_EXTENSION } from '../forge-tools/policy'
-import { policyRefusalHint } from '../policy-guards'
+import { policyRefusalHint, subscriptionCreate } from '../policy-guards'
+import { DECLINED_HINT, askToConfirm, canConfirm, confirmationOf } from '../charge-confirmation'
 
 /**
  * The tools this Worker serves itself in direct mode, listed before the
@@ -70,7 +73,9 @@ function forgeTools() {
  * for the tools; `tools/call` asks it for the request a call makes, then sends
  * that request with the session's token, which never leaves this Worker. A
  * refused call is explained, and asks for a step-up when a missing OAuth scope
- * would let it through, as the other direct tools do.
+ * would let it through, as the other direct tools do. A call that creates an
+ * account subscription asks the user to confirm it first, when the client can
+ * ask (`src/charge-confirmation.ts`).
  *
  * With `outputSchema` (`&experimentalOutputSchema=true`), a 2026-07-28 request
  * lists each tool with its generated output schema, and a successful call
@@ -96,7 +101,7 @@ export function registerForgeTools(
   server.server.setRequestHandler('tools/call', async (request, ctx) => {
     const name = request.params.name
     const args = request.params.arguments ?? {}
-    let result: CallToolResult
+    let result: CallToolResult | InputRequiredResult
 
     try {
       if (name === DOCS_TOOL.name) {
@@ -118,7 +123,7 @@ export function registerForgeTools(
           ctx
         )
       } else {
-        result = await callGeneratedTool(name, args, props, formatResult, {
+        result = await callGeneratedTool(name, args, props, formatResult, ctx, {
           connection,
           scopeChallenge,
           structured: outputSchema && isModern(ctx)
@@ -128,7 +133,7 @@ export function registerForgeTools(
       result = toolError(error instanceof Error ? error.message : String(error))
     }
 
-    recordToolCall(props, name, result.isError === true)
+    recordToolCall(props, name, 'isError' in result && result.isError === true)
     return result
   })
 }
@@ -144,14 +149,15 @@ export async function callGeneratedTool(
   args: Record<string, unknown>,
   props: AuthProps,
   formatResult: FormatToolResult,
+  ctx: ServerContext,
   options: { connection: Connection; scopeChallenge: ScopeChallenge; structured: boolean }
-): Promise<CallToolResult> {
+): Promise<CallToolResult | InputRequiredResult> {
   const sessionAccountId = autoResolvedAccountId(props)
   const plan = (await forgeTools().plan(name, args, {
     baseUrl: env.CLOUDFLARE_API_BASE,
     ...(sessionAccountId && { sessionAccountId })
   })) as CallPlan
-  return callForgeTool(name, plan, props, formatResult, options)
+  return callForgeTool(name, plan, props, formatResult, ctx, options)
 }
 
 /**
@@ -177,8 +183,8 @@ export function registerAppGeneratedTools(
         ...(tool._meta && { _meta: tool._meta }),
         inputSchema: listedAs(tool.inputSchema)
       },
-      (args: Record<string, unknown>) =>
-        callGeneratedTool(tool.name, args, context.props, stringifyResponse, {
+      (args: Record<string, unknown>, ctx: ServerContext) =>
+        callGeneratedTool(tool.name, args, context.props, stringifyResponse, ctx, {
           connection: context.connection,
           scopeChallenge: context.scopeChallenge,
           structured: false
@@ -208,12 +214,13 @@ async function callForgeTool(
   plan: CallPlan,
   props: AuthProps,
   formatResult: FormatToolResult,
+  ctx: ServerContext,
   {
     connection,
     scopeChallenge,
     structured
   }: { connection: Connection; scopeChallenge: ScopeChallenge; structured: boolean }
-): Promise<CallToolResult> {
+): Promise<CallToolResult | InputRequiredResult> {
   switch (plan.kind) {
     case 'unknown':
       return toolError(`Tool ${name} not found`)
@@ -227,10 +234,22 @@ async function callForgeTool(
       break
   }
 
-  const refusal = await policyRefusalHint(
-    new Request(plan.url, { method: plan.method, body: plan.body })
-  )
-  if (refusal) return toolError(refusal)
+  const request = new Request(plan.url, { method: plan.method, body: plan.body })
+  // Creating a subscription spends money: the user confirms it, or it isn't sent.
+  const subscription = canConfirm(ctx) ? await subscriptionCreate(request) : undefined
+  if (subscription) {
+    const confirmation = confirmationOf(ctx, subscription)
+    if (confirmation === 'unasked') {
+      return await askToConfirm(subscription)
+    }
+    if (confirmation === 'declined') {
+      return toolError(DECLINED_HINT)
+    }
+  }
+  const refusal = await policyRefusalHint(request, subscription)
+  if (refusal) {
+    return toolError(refusal)
+  }
 
   const response = await fetchWithRetry(
     plan.url,
@@ -277,10 +296,16 @@ async function callForgeTool(
     ),
     { connection, scopeChallenge, formatResult }
   )
-  if (toolResult.isError) return toolResult
+  if (toolResult.isError) {
+    return toolResult
+  }
   // Binary is returned as MCP's own content for it, whole: cutting it would corrupt it.
-  if (body.kind === 'binary') return { content: [binaryContent(body, plan.url)] }
-  if (!structured || body.kind !== 'json') return toolResult
+  if (body.kind === 'binary') {
+    return { content: [binaryContent(body, plan.url)] }
+  }
+  if (!structured || body.kind !== 'json') {
+    return toolResult
+  }
   // The output schema describes the whole body, as the API sends it.
   return { ...toolResult, structuredContent: result }
 }
@@ -290,6 +315,7 @@ async function callForgeTool(
  * per-request `_meta` envelope, which names the protocol version.
  */
 function isModern(ctx: ServerContext): boolean {
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The SDK envelope is narrowed at the field used here.
   const envelope: Record<string, unknown> | undefined = ctx.mcpReq.envelope
   return typeof envelope?.[PROTOCOL_VERSION_META_KEY] === 'string'
 }

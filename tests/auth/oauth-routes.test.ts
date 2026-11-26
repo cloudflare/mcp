@@ -295,6 +295,12 @@ describe('GET /authorize', () => {
     expect(templates['read-only']).toContain('realtime.read')
     expect(templates['full-access']).toContain('realtime.read')
     expect(templates['full-access']).not.toContain('realtime.realtime')
+    // The internal billing scopes are granted by step-up only, so no template asks for them.
+    expect(ALL_SCOPES).toEqual(expect.arrayContaining(['billing:read', 'billing:write']))
+    for (const scope of ['billing:read', 'billing:write']) {
+      expect(templates['read-only']).not.toContain(scope)
+      expect(templates['full-access']).not.toContain(scope)
+    }
     // Happy path emits no auth_user event.
     expect(writtenEvents(metricsSpy)).not.toContain('auth_user')
   })
@@ -348,6 +354,25 @@ describe('GET /authorize', () => {
     // The page lists what the client asked for, by name.
     expect(html).toContain('This client asked for:')
     expect(html).toContain('<li class="badge">Access: Apps and Policies Write</li>')
+  })
+
+  it('accepts a step-up request for an internal billing scope', async () => {
+    const clientId = await registerClient()
+    const response = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          scope: 'user:read account:read billing:write'
+        })
+      )
+    )
+
+    expect(response.status).toBe(200)
+    const html = await response.text()
+    expect(embeddedInitialScopes(html)).toContain('billing:write')
+    expect(html).toContain('<li class="badge">Billing Write</li>')
   })
 
   it('rejects a resource other than the canonical MCP endpoint', async () => {

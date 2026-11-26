@@ -2,11 +2,9 @@ import { z } from 'zod'
 import {
   ProtocolError,
   ProtocolErrorCode,
-  ResourceNotFoundError,
-  type McpServer,
-  type ReadResourceResult,
-  type Resource
+  ResourceNotFoundError
 } from '@modelcontextprotocol/server'
+import type { McpServer, ReadResourceResult, Resource } from '@modelcontextprotocol/server'
 import { getSkills, readSkillFile } from '../isolate-cache'
 import { SKILLS_EXTENSION_ID } from './types'
 
@@ -20,8 +18,8 @@ const utf8 = new TextDecoder()
 
 function toBase64(bytes: Uint8Array): string {
   let binary = ''
-  for (let index = 0; index < bytes.length; index += 0x8000) {
-    binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000))
+  for (let index = 0; index < bytes.length; index += 0x80_00) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + 0x80_00))
   }
   return btoa(binary)
 }
@@ -111,7 +109,9 @@ export function registerSkills(
     const shipped = staticResources.find((resource) => resource.descriptor.uri === uri)
     if (shipped) return { contents: [shipped.content], ...SKILLS_CACHE }
     const file = (await getSkills()).filesByUri.get(uri)
-    if (!file) throw new ResourceNotFoundError(uri, `No resource is served at ${uri}`)
+    if (!file) {
+      throw new ResourceNotFoundError(uri, `No resource is served at ${uri}`)
+    }
     const bytes = await readSkillFile(file)
     const content =
       file.encoding === 'text'

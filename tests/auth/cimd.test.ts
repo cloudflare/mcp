@@ -73,6 +73,60 @@ function useCloudflareAuthSuccess(): void {
   )
 }
 
+/** Run the full CIMD authorization and code exchange, returning the issued refresh token. */
+async function authorizeAndExchange(): Promise<string> {
+  const authorization = await exports.default.fetch(new Request(authorizeUrl()))
+  const handle = (await authorization.text()).match(/name="handle" value="([^"]+)"/)?.[1]
+  const approval = await exports.default.fetch(
+    new Request(`${MCP_ORIGIN}/authorize`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Cookie: cookiesFrom(authorization)
+      },
+      body: new URLSearchParams({ handle: handle!, scopes: 'user:read' }).toString(),
+      redirect: 'manual'
+    })
+  )
+  const upstreamState = new URL(approval.headers.get('location')!).searchParams.get('state')
+  const callback = await exports.default.fetch(
+    new Request(
+      `${MCP_ORIGIN}/oauth/callback?code=authcode&state=${encodeURIComponent(upstreamState!)}`,
+      { headers: { Cookie: cookiesFrom(approval) }, redirect: 'manual' }
+    )
+  )
+  const code = new URL(callback.headers.get('location')!).searchParams.get('code')
+  const tokenResponse = await exports.default.fetch(
+    new Request(`${MCP_ORIGIN}/token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'authorization_code',
+        code: code!,
+        client_id: CIMD_CLIENT_ID,
+        redirect_uri: REDIRECT_URI,
+        code_verifier: DOWNSTREAM_CODE_VERIFIER,
+        resource: MCP_RESOURCE
+      }).toString()
+    })
+  )
+  expect(tokenResponse.status).toBe(200)
+  return ((await tokenResponse.json()) as { refresh_token: string }).refresh_token
+}
+
+function refreshRequest(refreshToken: string): Request {
+  return new Request(`${MCP_ORIGIN}/token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+      client_id: CIMD_CLIENT_ID,
+      resource: MCP_RESOURCE
+    }).toString()
+  })
+}
+
 afterEach(async () => {
   await clearKv(env.OAUTH_KV)
 })
@@ -172,6 +226,23 @@ describe('Client ID Metadata Documents', () => {
     expect((await env.OAUTH_KV.list({ prefix: 'client:' })).keys).toHaveLength(0)
   })
 
+  it('keeps an earlier grant when the same user authorizes the same CIMD client again', async () => {
+    // A hosted CIMD client (one client ID, one callback) can hold several independent
+    // connections for one Cloudflare user; a new one must not revoke the others.
+    server.use(http.get(CIMD_CLIENT_ID, () => HttpResponse.json(cimdMetadata())))
+    useCloudflareAuthSuccess()
+
+    const first = await authorizeAndExchange()
+    const second = await authorizeAndExchange()
+    expect(first.split(':')[1]).not.toBe(second.split(':')[1])
+    expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(2)
+
+    const firstRefresh = await exports.default.fetch(refreshRequest(first))
+    expect(firstRefresh.status).toBe(200)
+    const secondRefresh = await exports.default.fetch(refreshRequest(second))
+    expect(secondRefresh.status).toBe(200)
+  })
+
   it('returns a local retryable error when metadata cannot be fetched', async () => {
     const unavailableClientId = 'https://unavailable.example.com/oauth/client.json'
     server.use(http.get(unavailableClientId, () => new HttpResponse(null, { status: 502 })))
@@ -266,18 +337,22 @@ describe('Client ID Metadata Documents', () => {
     expect(await response.text()).toContain('name="handle"')
   })
 
-  it('requires a fresh authorization when metadata fails during the callback', async () => {
+  /** Authorize and approve with a healthy document, then reach the callback once its host answers `status`. */
+  async function callbackAfterMetadataFails(
+    status: number,
+    clientId = CIMD_CLIENT_ID
+  ): Promise<{ callback: Response; metadataFetches: number }> {
     let metadataFetches = 0
     server.use(
-      http.get(CIMD_CLIENT_ID, () => {
+      http.get(clientId, () => {
         metadataFetches++
         return metadataFetches <= 2
-          ? HttpResponse.json(cimdMetadata())
-          : new HttpResponse(null, { status: 502 })
+          ? HttpResponse.json(cimdMetadata(clientId))
+          : new HttpResponse(null, { status })
       })
     )
 
-    const authorization = await exports.default.fetch(new Request(authorizeUrl()))
+    const authorization = await exports.default.fetch(new Request(authorizeUrl(clientId)))
     expect(authorization.status).toBe(200)
     const html = await authorization.text()
     const handle = html.match(/name="handle" value="([^"]+)"/)?.[1]
@@ -305,6 +380,27 @@ describe('Client ID Metadata Documents', () => {
         { headers: { Cookie: cookiesFrom(approval) }, redirect: 'manual' }
       )
     )
+
+    return { callback, metadataFetches }
+  }
+
+  it('completes the callback from the last validated metadata when the host fails', async () => {
+    // Its own client ID: the provider caches the copy it fell back to, and the cache
+    // outlives the test.
+    const { callback, metadataFetches } = await callbackAfterMetadataFails(
+      502,
+      'https://outage.example.com/oauth/client.json'
+    )
+
+    expect(metadataFetches).toBe(3)
+    expect(callback.status).toBe(302)
+    expect(new URL(callback.headers.get('location')!).searchParams.get('code')).toBeTruthy()
+    expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(1)
+  })
+
+  it('requires a fresh authorization when the host refuses the metadata during the callback', async () => {
+    // A 403 never falls back to the last validated copy.
+    const { callback, metadataFetches } = await callbackAfterMetadataFails(403)
 
     expect(metadataFetches).toBe(3)
     expect(callback.status).toBe(500)

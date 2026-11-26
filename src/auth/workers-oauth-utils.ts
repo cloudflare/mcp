@@ -1,7 +1,5 @@
-import {
-  OAuthError as ProviderOAuthError,
-  type ConsentDescription
-} from '@cloudflare/workers-oauth-provider'
+import { OAuthError as ProviderOAuthError } from '@cloudflare/workers-oauth-provider'
+import type { ConsentDescription } from '@cloudflare/workers-oauth-provider'
 
 import type { ScopeDefinition } from './derived-oauth-scopes'
 import type { ScopeTemplate } from './scopes'
@@ -33,6 +31,7 @@ export class OAuthError extends ProviderOAuthError {
   }
 
   toHtmlResponse(): Response {
+    // oxlint-disable-next-line quality/no-known-value-widening -- An OAuth error code can come from upstream and miss this table.
     const titles: Record<string, string> = {
       invalid_request: 'Invalid Request',
       invalid_grant: 'Invalid Grant',
@@ -54,7 +53,9 @@ export class OAuthError extends ProviderOAuthError {
       this.statusCode
     )
     const headers = new Headers(response.headers)
-    for (const [name, value] of Object.entries(this.headers ?? {})) headers.set(name, value)
+    for (const [name, value] of Object.entries(this.headers ?? {})) {
+      headers.set(name, value)
+    }
     return new Response(response.body, { status: response.status, headers })
   }
 }
@@ -79,8 +80,8 @@ export interface ApprovalDialogOptions {
   headers: Headers
   scopeTemplates: Record<string, ScopeTemplate>
   scopeDefinitions: Readonly<Record<string, ScopeDefinition>>
-  requiredScopes: readonly string[]
-  initialScopes: readonly string[]
+  requiredScopes: ReadonlyArray<string>
+  initialScopes: ReadonlyArray<string>
 }
 
 /**
@@ -88,11 +89,11 @@ export interface ApprovalDialogOptions {
  */
 function sanitizeHtml(unsafe: string): string {
   return unsafe
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;')
 }
 
 /**
@@ -106,10 +107,14 @@ function renderDisplayUrl(
 ): string | undefined {
   try {
     const url = new URL(value)
-    if (!url.hostname) return undefined
-    if (options.requireHttps && url.protocol !== 'https:') return undefined
+    if (!url.hostname) {
+      return undefined
+    }
+    if (options.requireHttps && url.protocol !== 'https:') {
+      return undefined
+    }
     // Let long URLs wrap after a slash rather than mid-word on narrow screens.
-    const rest = sanitizeHtml(url.pathname + url.search).replace(/\//g, '/<wbr>')
+    const rest = sanitizeHtml(url.pathname + url.search).replaceAll('/', '/<wbr>')
     return `<span class="client-detail-url"><span class="url-dim">${sanitizeHtml(url.protocol)}//</span>${sanitizeHtml(url.host)}<span class="url-dim">${rest}</span></span>`
   } catch {
     return undefined
@@ -374,8 +379,8 @@ const MAX_LISTED_SCOPES = 12
  */
 function matchingTemplate(
   templates: Readonly<Record<string, ScopeTemplate>>,
-  scopes: readonly string[],
-  requiredScopes: readonly string[]
+  scopes: ReadonlyArray<string>,
+  requiredScopes: ReadonlyArray<string>
 ): string | undefined {
   const wanted = new Set([...scopes, ...requiredScopes])
   for (const [key, template] of Object.entries(templates)) {
@@ -702,7 +707,7 @@ ${ADVANCED_SCOPES_CSS}
       // The server preselects the matching template, or REQUESTED when the
       // client's scopes match none. Only then is "Requested scopes" offered.
       const INITIAL_TEMPLATE = ${JSON.stringify(initialTemplate)};
-      const SCOPE_NAMES = ${JSON.stringify(Object.fromEntries(Object.entries(scopeDefinitions).map(([k, v]) => [k, v.name]))).replace(/</g, '\\u003c')};
+      const SCOPE_NAMES = ${JSON.stringify(Object.fromEntries(Object.entries(scopeDefinitions).map(([k, v]) => [k, v.name]))).replaceAll('<', String.raw`\u003c`)};
 
       const selected = new Set();
       let activeTemplate = null;
@@ -856,7 +861,7 @@ ${ADVANCED_SCOPES_SCRIPT}
 export interface ParsedApprovalResult {
   handle: string
   decision: 'approve' | 'deny'
-  selectedScopes?: string[]
+  selectedScopes?: Array<string>
 }
 
 /**

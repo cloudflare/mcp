@@ -31,7 +31,7 @@ const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller'>> = {
   backoffFactor: 2,
   // A user waits on these calls: a few seconds slower beats a failure, but a longer server-given
   // wait is worse than failing fast with the server's Retry-After.
-  maxDelayMs: 5_000,
+  maxDelayMs: 5000,
   jitter: true,
   retryRateLimited: true,
   retryNetworkErrors: true
@@ -49,17 +49,22 @@ const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller'>> = {
 export function serverRetryDelayMs(headers: Headers, now = Date.now()): number | undefined {
   const retryAfter = headers.get('Retry-After')?.trim()
   if (retryAfter) {
-    if (/^\d+$/.test(retryAfter)) return Number(retryAfter) * 1000
+    if (/^\d+$/.test(retryAfter)) {
+      return Number(retryAfter) * 1000
+    }
     // An HTTP date always has letters (`Wed, 21 Oct 2015 07:28:00 GMT`); `-1` would parse as a year.
     const date = /[a-z]/i.test(retryAfter) ? Date.parse(retryAfter) : Number.NaN
-    if (!Number.isNaN(date)) return Math.max(0, date - now)
+    if (!Number.isNaN(date)) {
+      return Math.max(0, date - now)
+    }
   }
   let resetMs: number | undefined
   for (const item of (headers.get('Ratelimit') ?? '').split(',')) {
     const remaining = /;\s*r=(\d+)/.exec(item)?.[1]
     const reset = /;\s*t=(\d+)/.exec(item)?.[1]
-    if (remaining === '0' && reset !== undefined)
+    if (remaining === '0' && reset !== undefined) {
       resetMs = Math.max(resetMs ?? 0, Number(reset) * 1000)
+    }
   }
   return resetMs
 }
@@ -90,7 +95,9 @@ export function computeRetryDelay(
   const exponentialDelay = opts.baseDelayMs * opts.backoffFactor ** attempt
   const capped = Math.min(exponentialDelay, opts.maxDelayMs)
 
-  if (!opts.jitter) return capped
+  if (!opts.jitter) {
+    return capped
+  }
 
   return capped * (0.5 + Math.random() * 0.5)
 }
@@ -112,6 +119,7 @@ export async function fetchWithRetry(
   // When input is a string/URL, merge into init.headers as a plain object.
   let fetchInput: RequestInfo
   let fetchInit: RequestInit | undefined
+  // oxlint-disable-next-line @nkzw/no-instanceof -- Workers' fetch uses branded request, header, and error objects.
   if (input instanceof Request) {
     const headers = new Headers(input.headers)
     headers.set('User-Agent', USER_AGENT)
@@ -122,9 +130,11 @@ export async function fetchWithRetry(
     // Spread existing headers as a plain object to preserve casing, then set User-Agent last
     // so it always takes precedence over any caller-supplied value.
     const existingHeaders =
+      // oxlint-disable-next-line @nkzw/no-instanceof -- Workers' fetch uses branded request, header, and error objects.
       init?.headers instanceof Headers
         ? Object.fromEntries(init.headers)
-        : ((init?.headers as Record<string, string> | undefined) ?? {})
+        : // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The non-Headers case copies the caller's existing header properties.
+          ((init?.headers as Record<string, string> | undefined) ?? {})
     fetchInit = {
       ...init,
       headers: { ...existingHeaders, 'User-Agent': USER_AGENT }
@@ -136,6 +146,7 @@ export async function fetchWithRetry(
       // Sending a Request consumes its body, so retryable attempts must use a
       // clone. The final attempt consumes `fetchInput` itself.
       const attemptInput =
+        // oxlint-disable-next-line @nkzw/no-instanceof -- Workers' fetch uses branded request, header, and error objects.
         fetchInput instanceof Request && attempt < opts.maxRetries ? fetchInput.clone() : fetchInput
       const response = await fetch(attemptInput, fetchInit)
 
@@ -159,7 +170,7 @@ export async function fetchWithRetry(
           // Retrying before the server said to would only spend the same quota on another 429.
           console.warn(
             `fetchWithRetry: 429${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
-              `not retrying: the server asks for ${Math.ceil(serverDelay! / 1000)}s${hints}`
+              `not retrying: the server asks for ${Math.ceil((serverDelay ?? 0) / 1000)}s${hints}`
           )
           return response
         }
@@ -183,7 +194,7 @@ export async function fetchWithRetry(
         const delay = computeRetryDelay(attempt, opts)
         console.warn(
           `fetchWithRetry: network error${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
-            `retrying in ${Math.round(delay)}ms: ${error instanceof Error ? error.message : error}`
+            `retrying in ${Math.round(delay)}ms: ${error instanceof Error ? error.message : String(error)}`
         )
         await sleep(delay)
       }
@@ -225,5 +236,7 @@ function rateLimitHints(headers: Headers): string {
 }
 
 function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms))
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
 }

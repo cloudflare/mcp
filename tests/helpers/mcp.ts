@@ -8,6 +8,7 @@ export const MODERN_MCP_VERSION = '2026-07-28'
 export interface McpToolResult {
   result?: {
     resultType?: string
+    inputRequests?: Record<string, { method: string; params: { message: string } }>
     supportedVersions?: string[]
     _meta?: Record<string, unknown>
     content?: Array<{ type: string; text: string }>
@@ -84,6 +85,7 @@ export function modernMcpRequest(
     headers?: Record<string, string>
     /** Declare MCP Apps (`io.modelcontextprotocol/ui`) in the client's capabilities. */
     mcpApps?: boolean
+    clientCapabilities?: Record<string, unknown>
   } = {}
 ): Request {
   // Mcp-Name mirrors params.name (tools, prompts) or params.uri (resources/read).
@@ -118,7 +120,10 @@ export function modernMcpRequest(
             name: 'cloudflare-mcp-tests',
             version: '1.0.0'
           },
-          'io.modelcontextprotocol/clientCapabilities': options.mcpApps ? MCP_APPS_CAPABILITIES : {}
+          'io.modelcontextprotocol/clientCapabilities': {
+            ...(options.mcpApps && MCP_APPS_CAPABILITIES),
+            ...options.clientCapabilities
+          }
         }
       }
     })
