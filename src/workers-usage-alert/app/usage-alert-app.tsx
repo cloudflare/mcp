@@ -26,6 +26,7 @@ import {
   type Week
 } from '../../threshold-alert/model'
 import {
+  R2_STORAGE_BILLING,
   WORKERS_REQUESTS_BILLING,
   WORKERS_REQUESTS_MONITOR,
   type ThresholdAlertPreset
@@ -36,7 +37,7 @@ import {
   updatePolicy,
   type CallTool
 } from '../../threshold-alert/create'
-import { EMAIL, approx, fmt, fmtDay, fmtDays, fmtPolicy, monthShort, sig, words } from './format'
+import { EMAIL, fmtDay, fmtDays, formatsFor, monthShort, sig as ratio } from './format'
 import './usage-alert.css'
 
 /**
@@ -77,6 +78,7 @@ const TAU = 0.055
 /** Two short facts under the chart, verdict first (BLUF), each sized to fit one line at 320px. */
 function outcome(m: Model, limit: number, preset: ThresholdAlertPreset): [Fact, Fact] {
   const { bucket, current, alreadyOver } = preset.copy
+  const { approx, sig } = formatsFor(preset.unit.format)
   const sent = replayEmails(m.days, m.rolling, limit, m.cadence)
   const first = sent.find((e) => e.first)
   // By month, the replay is Workers analytics by calendar month, not billing's count in its
@@ -97,7 +99,7 @@ function outcome(m: Model, limit: number, preset: ThresholdAlertPreset): [Fact, 
             ]
           ]
         : limit >= 2 * m.peak
-          ? ['', [`${none}; `, { b: `${sig(limit / m.peak)}×` }, ` the busiest ${bucket}`]]
+          ? ['', [`${none}; `, { b: `${ratio(limit / m.peak)}×` }, ` the busiest ${bucket}`]]
           : ['', [`${none}; busiest ${bucket} `, { b: sig(m.peak) }]]
   const now: Fact =
     m.current >= limit ? ['warn', [alreadyOver]] : ['now', [`${current}: `, { b: sig(m.current) }]]
@@ -125,6 +127,7 @@ function FactLine({ fact, slot }: { fact: Fact; slot: 'past' | 'now' }) {
 
 function tipBody(m: Model, w: Week, limit: number, preset: ThresholdAlertPreset) {
   const monthly = m.cadence.kind === 'month'
+  const { approx, sig } = formatsFor(preset.unit.format)
   const from = w.partial ? (m.days.find(([d]) => d >= w.start)?.[0] ?? w.start) : w.start
   const range = fmtDays(from, w.end)
   const email = replayEmails(m.days, m.rolling, limit, m.cadence).find(
@@ -200,6 +203,7 @@ function UsageAlertCard({
 }) {
   const preset = presetOf(p)
   const copy = preset.copy
+  const { fmt, sig, approx, words, policy: fmtPolicy } = formatsFor(preset.unit.format)
   const m = useMemo(
     () => deriveModel(p.days, p.today, preset.cadence),
     [p.days, p.today, preset.cadence]
@@ -506,7 +510,7 @@ function UsageAlertCard({
   // The policy's name is stored in Cloudflare and read by everyone on the account: one fixed format.
   const name = preset.name(fmtPolicy(limit))
   const policy = preset.policy(p.accountId, limit, address, name)
-  const what = `${preset.unit.noun} pass ${limit.toLocaleString('en')} ${copy.per}`
+  const what = preset.passes(limit)
   const request = `POST /accounts/${p.accountId}/alerting/v3/policies\n${JSON.stringify(policy, null, 2)}`
   const settle = (next: Phase) => {
     setPhase(next)
@@ -564,7 +568,7 @@ function UsageAlertCard({
       )
       if (saved.status === 'done') {
         tell(
-          `Alert ${policyId} updated: it emails ${address} when Workers ${what}. The user clicked Save alert in the ${preset.toolName} App. It's done: don't change it again or ask to confirm it.`
+          `Alert ${policyId} updated: it emails ${address} when ${what}. The user clicked Save alert in the ${preset.toolName} App. It's done: don't change it again or ask to confirm it.`
         )
         createdAt.current = performance.now()
         return settle({ kind: 'created' })
@@ -581,7 +585,7 @@ function UsageAlertCard({
       if (created.status === 'done') {
         // Tell the model, so it doesn't offer to create it again.
         tell(
-          `Alert created${created.id ? ` (policy ${created.id})` : ''}: it emails ${address} when Workers ${what}. The user clicked Create alert in the ${preset.toolName} App. It's done: don't create it again or ask to confirm it.`
+          `Alert created${created.id ? ` (policy ${created.id})` : ''}: it emails ${address} when ${what}. The user clicked Create alert in the ${preset.toolName} App. It's done: don't create it again or ask to confirm it.`
         )
         setPolicyId(created.id ?? null)
         createdAt.current = performance.now()
@@ -611,7 +615,7 @@ function UsageAlertCard({
         content: [
           {
             type: 'text',
-            text: `Create the ${copy.label} on account ${p.accountId}: email ${address} when Workers ${what}.`
+            text: `Create the ${copy.label} on account ${p.accountId}: email ${address} when ${what}.`
           }
         ]
       })
@@ -1007,12 +1011,9 @@ function emptyCopy(m: Model, preset: ThresholdAlertPreset): [string, string] {
   return shortHistory(m)
     ? [
         'Not a full week yet',
-        'A week of traffic shows what normal looks like. Until then, tell me a number in chat.'
+        'A week of history shows what normal looks like. Until then, tell me a number in chat.'
       ]
-    : [
-        'No traffic to compare yet',
-        `Normal ${bucket}s show up here once your Workers get requests. Until then, tell me a number in chat.`
-      ]
+    : [`No ${bucket}s to compare yet`, preset.copy.noHistory]
 }
 
 /**
@@ -1080,7 +1081,11 @@ function EmptyArt() {
 
 /** Which preset a result is, by its `kind`. */
 const presetOf = (p: WorkersThresholdPreview) =>
-  p.kind === 'workers_billing_alert_preview' ? WORKERS_REQUESTS_BILLING : WORKERS_REQUESTS_MONITOR
+  p.kind === 'r2_storage_alert_preview'
+    ? R2_STORAGE_BILLING
+    : p.kind === 'workers_billing_alert_preview'
+      ? WORKERS_REQUESTS_BILLING
+      : WORKERS_REQUESTS_MONITOR
 
 /**
  * No result yet: no days, so nothing to draw, edit or create. Shaped as the
@@ -1099,6 +1104,18 @@ function placeholder(toolName: string | undefined): WorkersThresholdPreview {
     otherPolicies: {},
     limitations: []
   }
+  if (toolName === R2_STORAGE_BILLING.toolName)
+    return {
+      kind: 'r2_storage_alert_preview',
+      ...common,
+      summary: {
+        typicalMonth: null,
+        thisMonth: 0,
+        busiestMonth: 0,
+        storedNow: 0,
+        suggestedLimit: null
+      }
+    }
   return toolName === WORKERS_REQUESTS_BILLING.toolName
     ? {
         kind: 'workers_billing_alert_preview',
@@ -1113,7 +1130,7 @@ function placeholder(toolName: string | undefined): WorkersThresholdPreview {
 }
 
 mountMcpApp({
-  name: 'Cloudflare Workers usage alert',
+  name: 'Cloudflare threshold alert',
   output: WorkersThresholdPreviewSchema,
   render: (preview, { app }) => (
     <UsageAlertCard key={preview.checkedAt} preview={preview} app={app} />
@@ -1135,8 +1152,8 @@ mountMcpApp({
     />
   ),
   copy: {
-    pending: 'Reading Workers usage…',
+    pending: 'Reading usage…',
     cancelled: 'Usage check cancelled.',
-    malformed: 'Workers usage could not be displayed. Check the tool’s text result.'
+    malformed: 'Usage could not be displayed. Check the tool’s text result.'
   }
 })

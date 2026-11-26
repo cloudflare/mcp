@@ -1,7 +1,7 @@
 /**
  * User prompts and the threshold alert tool each should reach, or none.
  */
-export type Route = 'workers_usage_alert' | 'workers_billing_alert' | 'none'
+export type Route = 'workers_usage_alert' | 'workers_billing_alert' | 'r2_storage_alert' | 'none'
 
 export const ROUTING_PROMPTS: readonly { readonly prompt: string; readonly route: Route }[] = [
   // workers-requests-monitor: traffic clearly above normal, in any 7 days.
@@ -48,5 +48,17 @@ export const ROUTING_PROMPTS: readonly { readonly prompt: string; readonly route
   },
   { prompt: 'cap our Workers so we never pay more than $20', route: 'none' },
   { prompt: 'warn me if we’re going to spend more than $500 this month', route: 'none' },
-  { prompt: 'alert me when our R2 storage passes 1 TB', route: 'none' }
+  // r2-storage-billing: billed R2 storage in the billing period.
+  { prompt: 'alert me when our R2 storage passes 1 TB', route: 'r2_storage_alert' },
+  {
+    prompt: 'email me before R2 storage starts costing real money',
+    route: 'r2_storage_alert'
+  },
+  {
+    prompt: 'set up a usage based billing notification for R2 storage',
+    route: 'r2_storage_alert'
+  },
+  // Neither: the R2 alert only emails.
+  { prompt: 'stop uploads to our R2 bucket once it hits 2 TB', route: 'none' },
+  { prompt: 'alert me when R2 egress gets expensive', route: 'none' }
 ]

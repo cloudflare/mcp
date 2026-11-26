@@ -46,3 +46,37 @@ export type ExistingAlert = z.infer<typeof ExistingAlertSchema>
 
 /** One complete UTC day's value. */
 export const DaySchema = z.tuple([z.iso.date(), z.number().int().nonnegative()])
+
+/** The fields every threshold alert's result starts with. */
+export const previewHead = {
+  /** How to reply: the App's next-step guidance for the model. */
+  nextStep: z.string(),
+  checkedAt: z.iso.datetime(),
+  accountId: z.string(),
+  /** The signed-in user's own email, for a user credential: the view's default recipient. */
+  userEmail: z.string().optional(),
+  /** The day treated as today, `YYYY-MM-DD`. It is still counting, so it isn't in `days`. */
+  today: z.iso.date(),
+  /**
+   * Complete UTC days, oldest first, from the first day with data to
+   * yesterday, in the preset's unit per day.
+   */
+  days: z.array(DaySchema)
+}
+
+/** And ends with, after its summary and whether its alert type is available. */
+export const previewTail = {
+  /** Alerts that already watch the same number. `null`: not read. */
+  existingAlerts: z.array(ExistingAlertSchema).nullable(),
+  /** Every other policy, counted by type. */
+  otherPolicies: z.record(z.string(), z.number().int()),
+  limitations: z.array(z.string())
+}
+
+/** Every threshold alert's tool only reads: the card's buttons make the writes. */
+export const READ_ONLY = {
+  readOnlyHint: true,
+  destructiveHint: false,
+  idempotentHint: true,
+  openWorldHint: false
+}

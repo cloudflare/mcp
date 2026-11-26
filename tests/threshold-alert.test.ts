@@ -150,8 +150,9 @@ describe('presets', () => {
         }
       })
     ).toEqual({ kind: 'monitor', limit: 9 })
+    // Another product's billing alert isn't a Workers one.
     expect(
-      recogniseAmong(presets, {
+      recogniseAmong([WORKERS_REQUESTS_BILLING, WORKERS_REQUESTS_MONITOR], {
         alert_type: 'billing_usage_alert',
         filters: { product: ['r2_storage'], limit: ['7'] }
       })
@@ -184,7 +185,11 @@ describe('routing', () => {
   }
 
   it('has prompts that should and shouldn’t reach each tool', () => {
-    for (const route of ['workers_usage_alert', 'workers_billing_alert'] as const) {
+    for (const route of [
+      'workers_usage_alert',
+      'workers_billing_alert',
+      'r2_storage_alert'
+    ] as const) {
       expect(ROUTING_PROMPTS.filter((p) => p.route === route).length).toBeGreaterThanOrEqual(3)
     }
     expect(ROUTING_PROMPTS.filter((p) => p.route === 'none').length).toBeGreaterThanOrEqual(2)

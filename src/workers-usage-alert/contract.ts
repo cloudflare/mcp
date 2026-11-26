@@ -1,5 +1,13 @@
 import { z } from 'zod'
-import { DaySchema, ExistingAlertSchema, thresholdAlertInput } from '../threshold-alert/contract'
+import {
+  DaySchema,
+  ExistingAlertSchema,
+  previewHead,
+  previewTail,
+  READ_ONLY,
+  thresholdAlertInput
+} from '../threshold-alert/contract'
+import { R2StorageAlertPreviewSchema } from '../r2-storage-alert/contract'
 import { HISTORY_DAYS } from './history'
 
 export { HISTORY_DAYS }
@@ -34,30 +42,9 @@ export const DailyRequestsSchema = DaySchema
 export const USAGE_ALERT_NEXT_STEP =
   'Reply bottom line first (BLUF): the first sentence is the suggested threshold and whether it would have emailed in the history, such as “I’d alert at about 1.35B requests in 7 days; that never happened in the last 89 days.” If a limitation says the number the user named was replaced, that is the first sentence instead. Then one sentence at most of context, such as the typical period or an existing alert. Where the App shows, the user sets the threshold and email on the card and clicks Create alert, which creates it: end by pointing to the card, without a question. Where no App shows, ask for the limit and email.'
 
-/** The fields every Workers threshold alert's result starts with. */
-const head = {
-  /** How to reply: see `USAGE_ALERT_NEXT_STEP`. */
-  nextStep: z.string(),
-  checkedAt: z.iso.datetime(),
-  accountId: z.string(),
-  /** The signed-in user's own email, for a user credential: the view's default recipient. */
-  userEmail: z.string().optional(),
-  /** The day treated as today, `YYYY-MM-DD`. It is still counting, so it isn't in `days`. */
-  today: z.iso.date(),
-  /**
-   * Complete UTC days, oldest first, from the first day with traffic to
-   * yesterday. Days without traffic inside that range are 0.
-   */
-  days: z.array(DailyRequestsSchema)
-}
-/** And ends with, after its summary and whether its alert type is available. */
-const tail = {
-  /** Alerts on Workers requests that already exist, either kind. `null`: not read. */
-  existingAlerts: z.array(ExistingAlertSchema).nullable(),
-  /** Every other policy, counted by type. */
-  otherPolicies: z.record(z.string(), z.number().int()),
-  limitations: z.array(z.string())
-}
+/** The fields every Workers threshold alert's result starts and ends with. */
+const head = previewHead
+const tail = previewTail
 
 export const UsageAlertPreviewSchema = z.object({
   kind: z.literal('workers_usage_alert_preview'),
@@ -99,19 +86,13 @@ export const BillingAlertPreviewSchema = z.object({
 })
 export type BillingAlertPreview = z.infer<typeof BillingAlertPreviewSchema>
 
-/** What the shared view renders: either Workers preset's result. */
+/** What the shared view renders: any threshold alert preset's result. */
 export const WorkersThresholdPreviewSchema = z.discriminatedUnion('kind', [
   UsageAlertPreviewSchema,
-  BillingAlertPreviewSchema
+  BillingAlertPreviewSchema,
+  R2StorageAlertPreviewSchema
 ])
 export type WorkersThresholdPreview = z.infer<typeof WorkersThresholdPreviewSchema>
-
-const READ_ONLY = {
-  readOnlyHint: true,
-  destructiveHint: false,
-  idempotentHint: true,
-  openWorldHint: false
-}
 
 /**
  * What every Workers threshold alert's description says about requests to stop traffic.

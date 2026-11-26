@@ -23,7 +23,8 @@ cloudflare-mcp/
 │   ├── server.ts                  # MCP server setup & tool registration
 │   ├── events/                    # Stateless MCP Events mapping to ANS policies and Vega automations
 │   ├── mcp-apps/                  # Shared MCP Apps: defineMcpApp, read-only apiReader, registry, app-shell
-│   ├── threshold-alert/           # Shared threshold alert Apps: presets, model, collector, policy writes
+│   ├── threshold-alert/           # Shared threshold alert Apps: presets, units, model, collector, policy writes
+│   ├── r2-storage-alert/          # r2_storage_alert: the threshold alert view on billed R2 storage
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec $ref resolution & splitting merged paths
 │   ├── spec-release.ts            # The pinned spec release and its artifact names
@@ -169,7 +170,9 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 
 ### Threshold alert Apps
 
-`src/threshold-alert/` is what every "history of one number + a line + who to tell" App shares: `defineThresholdAlertApp()` (the read-only collector: history, `available_alerts`, existing policies), the model per cadence (rolling 7 days or calendar month), the presets (each an `alert_type`, its policy body, how it recognises an existing policy, its copy) and the generated `alerting_policies_*` writes. One tool per preset, sharing the view; `workers_billing_alert` is the `billing_usage_alert` preset.
+`src/threshold-alert/` is what every "history of one number + a line + who to tell" App shares: `defineThresholdAlertApp()` (the read-only collector: history, `available_alerts`, existing policies), the model per cadence (rolling 7 days or calendar month), the presets (each an `alert_type`, its policy body, how it recognises an existing policy, its unit and its copy), the units (`units.ts`: counts or decimal bytes, for the card, the stored policy name and the model's text), the daily windows (`history.ts`) and the generated `alerting_policies_*` writes. One tool per preset, all sharing the one view built in `src/workers-usage-alert/app/`; `workers_billing_alert` is the `billing_usage_alert` preset on `worker_requests`.
+
+A new preset is a preset in `presets.ts`, a history reader returning complete UTC days in the preset's unit, an output schema from `previewHead`/`previewTail` added to the view's union, and one App in `src/<app>/tool.ts`. `r2_storage_alert` (`src/r2-storage-alert/`) is a `billing_usage_alert` on `r2_storage`: it reads `r2StorageAdaptiveGroups` (Standard class, every bucket's daily peak) and stores each day as its peak ÷ 30, so a calendar month sums to the GB-month average billing counts and the monthly cadence applies unchanged. Its limit is bytes.
 
 ### Workers usage alert App
 

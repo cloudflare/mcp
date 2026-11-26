@@ -1,4 +1,5 @@
 import { appLocale } from '../../mcp-apps/app-shell/apply-locale'
+import { byteScale, policyNumber, type UnitFormat } from '../../threshold-alert/units'
 
 /**
  * Counts and dates in the host's formats, from the browser's `Intl`: no
@@ -51,7 +52,47 @@ export const fmtDays = (from: string, to: string) =>
 export const monthShort = (k: string) => date('month', { month: 'short' }).format(utc(`${k}-15`))
 
 /** The threshold in a policy's name ("Workers requests over 1.35B in 7 days"): stored, so never localized. */
-const POLICY = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 3 })
-export const fmtPolicy = (v: number) => POLICY.format(v)
+export const fmtPolicy = (v: number) => policyNumber(v, 'count')
+
+/** Bytes in the unit they read best in, in the host's formats: "1.5 TB", "1,5 To". */
+const bytes = (
+  v: number,
+  key: string,
+  options: Intl.NumberFormatOptions,
+  display: 'short' | 'long' = 'short'
+) => {
+  const unit = byteScale(v)[1]
+  return cached(
+    `bytes|${key}|${unit}|${display}`,
+    (lang) => new Intl.NumberFormat(lang, { style: 'unit', unit, unitDisplay: display, ...options })
+  )
+}
+
+/** The formatters for one unit, so a card counts requests or bytes with the same calls. */
+export interface Formats {
+  readonly fmt: (v: number) => string
+  readonly sig: (v: number, n?: number) => string
+  readonly approx: (v: number, n?: number) => string
+  readonly words: (v: number) => string
+  readonly policy: (v: number) => string
+}
+
+const COUNT: Formats = { fmt, sig, approx, words, policy: fmtPolicy }
+const BYTES: Formats = {
+  fmt: (v) => bytes(v, 'fmt', { maximumFractionDigits: 3 }).format(byteScale(v)[0]),
+  sig: (v, n = 2) => bytes(v, `sig${n}`, { maximumSignificantDigits: n }).format(byteScale(v)[0]),
+  approx: (v, n) => {
+    const x = byteScale(v)[0]
+    return bytes(
+      v,
+      n ? `sig${n}` : 'fmt',
+      n ? { maximumSignificantDigits: n } : { maximumFractionDigits: 3 }
+    ).formatRange(x, x)
+  },
+  words: (v) => bytes(v, 'words', { maximumFractionDigits: 3 }, 'long').format(byteScale(v)[0]),
+  policy: (v) => policyNumber(v, 'bytes')
+}
+
+export const formatsFor = (format: UnitFormat): Formats => (format === 'bytes' ? BYTES : COUNT)
 
 export const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/

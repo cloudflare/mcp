@@ -19,6 +19,7 @@ import { POLICY_WRITE_TOOLS } from './create'
 import { clamp, deriveModel, type Day, type Model } from './model'
 import { recogniseAmong, type ExistingKind, type ThresholdAlertPreset } from './presets'
 import type { ExistingAlert, ThresholdAlertInput } from './contract'
+import { exactNumber } from './units'
 
 export { DaySchema, ExistingAlertSchema, thresholdAlertInput } from './contract'
 export type { ExistingAlert, ThresholdAlertInput } from './contract'
@@ -224,19 +225,20 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
     // firing. A monthly alert starts over each billing period, and crossing a number most months
     // (the included requests) is the point, so a named number is kept and the overlap is said.
     const monthly = preset.cadence.kind === 'month'
+    const n = (value: number) => exactNumber(value, preset.unit.format)
     const named = limit != null && (monthly || limit > model.peak)
     if (limit != null && monthly && limit <= model.peak)
       limitations.push(
-        `The busiest ${preset.copy.bucket} charted (${Math.round(model.peak).toLocaleString('en')}, counting this ${preset.copy.bucket} projected to its end) is at or above ${limit.toLocaleString('en')}, so this alert would email in a ${preset.copy.bucket} like it. Say so in one sentence.`
+        `The busiest ${preset.copy.bucket} charted (${n(model.peak)}, counting this ${preset.copy.bucket} projected to its end) is at or above ${n(limit)}, so this alert would email in a ${preset.copy.bucket} like it. Say so in one sentence.`
       )
     if (limit != null && !named)
       limitations.push(
-        `The line starts a tenth above the busiest ${preset.copy.bucket}, not at the number named (${limit.toLocaleString('en')}): that number is at or below the busiest ${preset.copy.bucket} (${Math.round(model.peak).toLocaleString('en')}), so it would already have emailed. Lead with this in one sentence and point to the card, where the user drags the line; don't ask for a number in chat.`
+        `The line starts a tenth above the busiest ${preset.copy.bucket}, not at the number named (${n(limit)}): that number is at or below the busiest ${preset.copy.bucket} (${n(model.peak)}), so it would already have emailed. Lead with this in one sentence and point to the card, where the user drags the line; don't ask for a number in chat.`
       )
     const clamped = named ? clamp(limit, model.minLimit, model.maxLimit) : null
     if (named && clamped !== limit)
       limitations.push(
-        `The line starts at ${clamped!.toLocaleString('en')}, not at the number named (${limit.toLocaleString('en')}): that is the ${clamped! > limit ? 'lowest' : 'highest'} the card's line reaches for this history. Say so in one sentence.`
+        `The line starts at ${n(clamped!)}, not at the number named (${n(limit)}): that is the ${clamped! > limit ? 'lowest' : 'highest'} the card's line reaches for this history. Say so in one sentence.`
       )
     const suggested = clamped ?? model.suggested
     const value = definition.shape({
