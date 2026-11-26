@@ -40,6 +40,10 @@ function plainPath(pathname: string): string | undefined {
   }
 }
 
+function isModelParameter(value: string): boolean {
+  return value !== '' && !value.includes('/')
+}
+
 async function modelInBody(request: Request): Promise<string> {
   try {
     const body: unknown = await request.clone().json()
@@ -161,9 +165,12 @@ export async function policyRefusalHint(
   if (!ACCOUNT_AI_PATH.test(path)) {
     return undefined
   }
-  const models = [path.match(MODEL_IN_RUN_PATH)?.[1] ?? '', await modelInBody(request)].filter(
-    (model) => model !== ''
+  const pathModel = path.match(MODEL_IN_RUN_PATH)?.[1] ?? ''
+  const bodyModel = await modelInBody(request)
+  const bodyNamesModel = !(
+    pathModel.startsWith(WORKERS_AI_MODEL_PREFIX) && isModelParameter(bodyModel)
   )
+  const models = [pathModel, bodyNamesModel ? bodyModel : ''].filter((model) => model !== '')
   if (models.some((model) => !model.startsWith(WORKERS_AI_MODEL_PREFIX))) {
     return THIRD_PARTY_MODEL_HINT
   }

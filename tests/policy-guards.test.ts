@@ -132,6 +132,32 @@ describe('policyRefusalHint', () => {
     )
   })
 
+  it('allows a Workers AI model whose input has its own model selector (Clef)', async () => {
+    const path = `${ACCOUNT}/ai/run/@cf/cloudflare/clef`
+    const body = {
+      model: 'clef',
+      state: 'text',
+      questions: { q: { type: 'noul', instructions: 'Is it?' } }
+    }
+    expect(await policyRefusalHint(apiRequest('POST', path, body))).toBeUndefined()
+  })
+
+  it('still refuses a third-party model in the body when the path names a Workers AI model', async () => {
+    const path = `${ACCOUNT}/ai/run/@cf/cloudflare/clef`
+    expect(
+      await policyRefusalHint(apiRequest('POST', path, { model: 'openai/gpt-5.5' }))
+    ).toContain('Workers AI models')
+  })
+
+  it.each([`${ACCOUNT}/ai/run`, `${ACCOUNT}/ai/v1/chat/completions`])(
+    'still refuses a bare model name in the body of POST %s',
+    async (path) => {
+      expect(await policyRefusalHint(apiRequest('POST', path, { model: 'clef' }))).toContain(
+        'Workers AI models'
+      )
+    }
+  )
+
   it('refuses a third-party model named in the run path', async () => {
     const path = `${ACCOUNT}/ai/run/bytedance/seedream-5-pro`
     expect(await policyRefusalHint(apiRequest('POST', path))).toContain('Workers AI models')
