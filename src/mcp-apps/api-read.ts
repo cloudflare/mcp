@@ -86,8 +86,10 @@ async function readBounded(response: Response): Promise<unknown> {
 
 /**
  * Read-only Cloudflare API access for one App call. Every read is a GET to a
- * fixed path, or a GraphQL Analytics query (which has no mutations), sent with
- * the request's credential from this Worker: the token never reaches the App.
+ * fixed path, a POST to a documented read-only query endpoint
+ * ({@link READ_ONLY_POSTS}), or a GraphQL Analytics query (which has no
+ * mutations), sent with the request's credential from this Worker: the token
+ * never reaches the App.
  */
 export interface ApiReader {
   /**
@@ -98,6 +100,16 @@ export interface ApiReader {
    * @throws {z.ZodError} when the body doesn't match `schema`.
    */
   get<S extends z.ZodType>(path: string, schema: S): Promise<z.output<S>>
+  /**
+   * POST a body to one of the API's read-only query endpoints
+   * ({@link READ_ONLY_POSTS}) and parse the response with `schema`. Any other
+   * path throws before anything is sent: an App's reader never writes.
+   *
+   * @throws {ApiReadError} for a refusal or failure, explained like the direct tools.
+   * @throws {ApiReadUnsupported} for an oversized or non-JSON body.
+   * @throws {z.ZodError} when the body doesn't match `schema`.
+   */
+  query<S extends z.ZodType>(path: string, body: object, schema: S): Promise<z.output<S>>
   /**
    * POST a GraphQL Analytics query and parse its `data` with `schema`.
    *
@@ -111,6 +123,16 @@ export interface ApiReader {
     schema: S
   ): Promise<z.output<S>>
 }
+
+/**
+ * The POST endpoints an App may read with: each one the API documents as a
+ * read-only query that takes its filters in a body. Matched by template, so a
+ * path that only starts like one is refused.
+ */
+export const READ_ONLY_POSTS: ReadonlyArray<string> = [
+  // Billable usage and cost: "the filterable counterpart to GET on the same path".
+  '/accounts/{account_id}/billable/usage'
+]
 
 /**
  * Create the reader for one App call.
@@ -138,27 +160,46 @@ export function apiReader(context: AppContext, signal: AbortSignal, caller: stri
       { caller }
     )
 
+  /** Send one read and parse it, or throw the tool error the direct tools would give. */
+  async function read<S extends z.ZodType>(
+    method: 'GET' | 'POST',
+    path: string,
+    init: RequestInit,
+    schema: S
+  ): Promise<z.output<S>> {
+    const requestPath = new URL(base + path).pathname.slice(basePath.length)
+    const match = findOperation(getPermissionPaths(), method, requestPath)
+    if (method === 'POST' && !READ_ONLY_POSTS.includes(match?.template ?? '')) {
+      throw new Error(`${method} ${requestPath} is not a read-only query an App may send`)
+    }
+    const response = await send(path, { ...init, method })
+    const body = await readBounded(response)
+    const result = apiCallResult(
+      {
+        method,
+        path: requestPath,
+        template: match?.template ?? requestPath,
+        permissions: acceptedPermissions(match?.operation),
+        status: response.status,
+        body
+      },
+      [],
+      { ...context, formatResult: truncateResponse }
+    )
+    if (result.isError) throw new ApiReadError(result)
+    return schema.parse(body)
+  }
+
   return {
-    async get(path, schema) {
-      const response = await send(path, { method: 'GET' })
-      const body = await readBounded(response)
-      const requestPath = new URL(base + path).pathname.slice(basePath.length)
-      const match = findOperation(getPermissionPaths(), 'GET', requestPath)
-      const result = apiCallResult(
-        {
-          method: 'GET',
-          path: requestPath,
-          template: match?.template ?? requestPath,
-          permissions: acceptedPermissions(match?.operation),
-          status: response.status,
-          body
-        },
-        [],
-        { ...context, formatResult: truncateResponse }
-      )
-      if (result.isError) throw new ApiReadError(result)
-      return schema.parse(body)
-    },
+    get: (path, schema) => read('GET', path, {}, schema),
+
+    query: (path, body, schema) =>
+      read(
+        'POST',
+        path,
+        { headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) },
+        schema
+      ),
 
     async graphql(query, variables, dataset, schema) {
       const response = await send('/graphql', {

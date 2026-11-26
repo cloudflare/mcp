@@ -32,13 +32,18 @@ export function thresholdAlertInput(limitDescription: string, historyDays: numbe
   })
 }
 
-/** An alert already on the account that watches the same number. */
+/** A setting already on the account that watches the same number. */
 export const ExistingAlertSchema = z.object({
   id: z.string(),
   name: z.string(),
   enabled: z.boolean(),
-  /** `monitor`: a `custom_analytics` policy on `events.workersInvocations`. `billing`: a `billing_usage_alert` on `worker_requests`. */
-  kind: z.enum(['monitor', 'billing']),
+  /**
+   * `monitor`: a `custom_analytics` policy on `events.workersInvocations`.
+   * `billing`: a `billing_usage_alert` on the same product. `spend_alert` and
+   * `spend_limit`: a spend policy on the same product that emails, or that
+   * also stops the product (`usage_block`).
+   */
+  kind: z.enum(['monitor', 'billing', 'spend_alert', 'spend_limit']),
   /** Its threshold, when it has one. */
   limit: z.number().optional()
 })
@@ -66,14 +71,14 @@ export const previewHead = {
 
 /** And ends with, after its summary and whether its alert type is available. */
 export const previewTail = {
-  /** Alerts that already watch the same number. `null`: not read. */
+  /** Settings that already watch the same number. `null`: not read. */
   existingAlerts: z.array(ExistingAlertSchema).nullable(),
   /** Every other policy, counted by type. */
   otherPolicies: z.record(z.string(), z.number().int()),
   limitations: z.array(z.string())
 }
 
-/** Every threshold alert's tool only reads: the card's buttons make the writes. */
+/** Every threshold App's tool only reads: the card's buttons make the writes. */
 export const READ_ONLY = {
   readOnlyHint: true,
   destructiveHint: false,

@@ -1,7 +1,12 @@
 /**
  * User prompts and the threshold alert tool each should reach, or none.
  */
-export type Route = 'workers_usage_alert' | 'workers_billing_alert' | 'r2_storage_alert' | 'none'
+export type Route =
+  | 'workers_usage_alert'
+  | 'workers_billing_alert'
+  | 'r2_storage_alert'
+  | 'workers_spend_limit'
+  | 'none'
 
 export const ROUTING_PROMPTS: readonly { readonly prompt: string; readonly route: Route }[] = [
   // workers-requests-monitor: traffic clearly above normal, in any 7 days.
@@ -40,14 +45,24 @@ export const ROUTING_PROMPTS: readonly { readonly prompt: string; readonly route
     prompt: 'I want a heads-up when our Workers usage this billing cycle gets past 100M requests',
     route: 'workers_billing_alert'
   },
-  // Neither: alerts never block, and neither tool measures dollars or other products.
+  // None: a request count can't block anything, and an account-wide dollar budget is no tool's.
   { prompt: 'block traffic over 1M requests', route: 'none' },
   {
     prompt: "just shut off our Workers if they go over 1M requests, I don't want a surprise bill",
     route: 'none'
   },
-  { prompt: 'cap our Workers so we never pay more than $20', route: 'none' },
   { prompt: 'warn me if we’re going to spend more than $500 this month', route: 'none' },
+  // workers-spend: dollars of Workers charges, an email or a spending limit.
+  { prompt: 'cap our Workers so we never pay more than $20', route: 'workers_spend_limit' },
+  {
+    prompt: 'warn me if Workers is going to cost more than $50 this month',
+    route: 'workers_spend_limit'
+  },
+  {
+    prompt: 'just shut off our Workers if they cost more than $100 this month',
+    route: 'workers_spend_limit'
+  },
+  { prompt: 'set a spending limit on Workers', route: 'workers_spend_limit' },
   // r2-storage-billing: billed R2 storage in the billing period.
   { prompt: 'alert me when our R2 storage passes 1 TB', route: 'r2_storage_alert' },
   {

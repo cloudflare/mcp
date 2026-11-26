@@ -1066,3 +1066,20 @@ body {
 .note[data-tone='bad'] {
   color: var(--text-color-kumo-danger);
 }
+.note[data-tone='warn'] {
+  color: var(--text-color-kumo-warning);
+}
+/* What happens at the line, on a preset with a choice: a compact segmented pair. Its legend (Kumo renders it as
+   a div) is for screen readers; the options say it. */
+.act {
+  margin: 0;
+  gap: 0;
+}
+.act > :first-child:not([data-kumo-part='items']) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

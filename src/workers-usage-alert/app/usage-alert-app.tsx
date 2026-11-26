@@ -10,7 +10,7 @@ import {
   type KeyboardEvent,
   type PointerEvent
 } from 'react'
-import { Button, CloudflareLogo, Collapsible, LayerCard } from '@cloudflare/kumo'
+import { Button, CloudflareLogo, Collapsible, LayerCard, Radio } from '@cloudflare/kumo'
 import type { App } from '@modelcontextprotocol/ext-apps'
 import { mountMcpApp } from '../../mcp-apps/app-shell/mount'
 import { WorkersThresholdPreviewSchema, type WorkersThresholdPreview } from '../contract'
@@ -29,12 +29,16 @@ import {
   R2_STORAGE_BILLING,
   WORKERS_REQUESTS_BILLING,
   WORKERS_REQUESTS_MONITOR,
+  WORKERS_SPEND,
+  actionOf,
+  type PresetAction,
+  type SettingRef,
   type ThresholdAlertPreset
 } from '../../threshold-alert/presets'
 import {
-  createPolicy,
-  deletePolicy,
-  updatePolicy,
+  createSetting,
+  deleteSetting,
+  updateSetting,
   type CallTool
 } from '../../threshold-alert/create'
 import { EMAIL, fmtDay, fmtDays, formatsFor, monthShort, sig as ratio } from './format'
@@ -76,8 +80,14 @@ const GROW = 1.8
 const TAU = 0.055
 
 /** Two short facts under the chart, verdict first (BLUF), each sized to fit one line at 320px. */
-function outcome(m: Model, limit: number, preset: ThresholdAlertPreset): [Fact, Fact] {
-  const { bucket, current, alreadyOver } = preset.copy
+function outcome(
+  m: Model,
+  limit: number,
+  preset: ThresholdAlertPreset,
+  action: PresetAction
+): [Fact, Fact] {
+  const { bucket, current } = preset.copy
+  const { alreadyOver } = action
   const { approx, sig } = formatsFor(preset.unit.format)
   const sent = replayEmails(m.days, m.rolling, limit, m.cadence)
   const first = sent.find((e) => e.first)
@@ -231,6 +241,9 @@ function UsageAlertCard({
   const [tip, setTip] = useState<number | null>(null)
   const [phase, setPhase] = useState<Phase>(EDITING)
   const [email, setEmail] = useState(p.userEmail ?? '')
+  // What happens at the line: the result's starting choice, or the preset's one action.
+  const [actionId, setActionId] = useState(() => actionOf(preset, startAction(p)).id)
+  const action = actionOf(preset, actionId)
   const [touched, setTouched] = useState(false)
   const ids = { title: useId(), sub: useId(), err: useId(), hint: useId() }
 
@@ -284,7 +297,7 @@ function UsageAlertCard({
           ['', ['\u00a0']]
         ]
       : view === 'chart'
-        ? outcome(m, limit, preset)
+        ? outcome(m, limit, preset, action)
         : null
 
   // ── Drawing: positions only, with transforms; runs every frame while moving ──
@@ -508,10 +521,12 @@ function UsageAlertCard({
 
   // ── Hand-off: editing → sending → sent | review ──
   // The policy's name is stored in Cloudflare and read by everyone on the account: one fixed format.
-  const name = preset.name(fmtPolicy(limit))
-  const policy = preset.policy(p.accountId, limit, address, name)
+  const name = preset.name(fmtPolicy(limit), action.id)
+  const policy = preset.policy(p.accountId, limit, address, action.id)
   const what = preset.passes(limit)
-  const request = `POST /accounts/${p.accountId}/alerting/v3/policies\n${JSON.stringify(policy, null, 2)}`
+  const does = action.does(address)
+  const request = preset.target.request(p.accountId, policy)
+  const target = preset.target
   const settle = (next: Phase) => {
     setPhase(next)
     requestAnimationFrame(() => refs.done.current?.focus({ preventScroll: true }))
@@ -519,13 +534,16 @@ function UsageAlertCard({
   const fail = (reason: string, unconfirmed = false) =>
     setPhase({ kind: 'failed', reason, unconfirmed })
   /**
-   * The alert this card created and hasn't deleted, by the id the create
-   * returned: Undo deletes it. Once Edit reopens the form, the button reads
-   * Save alert and updates it instead of creating a second one.
+   * The setting this card created and hasn't deleted, by the id (and, for a
+   * spend policy, the version) its write returned: Undo deletes it. Once Edit
+   * reopens the form, the button reads Save and updates it instead of
+   * creating a second one.
    */
-  const [policyId, setPolicyId] = useState<string | null>(null)
+  const [made, setMade] = useState<SettingRef | null>(null)
+  const policyId = made?.id ?? null
   const createdAt = useRef(0)
-  const saving = policyId != null && phase.kind !== 'created'
+  const saving = made !== null && phase.kind !== 'created'
+  const noun = action.noun
   const tell = (text: string) =>
     void app?.updateModelContext?.({ content: [{ type: 'text', text }] }).catch(() => {})
   /**
@@ -539,21 +557,25 @@ function UsageAlertCard({
           text: 'Invalid email',
           say: 'Enter a full email address, like name@example.com.'
         }
-      : { tone: 'bad', text: 'Required', say: 'Enter the email address to send alerts to.' }
+      : { tone: 'bad', text: 'Required', say: `Enter the email address to send ${noun} emails to.` }
     : unconfirmed
       ? {
           tone: 'bad',
           text: 'May have saved',
-          say: 'No answer from Cloudflare: the alert may have been created. Check this account’s notifications before trying again.'
+          say: `No answer from Cloudflare: the ${noun} may have been created. Check this account before trying again.`
         }
       : phase.kind === 'failed'
         ? {
             tone: 'bad',
             text: 'Didn’t save',
-            say: `Didn’t save: ${failureReason(phase.reason)}. ${saving ? 'The alert wasn’t changed' : 'Nothing was created'}. Try again.`
+            say: `Didn’t save: ${failureReason(phase.reason)}. ${saving ? `The ${noun} wasn’t changed` : 'Nothing was created'}. Try again.`
           }
         : phase.kind === 'editing' && phase.deleted
-          ? { tone: '', text: 'Alert deleted', say: 'Alert deleted. Nothing will be emailed.' }
+          ? {
+              tone: '',
+              text: 'Deleted',
+              say: `The ${noun} was deleted. Nothing will happen at the line.`
+            }
           : null
   const submit = async () => {
     if (locked || !app) return
@@ -562,39 +584,40 @@ function UsageAlertCard({
     const caps = app.getHostCapabilities()
     setPhase({ kind: 'sending' })
     const call: CallTool = (c) => app.callServerTool(c)
-    if (saving && policyId) {
-      const saved = await updatePolicy(call, p.accountId, policyId, policy).catch(
+    if (saving && made) {
+      const saved = await updateSetting(call, target, p.accountId, made, policy).catch(
         (error: unknown) => ({ status: 'refused' as const, error: String(error) })
       )
       if (saved.status === 'done') {
+        // A spend policy's update returns its next version, which the next write must send.
+        setMade(saved.ref ? { ...made, ...saved.ref } : made)
         tell(
-          `Alert ${policyId} updated: it emails ${address} when ${what}. The user clicked Save alert in the ${preset.toolName} App. It's done: don't change it again or ask to confirm it.`
+          `${capital(noun)} ${made.id} updated: it ${does} when ${what}. The user clicked ${action.save} in the ${preset.toolName} App. It's done: don't change it again or ask to confirm it.`
         )
         createdAt.current = performance.now()
         return settle({ kind: 'created' })
       }
       return fail(
-        saved.status === 'unavailable' ? 'this connection can’t update alerts' : saved.error
+        saved.status === 'unavailable' ? `this connection can’t update the ${noun}` : saved.error
       )
     }
     if (caps?.serverTools) {
-      const created = await createPolicy(call, p.accountId, policy).catch((error: unknown) => ({
-        status: 'refused' as const,
-        error: String(error)
-      }))
+      const created = await createSetting(call, target, p.accountId, policy).catch(
+        (error: unknown) => ({ status: 'refused' as const, error: String(error) })
+      )
       if (created.status === 'done') {
         // Tell the model, so it doesn't offer to create it again.
         tell(
-          `Alert created${created.id ? ` (policy ${created.id})` : ''}: it emails ${address} when ${what}. The user clicked Create alert in the ${preset.toolName} App. It's done: don't create it again or ask to confirm it.`
+          `${capital(noun)} created${created.ref ? ` (${created.ref.id})` : ''}: it ${does} when ${what}. The user clicked ${action.create} in the ${preset.toolName} App. It's done: don't create it again or ask to confirm it.`
         )
-        setPolicyId(created.id ?? null)
+        setMade(created.ref ?? null)
         createdAt.current = performance.now()
         return settle({ kind: 'created' })
       }
       if (created.status === 'refused') return fail(created.error)
       if (created.status === 'unknown') {
         tell(
-          `Create alert got no answer from Cloudflare (${failureReason(created.error)}): the ${copy.label} may have been created on account ${p.accountId}. Before creating it again, list the account's notification policies and check for "${name}".`
+          `${action.create} got no answer from Cloudflare (${failureReason(created.error)}): the ${noun} may have been created on account ${p.accountId}. Before creating it again, list the account's ${target.kind === 'spend_policy' ? 'spend policies' : 'notification policies'} and check for "${name}".`
         )
         return fail(created.error, true)
       }
@@ -606,7 +629,7 @@ function UsageAlertCard({
           content: [
             {
               type: 'text',
-              text: `Not created yet: the user confirmed this ${copy.label} in the ${preset.toolName} App. Create it only with a write the user approves, exactly as written:\n${request}`
+              text: `Not created yet: the user confirmed this ${noun} in the ${preset.toolName} App. Create it only with a write the user approves, exactly as written:\n${request}`
             }
           ]
         })
@@ -615,7 +638,7 @@ function UsageAlertCard({
         content: [
           {
             type: 'text',
-            text: `Create the ${copy.label} on account ${p.accountId}: email ${address} when ${what}.`
+            text: `Create the ${noun} on account ${p.accountId}: it ${does} when ${what}.`
           }
         ]
       })
@@ -625,22 +648,25 @@ function UsageAlertCard({
     }
   }
 
-  // Undo: delete the alert just created; the form returns as it was, with a neutral notice in the field.
+  // Undo: delete the setting just created; the form returns as it was, with a neutral notice in the field.
   const onUndo = async () => {
     // Undo appears under the pointer that just clicked Create: ignore the second click of a double-click.
-    if (!app || !policyId || undoing || performance.now() - createdAt.current < 500) return
+    if (!app || !made || undoing || performance.now() - createdAt.current < 500) return
     setPhase({ kind: 'created', undo: 'deleting' })
-    const deleted = await deletePolicy((c) => app.callServerTool(c), p.accountId, policyId).catch(
-      (error: unknown) => ({ status: 'refused' as const, error: String(error) })
-    )
+    const deleted = await deleteSetting(
+      (c) => app.callServerTool(c),
+      target,
+      p.accountId,
+      made
+    ).catch((error: unknown) => ({ status: 'refused' as const, error: String(error) }))
     if (deleted.status !== 'done') {
       const failed = deleted.status === 'refused' ? failureReason(deleted.error) : 'try again'
       return setPhase({ kind: 'created', undo: { failed } })
     }
     tell(
-      `Alert ${policyId} deleted: no ${copy.label} from this card exists now. The user clicked Undo in the ${preset.toolName} App. Don't recreate it unless the user asks.`
+      `${capital(noun)} ${made.id} deleted: no ${noun} from this card exists now. The user clicked Undo in the ${preset.toolName} App. Don't recreate it unless the user asks.`
     )
-    setPolicyId(null)
+    setMade(null)
     setPhase({ kind: 'editing', deleted: true })
     requestAnimationFrame(() => refs.create.current?.focus({ preventScroll: true }))
   }
@@ -690,7 +716,7 @@ function UsageAlertCard({
           <CloudflareLogo variant="glyph" className="cf" aria-hidden />
           <div>
             <h2 className="title" id={ids.title}>
-              {copy.title}
+              {action.title}
             </h2>
           </div>
         </header>
@@ -818,8 +844,33 @@ function UsageAlertCard({
         {/* A create with no answer may have been made: say so where everyone sees it, before Create anyway. */}
         {unconfirmed && (
           <p className="note" data-tone="bad">
-            No answer from Cloudflare, so this alert may already exist. Check this account’s
-            notifications before creating it again.
+            No answer from Cloudflare, so this {noun} may already exist. Check this account before
+            creating it again.
+          </p>
+        )}
+        {/* A choice of what happens at the line, when the preset has one: email, or stop the product. */}
+        {ready && preset.actions.length > 1 && (
+          <Radio.Group
+            legend="At the line"
+            appearance="segmented"
+            orientation="horizontal"
+            className="act"
+            value={action.id}
+            disabled={locked}
+            onValueChange={(id) => {
+              setActionId(id)
+              if (phase.kind === 'failed' && !unconfirmed) setPhase(EDITING)
+            }}
+          >
+            {preset.actions.map((a) => (
+              <Radio.Item key={a.id} value={a.id} label={a.label} />
+            ))}
+          </Radio.Group>
+        )}
+        {/* What a setting that stops something does, said before Create, where it can't be missed. */}
+        {ready && action.caution && (
+          <p className="note" data-tone="warn">
+            {action.caution}
           </p>
         )}
         {ready && existing.length > 0 && (
@@ -851,7 +902,7 @@ function UsageAlertCard({
                 autoComplete="email"
                 spellCheck={false}
                 placeholder="Email address"
-                aria-label="Alert email"
+                aria-label={`${capital(noun)} email`}
                 aria-describedby={ids.hint}
                 aria-invalid={invalid}
                 readOnly={phase.kind === 'sending'}
@@ -893,8 +944,8 @@ function UsageAlertCard({
                 : phase.kind === 'failed'
                   ? 'Try again'
                   : saving
-                    ? 'Save alert'
-                    : 'Create alert'}
+                    ? action.save
+                    : action.create}
             </Button>
             <p className="sr" id={ids.err} role="alert">
               {hint?.say}
@@ -923,7 +974,7 @@ function UsageAlertCard({
               </svg>
               <span className="done-1">
                 {phase.kind === 'created'
-                  ? 'Alert on'
+                  ? action.done
                   : phase.kind === 'review'
                     ? 'Ready to create'
                     : 'Sent to chat'}
@@ -954,7 +1005,7 @@ function UsageAlertCard({
                   variant="ghost"
                   className="undo"
                   loading={undoing}
-                  aria-description="Deletes this alert"
+                  aria-description={`Deletes this ${noun}`}
                   onClick={onUndo}
                 >
                   Undo
@@ -1081,11 +1132,19 @@ function EmptyArt() {
 
 /** Which preset a result is, by its `kind`. */
 const presetOf = (p: WorkersThresholdPreview) =>
-  p.kind === 'r2_storage_alert_preview'
-    ? R2_STORAGE_BILLING
-    : p.kind === 'workers_billing_alert_preview'
-      ? WORKERS_REQUESTS_BILLING
-      : WORKERS_REQUESTS_MONITOR
+  p.kind === 'workers_spend_limit_preview'
+    ? WORKERS_SPEND
+    : p.kind === 'r2_storage_alert_preview'
+      ? R2_STORAGE_BILLING
+      : p.kind === 'workers_billing_alert_preview'
+        ? WORKERS_REQUESTS_BILLING
+        : WORKERS_REQUESTS_MONITOR
+
+/** The action a result starts on, when its preset has a choice. */
+const startAction = (p: WorkersThresholdPreview) =>
+  p.kind === 'workers_spend_limit_preview' ? p.action : undefined
+
+const capital = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
 /**
  * No result yet: no days, so nothing to draw, edit or create. Shaped as the

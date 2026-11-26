@@ -29,14 +29,14 @@ describe('units', () => {
 
 describe('r2-storage-billing preset', () => {
   it('builds the billing alert the dashboard sends for R2 storage, its limit in bytes', () => {
-    expect(R2_STORAGE_BILLING.policy(ACCOUNT, 2 * TB, 'a@example.com', 'n')).toEqual({
-      name: 'n',
+    expect(R2_STORAGE_BILLING.policy(ACCOUNT, 2 * TB, 'a@example.com', 'alert')).toEqual({
+      name: 'Billed R2 storage over 2 TB',
       alert_type: 'billing_usage_alert',
       enabled: true,
       filters: { product: ['r2_storage'], limit: ['2000000000000'] },
       mechanisms: { email: [{ id: 'a@example.com' }] }
     })
-    expect(R2_STORAGE_BILLING.name(policyNumber(2 * TB, 'bytes'))).toBe(
+    expect(R2_STORAGE_BILLING.name(policyNumber(2 * TB, 'bytes'), 'alert')).toBe(
       'Billed R2 storage over 2 TB'
     )
   })
@@ -44,12 +44,14 @@ describe('r2-storage-billing preset', () => {
   it('recognises R2 storage policies, and not Workers ones', () => {
     expect(
       recogniseAmong(Object.values(PRESETS), {
+        target: 'alerting_policy',
         alert_type: 'billing_usage_alert',
         filters: { product: ['r2_storage'], limit: ['5000000000000'] }
       })
     ).toEqual({ kind: 'billing', limit: 5 * TB })
     expect(
       recogniseAmong([R2_STORAGE_BILLING], {
+        target: 'alerting_policy',
         alert_type: 'billing_usage_alert',
         filters: { product: ['worker_requests'], limit: ['1'] }
       })
@@ -233,19 +235,14 @@ describe.each([
     )
     const callTool: CallTool = async (c) => {
       const response = await exports.default.fetch(
-        modernMcpRequest(TOKEN, 'tools/call', c, { url, mcpApps: true })
+        modernMcpRequest(TOKEN, 'tools/call', { ...c }, { url, mcpApps: true })
       )
       return ((await parseMcpResult(response)) as { result: Awaited<ReturnType<CallTool>> }).result
     }
-    const policy = R2_STORAGE_BILLING.policy(
-      ACCOUNT,
-      2 * TB,
-      'me@example.com',
-      R2_STORAGE_BILLING.name('2 TB')
-    )
+    const policy = R2_STORAGE_BILLING.policy(ACCOUNT, 2 * TB, 'me@example.com', 'alert')
     expect(await createPolicy(callTool, ACCOUNT, policy)).toEqual({
       status: 'done',
-      id: 'e'.repeat(32)
+      ref: { id: 'e'.repeat(32) }
     })
     expect(sent).toMatchObject({
       name: 'Billed R2 storage over 2 TB',

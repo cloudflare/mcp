@@ -93,6 +93,55 @@ const BYTES: Formats = {
   policy: (v) => policyNumber(v, 'bytes')
 }
 
-export const formatsFor = (format: UnitFormat): Formats => (format === 'bytes' ? BYTES : COUNT)
+/**
+ * US cents as dollars, in the host's formats: "$50", "$1.2K", "50 US-Dollar".
+ * Under $1,000 a value shows its cents only when it has them; above, the
+ * locale's compact form.
+ */
+const usd = (key: string, options: Intl.NumberFormatOptions, display?: 'name') =>
+  cached(
+    `usd|${key}|${display ?? ''}`,
+    (lang) =>
+      new Intl.NumberFormat(lang, {
+        style: 'currency',
+        currency: 'USD',
+        currencyDisplay: display ?? 'symbol',
+        ...options
+      })
+  )
+const dollars = (cents: number) => cents / 100
+const small = (cents: number) => Math.abs(cents) < 100_000
+/** Whole dollars without cents; any cents as two digits ("$42.50", never "$42.5"). */
+const cents = (v: number) => (Math.round(v) % 100 === 0 ? 0 : 2)
+const CENTS: Formats = {
+  fmt: (v) =>
+    small(v)
+      ? usd(`fmt${cents(v)}`, {
+          maximumFractionDigits: cents(v),
+          minimumFractionDigits: cents(v)
+        }).format(dollars(v))
+      : usd('fmt-c', { notation: 'compact', maximumFractionDigits: 2 }).format(dollars(v)),
+  sig: (v, n = 2) =>
+    usd(`sig${n}`, { notation: 'compact', maximumSignificantDigits: Math.max(n, 2) }).format(
+      dollars(v)
+    ),
+  approx: (v, n) => {
+    const f = usd(n ? `sig${n}` : 'fmt-c', {
+      notation: 'compact',
+      ...(n ? { maximumSignificantDigits: Math.max(n, 2) } : { maximumFractionDigits: 2 })
+    })
+    return f.formatRange(dollars(v), dollars(v))
+  },
+  words: (v) =>
+    usd(
+      `words${cents(v)}`,
+      { maximumFractionDigits: cents(v), minimumFractionDigits: cents(v) },
+      'name'
+    ).format(dollars(v)),
+  policy: (v) => policyNumber(v, 'cents')
+}
+
+export const formatsFor = (format: UnitFormat): Formats =>
+  format === 'bytes' ? BYTES : format === 'cents' ? CENTS : COUNT
 
 export const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/

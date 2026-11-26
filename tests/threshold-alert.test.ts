@@ -12,7 +12,7 @@ import {
   PRESETS,
   WORKERS_REQUESTS_BILLING,
   WORKERS_REQUESTS_MONITOR,
-  billingUsagePolicy,
+  billingUsagePolicyFor,
   monitorPolicy,
   recogniseAmong
 } from '../src/threshold-alert/presets'
@@ -113,8 +113,8 @@ describe('monthly cadence', () => {
 
 describe('presets', () => {
   it('builds the monitor exactly as the Workers usage alert always has', () => {
-    expect(WORKERS_REQUESTS_MONITOR.policy(ACCOUNT, 5, 'a@example.com', 'n')).toEqual(
-      monitorPolicy(ACCOUNT, 5, 'a@example.com', 'n')
+    expect(WORKERS_REQUESTS_MONITOR.policy(ACCOUNT, 5, 'a@example.com', 'alert')).toEqual(
+      monitorPolicy(ACCOUNT, 5, 'a@example.com', 'Workers requests over 5 in 7 days')
     )
     expect(monitorPolicy(ACCOUNT, 5, 'a@example.com', 'n')).toMatchObject({
       alert_type: 'custom_analytics',
@@ -124,7 +124,7 @@ describe('presets', () => {
   })
 
   it('builds the billing alert the dashboard’s Usage Based Billing form sends', () => {
-    expect(billingUsagePolicy(ACCOUNT, 50_000_000, 'a@example.com', 'n')).toEqual({
+    expect(billingUsagePolicyFor('worker_requests', 50_000_000, 'a@example.com', 'n')).toEqual({
       name: 'n',
       alert_type: 'billing_usage_alert',
       enabled: true,
@@ -137,12 +137,14 @@ describe('presets', () => {
     const presets = Object.values(PRESETS)
     expect(
       recogniseAmong(presets, {
+        target: 'alerting_policy',
         alert_type: 'billing_usage_alert',
         filters: { product: ['worker_requests'], limit: ['7'] }
       })
     ).toEqual({ kind: 'billing', limit: 7 })
     expect(
       recogniseAmong(presets, {
+        target: 'alerting_policy',
         alert_type: 'custom_analytics',
         filters: {
           selectors: ['SELECT 1 FROM events.workersInvocations'],
@@ -153,28 +155,28 @@ describe('presets', () => {
     // Another product's billing alert isn't a Workers one.
     expect(
       recogniseAmong([WORKERS_REQUESTS_BILLING, WORKERS_REQUESTS_MONITOR], {
+        target: 'alerting_policy',
         alert_type: 'billing_usage_alert',
         filters: { product: ['r2_storage'], limit: ['7'] }
       })
     ).toBeNull()
     expect(
       recogniseAmong(presets, {
+        target: 'alerting_policy',
         alert_type: 'billing_budget_alert',
         filters: { total_spend_dollars: ['5'] }
       })
     ).toBeNull()
   })
 
-  it('registers one App per preset, all writing with the same generated tools', () => {
+  it('registers one App per preset, each writing with its target’s generated tools', () => {
     const tools = Object.values(PRESETS).map((p) => p.toolName)
     const apps = MCP_APPS.filter((app) => tools.includes(app.tool.name))
     expect(apps.map((a) => a.tool.name).sort()).toEqual([...tools].sort())
-    for (const app of apps)
-      expect(app.appTools.map((t) => t.name).sort()).toEqual([
-        'alerting_policies_create',
-        'alerting_policies_delete',
-        'alerting_policies_update'
-      ])
+    for (const preset of Object.values(PRESETS)) {
+      const app = apps.find((a) => a.tool.name === preset.toolName)
+      expect(app?.appTools.map((t) => t.name).sort()).toEqual([...preset.target.tools].sort())
+    }
   })
 })
 
@@ -188,7 +190,8 @@ describe('routing', () => {
     for (const route of [
       'workers_usage_alert',
       'workers_billing_alert',
-      'r2_storage_alert'
+      'r2_storage_alert',
+      'workers_spend_limit'
     ] as const) {
       expect(ROUTING_PROMPTS.filter((p) => p.route === route).length).toBeGreaterThanOrEqual(3)
     }
@@ -202,12 +205,13 @@ describe('routing', () => {
     expect(described.workers_billing_alert).toContain('use workers_usage_alert')
   })
 
-  it('says neither blocks traffic nor measures dollars, so spend and caps route to neither', () => {
+  it('says neither blocks traffic nor measures dollars, and sends dollar amounts to workers_spend_limit', () => {
     for (const description of Object.values(described)) {
       expect(description).toMatch(/never blocks traffic/)
       expect(description).toMatch(/not (dollar cost|dollars)/)
-      expect(description).toMatch(/dollar (spend|budget), neither/)
+      expect(description).toMatch(/dollar (spend|amount), workers_spend_limit/)
       expect(description).toMatch(/Don’t call it to shut off, pause, cap/)
+      expect(description).toMatch(/To stop Workers at a dollar amount, use workers_spend_limit/)
     }
   })
 
@@ -355,20 +359,15 @@ describe.each([
     )
     const callTool: CallTool = async (c) => {
       const response = await exports.default.fetch(
-        modernMcpRequest(TOKEN, 'tools/call', c, { url, mcpApps: true })
+        modernMcpRequest(TOKEN, 'tools/call', { ...c }, { url, mcpApps: true })
       )
       return ((await parseMcpResult(response)) as { result: Awaited<ReturnType<CallTool>> }).result
     }
-    const policy = WORKERS_REQUESTS_BILLING.policy(
-      ACCOUNT,
-      50_000_000,
-      'me@example.com',
-      WORKERS_REQUESTS_BILLING.name('50M')
-    )
+    const policy = WORKERS_REQUESTS_BILLING.policy(ACCOUNT, 50_000_000, 'me@example.com', 'alert')
 
     const result = await createPolicy(callTool, ACCOUNT, policy)
 
-    expect(result).toEqual({ status: 'done', id: 'd'.repeat(32) })
+    expect(result).toEqual({ status: 'done', ref: { id: 'd'.repeat(32) } })
     expect(sent).toEqual({
       name: 'Billed Workers requests over 50M',
       alert_type: 'billing_usage_alert',

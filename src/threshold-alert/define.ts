@@ -1,12 +1,14 @@
 /**
  * `defineThresholdAlertApp()`: an MCP App that charts the history of one
- * number, previews an alert on it and lets the user create the alert from
- * the card. Each preset (`presets.ts`) says what the alert is; each App says
- * how to read its history and how to name its output.
+ * number, previews a setting on it (an alert, or a spending limit) and lets
+ * the user create it from the card. Each preset (`presets.ts`) says what the
+ * setting is and where it is written; each App says how to read its history
+ * and how to name its output.
  *
- * The collector only reads: the history, `available_alerts` and the existing
- * policies. The view's Create alert, Save alert and Undo call the generated
- * `alerting_policies_*` tools (`create.ts`), so no App adds a write tool.
+ * The collector only reads: the history and the settings already on the
+ * account (notification policies and `available_alerts`, or spend policies).
+ * The view's Create, Save and Undo call the generated tools of the preset's
+ * target (`create.ts`), so no App adds a write tool.
  */
 import type { ToolAnnotations } from '@modelcontextprotocol/server'
 import { z } from 'zod'
@@ -15,9 +17,9 @@ import { ScopeChallenge } from '../scope-challenge'
 import { ApiReadError, ApiReadUnsupported, apiReader, type ApiReader } from '../mcp-apps/api-read'
 import { defineMcpApp, type AppContext, type AppOutcome, type McpApp } from '../mcp-apps/define'
 import { tools as alertingPolicyTools } from '../generated/forge-mcp/alerting/policies/tools'
-import { POLICY_WRITE_TOOLS } from './create'
+import { tools as spendPolicyTools } from '../generated/forge-mcp/billing/spendPolicies/tools'
 import { clamp, deriveModel, type Day, type Model } from './model'
-import { recogniseAmong, type ExistingKind, type ThresholdAlertPreset } from './presets'
+import { recogniseAmong, type ListedSetting, type ThresholdAlertPreset } from './presets'
 import type { ExistingAlert, ThresholdAlertInput } from './contract'
 import { exactNumber } from './units'
 
@@ -71,8 +73,8 @@ export interface ThresholdAlertAppDefinition<Input extends z.ZodObject, Output e
     reader: ApiReader,
     signal: AbortSignal
   ): Promise<HistoryOutcome>
-  /** Name the collected facts in the App's output. */
-  shape(collected: Collected): z.output<Output>
+  /** Name the collected facts in the App's output. `input` is what the tool was called with. */
+  shape(collected: Collected, input: z.output<Input>): z.output<Output>
 }
 
 const AvailableAlerts = z.object({
@@ -90,6 +92,29 @@ const Policies = z.object({
     })
   )
 })
+
+const SpendPolicies = z.object({
+  result: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      enabled: z.boolean(),
+      product_id: z.string(),
+      action: z.string(),
+      threshold_cents: z.number()
+    })
+  )
+})
+
+/** A setting on the account, with what every kind has in common. */
+type Listed = ListedSetting & {
+  readonly id: string
+  readonly name: string
+  readonly enabled: boolean
+}
+
+/** The generated tools each target's writes use, which Code Mode lists for the App only. */
+const TARGET_TOOLS = { alerting_policy: alertingPolicyTools, spend_policy: spendPolicyTools }
 
 /**
  * The result as the model reads it: everything but the daily series, which
@@ -167,17 +192,36 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
         return null
       }
     }
-    const prefix = `/accounts/${accountId}/alerting/v3`
-    const alerting = Promise.all([
-      optional(
-        () => contextReader.get(`${prefix}/available_alerts`, AvailableAlerts),
-        'Available alert types'
-      ),
-      optional(
-        () => contextReader.get(`${prefix}/policies`, Policies),
-        'Existing notification policies'
-      )
-    ])
+    const prefix = `/accounts/${accountId}`
+    const alerting: Promise<[boolean | null, Array<Listed> | null]> =
+      preset.target.kind === 'spend_policy'
+        ? optional(
+            () => contextReader.get(`${prefix}/billing/spend-policies`, SpendPolicies),
+            'Existing spend policies'
+          ).then((spend) => [
+            // A spend policy needs no `available_alerts` type: an account that lists its
+            // policies can have them. One that can't read them is not known either way.
+            spend ? true : null,
+            spend?.result.map((policy): Listed => ({ target: 'spend_policy', ...policy })) ?? null
+          ])
+        : Promise.all([
+            optional(
+              () => contextReader.get(`${prefix}/alerting/v3/available_alerts`, AvailableAlerts),
+              'Available alert types'
+            ),
+            optional(
+              () => contextReader.get(`${prefix}/alerting/v3/policies`, Policies),
+              'Existing notification policies'
+            )
+          ]).then(([available, policies]) => [
+            available
+              ? Object.values(available.result).some((types) =>
+                  types.some((type) => type.type === preset.alertType)
+                )
+              : null,
+            policies?.result.map((policy): Listed => ({ target: 'alerting_policy', ...policy })) ??
+              null
+          ])
     // Handled now, so an early return below leaves no rejection unhandled; the await rethrows.
     alerting.catch(() => {})
     const history = await definition
@@ -190,26 +234,29 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
       stopAlerting.abort()
       return history
     }
-    const [available, policies] = await alerting
+    const [alertAvailable, settings] = await alerting
     limitations.push(...(history.limitations ?? []), ...alertingNotes)
 
     const otherPolicies: Record<string, number> = {}
-    const existingAlerts = policies
-      ? policies.result.flatMap((policy): ExistingAlert[] => {
-          const watch = recogniseAmong(definition.related, policy)
+    const existingAlerts = settings
+      ? settings.flatMap((setting): ExistingAlert[] => {
+          const watch = recogniseAmong(definition.related, setting)
           if (!watch) {
-            otherPolicies[policy.alert_type] = (otherPolicies[policy.alert_type] ?? 0) + 1
+            // Other settings are only counted: a notification policy by type, a spend policy by product.
+            const type =
+              setting.target === 'spend_policy'
+                ? `spend_policy:${setting.product_id}`
+                : setting.alert_type
+            otherPolicies[type] = (otherPolicies[type] ?? 0) + 1
             return []
           }
-          return [
-            {
-              id: policy.id,
-              name: policy.name,
-              enabled: policy.enabled,
-              kind: watch.kind satisfies ExistingKind,
-              ...(Number.isFinite(watch.limit) ? { limit: watch.limit } : {})
-            }
-          ]
+          const existing: ExistingAlert = {
+            id: setting.id,
+            name: setting.name,
+            enabled: setting.enabled,
+            kind: watch.kind
+          }
+          return [Number.isFinite(watch.limit) ? { ...existing, limit: watch.limit } : existing]
         })
       : null
 
@@ -241,23 +288,22 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
         `The line starts at ${n(clamped!)}, not at the number named (${n(limit)}): that is the ${clamped! > limit ? 'lowest' : 'highest'} the card's line reaches for this history. Say so in one sentence.`
       )
     const suggested = clamped ?? model.suggested
-    const value = definition.shape({
-      checkedAt: now.toISOString(),
-      accountId,
-      ...(context.props.type === 'user_token' ? { userEmail: context.props.user.email } : {}),
-      today,
-      days,
-      model,
-      suggestedLimit: model.typical == null && !named ? null : suggested,
-      alertAvailable: available
-        ? Object.values(available.result).some((types) =>
-            types.some((type) => type.type === preset.alertType)
-          )
-        : null,
-      existingAlerts,
-      otherPolicies,
-      limitations
-    })
+    const value = definition.shape(
+      {
+        checkedAt: now.toISOString(),
+        accountId,
+        ...(context.props.type === 'user_token' ? { userEmail: context.props.user.email } : {}),
+        today,
+        days,
+        model,
+        suggestedLimit: model.typical == null && !named ? null : suggested,
+        alertAvailable,
+        existingAlerts,
+        otherPolicies,
+        limitations
+      },
+      input
+    )
     return { ok: true, value }
   }
 
@@ -269,8 +315,10 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
     input: definition.input,
     output: definition.output,
     resource: definition.resource,
-    // Create alert, Save alert and Undo call the generated tools; see `create.ts`.
-    appTools: alertingPolicyTools.filter((tool) => POLICY_WRITE_TOOLS.includes(tool.name)),
+    // Create, Save and Undo call the target's generated tools; see `create.ts`.
+    appTools: TARGET_TOOLS[preset.target.kind].filter((tool) =>
+      preset.target.tools.includes(tool.name)
+    ),
     modelText: thresholdAlertModelText,
     run: collect
   })

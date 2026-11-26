@@ -8,6 +8,7 @@ import {
   thresholdAlertInput
 } from '../threshold-alert/contract'
 import { R2StorageAlertPreviewSchema } from '../r2-storage-alert/contract'
+import { WorkersSpendPreviewSchema } from '../workers-spend-limit/contract'
 import { HISTORY_DAYS } from './history'
 
 export { HISTORY_DAYS }
@@ -86,11 +87,12 @@ export const BillingAlertPreviewSchema = z.object({
 })
 export type BillingAlertPreview = z.infer<typeof BillingAlertPreviewSchema>
 
-/** What the shared view renders: any threshold alert preset's result. */
+/** What the shared view renders: any threshold preset's result. */
 export const WorkersThresholdPreviewSchema = z.discriminatedUnion('kind', [
   UsageAlertPreviewSchema,
   BillingAlertPreviewSchema,
-  R2StorageAlertPreviewSchema
+  R2StorageAlertPreviewSchema,
+  WorkersSpendPreviewSchema
 ])
 export type WorkersThresholdPreview = z.infer<typeof WorkersThresholdPreviewSchema>
 
@@ -99,7 +101,7 @@ export type WorkersThresholdPreview = z.infer<typeof WorkersThresholdPreviewSche
  * ChatGPT opened the card for “just shut off our Workers if they go over 1M requests”.
  */
 const NOT_A_CAP =
-  'Don’t call it to shut off, pause, cap, rate-limit or block Workers (“shut off our Workers over 1M requests”): this alert only emails and never blocks traffic, so say that instead.'
+  'Don’t call it to shut off, pause, cap, rate-limit or block Workers (“shut off our Workers over 1M requests”): this alert only emails and never blocks traffic. To stop Workers at a dollar amount, use workers_spend_limit; at a request count, nothing can, so say that instead.'
 
 /** What every Workers threshold alert's description says about the card, after its own first sentences. */
 const CARD_FLOW =
@@ -107,12 +109,12 @@ const CARD_FLOW =
 
 export const USAGE_ALERT_TOOL_CONFIG = {
   title: 'Workers usage alert',
-  description: `Set up an email alert for when Workers traffic gets clearly bigger than normal, such as “ping me if our Workers traffic gets way out of hand”. Use it also when the user asks whether or how they can be told about a traffic surge, a bot or attack hammering their Workers, or a request spike (“is there a way to get told when a bot hammers our Workers?”): this is that way, so call it rather than searching the web. Reads the account’s daily Workers requests for the last 89 complete days (all that Workers analytics keep) and its notification policies, and in MCP Apps hosts shows a weekly chart where the user drags the threshold (requests in 7 days) and enters an email. ${CARD_FLOW} Summarize the typical week and any existing alert instead of repeating the daily data. Request counts are not dollar cost, and the alert never blocks traffic. ${NOT_A_CAP} For a threshold on billed requests in a billing period (“before our bill passes 50M requests”), use workers_billing_alert; for dollar spend, neither.`,
+  description: `Set up an email alert for when Workers traffic gets clearly bigger than normal, such as “ping me if our Workers traffic gets way out of hand”. Use it also when the user asks whether or how they can be told about a traffic surge, a bot or attack hammering their Workers, or a request spike (“is there a way to get told when a bot hammers our Workers?”): this is that way, so call it rather than searching the web. Reads the account’s daily Workers requests for the last 89 complete days (all that Workers analytics keep) and its notification policies, and in MCP Apps hosts shows a weekly chart where the user drags the threshold (requests in 7 days) and enters an email. ${CARD_FLOW} Summarize the typical week and any existing alert instead of repeating the daily data. Request counts are not dollar cost, and the alert never blocks traffic. ${NOT_A_CAP} For a threshold on billed requests in a billing period (“before our bill passes 50M requests”), use workers_billing_alert; for dollar spend, workers_spend_limit.`,
   annotations: READ_ONLY
 }
 
 export const BILLING_ALERT_TOOL_CONFIG = {
   title: 'Workers billing usage alert',
-  description: `Set up a Cloudflare billing usage notification for when billed Workers requests in the current billing period pass a number, such as “email me before our Workers bill passes 50M requests” or “tell me when we go over our included Workers requests this month”. Creates a billing_usage_alert on worker_requests, the dashboard’s Usage Based Billing notification. Reads the last 89 complete days of Workers requests and the account’s notification policies, and in MCP Apps hosts shows a monthly chart where the user drags the threshold (requests in a month) and enters an email. ${CARD_FLOW} Summarize the typical month and any existing alert instead of repeating the daily data. The threshold is a request count, not dollars; the chart is Workers analytics by calendar month, which approximates billed usage in the billing period. It isn’t a spending limit and never blocks traffic. ${NOT_A_CAP} For traffic clearly above normal in any 7 days (“way out of hand”), use workers_usage_alert; for a dollar budget, neither.`,
+  description: `Set up a Cloudflare billing usage notification for when billed Workers requests in the current billing period pass a number, such as “email me before our Workers bill passes 50M requests” or “tell me when we go over our included Workers requests this month”. Creates a billing_usage_alert on worker_requests, the dashboard’s Usage Based Billing notification. Reads the last 89 complete days of Workers requests and the account’s notification policies, and in MCP Apps hosts shows a monthly chart where the user drags the threshold (requests in a month) and enters an email. ${CARD_FLOW} Summarize the typical month and any existing alert instead of repeating the daily data. The threshold is a request count, not dollars; the chart is Workers analytics by calendar month, which approximates billed usage in the billing period. It isn’t a spending limit and never blocks traffic. ${NOT_A_CAP} For traffic clearly above normal in any 7 days (“way out of hand”), use workers_usage_alert; for a dollar amount, workers_spend_limit.`,
   annotations: READ_ONLY
 }

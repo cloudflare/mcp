@@ -4,6 +4,7 @@ import type { StaticResource } from '../skills/handlers'
 // App imports, one per line.
 import { workersBillingAlertApp, workersUsageAlertApp } from '../workers-usage-alert/tool'
 import { r2StorageAlertApp } from '../r2-storage-alert/tool'
+import { workersSpendLimitApp } from '../workers-spend-limit/tool'
 import type { AppContext, McpApp } from './define'
 import { withoutAppView } from './capability'
 
@@ -14,6 +15,7 @@ const apps: McpApp[] = []
 apps.push(workersUsageAlertApp)
 apps.push(workersBillingAlertApp)
 apps.push(r2StorageAlertApp)
+apps.push(workersSpendLimitApp)
 
 /** Every MCP App this Worker serves, in listing order. */
 export const MCP_APPS: readonly McpApp[] = apps

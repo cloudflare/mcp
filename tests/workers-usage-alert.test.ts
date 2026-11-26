@@ -563,7 +563,7 @@ describe.each([
   const callTool: CallTool = async (c) => {
     // The App's view calls the writes, so the request comes from an MCP Apps host.
     const response = await exports.default.fetch(
-      modernMcpRequest(TOKEN, 'tools/call', c, { url, mcpApps: true })
+      modernMcpRequest(TOKEN, 'tools/call', { ...c }, { url, mcpApps: true })
     )
     const parsed = (await parseMcpResult(response)) as {
       result?: Awaited<ReturnType<CallTool>>
@@ -712,7 +712,7 @@ describe.each([
 
     const result = await createPolicy(callTool, ACCOUNT, policy)
 
-    expect(result).toEqual({ status: 'done', id: 'a'.repeat(32) })
+    expect(result).toEqual({ status: 'done', ref: { id: 'a'.repeat(32) } })
     expect(sent).toEqual(policy)
     expect(posts).toBe(1)
   })
