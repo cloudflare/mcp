@@ -4,7 +4,7 @@
  * policy counts (requests and CPU time, after included usage).
  */
 import { z } from 'zod'
-import { ApiReadError, ApiReadUnsupported } from '../mcp-apps/api-read'
+import { ApiReadError, isUnsupportedRead } from '../mcp-apps/api-read'
 import type { ApiReader } from '../mcp-apps/api-read'
 import type { HistoryOutcome } from '../threshold-alert/define'
 import { fillDays, historyWindows } from '../threshold-alert/history'
@@ -72,7 +72,7 @@ export async function readWorkersSpend(
     if (error instanceof ApiReadError) {
       return { ok: false, text: error.text, meta: error.result._meta }
     }
-    if (error instanceof ApiReadUnsupported || error instanceof z.ZodError) {
+    if (isUnsupportedRead(error)) {
       return { ok: false, text: 'Cloudflare returned an unsupported billable usage response.' }
     }
     throw error

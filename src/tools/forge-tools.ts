@@ -50,7 +50,7 @@ import { DECLINED_HINT, askToConfirm, canConfirm, confirmationOf } from '../char
  * Apps. Both `tools/list` paths (the SDK's and `cachedToolListResponse`) send
  * this list.
  */
-export function localDirectTools({ mcpApps = false }: { mcpApps?: boolean } = {}): Tool[] {
+export function localDirectTools({ mcpApps = false }: { mcpApps?: boolean } = {}): Array<Tool> {
   return [
     DOCS_TOOL,
     WHOAMI_TOOL,
@@ -102,6 +102,7 @@ export function registerForgeTools(
     const name = request.params.name
     const args = request.params.arguments ?? {}
     let result: CallToolResult | InputRequiredResult
+    const app = mcpAppNamed(name)
 
     try {
       if (name === DOCS_TOOL.name) {
@@ -116,12 +117,8 @@ export function registerForgeTools(
           : toolError(`Invalid arguments for tool ${name}: ${parsed.error.message}`)
       } else if (name === SUBMIT_FEEDBACK_TOOL.name && feedbackTools().length > 0) {
         result = await runSubmitFeedbackTool(args, 'direct', props)
-      } else if (mcpAppNamed(name)) {
-        result = await mcpAppNamed(name)!.call(
-          args,
-          { props, connection, scopeChallenge, view: mcpApps },
-          ctx
-        )
+      } else if (app) {
+        result = await app.call(args, { props, connection, scopeChallenge, view: mcpApps }, ctx)
       } else {
         result = await callGeneratedTool(name, args, props, formatResult, ctx, {
           connection,
@@ -138,6 +135,10 @@ export function registerForgeTools(
   })
 }
 
+/** A tool call's arguments as the client sent them; the forge tools service checks them against the tool's schema. */
+// oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The generated tool's input schema owns these arguments.
+type ToolArguments = Record<string, unknown>
+
 /**
  * Call one generated tool: the forge tools service plans the request from
  * `args`, checked against the tool's input schema, and this Worker sends it
@@ -146,17 +147,17 @@ export function registerForgeTools(
  */
 export async function callGeneratedTool(
   name: string,
-  args: Record<string, unknown>,
+  args: ToolArguments,
   props: AuthProps,
   formatResult: FormatToolResult,
   ctx: ServerContext,
   options: { connection: Connection; scopeChallenge: ScopeChallenge; structured: boolean }
 ): Promise<CallToolResult | InputRequiredResult> {
   const sessionAccountId = autoResolvedAccountId(props)
-  const plan = (await forgeTools().plan(name, args, {
+  const plan = await forgeTools().plan(name, args, {
     baseUrl: env.CLOUDFLARE_API_BASE,
     ...(sessionAccountId && { sessionAccountId })
-  })) as CallPlan
+  })
   return callForgeTool(name, plan, props, formatResult, ctx, options)
 }
 
@@ -171,7 +172,7 @@ export async function callGeneratedTool(
 export function registerAppGeneratedTools(
   server: McpServer,
   context: AppContext,
-  tools: readonly Tool[] = MCP_APP_GENERATED_TOOLS
+  tools: ReadonlyArray<Tool> = MCP_APP_GENERATED_TOOLS
 ): void {
   for (const tool of tools) {
     server.registerTool(
@@ -183,7 +184,7 @@ export function registerAppGeneratedTools(
         ...(tool._meta && { _meta: tool._meta }),
         inputSchema: listedAs(tool.inputSchema)
       },
-      (args: Record<string, unknown>, ctx: ServerContext) =>
+      (args: ToolArguments, ctx: ServerContext) =>
         callGeneratedTool(tool.name, args, context.props, stringifyResponse, ctx, {
           connection: context.connection,
           scopeChallenge: context.scopeChallenge,
@@ -198,12 +199,13 @@ export function registerAppGeneratedTools(
  * it is, and accepting every value, since the forge tools service checks the
  * arguments when it plans the call, as it does for the direct tools.
  */
-function listedAs(schema: Tool['inputSchema']): StandardSchemaWithJSON<Record<string, unknown>> {
+function listedAs(schema: Tool['inputSchema']): StandardSchemaWithJSON<ToolArguments> {
   return {
     '~standard': {
       version: 1,
       vendor: 'cloudflare-mcp',
-      validate: (value) => ({ value: value as Record<string, unknown> }),
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Accepted as sent; the forge tools service checks the arguments when it plans the call.
+      validate: (value) => ({ value: value as ToolArguments }),
       jsonSchema: { input: () => schema, output: () => schema }
     }
   }

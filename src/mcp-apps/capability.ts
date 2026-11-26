@@ -1,16 +1,18 @@
 import {
   CLIENT_CAPABILITIES_META_KEY,
-  PROTOCOL_VERSION_META_KEY,
-  type Tool
+  PROTOCOL_VERSION_META_KEY
 } from '@modelcontextprotocol/server'
+import type { Tool } from '@modelcontextprotocol/server'
 import { MCP_APP_MIME } from './define'
 
 /** The MCP Apps extension a host declares in its capabilities, and this server in its own. */
 export const MCP_APPS_EXTENSION_ID = 'io.modelcontextprotocol/ui'
 
+// oxlint-disable-next-line quality/no-unsafe-dictionary-type -- An untrusted request body, narrowed one field at a time by its callers.
 function record(value: unknown): Record<string, unknown> | undefined {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
-    ? (value as Record<string, unknown>)
+    ? // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion -- The check above narrowed it to a non-array object.
+      (value as Record<string, unknown>)
     : undefined
 }
 
@@ -28,13 +30,16 @@ function record(value: unknown): Record<string, unknown> | undefined {
  */
 export function declaresMcpApps(body: unknown): boolean {
   const meta = record(record(record(body)?.params)?._meta)
-  if (typeof meta?.[PROTOCOL_VERSION_META_KEY] !== 'string') return false
+  if (typeof meta?.[PROTOCOL_VERSION_META_KEY] !== 'string') {
+    return false
+  }
   const extensions = record(record(meta[CLIENT_CAPABILITIES_META_KEY])?.extensions)
   const mimeTypes = record(extensions?.[MCP_APPS_EXTENSION_ID])?.mimeTypes
   return (
     Array.isArray(mimeTypes) &&
     mimeTypes.some(
-      (type) => typeof type === 'string' && type.replace(/\s+/g, '').toLowerCase() === MCP_APP_MIME
+      (type) =>
+        typeof type === 'string' && type.replaceAll(/\s+/g, '').toLowerCase() === MCP_APP_MIME
     )
   )
 }
@@ -52,9 +57,13 @@ export function mcpAppsLogLine(body: unknown, declared: boolean): string | undef
   const message = record(body)
   const params = record(message?.params)
   const meta = record(params?._meta)
-  if (typeof meta?.[PROTOCOL_VERSION_META_KEY] !== 'string') return undefined
+  if (typeof meta?.[PROTOCOL_VERSION_META_KEY] !== 'string') {
+    return undefined
+  }
   const method = message?.method
-  if (method !== 'tools/list' && method !== 'tools/call') return undefined
+  if (method !== 'tools/list' && method !== 'tools/call') {
+    return undefined
+  }
   const name = record(meta['io.modelcontextprotocol/clientInfo'])?.name
   const client = typeof name === 'string' ? quoted(name) : '<none>'
   const tool =
@@ -69,7 +78,9 @@ export function mcpAppsLogLine(body: unknown, declared: boolean): string | undef
  * result is the same JSON text, without the `_meta` that links it to its view.
  */
 export function withoutAppView(tool: Tool): Tool {
-  if (!tool._meta) return tool
+  if (!tool._meta) {
+    return tool
+  }
   const { ui: _ui, 'ui/resourceUri': _uri, ...meta } = tool._meta
   const { _meta: _dropped, ...rest } = tool
   return Object.keys(meta).length > 0 ? { ...rest, _meta: meta } : rest

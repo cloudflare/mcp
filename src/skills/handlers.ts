@@ -58,7 +58,7 @@ const GetSkillParams = z.looseObject({ uri: z.string() })
  */
 export function registerSkills(
   server: McpServer,
-  staticResources: readonly StaticResource[] = [],
+  staticResources: ReadonlyArray<StaticResource> = [],
   { listStatic = true }: { listStatic?: boolean } = {}
 ): void {
   server.server.registerCapabilities({
@@ -107,7 +107,9 @@ export function registerSkills(
   server.server.setRequestHandler('resources/read', async (request) => {
     const { uri } = request.params
     const shipped = staticResources.find((resource) => resource.descriptor.uri === uri)
-    if (shipped) return { contents: [shipped.content], ...SKILLS_CACHE }
+    if (shipped) {
+      return { contents: [shipped.content], ...SKILLS_CACHE }
+    }
     const file = (await getSkills()).filesByUri.get(uri)
     if (!file) {
       throw new ResourceNotFoundError(uri, `No resource is served at ${uri}`)

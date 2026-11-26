@@ -42,7 +42,7 @@ const typicalDays = (cadence: Cadence) => (cadence.kind === 'rolling' ? cadence.
 
 // ── Scale: nice numbers, 1, 2, 5 × 10ⁿ, so steps and ticks suit any account size ──
 
-export function nice(x: number, set: readonly number[] = [1, 2, 5]): number {
+export function nice(x: number, set: ReadonlyArray<number> = [1, 2, 5]): number {
   const e = 10 ** Math.floor(Math.log10(x))
   return (set.find((m) => m * e >= x * 0.9999) ?? 10) * e
 }
@@ -62,7 +62,7 @@ export const snapTo = (v: number, step: number) => Math.round(v / step) * step
 // ── The alert's rule ──
 
 /** The 7-day total at the end of each day from the seventh on: what the monitor's query returns then. */
-export function rolling7(days: readonly Day[]): Map<string, number> {
+export function rolling7(days: ReadonlyArray<Day>): Map<string, number> {
   return measured(days, ROLLING_7_DAYS)
 }
 
@@ -71,7 +71,7 @@ export function rolling7(days: readonly Day[]): Map<string, number> {
  * `days` days from the first full window on (`rolling`), or the total since
  * the month began (`month`).
  */
-export function measured(days: readonly Day[], cadence: Cadence): Map<string, number> {
+export function measured(days: ReadonlyArray<Day>, cadence: Cadence): Map<string, number> {
   const out = new Map<string, number>()
   let total = 0
   if (cadence.kind === 'month') {
@@ -89,8 +89,12 @@ export function measured(days: readonly Day[], cadence: Cadence): Map<string, nu
   const period = cadence.days
   days.forEach(([date, n], i) => {
     total += n
-    if (i >= period) total -= days[i - period][1]
-    if (i >= period - 1) out.set(date, total)
+    if (i >= period) {
+      total -= days[i - period][1]
+    }
+    if (i >= period - 1) {
+      out.set(date, total)
+    }
   })
   return out
 }
@@ -100,8 +104,10 @@ export function measured(days: readonly Day[], cadence: Cadence): Map<string, nu
  * to the mean, so only true silence, or under a week of history, has no
  * typical period.
  */
-export function typicalPeriod(days: readonly Day[], cadence: Cadence = ROLLING_7_DAYS) {
-  if (days.length < MIN_DAYS) return null
+export function typicalPeriod(days: ReadonlyArray<Day>, cadence: Cadence = ROLLING_7_DAYS) {
+  if (days.length < MIN_DAYS) {
+    return null
+  }
   const sorted = days.map(([, n]) => n).sort((a, b) => a - b)
   const median = sorted[sorted.length >> 1]
   const mean = sorted.reduce((a, b) => a + b, 0) / sorted.length
@@ -109,7 +115,7 @@ export function typicalPeriod(days: readonly Day[], cadence: Cadence = ROLLING_7
 }
 
 /** The median day × 7. */
-export const typicalWeek = (days: readonly Day[]) => typicalPeriod(days, ROLLING_7_DAYS)
+export const typicalWeek = (days: ReadonlyArray<Day>) => typicalPeriod(days, ROLLING_7_DAYS)
 
 export interface Email {
   readonly date: string
@@ -123,18 +129,20 @@ export interface Email {
  * one email the day the month's total passes `limit`.
  */
 export function replayEmails(
-  days: readonly Day[],
+  days: ReadonlyArray<Day>,
   values: ReadonlyMap<string, number>,
   limit: number,
   cadence: Cadence = ROLLING_7_DAYS
-): Email[] {
-  const out: Email[] = []
+): Array<Email> {
+  const out: Array<Email> = []
   if (cadence.kind === 'month') {
     let sent = ''
     for (const [date] of days) {
       const total = values.get(date)
       const month = date.slice(0, 7)
-      if (total == null || total < limit || sent === month) continue
+      if (total === undefined || total < limit || sent === month) {
+        continue
+      }
       out.push({ date, first: true })
       sent = month
     }
@@ -143,13 +151,15 @@ export function replayEmails(
   let last: string | null = null
   for (const [date] of days) {
     const total = values.get(date)
-    if (total == null) continue
+    if (total === undefined) {
+      continue
+    }
     if (total < limit) {
       last = null
       continue
     }
-    if (last == null || dayNumber(date) - dayNumber(last) >= cadence.days) {
-      out.push({ date, first: last == null })
+    if (last === null || dayNumber(date) - dayNumber(last) >= cadence.days) {
+      out.push({ date, first: last === null })
       last = date
     }
   }
@@ -195,9 +205,9 @@ export interface Month {
 
 export interface Model {
   readonly cadence: Cadence
-  readonly days: readonly Day[]
-  readonly weeks: readonly Bucket[]
-  readonly months: readonly Month[]
+  readonly days: ReadonlyArray<Day>
+  readonly weeks: ReadonlyArray<Bucket>
+  readonly months: ReadonlyArray<Month>
   /** Days the chart spans, from the first bucket's start. */
   readonly span: number
   /** What the alert measured at the end of each day. */
@@ -240,13 +250,17 @@ const nextMonth = (ms: number) => {
 }
 
 /** `[start, length]` of each bucket from the one holding `first` to the one holding `today`. */
-function buckets(cadence: Cadence, first: number, today: number): [number, number][] {
-  const out: [number, number][] = []
-  if (cadence.kind === 'rolling')
-    for (let w = mondayOf(first); w <= today; w += 7 * DAY_MS) out.push([w, 7])
-  else
-    for (let m = monthOf(first); m <= today; m = nextMonth(m))
+function buckets(cadence: Cadence, first: number, today: number): Array<[number, number]> {
+  const out: Array<[number, number]> = []
+  if (cadence.kind === 'rolling') {
+    for (let w = mondayOf(first); w <= today; w += 7 * DAY_MS) {
+      out.push([w, 7])
+    }
+  } else {
+    for (let m = monthOf(first); m <= today; m = nextMonth(m)) {
       out.push([m, Math.round((nextMonth(m) - m) / DAY_MS)])
+    }
+  }
   return out
 }
 
@@ -258,7 +272,7 @@ function buckets(cadence: Cadence, first: number, today: number): [number, numbe
  * @param cadence - The alert's rule. Defaults to the rolling 7 days the Workers monitor uses.
  */
 export function deriveModel(
-  days: readonly Day[],
+  days: ReadonlyArray<Day>,
   today: string,
   cadence: Cadence = ROLLING_7_DAYS
 ): Model {
@@ -267,9 +281,10 @@ export function deriveModel(
     ? days.slice(-MIN_DAYS).reduce((a, [, n]) => a + n, 0) / Math.min(MIN_DAYS, days.length)
     : 0
   const values = new Map(days)
-  const weeks: Bucket[] = []
-  if (days.length) {
-    const lastActual = days[days.length - 1][0]
+  const weeks: Array<Bucket> = []
+  const lastDay = days.at(-1)
+  if (lastDay) {
+    const lastActual = lastDay[0]
     const all = buckets(cadence, dayMs(days[0][0]), dayMs(today))
     const origin = all[0]?.[0] ?? 0
     for (const [w, length] of all) {
@@ -281,7 +296,7 @@ export function deriveModel(
       for (let i = 0; i < length; i++) {
         const date = isoDay(w + i * DAY_MS)
         const n = values.get(date)
-        if (n != null) {
+        if (n !== undefined) {
           actual += n
           nActual++
           lastDay = date
@@ -291,7 +306,9 @@ export function deriveModel(
         }
       }
       const n = nActual + nEstimate
-      if (!n) continue
+      if (!n) {
+        continue
+      }
       weeks.push({
         start: isoDay(w),
         end: isoDay(w + (length - 1) * DAY_MS),
@@ -313,23 +330,26 @@ export function deriveModel(
   // The window opens mid-bucket: start the chart at the first day with data.
   const shift = weeks[0]?.offset ?? 0
   const placed = weeks.map((w) => ({ ...w, offset: w.offset - shift }))
-  const lastBucket = placed[placed.length - 1]
+  const lastBucket = placed.at(-1)
   const span = lastBucket ? lastBucket.offset + lastBucket.length : 1
   const origin = placed.length ? dayMs(placed[0].start) : 0
   const offsetOf = (date: string) => Math.round((dayMs(date) - origin) / DAY_MS)
 
-  const months: Month[] = []
+  const months: Array<Month> = []
   for (const [date] of days) {
     const key = date.slice(0, 7)
     const at = Math.max(0, offsetOf(date))
-    const last = months[months.length - 1]
-    if (last?.key === key) months[months.length - 1] = { ...last, to: at + 1 }
-    else months.push({ key, from: at, to: at + 1 })
+    const last = months.at(-1)
+    if (last?.key === key) {
+      months[months.length - 1] = { ...last, to: at + 1 }
+    } else {
+      months.push({ key, from: at, to: at + 1 })
+    }
   }
 
   const typical = typicalPeriod(days, cadence)
-  const lastDate = days[days.length - 1]?.[0]
-  const current = !days.length
+  const lastDate = lastDay?.[0]
+  const current = !lastDate
     ? 0
     : cadence.kind === 'rolling'
       ? (rolling.get(lastDate) ?? pace * cadence.days)
@@ -340,7 +360,7 @@ export function deriveModel(
   // The busiest period: the most the alert measured on any day, and, by month, this month
   // projected to its end. A month the window cuts counts as far as it was read, a lower bound.
   const projected =
-    cadence.kind === 'month' ? placed.filter((w) => !w.partial).map((w) => w.total) : []
+    cadence.kind === 'month' ? placed.flatMap((w) => (w.partial ? [] : [w.total])) : []
   const peak = Math.max(0, ...rolling.values(), ...projected)
   const totals = placed.map((w) => w.total).sort((a, b) => b - a)
   const dataTop = Math.max(
@@ -356,7 +376,7 @@ export function deriveModel(
   const over = Math.max(peak, ...placed.map((w) => w.total)) * SUGGESTED_OVER_BUSIEST
   const step = stepOf(niceTop(over))
   const suggested =
-    typical == null ? null : clamp(Math.ceil(over / step) * step, minLimit, maxLimit)
+    typical === null ? null : clamp(Math.ceil(over / step) * step, minLimit, maxLimit)
   return {
     cadence,
     days,

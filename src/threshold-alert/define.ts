@@ -14,12 +14,16 @@ import type { ToolAnnotations } from '@modelcontextprotocol/server'
 import { z } from 'zod'
 import { autoResolvedAccountId, missingAccountMessage } from '../auth/account-access'
 import { ScopeChallenge } from '../scope-challenge'
-import { ApiReadError, ApiReadUnsupported, apiReader, type ApiReader } from '../mcp-apps/api-read'
-import { defineMcpApp, type AppContext, type AppOutcome, type McpApp } from '../mcp-apps/define'
+import { ApiReadError, isUnsupportedRead, apiReader } from '../mcp-apps/api-read'
+import type { ApiReader } from '../mcp-apps/api-read'
+import { defineMcpApp } from '../mcp-apps/define'
+import type { AppContext, AppOutcome, McpApp } from '../mcp-apps/define'
 import { tools as alertingPolicyTools } from '../generated/forge-mcp/alerting/policies/tools'
 import { tools as spendPolicyTools } from '../generated/forge-mcp/billing/spendPolicies/tools'
-import { clamp, deriveModel, type Day, type Model } from './model'
-import { recogniseAmong, type ListedSetting, type ThresholdAlertPreset } from './presets'
+import { clamp, deriveModel } from './model'
+import type { Day, Model } from './model'
+import { recogniseAmong } from './presets'
+import type { ListedSetting, ThresholdAlertPreset } from './presets'
 import type { ExistingAlert, ThresholdAlertInput } from './contract'
 import { exactNumber } from './units'
 
@@ -32,20 +36,25 @@ export interface Collected {
   readonly accountId: string
   readonly userEmail?: string
   readonly today: string
-  readonly days: Day[]
+  readonly days: Array<Day>
   readonly model: Model
   /** The input `limit`, clamped to the chart, or the model's suggestion. `null` with no typical period and no input. */
   readonly suggestedLimit: number | null
   readonly alertAvailable: boolean | null
-  readonly existingAlerts: ExistingAlert[] | null
+  readonly existingAlerts: Array<ExistingAlert> | null
   readonly otherPolicies: Record<string, number>
-  readonly limitations: string[]
+  readonly limitations: Array<string>
 }
 
 /** A history read: complete days, oldest first, or a tool error. */
 export type HistoryOutcome =
-  | { readonly ok: true; readonly days: Day[]; readonly limitations?: readonly string[] }
-  | { readonly ok: false; readonly text: string; readonly meta?: Record<string, unknown> }
+  | { readonly ok: true; readonly days: Array<Day>; readonly limitations?: ReadonlyArray<string> }
+  | {
+      readonly ok: false
+      readonly text: string
+      // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The tool error's `_meta`, passed through to the result unchanged.
+      readonly meta?: Record<string, unknown>
+    }
 
 export interface ThresholdAlertAppDefinition<Input extends z.ZodObject, Output extends z.ZodType> {
   readonly preset: ThresholdAlertPreset
@@ -53,7 +62,7 @@ export interface ThresholdAlertAppDefinition<Input extends z.ZodObject, Output e
    * Presets whose policies count as already on this account, including this
    * one. Other policies are only counted by type.
    */
-  readonly related: readonly ThresholdAlertPreset[]
+  readonly related: ReadonlyArray<ThresholdAlertPreset>
   readonly title: string
   readonly description: string
   readonly annotations: ToolAnnotations
@@ -65,7 +74,7 @@ export interface ThresholdAlertAppDefinition<Input extends z.ZodObject, Output e
     readonly html: string
   }
   /** Always true of the result: what the numbers are and what the alert doesn't do. */
-  readonly limitations: readonly string[]
+  readonly limitations: ReadonlyArray<string>
   /** Read the history. A failure is the tool's error: without history there is nothing to preview. */
   readHistory(
     accountId: string,
@@ -124,13 +133,13 @@ const TARGET_TOOLS = { alerting_policy: alertingPolicyTools, spend_policy: spend
  * `days` becomes the range read, in the same place, so the model still knows
  * what the summary covers and that the card has the rest.
  */
-export function thresholdAlertModelText(value: { readonly days: readonly Day[] }): string {
+export function thresholdAlertModelText(value: { readonly days: ReadonlyArray<Day> }): string {
   const { days } = value
+  const first = days.at(0)
+  const last = days.at(-1)
   return JSON.stringify({
     ...value,
-    days: days.length
-      ? { from: days[0][0], to: days[days.length - 1][0], count: days.length }
-      : { count: 0 }
+    days: first && last ? { from: first[0], to: last[0], count: days.length } : { count: 0 }
   })
 }
 
@@ -151,8 +160,9 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
   ): Promise<AppOutcome<z.output<Output>>> {
     const { account_id, limit, as_of } = input as ThresholdAlertInput
     const accountId = account_id ?? autoResolvedAccountId(context.props)
-    if (!accountId)
+    if (!accountId) {
       return { ok: false, text: missingAccountMessage(context.props, 'Use GET /accounts.') }
+    }
 
     const now = new Date()
     const today = as_of ?? now.toISOString().slice(0, 10)
@@ -176,19 +186,23 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
       preset.toolName
     )
     // Kept apart until the history is read, so the history's notes come first as before.
-    const alertingNotes: string[] = []
+    const alertingNotes: Array<string> = []
     const optional = async <T>(read: () => Promise<T>, what: string): Promise<T | null> => {
       try {
         return await read()
       } catch (error) {
-        if (alertingSignal.aborted) throw error
+        if (alertingSignal.aborted) {
+          throw error
+        }
         if (error instanceof ApiReadError) {
           alertingNotes.push(`${what} could not be read: ${error.text}`)
-        } else if (error instanceof ApiReadUnsupported || error instanceof z.ZodError) {
+        } else if (isUnsupportedRead(error)) {
           alertingNotes.push(
             `${what} could not be read: Cloudflare returned an unsupported response.`
           )
-        } else throw error
+        } else {
+          throw error
+        }
         return null
       }
     }
@@ -239,7 +253,7 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
 
     const otherPolicies: Record<string, number> = {}
     const existingAlerts = settings
-      ? settings.flatMap((setting): ExistingAlert[] => {
+      ? settings.flatMap((setting): Array<ExistingAlert> => {
           const watch = recogniseAmong(definition.related, setting)
           if (!watch) {
             // Other settings are only counted: a notification policy by type, a spend policy by product.
@@ -262,10 +276,11 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
 
     const days = history.days
     const model = deriveModel(days, today, preset.cadence)
-    if (days.length && days.length < 7)
+    if (days.length && days.length < 7) {
       limitations.push(
         `Only ${days.length} days of history: under a week, so there is no typical ${preset.copy.bucket} to compare against.`
       )
+    }
     // The line starts a tenth over the busiest period. On a rolling monitor, a number the user named
     // moves it only when it is above that period: one below would already have emailed, so it can't
     // be what they meant by "clearly bigger", and the card would open over the bars with the alert
@@ -273,30 +288,33 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
     // (the included requests) is the point, so a named number is kept and the overlap is said.
     const monthly = preset.cadence.kind === 'month'
     const n = (value: number) => exactNumber(value, preset.unit.format)
-    const named = limit != null && (monthly || limit > model.peak)
-    if (limit != null && monthly && limit <= model.peak)
+    const named = limit !== undefined && (monthly || limit > model.peak)
+    if (limit !== undefined && monthly && limit <= model.peak) {
       limitations.push(
         `The busiest ${preset.copy.bucket} charted (${n(model.peak)}, counting this ${preset.copy.bucket} projected to its end) is at or above ${n(limit)}, so this alert would email in a ${preset.copy.bucket} like it. Say so in one sentence.`
       )
-    if (limit != null && !named)
+    }
+    if (limit !== undefined && !named) {
       limitations.push(
         `The line starts a tenth above the busiest ${preset.copy.bucket}, not at the number named (${n(limit)}): that number is at or below the busiest ${preset.copy.bucket} (${n(model.peak)}), so it would already have emailed. Lead with this in one sentence and point to the card, where the user drags the line; don't ask for a number in chat.`
       )
+    }
     const clamped = named ? clamp(limit, model.minLimit, model.maxLimit) : null
-    if (named && clamped !== limit)
+    if (clamped !== null && limit !== undefined && clamped !== limit) {
       limitations.push(
-        `The line starts at ${n(clamped!)}, not at the number named (${n(limit)}): that is the ${clamped! > limit ? 'lowest' : 'highest'} the card's line reaches for this history. Say so in one sentence.`
+        `The line starts at ${n(clamped)}, not at the number named (${n(limit)}): that is the ${clamped > limit ? 'lowest' : 'highest'} the card's line reaches for this history. Say so in one sentence.`
       )
+    }
     const suggested = clamped ?? model.suggested
     const value = definition.shape(
       {
         checkedAt: now.toISOString(),
         accountId,
-        ...(context.props.type === 'user_token' ? { userEmail: context.props.user.email } : {}),
+        userEmail: context.props.type === 'user_token' ? context.props.user.email : undefined,
         today,
         days,
         model,
-        suggestedLimit: model.typical == null && !named ? null : suggested,
+        suggestedLimit: model.typical === null && !named ? null : suggested,
         alertAvailable,
         existingAlerts,
         otherPolicies,

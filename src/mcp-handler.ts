@@ -74,8 +74,11 @@ const MCP_APPS_LOG_SAMPLE_RATE = 0.01
  * A POST's JSON-RPC body, read from a clone so the request stays readable, or
  * `undefined` when it isn't JSON or is too large; the SDK answers those.
  */
+// oxlint-disable-next-line quality/no-unknown-returns -- An untrusted JSON-RPC body; its readers narrow the fields they use.
 async function parsedBodyOf(request: Request): Promise<unknown> {
-  if (request.method !== 'POST') return undefined
+  if (request.method !== 'POST') {
+    return undefined
+  }
   try {
     const read = await readRequestBody(request.clone())
     return read.tooLarge || read.text.length === 0 ? undefined : JSON.parse(read.text)
@@ -255,7 +258,9 @@ export async function handleAuthenticatedMcpRequest(
   // that render them (Claude, ChatGPT) do.
   if (Math.random() < MCP_APPS_LOG_SAMPLE_RATE) {
     const line = mcpAppsLogLine(body, mcpApps)
-    if (line) console.log(line)
+    if (line) {
+      console.log(line)
+    }
   }
   const connection = connectionFromAuth(auth)
   // Only tokens this server issued can step up; their tools can ask for a scope.

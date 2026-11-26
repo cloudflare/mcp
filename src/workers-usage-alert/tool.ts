@@ -4,7 +4,8 @@
  * hourly `custom_analytics` monitor on a rolling 7 days, and the dashboard's
  * `billing_usage_alert` on billed requests in a billing period.
  */
-import { defineThresholdAlertApp, type Collected } from '../threshold-alert/define'
+import { defineThresholdAlertApp } from '../threshold-alert/define'
+import type { Collected } from '../threshold-alert/define'
 import { WORKERS_REQUESTS_BILLING, WORKERS_REQUESTS_MONITOR } from '../threshold-alert/presets'
 import {
   BILLING_ALERT_RESOURCE_URI,
@@ -15,10 +16,9 @@ import {
   USAGE_ALERT_RESOURCE_URI,
   USAGE_ALERT_TOOL_CONFIG,
   UsageAlertInputSchema,
-  UsageAlertPreviewSchema,
-  type BillingAlertPreview,
-  type UsageAlertPreview
+  UsageAlertPreviewSchema
 } from './contract'
+import type { BillingAlertPreview, UsageAlertPreview } from './contract'
 import { readWorkersRequests } from './read'
 import { appHtml } from './app-html.generated'
 
@@ -29,11 +29,11 @@ const common = (c: Collected) => ({
   nextStep: USAGE_ALERT_NEXT_STEP,
   checkedAt: c.checkedAt,
   accountId: c.accountId,
-  ...(c.userEmail ? { userEmail: c.userEmail } : {}),
+  userEmail: c.userEmail,
   today: c.today,
   days: c.days
 })
-const round = (n: number | null) => (n == null ? null : Math.round(n))
+const round = (n: number | null) => (n === null ? null : Math.round(n))
 
 /**
  * The Workers usage alert App, served in both tool modes. Its tool only

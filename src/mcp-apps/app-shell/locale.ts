@@ -53,12 +53,13 @@ function parse(tag: string | undefined): Intl.Locale | undefined {
  */
 export function resolveLocale(
   requested: string | undefined,
-  languages: readonly [string, ...string[]]
+  languages: readonly [string, ...Array<string>]
 ): AppLocale {
   const host = parse(requested)
   const fallback = languages[0]
-  if (host?.region === PSEUDO)
+  if (host?.region === PSEUDO) {
     return { lang: fallback, dir: directionOf(host.language), formats: host.language }
+  }
   const lang = host && languages.includes(host.language) ? host.language : fallback
   return { lang, dir: directionOf(lang), formats: host?.region ? `${lang}-${host.region}` : lang }
 }

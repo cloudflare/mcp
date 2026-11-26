@@ -185,7 +185,7 @@ export async function fetchWithRetry(
       // Even after a 429: this attempt is a new request, and it may have reached the server.
       if (!opts.retryNetworkErrors) {
         console.warn(
-          `fetchWithRetry: network error${caller} url=${url}, not retried: the request may have been received: ${error instanceof Error ? error.message : error}`
+          `fetchWithRetry: network error${caller} url=${url}, not retried: the request may have been received: ${error instanceof Error ? error.message : String(error)}`
         )
         throw error
       }

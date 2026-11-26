@@ -16,6 +16,7 @@ import { isolate } from './isolate'
  */
 export function withCachedJsonSchema<T extends z.ZodType>(
   schema: T,
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- A JSON Schema holds arbitrary keywords, as the SDK's converter returns it.
   post: (json: Record<string, unknown>) => Record<string, unknown> = (json) => json
 ): T {
   const standard = schema['~standard']

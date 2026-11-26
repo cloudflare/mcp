@@ -3,9 +3,11 @@
  * query over the shared windows, summing every bucket's daily peak.
  */
 import { z } from 'zod'
-import { ApiReadError, ApiReadUnsupported, type ApiReader } from '../mcp-apps/api-read'
+import { ApiReadError, isUnsupportedRead } from '../mcp-apps/api-read'
+import type { ApiReader } from '../mcp-apps/api-read'
 import type { HistoryOutcome } from '../threshold-alert/define'
-import { fillDays, historyWindows, type Window } from '../threshold-alert/history'
+import { fillDays, historyWindows } from '../threshold-alert/history'
+import type { Window } from '../threshold-alert/history'
 import type { Day } from '../threshold-alert/model'
 
 /** R2 bills storage over a 30-day month: each day's peak counts for 1/30 of it. */
@@ -23,7 +25,7 @@ export const ALIAS_LIMIT = 2000
  * storage only: `r2_storage` is the Standard class; Infrequent Access bills apart.
  * The dataset has no sum across buckets, so rows are days × buckets.
  */
-function dailyStorageQuery(windows: readonly Window[]): string {
+function dailyStorageQuery(windows: ReadonlyArray<Window>): string {
   const aliases = windows
     .map(
       (_, i) =>
@@ -59,8 +61,7 @@ const DailyStorageData = z.object({
  * Yesterday's stored bytes from the history: a day's value is its peak ÷ 30,
  * so this undoes that.
  */
-export const storedOn = (days: readonly Day[]) =>
-  days.length ? days[days.length - 1][1] * BILLING_MONTH_DAYS : 0
+export const storedOn = (days: ReadonlyArray<Day>) => (days.at(-1)?.[1] ?? 0) * BILLING_MONTH_DAYS
 
 /**
  * The 89 complete days of R2 Standard storage before `today`. Each day is
@@ -91,28 +92,35 @@ export async function readR2Storage(
       DailyStorageData
     )
   } catch (error) {
-    if (signal.aborted) throw error
-    if (error instanceof ApiReadError)
+    if (signal.aborted) {
+      throw error
+    }
+    if (error instanceof ApiReadError) {
       return { ok: false, text: error.text, meta: error.result._meta }
-    if (error instanceof ApiReadUnsupported || error instanceof z.ZodError)
+    }
+    if (isUnsupportedRead(error)) {
       return { ok: false, text: 'Cloudflare returned an unsupported analytics response.' }
+    }
     throw error
   }
   const account = usage.viewer.accounts[0]
-  if (!account)
+  if (!account) {
     return {
       ok: false,
       text: `No R2 analytics were returned for account ${accountId}. Check the account ID and that the connection can read its analytics.`
     }
+  }
   // Every window must answer: a missing one would be filled with zeros as days without data.
-  if (windows.some((_, i) => !Array.isArray(account[`w${i}`])))
+  if (windows.some((_, i) => !Array.isArray(account[`w${i}`]))) {
     return { ok: false, text: 'Cloudflare returned an unsupported analytics response.' }
-  const limitations: string[] = []
-  if (windows.some((_, i) => account[`w${i}`].length >= ALIAS_LIMIT))
+  }
+  const limitations: Array<string> = []
+  if (windows.some((_, i) => account[`w${i}`].length >= ALIAS_LIMIT)) {
     limitations.push(
       'This account has more buckets than one storage read returns, so some days may count less storage than billing does.'
     )
-  const rows: Day[] = windows.flatMap((_, i) =>
+  }
+  const rows: Array<Day> = windows.flatMap((_, i) =>
     account[`w${i}`].map((row): Day => [
       row.dimensions.date,
       (row.max.payloadSize + row.max.metadataSize) / BILLING_MONTH_DAYS

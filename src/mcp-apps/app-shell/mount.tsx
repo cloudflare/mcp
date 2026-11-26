@@ -43,14 +43,19 @@ export interface MountOptions<Output extends z.ZodType> {
    * `locale` picks one (and so `lang` and `dir`); its region picks the number
    * and date formats. Defaults to English only. See `./locale.ts`.
    */
-  readonly languages?: readonly [string, ...string[]]
+  readonly languages?: readonly [string, ...Array<string>]
 }
 
 function applyTheme(mode: string | undefined) {
-  if (!mode) return
+  if (!mode) {
+    return
+  }
   document.documentElement.dataset.mode = mode
   document.documentElement.style.colorScheme = mode
 }
+
+/** What `last` draws before anything has been drawn. */
+const drawNothing = (): ReactNode => null
 
 /**
  * Mount an MCP App into `#root`: connect to the host, follow its theme and locale, and
@@ -69,12 +74,16 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
     disconnected: 'Could not connect to the host. The text result remains available.',
     ...options.copy
   }
-  const root = createRoot(document.getElementById('root')!)
+  const container = document.getElementById('root')
+  if (!container) {
+    throw new Error('MCP App HTML has no #root element')
+  }
+  const root = createRoot(container)
   const app = new App({ name: options.name, version: options.version ?? '1.0.0' }, {})
   const mounted: MountedApp = { app }
 
   // The last thing drawn, so a locale change re-renders it in the new formats and direction.
-  let last: () => ReactNode = () => null
+  let last: () => ReactNode = drawNothing
   const draw = (node: () => ReactNode) => {
     last = () => {
       drawnFor = toolName()
@@ -89,13 +98,17 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
     const context = app.getHostContext()
     applyTheme(context?.theme)
     const relocalised = applyLocale(resolveLocale(context?.locale, options.languages ?? ['en']))
-    if (relocalised || toolName() !== drawnFor) root.render(last())
+    if (relocalised || toolName() !== drawnFor) {
+      root.render(last())
+    }
   }
   const pending = () =>
     draw(() => options.renderPending?.(toolName()) ?? <p role="status">{copy.pending}</p>)
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The tool's arguments as the host sent them, replayed unchanged on retry.
   let input: Record<string, unknown> | undefined
   const show = (result: CallToolResult) => {
-    if (result.isError && options.renderError) {
+    const { renderError } = options
+    if (result.isError && renderError) {
       const text = result.content.flatMap((c) => (c.type === 'text' ? [c.text] : [])).join('\n')
       // Decided at each draw, from the host's current context: `toolInfo` can arrive after the error.
       const retryFor = (name: string | undefined) =>
@@ -110,7 +123,7 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
                 )
             }
           : undefined
-      return draw(() => options.renderError!(text, retryFor(toolName()), toolName()))
+      return draw(() => renderError(text, retryFor(toolName()), toolName()))
     }
     const parsed = options.output.safeParse(result.structuredContent)
     draw(() =>

@@ -1,5 +1,6 @@
 import { appLocale } from '../../mcp-apps/app-shell/apply-locale'
-import { byteScale, policyNumber, type UnitFormat } from '../../threshold-alert/units'
+import { byteScale, policyNumber } from '../../threshold-alert/units'
+import type { UnitFormat } from '../../threshold-alert/units'
 
 /**
  * Counts and dates in the host's formats, from the browser's `Intl`: no
@@ -11,21 +12,23 @@ import { byteScale, policyNumber, type UnitFormat } from '../../threshold-alert/
  * `approx` either with the locale's "about" sign; `words` the long form for
  * screen readers ("1.35 billion").
  */
-const cache = new Map<string, Intl.NumberFormat | Intl.DateTimeFormat>()
-function cached<T extends Intl.NumberFormat | Intl.DateTimeFormat>(
-  key: string,
-  make: (lang: string) => T
-): T {
+const numbers = new Map<string, Intl.NumberFormat>()
+const dates = new Map<string, Intl.DateTimeFormat>()
+function cached<T>(cache: Map<string, T>, key: string, make: (lang: string) => T): T {
   const lang = appLocale().formats
   const k = `${lang}|${key}`
-  let f = cache.get(k) as T | undefined
-  if (!f) cache.set(k, (f = make(lang)))
+  let f = cache.get(k)
+  if (!f) {
+    f = make(lang)
+    cache.set(k, f)
+  }
   return f
 }
 const number = (key: string, options: Intl.NumberFormatOptions) =>
-  cached(key, (lang) => new Intl.NumberFormat(lang, { notation: 'compact', ...options }))
+  cached(numbers, key, (lang) => new Intl.NumberFormat(lang, { notation: 'compact', ...options }))
 const date = (key: string, options: Intl.DateTimeFormatOptions) =>
   cached(
+    dates,
     key,
     (lang) => new Intl.DateTimeFormat(lang, { calendar: 'gregory', timeZone: 'UTC', ...options })
   )
@@ -63,6 +66,7 @@ const bytes = (
 ) => {
   const unit = byteScale(v)[1]
   return cached(
+    numbers,
     `bytes|${key}|${unit}|${display}`,
     (lang) => new Intl.NumberFormat(lang, { style: 'unit', unit, unitDisplay: display, ...options })
   )
@@ -100,6 +104,7 @@ const BYTES: Formats = {
  */
 const usd = (key: string, options: Intl.NumberFormatOptions, display?: 'name') =>
   cached(
+    numbers,
     `usd|${key}|${display ?? ''}`,
     (lang) =>
       new Intl.NumberFormat(lang, {

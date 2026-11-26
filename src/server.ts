@@ -123,7 +123,9 @@ export function createServer(
   // the text-only fallback, and the writes only their views make aren't
   // registered: about 25 KB of `tools/list` the model must not call.
   registerMcpApps(server, { props, connection, scopeChallenge }, undefined, { view: mcpApps })
-  if (mcpApps) registerAppGeneratedTools(server, { props, connection, scopeChallenge })
+  if (mcpApps) {
+    registerAppGeneratedTools(server, { props, connection, scopeChallenge })
+  }
 
   return server
 }

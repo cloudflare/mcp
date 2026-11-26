@@ -80,6 +80,7 @@ export interface SettingRef {
 /** One call to a generated tool, as `callServerTool` takes it. */
 export type ToolCall = {
   name: string
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The generated tool's input schema owns these arguments; the host checks them.
   arguments: Record<string, unknown>
 }
 

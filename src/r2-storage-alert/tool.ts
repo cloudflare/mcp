@@ -11,14 +11,14 @@ import {
   R2_STORAGE_ALERT_RESOURCE_URI,
   R2_STORAGE_ALERT_TOOL_CONFIG,
   R2StorageAlertInputSchema,
-  R2StorageAlertPreviewSchema,
-  type R2StorageAlertPreview
+  R2StorageAlertPreviewSchema
 } from './contract'
+import type { R2StorageAlertPreview } from './contract'
 import { readR2Storage, storedOn } from './read'
 // The one view every threshold alert shares.
 import { appHtml } from '../workers-usage-alert/app-html.generated'
 
-const round = (n: number | null) => (n == null ? null : Math.round(n))
+const round = (n: number | null) => (n === null ? null : Math.round(n))
 
 export const r2StorageAlertApp = defineThresholdAlertApp({
   preset: R2_STORAGE_BILLING,
@@ -43,7 +43,7 @@ export const r2StorageAlertApp = defineThresholdAlertApp({
     nextStep: R2_STORAGE_ALERT_NEXT_STEP,
     checkedAt: c.checkedAt,
     accountId: c.accountId,
-    ...(c.userEmail ? { userEmail: c.userEmail } : {}),
+    userEmail: c.userEmail,
     today: c.today,
     days: c.days,
     summary: {

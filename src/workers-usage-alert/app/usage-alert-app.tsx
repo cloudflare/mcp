@@ -1,19 +1,15 @@
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-  type CSSProperties,
-  type KeyboardEvent,
-  type PointerEvent
-} from 'react'
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import type { CSSProperties, KeyboardEvent, PointerEvent } from 'react'
+
+/** A style with the CSS custom properties the stylesheet reads (`--v`, `--d`). */
+type VarStyle = CSSProperties & { readonly [name: `--${string}`]: string | number }
+/** A style for an element whose bar height or delay the stylesheet reads from custom properties. */
+const varStyle = (style: VarStyle): CSSProperties => style
 import { Button, CloudflareLogo, Collapsible, LayerCard, Radio } from '@cloudflare/kumo'
 import type { App } from '@modelcontextprotocol/ext-apps'
 import { mountMcpApp } from '../../mcp-apps/app-shell/mount'
-import { WorkersThresholdPreviewSchema, type WorkersThresholdPreview } from '../contract'
+import { WorkersThresholdPreviewSchema } from '../contract'
+import type { WorkersThresholdPreview } from '../contract'
 import {
   clamp,
   deriveModel,
@@ -21,26 +17,19 @@ import {
   replayEmails,
   snapTo,
   stepOf,
-  tickOf,
-  type Model,
-  type Week
+  tickOf
 } from '../../threshold-alert/model'
+import type { Model, Week } from '../../threshold-alert/model'
 import {
   R2_STORAGE_BILLING,
   WORKERS_REQUESTS_BILLING,
   WORKERS_REQUESTS_MONITOR,
   WORKERS_SPEND,
-  actionOf,
-  type PresetAction,
-  type SettingRef,
-  type ThresholdAlertPreset
+  actionOf
 } from '../../threshold-alert/presets'
-import {
-  createSetting,
-  deleteSetting,
-  updateSetting,
-  type CallTool
-} from '../../threshold-alert/create'
+import type { PresetAction, SettingRef, ThresholdAlertPreset } from '../../threshold-alert/presets'
+import { createSetting, deleteSetting, updateSetting } from '../../threshold-alert/create'
+import type { CallTool } from '../../threshold-alert/create'
 import { EMAIL, fmtDay, fmtDays, formatsFor, monthShort, sig as ratio } from './format'
 import './usage-alert.css'
 
@@ -68,7 +57,7 @@ const EDITING: Phase = { kind: 'editing' }
 type Tone = '' | 'hit' | 'now' | 'warn' | 'bad'
 /** Plain text, or a figure shown bold and direction-isolated. */
 type FactPart = string | { readonly b: string }
-type Fact = readonly [Tone, readonly FactPart[]]
+type Fact = readonly [Tone, ReadonlyArray<FactPart>]
 
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches
 const canHover = () => matchMedia('(hover: hover) and (pointer: fine)').matches
@@ -169,7 +158,7 @@ function tipBody(m: Model, w: Week, limit: number, preset: ThresholdAlertPreset)
           <b>{approx(w.rawEstimate, 3)}</b>
         </div>
       )}
-      {w.rolling != null && w.lastDay && (
+      {w.rolling !== null && w.lastDay && (
         <div className="tip-r">
           <i />
           <span>
@@ -229,7 +218,7 @@ function UsageAlertCard({
     ? pending.kind
     : p.alertAvailable === false
       ? 'unavailable'
-      : m.typical != null
+      : m.typical !== null
         ? 'chart'
         : 'empty'
   const ready = view === 'chart'
@@ -247,21 +236,19 @@ function UsageAlertCard({
   const [touched, setTouched] = useState(false)
   const ids = { title: useId(), sub: useId(), err: useId(), hint: useId() }
 
-  const refs = {
-    plot: useRef<HTMLDivElement>(null),
-    grid: useRef<HTMLDivElement>(null),
-    line: useRef<HTMLDivElement>(null),
-    knob: useRef<HTMLDivElement>(null),
-    zone: useRef<HTMLDivElement>(null),
-    hot: useRef<HTMLDivElement>(null),
-    typ: useRef<HTMLDivElement>(null),
-    typLabel: useRef<HTMLSpanElement>(null),
-    tip: useRef<HTMLDivElement>(null),
-    bars: useRef<HTMLDivElement>(null),
-    email: useRef<HTMLInputElement>(null),
-    done: useRef<HTMLDivElement>(null),
-    create: useRef<HTMLButtonElement>(null)
-  }
+  const plotEl = useRef<HTMLDivElement>(null)
+  const gridEl = useRef<HTMLDivElement>(null)
+  const lineEl = useRef<HTMLDivElement>(null)
+  const knobEl = useRef<HTMLDivElement>(null)
+  const zoneEl = useRef<HTMLDivElement>(null)
+  const hotEl = useRef<HTMLDivElement>(null)
+  const typEl = useRef<HTMLDivElement>(null)
+  const typLabelEl = useRef<HTMLSpanElement>(null)
+  const tipEl = useRef<HTMLDivElement>(null)
+  const barsEl = useRef<HTMLDivElement>(null)
+  const emailEl = useRef<HTMLInputElement>(null)
+  const doneEl = useRef<HTMLDivElement>(null)
+  const createEl = useRef<HTMLButtonElement>(null)
   // The live axis: `top` is drawn, `target` is where it settles; `line` is the drawn line, `limit` the snapped value.
   const A = useRef({
     top: fitTop(m, limit),
@@ -303,12 +290,16 @@ function UsageAlertCard({
   // ── Drawing: positions only, with transforms; runs every frame while moving ──
   const placeTip = useCallback(() => {
     const i = tipRef.current
-    const el = refs.tip.current
-    const plot = refs.plot.current
-    if (i == null || !el || !plot) return
-    const chart = el.parentElement!
-    const col = refs.bars.current?.querySelector<HTMLElement>(`[data-w="${i}"]`)
-    if (!col) return
+    const el = tipEl.current
+    const plot = plotEl.current
+    if (i === null || !el || !plot) {
+      return
+    }
+    const chart = el.parentElement
+    const col = barsEl.current?.querySelector<HTMLElement>(`[data-w="${i}"]`)
+    if (!chart || !col) {
+      return
+    }
     const c = chart.getBoundingClientRect()
     const r = col.getBoundingClientRect()
     const top = Math.min(
@@ -327,26 +318,34 @@ function UsageAlertCard({
   }, [])
 
   const draw = useCallback(() => {
-    const plot = refs.plot.current
-    if (!plot) return
+    const plot = plotEl.current
+    const line = lineEl.current
+    const zone = zoneEl.current
+    const hot = hotEl.current
+    const grid = gridEl.current
+    if (!plot || !line || !zone || !hot || !grid) {
+      return
+    }
     const a = A.current
     const px = (v: number) => (v / a.top) * plot.clientHeight
     const p0 = px(a.line)
     plot.style.setProperty('--top', String(a.top / m.base))
-    refs.line.current!.style.transform = `translateY(${-p0}px)`
-    refs.zone.current!.style.transform = `translateY(${-p0}px)`
-    refs.hot.current!.style.clipPath = `inset(0 -4px ${p0}px -4px)`
+    line.style.transform = `translateY(${-p0}px)`
+    zone.style.transform = `translateY(${-p0}px)`
+    hot.style.clipPath = `inset(0 -4px ${p0}px -4px)`
     // Gridlines keyed by value: lines both scales share stay put, the rest crossfade.
-    const grid = refs.grid.current!
     const t = tickOf(a.top)
     const want = new Set<number>()
-    for (let k = 1; k * t <= a.top * 1.0001; k++) want.add(k * t)
-    for (const [v, el] of ticks.current)
+    for (let k = 1; k * t <= a.top * 1.0001; k++) {
+      want.add(k * t)
+    }
+    for (const [v, el] of ticks.current) {
       if (!want.has(v)) {
         ticks.current.delete(v)
         el.setAttribute('data-in', '')
         setTimeout(() => el.remove(), 160)
       }
+    }
     for (const v of want) {
       let el = ticks.current.get(v)
       if (!el) {
@@ -363,46 +362,56 @@ function UsageAlertCard({
       }
       const tp = px(v)
       el.style.transform = `translateY(${-tp}px)`
-      el.firstElementChild!.toggleAttribute('data-hidden', Math.abs(tp - p0) < 14)
+      el.firstElementChild?.toggleAttribute('data-hidden', Math.abs(tp - p0) < 14)
     }
-    if (m.typical && refs.typ.current && refs.typLabel.current) {
+    if (m.typical && typEl.current && typLabelEl.current) {
       const tp = px(m.typical)
-      refs.typ.current.style.transform = `translateY(${-tp}px)`
+      typEl.current.style.transform = `translateY(${-tp}px)`
       // The label hangs under its line; near the baseline it sits above instead of on the months.
       const up = tp < 24
-      refs.typLabel.current.style.top = up ? '-20px' : ''
-      refs.typLabel.current.toggleAttribute(
+      typLabelEl.current.style.top = up ? '-20px' : ''
+      typLabelEl.current.toggleAttribute(
         'data-hidden',
         up ? p0 > tp - 2 && p0 < tp + 24 : p0 < tp + 2 && p0 > tp - 24
       )
     }
     placeTip()
-  }, [m, placeTip])
+  }, [m, placeTip, fmt])
 
-  const snap = (v: number, top: number) => clamp(snapTo(v, stepOf(top)), m.minLimit, m.maxLimit)
+  const snap = useCallback(
+    (v: number, top: number) => clamp(snapTo(v, stepOf(top)), m.minLimit, m.maxLimit),
+    [m]
+  )
 
   const dragStep = useCallback(
     (dt: number) => {
-      const plot = refs.plot.current!
+      const plot = plotEl.current
+      if (!plot) {
+        return
+      }
       const a = A.current
       const r = plot.getBoundingClientRect()
       const over = r.top + EDGE - a.ptr
       const under = a.ptr - (r.bottom - EDGE)
-      if (over > 0 && dt)
+      if (over > 0 && dt) {
         a.top = a.target = Math.min(
           m.maxLimit,
           a.top * Math.exp(GROW * Math.min(1, over / RAMP) * dt)
         )
-      if (under > 0 && dt)
+      }
+      if (under > 0 && dt) {
         a.top = a.target = Math.max(
           m.minTop,
           a.top * Math.exp(-GROW * Math.min(1, under / RAMP) * dt)
         )
+      }
       a.line = clamp(clamp((r.bottom - a.ptr) / r.height, 0, 1) * a.top, m.minLimit, m.maxLimit)
       const next = snap(a.line, a.top)
-      if (next !== limitRef.current) setLimit(next)
+      if (next !== limitRef.current) {
+        setLimit(next)
+      }
     },
-    [m]
+    [m, snap]
   )
 
   const draggingRef = useRef(false)
@@ -413,8 +422,9 @@ function UsageAlertCard({
       a.last = now
       a.raf = 0
       let more = draggingRef.current
-      if (draggingRef.current) dragStep(dt)
-      else {
+      if (draggingRef.current) {
+        dragStep(dt)
+      } else {
         const k = reduceMotion() ? 1 : 1 - Math.exp(-dt / TAU)
         a.top += (a.target - a.top) * k
         a.line += (limitRef.current - a.line) * k
@@ -427,7 +437,9 @@ function UsageAlertCard({
         }
       }
       draw()
-      if (more) a.raf = requestAnimationFrame(frame)
+      if (more) {
+        a.raf = requestAnimationFrame(frame)
+      }
     },
     [dragStep, draw]
   )
@@ -441,22 +453,28 @@ function UsageAlertCard({
 
   useLayoutEffect(() => draw(), [draw, tip, entered])
   useEffect(() => {
-    const plot = refs.plot.current
-    if (!plot) return
+    const plot = plotEl.current
+    if (!plot) {
+      return
+    }
     const ro = new ResizeObserver(() => draw())
     ro.observe(plot)
     // One frame in the loading shape, so the threshold drops in after the bars rise.
     const raf = requestAnimationFrame(() => setEntered(true))
+    // The axis state object lives for the component's lifetime; its frame id changes.
+    const axis = A.current
     return () => {
       ro.disconnect()
       cancelAnimationFrame(raf)
-      cancelAnimationFrame(A.current.raf)
+      cancelAnimationFrame(axis.raf)
     }
   }, [draw])
 
   // ── Drag: the line follows the pointer 1:1; the value snaps; release glides to the step ──
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
-    if (locked || e.button !== 0 || draggingRef.current) return
+    if (locked || e.button !== 0 || draggingRef.current) {
+      return
+    }
     e.preventDefault()
     const plot = e.currentTarget
     plot.setPointerCapture(e.pointerId)
@@ -479,7 +497,7 @@ function UsageAlertCard({
       setDragging(false)
       A.current.target = fitTop(m, limitRef.current)
       kick()
-      refs.knob.current?.focus({ preventScroll: true })
+      knobEl.current?.focus({ preventScroll: true })
     }
     plot.addEventListener('pointermove', move)
     plot.addEventListener('pointerup', up)
@@ -488,26 +506,29 @@ function UsageAlertCard({
 
   // Keyboard: an arrow is one drag step, Shift or Page a gridline; past the top the axis grows to follow.
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (locked || draggingRef.current) return
+    if (locked || draggingRef.current) {
+      return
+    }
     const a = A.current
     const big = tickOf(a.target)
     const st = e.shiftKey ? big : stepOf(a.target)
     const L = limitRef.current
     // The slider is vertical; the horizontal arrows follow reading direction, as ARIA's slider pattern says.
     const fwd = getComputedStyle(e.currentTarget).direction === 'rtl' ? -st : st
-    const v = (
-      {
-        ArrowUp: L + st,
-        ArrowRight: L + fwd,
-        ArrowDown: L - st,
-        ArrowLeft: L - fwd,
-        PageUp: L + big,
-        PageDown: L - big,
-        Home: m.minLimit,
-        End: m.maxLimit
-      } as Record<string, number>
-    )[e.key]
-    if (v == null) return
+    const keys = new Map([
+      ['ArrowUp', L + st],
+      ['ArrowRight', L + fwd],
+      ['ArrowDown', L - st],
+      ['ArrowLeft', L - fwd],
+      ['PageUp', L + big],
+      ['PageDown', L - big],
+      ['Home', m.minLimit],
+      ['End', m.maxLimit]
+    ])
+    const v = keys.get(e.key)
+    if (v === undefined) {
+      return
+    }
     e.preventDefault()
     const s =
       e.key === 'Home' || e.key === 'End' ? 1 : e.key.startsWith('Page') || e.shiftKey ? big : st
@@ -529,7 +550,7 @@ function UsageAlertCard({
   const target = preset.target
   const settle = (next: Phase) => {
     setPhase(next)
-    requestAnimationFrame(() => refs.done.current?.focus({ preventScroll: true }))
+    requestAnimationFrame(() => doneEl.current?.focus({ preventScroll: true }))
   }
   const fail = (reason: string, unconfirmed = false) =>
     setPhase({ kind: 'failed', reason, unconfirmed })
@@ -578,9 +599,13 @@ function UsageAlertCard({
             }
           : null
   const submit = async () => {
-    if (locked || !app) return
+    if (locked || !app) {
+      return
+    }
     setTouched(true)
-    if (!EMAIL.test(address)) return refs.email.current?.focus()
+    if (!EMAIL.test(address)) {
+      return emailEl.current?.focus()
+    }
     const caps = app.getHostCapabilities()
     setPhase({ kind: 'sending' })
     const call: CallTool = (c) => app.callServerTool(c)
@@ -614,7 +639,9 @@ function UsageAlertCard({
         createdAt.current = performance.now()
         return settle({ kind: 'created' })
       }
-      if (created.status === 'refused') return fail(created.error)
+      if (created.status === 'refused') {
+        return fail(created.error)
+      }
       if (created.status === 'unknown') {
         tell(
           `${action.create} got no answer from Cloudflare (${failureReason(created.error)}): the ${noun} may have been created on account ${p.accountId}. Before creating it again, list the account's ${target.kind === 'spend_policy' ? 'spend policies' : 'notification policies'} and check for "${name}".`
@@ -622,9 +649,11 @@ function UsageAlertCard({
         return fail(created.error, true)
       }
     }
-    if (!caps?.message) return settle({ kind: 'review' })
+    if (!caps?.message) {
+      return settle({ kind: 'review' })
+    }
     try {
-      if (caps.updateModelContext)
+      if (caps.updateModelContext) {
         await app.updateModelContext({
           content: [
             {
@@ -633,6 +662,7 @@ function UsageAlertCard({
             }
           ]
         })
+      }
       const result = await app.sendMessage({
         role: 'user',
         content: [
@@ -651,7 +681,9 @@ function UsageAlertCard({
   // Undo: delete the setting just created; the form returns as it was, with a neutral notice in the field.
   const onUndo = async () => {
     // Undo appears under the pointer that just clicked Create: ignore the second click of a double-click.
-    if (!app || !made || undoing || performance.now() - createdAt.current < 500) return
+    if (!app || !made || undoing || performance.now() - createdAt.current < 500) {
+      return
+    }
     setPhase({ kind: 'created', undo: 'deleting' })
     const deleted = await deleteSetting(
       (c) => app.callServerTool(c),
@@ -668,7 +700,7 @@ function UsageAlertCard({
     )
     setMade(null)
     setPhase({ kind: 'editing', deleted: true })
-    requestAnimationFrame(() => refs.create.current?.focus({ preventScroll: true }))
+    requestAnimationFrame(() => createEl.current?.focus({ preventScroll: true }))
   }
 
   const n = m.weeks.length
@@ -680,21 +712,19 @@ function UsageAlertCard({
         key={w.start}
         className={`hc-col${tip === i ? ' hl' : ''}`}
         {...{ [hot ? 'data-hw' : 'data-w']: i }}
-        style={
-          {
-            insetInlineStart: pct(w.offset),
-            inlineSize: pct(w.length),
-            '--d': `${delay(i)}ms`
-          } as CSSProperties
-        }
+        style={varStyle({
+          insetInlineStart: pct(w.offset),
+          inlineSize: pct(w.length),
+          '--d': `${delay(i)}ms`
+        })}
       >
         {w.estimate > 0 && (
-          <div className="hc-bar est" style={{ '--v': w.estimate / m.base } as CSSProperties} />
+          <div className="hc-bar est" style={varStyle({ '--v': w.estimate / m.base })} />
         )}
         {w.actual > 0 && (
           <div
             className={`hc-bar${w.partial ? ' partial' : w.daysEstimate ? ' now' : ''}`}
-            style={{ '--v': w.actual / m.base } as CSSProperties}
+            style={varStyle({ '--v': w.actual / m.base })}
           />
         )}
       </div>
@@ -723,37 +753,43 @@ function UsageAlertCard({
         <div className="chart">
           <div
             className="hc"
-            ref={refs.plot}
+            ref={plotEl}
             role="group"
             aria-label={copy.chartLabel}
             data-locked={locked || undefined}
-            data-hl={tip != null || undefined}
+            data-hl={tip !== null || undefined}
             onPointerDown={onPointerDown}
           >
-            <div className="hc-gridset" ref={refs.grid} />
+            <div className="hc-gridset" ref={gridEl} />
             <div className="hc-clip">
-              <div className="hc-zone" ref={refs.zone} />
+              <div className="hc-zone" ref={zoneEl} />
             </div>
-            {m.typical != null && (
-              <div className="hc-typ" ref={refs.typ}>
-                <span ref={refs.typLabel}>
+            {m.typical !== null && (
+              <div className="hc-typ" ref={typEl}>
+                <span ref={typLabelEl}>
                   Typical<i className="wk"> {copy.bucket}</i> <b>{sig(m.typical)}</b>
                 </span>
               </div>
             )}
             <div
               className="hc-bars"
-              ref={refs.bars}
+              ref={barsEl}
               onPointerOver={(e) => {
-                if (!canHover() || draggingRef.current || !ready) return
-                const col = (e.target as HTMLElement).closest<HTMLElement>('.hc-col')
-                if (col) setTip(Number(col.dataset.w))
+                if (!canHover() || draggingRef.current || !ready) {
+                  return
+                }
+                const col =
+                  // oxlint-disable-next-line @nkzw/no-instanceof -- A pointer event's target is a DOM node; only an Element has closest().
+                  e.target instanceof Element ? e.target.closest<HTMLElement>('.hc-col') : null
+                if (col) {
+                  setTip(Number(col.dataset.w))
+                }
               }}
               onPointerLeave={() => !draggingRef.current && setTip(null)}
             >
               {ready && bars(false)}
             </div>
-            <div className="hc-hot" ref={refs.hot} aria-hidden="true">
+            <div className="hc-hot" ref={hotEl} aria-hidden="true">
               {ready && bars(true)}
             </div>
             <div className="hc-skel" aria-hidden="true">
@@ -796,10 +832,10 @@ function UsageAlertCard({
                 )
               )}
             </div>
-            <div className="hc-line" ref={refs.line}>
+            <div className="hc-line" ref={lineEl}>
               <div
                 className="hc-knob"
-                ref={refs.knob}
+                ref={knobEl}
                 role="slider"
                 tabIndex={locked ? -1 : 0}
                 aria-disabled={locked}
@@ -827,11 +863,11 @@ function UsageAlertCard({
           </div>
           <div
             className="hc-tip"
-            ref={refs.tip}
-            data-show={tip != null || undefined}
+            ref={tipEl}
+            data-show={tip !== null || undefined}
             aria-hidden="true"
           >
-            {tip != null && m.weeks[tip] && tipBody(m, m.weeks[tip], limit, preset)}
+            {tip !== null && m.weeks[tip] && tipBody(m, m.weeks[tip], limit, preset)}
           </div>
         </div>
         {/* The outcome reads as the chart's legend: grey for past periods, blue for now. */}
@@ -859,7 +895,9 @@ function UsageAlertCard({
             disabled={locked}
             onValueChange={(id) => {
               setActionId(id)
-              if (phase.kind === 'failed' && !unconfirmed) setPhase(EDITING)
+              if (phase.kind === 'failed' && !unconfirmed) {
+                setPhase(EDITING)
+              }
             }}
           >
             {preset.actions.map((a) => (
@@ -895,7 +933,7 @@ function UsageAlertCard({
             <label className="to">
               <span className="to-l">To</span>
               <input
-                ref={refs.email}
+                ref={emailEl}
                 className="input"
                 type="email"
                 dir="auto"
@@ -915,12 +953,17 @@ function UsageAlertCard({
                     phase.kind === 'editing'
                       ? phase.deleted
                       : !unconfirmed && phase.kind === 'failed'
-                  )
+                  ) {
                     setPhase(EDITING)
+                  }
                 }}
                 onBlur={() => address && setTouched(true)}
                 // Not after a create that got no answer: sending it again takes the button's own click.
-                onKeyDown={(e) => e.key === 'Enter' && !unconfirmed && submit()}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !unconfirmed) {
+                    void submit()
+                  }
+                }}
               />
               <span
                 className="to-hint"
@@ -932,12 +975,12 @@ function UsageAlertCard({
               </span>
             </label>
             <Button
-              ref={refs.create}
+              ref={createEl}
               variant="primary"
               className="create"
               loading={phase.kind === 'sending'}
               disabled={!ready}
-              onClick={submit}
+              onClick={() => void submit()}
             >
               {unconfirmed
                 ? 'Create anyway'
@@ -952,7 +995,7 @@ function UsageAlertCard({
             </p>
           </div>
           <div className="f-layer f-done" inert={!done}>
-            <div className="done" ref={refs.done} tabIndex={-1} role="status">
+            <div className="done" ref={doneEl} tabIndex={-1} role="status">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
                 <circle
                   className="ck-ring"
@@ -1006,7 +1049,7 @@ function UsageAlertCard({
                   className="undo"
                   loading={undoing}
                   aria-description={`Deletes this ${noun}`}
-                  onClick={onUndo}
+                  onClick={() => void onUndo()}
                 >
                   Undo
                 </Button>
@@ -1018,7 +1061,7 @@ function UsageAlertCard({
                 onClick={() => {
                   // On an alert this card made, Edit changes that alert (Save alert), not a second one.
                   setPhase(EDITING)
-                  requestAnimationFrame(() => refs.knob.current?.focus({ preventScroll: true }))
+                  requestAnimationFrame(() => knobEl.current?.focus({ preventScroll: true }))
                 }}
               >
                 Edit
@@ -1047,7 +1090,7 @@ function failureReason(text: string): string {
   return (message ?? (text.split('\n').find(Boolean) || 'try again')).slice(0, 120)
 }
 
-const plain = (parts: readonly FactPart[]) =>
+const plain = (parts: ReadonlyArray<FactPart>) =>
   parts.map((part) => (typeof part === 'string' ? part : part.b)).join('')
 
 /** The loading bars, in % of the plot: a plausible week shape, not data. */
@@ -1163,7 +1206,7 @@ function placeholder(toolName: string | undefined): WorkersThresholdPreview {
     otherPolicies: {},
     limitations: []
   }
-  if (toolName === R2_STORAGE_BILLING.toolName)
+  if (toolName === R2_STORAGE_BILLING.toolName) {
     return {
       kind: 'r2_storage_alert_preview',
       ...common,
@@ -1175,6 +1218,7 @@ function placeholder(toolName: string | undefined): WorkersThresholdPreview {
         suggestedLimit: null
       }
     }
+  }
   return toolName === WORKERS_REQUESTS_BILLING.toolName
     ? {
         kind: 'workers_billing_alert_preview',

@@ -31,6 +31,15 @@ export class ApiReadError extends Error {
 /** A response larger than {@link MAX_READ_BYTES}, or not JSON. */
 export class ApiReadUnsupported extends Error {}
 
+/**
+ * Whether a read's answer was one this App can't use: too large, not JSON, or
+ * not the shape its schema expects. The caller turns it into its own sentence.
+ */
+export function isUnsupportedRead(error: unknown): boolean {
+  // oxlint-disable-next-line @nkzw/no-instanceof -- Reads report these failures through their error classes.
+  return error instanceof ApiReadUnsupported || error instanceof z.ZodError
+}
+
 /** The GraphQL Analytics API, which the spec doesn't list, and the permission each dataset kind needs. */
 const GRAPHQL_PERMISSIONS = {
   zone: ['Analytics Read'],
@@ -44,7 +53,7 @@ const GRAPHQL_PERMISSIONS = {
  * `src/tools/execute.ts`.
  */
 export function graphqlRefused(
-  messages: readonly string[],
+  messages: ReadonlyArray<string>,
   dataset: keyof typeof GRAPHQL_PERMISSIONS
 ): boolean {
   return dataset === 'zone'
@@ -56,14 +65,31 @@ export function graphqlRefused(
       )
 }
 
+/**
+ * A GraphQL response, as far as reading it needs: `data` is checked by the
+ * caller's schema. `errors` is often `null`; anything but a list of errors
+ * counts as none, and an error may lack a string message.
+ */
+const GraphqlEnvelope = z.object({
+  data: z.unknown().optional(),
+  errors: z.preprocess(
+    (errors) => (Array.isArray(errors) ? errors : undefined),
+    z.array(z.object({ message: z.unknown().optional() })).optional()
+  )
+})
+
+/** A JSON response body, read up to {@link MAX_READ_BYTES}. Callers parse it with a schema. */
+// oxlint-disable-next-line quality/no-unknown-returns -- Every caller parses the JSON body with its schema.
 async function readBounded(response: Response): Promise<unknown> {
-  const reader = response.body?.getReader()
-  const chunks: Uint8Array[] = []
+  const reader: ReadableStreamDefaultReader<Uint8Array> | undefined = response.body?.getReader()
+  const chunks: Array<Uint8Array> = []
   let bytes = 0
-  if (reader)
+  if (reader) {
     for (;;) {
       const part = await reader.read()
-      if (part.done) break
+      if (part.done) {
+        break
+      }
       bytes += part.value.byteLength
       if (bytes > MAX_READ_BYTES) {
         await reader.cancel()
@@ -71,6 +97,7 @@ async function readBounded(response: Response): Promise<unknown> {
       }
       chunks.push(part.value)
     }
+  }
   const raw = new Uint8Array(bytes)
   let offset = 0
   for (const chunk of chunks) {
@@ -91,6 +118,17 @@ async function readBounded(response: Response): Promise<unknown> {
  * mutations), sent with the request's credential from this Worker: the token
  * never reaches the App.
  */
+/** A read-only query endpoint's JSON body, such as billable usage's `{ Metric, Granularity, TimePeriod }`. */
+// oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Each query endpoint owns its body; the App's reader only serializes it.
+export type ReadOnlyQuery = Readonly<Record<string, unknown>>
+
+/** A request this reader sends: only JSON headers, set here. */
+type ReadRequest = {
+  readonly method?: 'GET' | 'POST'
+  readonly headers?: Record<string, string>
+  readonly body?: string
+}
+
 export interface ApiReader {
   /**
    * GET `path` below the API base and parse its body with `schema`.
@@ -109,7 +147,7 @@ export interface ApiReader {
    * @throws {ApiReadUnsupported} for an oversized or non-JSON body.
    * @throws {z.ZodError} when the body doesn't match `schema`.
    */
-  query<S extends z.ZodType>(path: string, body: object, schema: S): Promise<z.output<S>>
+  query<S extends z.ZodType>(path: string, body: ReadOnlyQuery, schema: S): Promise<z.output<S>>
   /**
    * POST a GraphQL Analytics query and parse its `data` with `schema`.
    *
@@ -118,6 +156,7 @@ export interface ApiReader {
    */
   graphql<S extends z.ZodType>(
     query: string,
+    // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Each query owns its variables; the reader only serializes them.
     variables: Record<string, unknown>,
     dataset: keyof typeof GRAPHQL_PERMISSIONS,
     schema: S
@@ -144,7 +183,7 @@ export const READ_ONLY_POSTS: ReadonlyArray<string> = [
 export function apiReader(context: AppContext, signal: AbortSignal, caller: string): ApiReader {
   const base = env.CLOUDFLARE_API_BASE.replace(/\/$/, '')
   const basePath = new URL(base).pathname
-  const send = (path: string, init: RequestInit) =>
+  const send = (path: string, init: ReadRequest) =>
     fetchWithRetry(
       base + path,
       {
@@ -164,7 +203,7 @@ export function apiReader(context: AppContext, signal: AbortSignal, caller: stri
   async function read<S extends z.ZodType>(
     method: 'GET' | 'POST',
     path: string,
-    init: RequestInit,
+    init: ReadRequest,
     schema: S
   ): Promise<z.output<S>> {
     const requestPath = new URL(base + path).pathname.slice(basePath.length)
@@ -186,7 +225,9 @@ export function apiReader(context: AppContext, signal: AbortSignal, caller: stri
       [],
       { ...context, formatResult: truncateResponse }
     )
-    if (result.isError) throw new ApiReadError(result)
+    if (result.isError) {
+      throw new ApiReadError(result)
+    }
     return schema.parse(body)
   }
 
@@ -207,12 +248,16 @@ export function apiReader(context: AppContext, signal: AbortSignal, caller: stri
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ query, variables })
       })
-      const body = (await readBounded(response)) as { data?: unknown; errors?: unknown }
-      const errors = Array.isArray(body?.errors) ? (body.errors as { message?: unknown }[]) : []
+      const body = GraphqlEnvelope.safeParse(await readBounded(response)).data
+      const errors = body?.errors ?? []
       // Data with errors is partial: one alias failed (a quota, a timeout) and is missing. A
       // summary read from it would show a missing window as no traffic, so it fails as a whole.
-      if (response.ok && body?.data != null && !errors.length) return schema.parse(body.data)
-      const messages = errors.map((e) => String(e.message ?? '')).filter(Boolean)
+      if (response.ok && body?.data !== null && body?.data !== undefined && !errors.length) {
+        return schema.parse(body.data)
+      }
+      const messages = errors.flatMap((e) =>
+        typeof e.message === 'string' && e.message ? [e.message] : []
+      )
       // The API answers a missing permission with 200 and `data: null`, as it
       // does a quota or a bad query, so only a permission message is a refusal.
       const refused = graphqlRefused(messages, dataset)
@@ -224,7 +269,7 @@ export function apiReader(context: AppContext, signal: AbortSignal, caller: stri
           )
         : undefined
       const text = [
-        `Cloudflare API error: POST /graphql returned HTTP ${response.status} with ${body?.data == null ? 'no data' : 'partial data'}.`,
+        `Cloudflare API error: POST /graphql returned HTTP ${response.status} with ${(body?.data ?? null) === null ? 'no data' : 'partial data'}.`,
         truncateResponse(messages),
         authorization && explainRefusal(403, authorization)
       ]
@@ -234,11 +279,11 @@ export function apiReader(context: AppContext, signal: AbortSignal, caller: stri
         authorization?.kind === 'missing' && authorization.scope
           ? context.scopeChallenge.require(authorization.scope)
           : undefined
-      throw new ApiReadError({
-        isError: true,
-        content: [{ type: 'text', text }],
-        ...(challenge ? { _meta: { [WWW_AUTHENTICATE_META_KEY]: [challenge] } } : {})
-      })
+      const result: CallToolResult = { isError: true, content: [{ type: 'text', text }] }
+      if (challenge) {
+        result._meta = { [WWW_AUTHENTICATE_META_KEY]: [challenge] }
+      }
+      throw new ApiReadError(result)
     }
   }
 }

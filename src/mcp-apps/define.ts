@@ -43,7 +43,7 @@ export interface McpApp {
   /** The App's HTML, served through `resources/list` and `resources/read`. */
   readonly resource: StaticResource
   /** The generated tools the App's view calls with `callServerTool`; see {@link McpAppDefinition.appTools}. */
-  readonly appTools: readonly GeneratedTool[]
+  readonly appTools: ReadonlyArray<GeneratedTool>
   /** The zod schemas Code Mode registers, JSON Schema conversion cached per isolate. */
   readonly inputSchema: z.ZodObject
   readonly outputSchema: z.ZodType
@@ -77,7 +77,7 @@ export interface McpAppDefinition<Input extends z.ZodObject, Output extends z.Zo
    * needs no tool of its own. Import the group's `tools.ts`, never the index:
    * the index pulls in every generated tool.
    */
-  readonly appTools?: readonly GeneratedTool[]
+  readonly appTools?: ReadonlyArray<GeneratedTool>
   /**
    * The result's text for a client that renders the view, which the model
    * reads and re-reads on every later turn. Defaults to the whole result as
@@ -96,7 +96,7 @@ export interface McpAppDefinition<Input extends z.ZodObject, Output extends z.Zo
 }
 
 /** zod's bounds for `.int()`, which say nothing a JSON number doesn't. */
-const SAFE_INTEGER_BOUNDS = [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER]
+const SAFE_INTEGER_BOUNDS = new Set([Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER])
 
 /**
  * An App's JSON Schema as clients list it, without what zod adds that no
@@ -109,22 +109,40 @@ const SAFE_INTEGER_BOUNDS = [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER]
  * schema itself, so nothing is checked less.
  */
 export function compactJsonSchema<T>(schema: T): T {
-  if (Array.isArray(schema)) return schema.map(compactJsonSchema) as T
-  if (!schema || typeof schema !== 'object') return schema
+  if (Array.isArray(schema)) {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Each item is a schema node of the same kind.
+    return schema.map(compactJsonSchema) as T
+  }
+  if (!schema || typeof schema !== 'object') {
+    return schema
+  }
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- A JSON Schema node holds arbitrary keywords.
   const out: Record<string, unknown> = {}
-  const node = schema as Record<string, unknown>
+  const node = Object.fromEntries(Object.entries(schema))
   for (const [key, value] of Object.entries(node)) {
-    if (key === '$schema') continue
-    if (key === 'pattern' && (node.format === 'date' || node.format === 'date-time')) continue
-    if ((key === 'maximum' || key === 'minimum') && SAFE_INTEGER_BOUNDS.includes(value as number))
+    if (key === '$schema') {
       continue
+    }
+    if (key === 'pattern' && (node.format === 'date' || node.format === 'date-time')) {
+      continue
+    }
+    if (
+      (key === 'maximum' || key === 'minimum') &&
+      typeof value === 'number' &&
+      SAFE_INTEGER_BOUNDS.has(value)
+    ) {
+      continue
+    }
     out[key] = compactJsonSchema(value)
   }
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Dropping keywords keeps the node's own type.
   return out as T
 }
 
-function listedJsonSchema(schema: z.ZodType): Record<string, unknown> {
-  return compactJsonSchema(z.toJSONSchema(schema) as Record<string, unknown>)
+/** A tool's input or output schema as clients list it: always a JSON Schema object. */
+function listedJsonSchema(schema: z.ZodType): Tool['inputSchema'] {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- An App's input and output are zod objects, so their JSON Schema is an object schema.
+  return compactJsonSchema(z.toJSONSchema(schema) as Tool['inputSchema'])
 }
 
 /**
@@ -160,8 +178,8 @@ export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType
     description: definition.description,
     annotations: definition.annotations,
     _meta: meta,
-    inputSchema: listedJsonSchema(definition.input) as Tool['inputSchema'],
-    outputSchema: listedJsonSchema(definition.output) as Tool['outputSchema']
+    inputSchema: listedJsonSchema(definition.input),
+    outputSchema: listedJsonSchema(definition.output)
   }
   const resource: StaticResource = {
     descriptor: { uri, name: resourceName, mimeType: MCP_APP_MIME },
@@ -180,7 +198,7 @@ export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType
     outputSchema: withCachedJsonSchema(definition.output, compactJsonSchema),
     async call(args, context, ctx) {
       const parsed = definition.input.safeParse(args)
-      if (!parsed.success)
+      if (!parsed.success) {
         return {
           isError: true,
           content: [
@@ -190,11 +208,14 @@ export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType
             }
           ]
         }
+      }
       const outcome = await definition.run(parsed.data, context, toolSignal(ctx))
       const meta = outcome.meta ? { _meta: outcome.meta } : {}
-      if (!outcome.ok)
+      if (!outcome.ok) {
         return { isError: true, content: [{ type: 'text', text: outcome.text }], ...meta }
+      }
       const output = definition.output.parse(outcome.value)
+      // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion -- An App's output schema is a zod object, so its value is one.
       const value = output as Record<string, unknown>
       const text =
         context.view && definition.modelText ? definition.modelText(output) : JSON.stringify(value)
