@@ -51,6 +51,9 @@ const KNOWN_CLIENTS: ReadonlyArray<KnownClient> = [
   {
     id: 'chatgpt',
     name: 'ChatGPT',
+    // The ChatGPT connector authorizes with this Client ID Metadata Document; older
+    // connections were dynamically registered with a chatgpt.com redirect URI.
+    clientIdMetadataDocument: 'https://chatgpt.com/oauth/client.json',
     redirectUriHosts: ['chatgpt.com'],
     behavior: { scopeChallenge: 'tool' }
   }
