@@ -135,7 +135,7 @@ export const realtimekit_StorageConfig: JSONObject = {
               "type": "string"
             },
             "secret": {
-              "description": "Secret key of the storage medium. Similar to `access_key`, it is only writeable by clients, not readable.",
+              "description": "Secret key of the storage medium. Required for `aws` storage. Similar to `access_key`, it is only writeable by clients, not readable.",
               "type": "string"
             },
             "type": {
@@ -177,9 +177,27 @@ export const realtimekit_StorageConfig: JSONObject = {
               "properties": {
                 "access_key": {},
                 "region": {},
+                "secret": {},
                 "type": {
                   "enum": [
-                    "aws",
+                    "aws"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "access_key",
+                "region",
+                "secret"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "access_key": {},
+                "region": {},
+                "type": {
+                  "enum": [
                     "azure",
                     "digitalocean"
                   ],

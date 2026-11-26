@@ -6049,8 +6049,8 @@ export const tools: readonly Tool[] = [
   },
   {
     name: "browserRun_quickAction_snapshot",
-    title: "Get HTML content and screenshot.",
-    description: "Returns the page's HTML content and screenshot. Control page loading with `gotoOptions` and `waitFor*` options. Customize screenshots with `viewport`, `fullPage`, `clip` and others.\n\nPOST /accounts/{account_id}/browser-rendering/snapshot",
+    title: "Capture multiple page formats.",
+    description: "Capture at least two formats from one prepared page: HTML, screenshot, Markdown, accessibility tree, PDF, links, scrape, or JSON. Defaults to HTML and screenshot. Format-specific options use the same fields as standalone actions. Scrape requires elements. An origin 304 returns HTTP 200 with an empty result and meta.status 304, without captures or AI work, and is not cached. JSON snapshots share one actionTimeout budget across navigation, captures, retries, and AI (default 60 seconds, maximum 120 seconds). Other snapshots retain existing timeout behavior. Formats use a fixed capture order, not array order; a live page may change between captures. Any format failure fails the request.\n\nPOST /accounts/{account_id}/browser-rendering/snapshot",
     inputSchema: {
       type: "object",
       properties: {
@@ -6223,8 +6223,47 @@ export const tools: readonly Tool[] = [
                   },
                   "type": "array"
                 },
+                "custom_ai": {
+                  "description": "Optional list of custom AI models to use for the request. The models will be tried in the order provided, and in case a model returns an error, the next one will be used as fallback.",
+                  "items": {
+                    "properties": {
+                      "authorization": {
+                        "description": "Authorization token for the AI model: `Bearer <token>`. Not needed for workers-ai models.",
+                        "type": "string"
+                      },
+                      "model": {
+                        "description": "AI model to use for the request. Must be formed as `<provider>/<model_name>`, e.g. `workers-ai/@cf/meta/llama-3.3-70b-instruct-fp8-fast`.",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "model"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "elements": {
+                  "items": {
+                    "properties": {
+                      "selector": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "selector"
+                    ],
+                    "type": "object"
+                  },
+                  "minItems": 1,
+                  "type": "array"
+                },
                 "emulateMediaType": {
                   "type": "string"
+                },
+                "excludeExternalLinks": {
+                  "default": false,
+                  "type": "boolean"
                 },
                 "formats": {
                   "default": [
@@ -6236,7 +6275,11 @@ export const tools: readonly Tool[] = [
                       "content",
                       "screenshot",
                       "markdown",
-                      "accessibilityTree"
+                      "accessibilityTree",
+                      "pdf",
+                      "links",
+                      "scrape",
+                      "json"
                     ],
                     "type": "string"
                   },
@@ -6289,6 +6332,162 @@ export const tools: readonly Tool[] = [
                   "description": "Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.",
                   "type": "string"
                 },
+                "interestingOnly": {
+                  "type": "boolean"
+                },
+                "pdfOptions": {
+                  "default": {},
+                  "description": "Check [options](https://pptr.dev/api/puppeteer.pdfoptions).",
+                  "properties": {
+                    "displayHeaderFooter": {
+                      "default": false,
+                      "description": "Whether to show the header and footer.",
+                      "type": "boolean"
+                    },
+                    "footerTemplate": {
+                      "description": "HTML template for the print footer.",
+                      "type": "string"
+                    },
+                    "format": {
+                      "default": "letter",
+                      "description": "Paper format. Takes priority over width and height if set.",
+                      "enum": [
+                        "letter",
+                        "legal",
+                        "tabloid",
+                        "ledger",
+                        "a0",
+                        "a1",
+                        "a2",
+                        "a3",
+                        "a4",
+                        "a5",
+                        "a6"
+                      ],
+                      "type": "string"
+                    },
+                    "headerTemplate": {
+                      "description": "HTML template for the print header.",
+                      "type": "string"
+                    },
+                    "height": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "description": "Sets the height of paper. Can be a number or string with unit."
+                    },
+                    "landscape": {
+                      "default": false,
+                      "description": "Whether to print in landscape orientation.",
+                      "type": "boolean"
+                    },
+                    "margin": {
+                      "description": "Set the PDF margins. Useful when setting header and footer.",
+                      "properties": {
+                        "bottom": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "left": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "right": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "top": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "omitBackground": {
+                      "default": false,
+                      "description": "Hides default white background and allows generating pdfs with transparency.",
+                      "type": "boolean"
+                    },
+                    "outline": {
+                      "default": false,
+                      "description": "Generate document outline.",
+                      "type": "boolean"
+                    },
+                    "pageRanges": {
+                      "description": "Paper ranges to print, e.g. '1-5, 8, 11-13'.",
+                      "type": "string"
+                    },
+                    "preferCSSPageSize": {
+                      "default": false,
+                      "description": "Give CSS @page size priority over other size declarations.",
+                      "type": "boolean"
+                    },
+                    "printBackground": {
+                      "default": false,
+                      "description": "Set to true to print background graphics.",
+                      "type": "boolean"
+                    },
+                    "scale": {
+                      "default": 1,
+                      "description": "Scales the rendering of the web page. Amount must be between 0.1 and 2.",
+                      "type": "number"
+                    },
+                    "tagged": {
+                      "default": true,
+                      "description": "Generate tagged (accessible) PDF.",
+                      "type": "boolean"
+                    },
+                    "timeout": {
+                      "default": 30000,
+                      "description": "Timeout in milliseconds.",
+                      "type": "number"
+                    },
+                    "width": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "description": "Sets the width of paper. Can be a number or string with unit."
+                    }
+                  },
+                  "type": "object"
+                },
+                "prompt": {
+                  "type": "string"
+                },
                 "rejectRequestPattern": {
                   "description": "Block undesired requests that match the provided regex patterns, eg. '/^.*\\.(css)'.",
                   "items": {
@@ -6322,6 +6521,31 @@ export const tools: readonly Tool[] = [
                     "type": "string"
                   },
                   "type": "array"
+                },
+                "response_format": {
+                  "properties": {
+                    "json_schema": {
+                      "description": "Schema for the response format. More information here: https://developers.cloudflare.com/workers-ai/json-mode/",
+                      "oneOf": [
+                        {
+                          "type": "object"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "root": {
+                  "type": "string"
                 },
                 "screenshotOptions": {
                   "default": {},
@@ -6382,6 +6606,12 @@ export const tools: readonly Tool[] = [
                   },
                   "type": "object"
                 },
+                "scrollPage": {
+                  "type": "boolean"
+                },
+                "selector": {
+                  "type": "string"
+                },
                 "setExtraHTTPHeaders": {
                   "additionalProperties": {
                     "type": "string"
@@ -6430,6 +6660,10 @@ export const tools: readonly Tool[] = [
                     "width"
                   ],
                   "type": "object"
+                },
+                "visibleLinksOnly": {
+                  "default": false,
+                  "type": "boolean"
                 },
                 "waitForSelector": {
                   "description": "Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).",
@@ -6610,8 +6844,105 @@ export const tools: readonly Tool[] = [
             "content": {
               "type": "string"
             },
+            "json": {
+              "anyOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "links": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
             "markdown": {
               "type": "string"
+            },
+            "pdf": {
+              "type": "string"
+            },
+            "scrape": {
+              "items": {
+                "properties": {
+                  "results": {
+                    "items": {
+                      "properties": {
+                        "attributes": {
+                          "items": {
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "value"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "html": {
+                          "type": "string"
+                        },
+                        "left": {
+                          "type": "number"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "top": {
+                          "type": "number"
+                        },
+                        "width": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "attributes",
+                        "html",
+                        "left",
+                        "top"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "selector": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "results",
+                  "selector"
+                ],
+                "type": "object"
+              },
+              "type": "array"
             },
             "screenshot": {
               "type": "string"
@@ -6637,7 +6968,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": false,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Get HTML content and screenshot."
+      "title": "Capture multiple page formats."
     },
     [OPERATION]: {
       method: "POST",
@@ -6740,8 +7071,105 @@ export const tools: readonly Tool[] = [
                   "content": {
                     "type": "string"
                   },
+                  "json": {
+                    "anyOf": [
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "items": {
+                          "oneOf": [
+                            {
+                              "type": "object"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "links": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
                   "markdown": {
                     "type": "string"
+                  },
+                  "pdf": {
+                    "type": "string"
+                  },
+                  "scrape": {
+                    "items": {
+                      "properties": {
+                        "results": {
+                          "items": {
+                            "properties": {
+                              "attributes": {
+                                "items": {
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "value": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "value"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "height": {
+                                "type": "number"
+                              },
+                              "html": {
+                                "type": "string"
+                              },
+                              "left": {
+                                "type": "number"
+                              },
+                              "text": {
+                                "type": "string"
+                              },
+                              "top": {
+                                "type": "number"
+                              },
+                              "width": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "attributes",
+                              "html",
+                              "left",
+                              "top"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "selector": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "results",
+                        "selector"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
                   },
                   "screenshot": {
                     "type": "string"

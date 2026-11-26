@@ -18,7 +18,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_temporaryCredentials_create",
     title: "Create Temporary Access Credentials",
-    description: "Creates temporary access credentials on a bucket that can be optionally scoped to prefixes or objects.\n\nPOST /accounts/{account_id}/r2/temp-access-credentials",
+    description: "Creates temporary access credentials on a bucket that can be optionally scoped to prefixes or objects. The credentials grant either a permission level or an explicit list of S3 actions.\n\nPOST /accounts/{account_id}/r2/temp-access-credentials",
     inputSchema: {
       type: "object",
       properties: {

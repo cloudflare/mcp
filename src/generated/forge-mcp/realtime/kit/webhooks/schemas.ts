@@ -9,7 +9,7 @@ import type { JSONObject } from "@modelcontextprotocol/server";
 export const realtimekit_PatchWebhookRequest: JSONObject = {
   "properties": {
     "enabled": {
-      "default": true,
+      "description": "Omit to keep the current value.",
       "type": "boolean"
     },
     "events": {

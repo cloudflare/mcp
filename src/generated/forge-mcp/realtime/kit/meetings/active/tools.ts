@@ -7,7 +7,7 @@ import {
   realtimekit_GenericErrorResponse,
   realtimekit_ValidationIssue,
 } from "../../outputs.js";
-import { realtimekit_SessionParticipant } from "./outputs.js";
+import { realtimekit_ActionParticipant } from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.meetings.active`.
@@ -108,21 +108,15 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_active_kick",
     title: "Kick participants from an active session",
-    description: "Kicks one or more participants from an active session using user ID or custom participant ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/kick",
+    description: "Kicks one or more participants from an active session using their participant IDs. Every connection of each participant is removed from the session.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/kick",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
-          "description": "Request body for kicking participants from an active session. At least one of `participant_ids` or `custom_participant_ids` must contain a value.",
+          "description": "Request body for kicking participants from an active session.",
           "properties": {
-            "custom_participant_ids": {
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1,
-              "type": "array"
-            },
             "participant_ids": {
+              "description": "IDs of the participants to kick, as returned when the participants were added to the meeting.",
               "items": {
                 "format": "uuid",
                 "type": "string"
@@ -131,6 +125,9 @@ export const tools: readonly Tool[] = [
               "type": "array"
             }
           },
+          "required": [
+            "participant_ids"
+          ],
           "type": "object"
         },
         "path": {
@@ -168,11 +165,14 @@ export const tools: readonly Tool[] = [
         "data": {
           "properties": {
             "action": {
+              "enum": [
+                "kick"
+              ],
               "type": "string"
             },
             "participants": {
               "items": {
-                "$ref": "#/$defs/realtimekit_SessionParticipant"
+                "$ref": "#/$defs/realtimekit_ActionParticipant"
               },
               "type": "array"
             }
@@ -185,7 +185,7 @@ export const tools: readonly Tool[] = [
       },
       "type": "object",
       $defs: {
-        "realtimekit_SessionParticipant": realtimekit_SessionParticipant,
+        "realtimekit_ActionParticipant": realtimekit_ActionParticipant,
       },
     },
     annotations: {
@@ -213,11 +213,14 @@ export const tools: readonly Tool[] = [
               "data": {
                 "properties": {
                   "action": {
+                    "enum": [
+                      "kick"
+                    ],
                     "type": "string"
                   },
                   "participants": {
                     "items": {
-                      "$ref": "#/$defs/realtimekit_SessionParticipant"
+                      "$ref": "#/$defs/realtimekit_ActionParticipant"
                     },
                     "type": "array"
                   }
@@ -230,13 +233,22 @@ export const tools: readonly Tool[] = [
             },
             "type": "object"
           },
+          "400": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "401": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
           "404": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "500": {
             "$ref": "#/$defs/realtimekit_GenericErrorResponse"
           }
         },
         $defs: {
+          "realtimekit_ActionParticipant": realtimekit_ActionParticipant,
           "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
-          "realtimekit_SessionParticipant": realtimekit_SessionParticipant,
           "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
         },
       },
@@ -245,7 +257,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_active_kickAll",
     title: "Kick all participants",
-    description: "Kicks all participants from an active session for the given meeting ID.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation disconnects every active participant immediately.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/kick-all",
+    description: "Kicks all participants from an active session for the given meeting ID and ends the session. Participants in connected breakout rooms are kicked as well.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation disconnects every active participant immediately.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/kick-all",
     inputSchema: {
       type: "object",
       properties: {
@@ -283,6 +295,9 @@ export const tools: readonly Tool[] = [
         "data": {
           "properties": {
             "action": {
+              "enum": [
+                "kick-all"
+              ],
               "type": "string"
             },
             "kicked_participants_count": {
@@ -321,6 +336,9 @@ export const tools: readonly Tool[] = [
               "data": {
                 "properties": {
                   "action": {
+                    "enum": [
+                      "kick-all"
+                    ],
                     "type": "string"
                   },
                   "kicked_participants_count": {
@@ -335,7 +353,16 @@ export const tools: readonly Tool[] = [
             },
             "type": "object"
           },
-          "4XX": {
+          "400": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "401": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "404": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "500": {
             "$ref": "#/$defs/realtimekit_GenericErrorResponse"
           }
         },
@@ -349,21 +376,15 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_active_mute",
     title: "Mute participants of an active session",
-    description: "Mutes one or more participants from an active session using user ID or custom participant ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/mute",
+    description: "Mutes the microphone of one or more participants of an active session using their participant IDs.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/mute",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
-          "description": "Request body for muting participants in an active session. At least one of `participant_ids` or `custom_participant_ids` must contain a value.",
+          "description": "Request body for muting participants in an active session.",
           "properties": {
-            "custom_participant_ids": {
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1,
-              "type": "array"
-            },
             "participant_ids": {
+              "description": "IDs of the participants to mute, as returned when the participants were added to the meeting.",
               "items": {
                 "type": "string"
               },
@@ -371,6 +392,9 @@ export const tools: readonly Tool[] = [
               "type": "array"
             }
           },
+          "required": [
+            "participant_ids"
+          ],
           "type": "object"
         },
         "path": {
@@ -408,11 +432,14 @@ export const tools: readonly Tool[] = [
         "data": {
           "properties": {
             "action": {
+              "enum": [
+                "mute"
+              ],
               "type": "string"
             },
             "participants": {
               "items": {
-                "$ref": "#/$defs/realtimekit_SessionParticipant"
+                "$ref": "#/$defs/realtimekit_ActionParticipant"
               },
               "type": "array"
             }
@@ -425,7 +452,7 @@ export const tools: readonly Tool[] = [
       },
       "type": "object",
       $defs: {
-        "realtimekit_SessionParticipant": realtimekit_SessionParticipant,
+        "realtimekit_ActionParticipant": realtimekit_ActionParticipant,
       },
     },
     annotations: {
@@ -453,11 +480,14 @@ export const tools: readonly Tool[] = [
               "data": {
                 "properties": {
                   "action": {
+                    "enum": [
+                      "mute"
+                    ],
                     "type": "string"
                   },
                   "participants": {
                     "items": {
-                      "$ref": "#/$defs/realtimekit_SessionParticipant"
+                      "$ref": "#/$defs/realtimekit_ActionParticipant"
                     },
                     "type": "array"
                   }
@@ -470,13 +500,22 @@ export const tools: readonly Tool[] = [
             },
             "type": "object"
           },
-          "4XX": {
+          "400": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "401": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "404": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "500": {
             "$ref": "#/$defs/realtimekit_GenericErrorResponse"
           }
         },
         $defs: {
+          "realtimekit_ActionParticipant": realtimekit_ActionParticipant,
           "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
-          "realtimekit_SessionParticipant": realtimekit_SessionParticipant,
           "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
         },
       },
@@ -485,7 +524,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_active_muteAll",
     title: "Mute all participants",
-    description: "Mutes all participants of an active session for the given meeting ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/mute-all",
+    description: "Mutes the microphone of all participants of an active session for the given meeting ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/mute-all",
     inputSchema: {
       type: "object",
       properties: {
@@ -494,7 +533,8 @@ export const tools: readonly Tool[] = [
           "properties": {
             "allow_unmute": {
               "default": false,
-              "description": "if false, participants won't be able to unmute themselves after they are muted",
+              "deprecated": true,
+              "description": "This field is ignored. Muted participants can unmute themselves if their preset allows them to produce audio.",
               "type": "boolean"
             }
           },
@@ -525,8 +565,7 @@ export const tools: readonly Tool[] = [
         }
       },
       required: [
-        "path",
-        "body"
+        "path"
       ],
       additionalProperties: false,
     },
@@ -535,6 +574,9 @@ export const tools: readonly Tool[] = [
         "data": {
           "properties": {
             "action": {
+              "enum": [
+                "mute-all"
+              ],
               "type": "string"
             },
             "muted_participants_count": {
@@ -574,6 +616,9 @@ export const tools: readonly Tool[] = [
               "data": {
                 "properties": {
                   "action": {
+                    "enum": [
+                      "mute-all"
+                    ],
                     "type": "string"
                   },
                   "muted_participants_count": {
@@ -588,7 +633,16 @@ export const tools: readonly Tool[] = [
             },
             "type": "object"
           },
-          "4XX": {
+          "400": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "401": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "404": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "500": {
             "$ref": "#/$defs/realtimekit_GenericErrorResponse"
           }
         },

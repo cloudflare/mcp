@@ -297,6 +297,251 @@ export const tools: readonly Tool[] = [
     },
   },
   {
+    name: "realtime_kit_meetings_edit",
+    title: "Update a meeting",
+    description: "Updates a meeting in an App for the given meeting ID.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "description": "Update meeting body",
+          "properties": {
+            "ai_config": {
+              "$ref": "#/$defs/realtimekit_AIConfig",
+              "description": "The AI Config allows you to customize the behavior of meeting transcriptions and summaries"
+            },
+            "enable_sip": {
+              "description": "Turns SIP dial-in on or off. Turning it off deletes the SIP URI and credentials; calls already in progress continue. Turning it on again creates a new SIP URI and credentials.",
+              "type": "boolean"
+            },
+            "live_stream_on_start": {
+              "description": "Specifies if the meeting should start getting livestreamed on start.",
+              "type": "boolean"
+            },
+            "persist_chat": {
+              "description": "If a meeting is updated to persist_chat, meeting chat would remain for a week within the meeting space.",
+              "type": "boolean"
+            },
+            "record_on_start": {
+              "description": "Specifies if the meeting should start getting recorded as soon as someone joins the meeting.",
+              "type": "boolean"
+            },
+            "recording_config": {
+              "$ref": "#/$defs/realtimekit_RecordingConfig",
+              "description": "Recording Configurations to be used for this meeting. This level of configs takes higher preference over App level configs on the RealtimeKit developer portal."
+            },
+            "session_keep_alive_time_in_secs": {
+              "description": "Time in seconds, for which a session remains active, after the last participant has left the meeting.",
+              "type": "number"
+            },
+            "status": {
+              "description": "Whether the meeting is `ACTIVE` or `INACTIVE`. Users will not be able to join an `INACTIVE` meeting.",
+              "enum": [
+                "ACTIVE",
+                "INACTIVE"
+              ],
+              "type": "string"
+            },
+            "summarize_on_end": {
+              "description": "Automatically generate summary of meetings using transcripts. Requires Transcriptions to be enabled, and can be retrieved via Webhooks or summary API.",
+              "type": "boolean"
+            },
+            "title": {
+              "description": "Title of the meeting",
+              "type": "string"
+            },
+            "transcribe_on_end": {
+              "description": "Automatically generate transcripts when the meeting ends.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "meeting_id": {
+              "description": "ID of the meeting. Fetch the meeting ID using the create a meeting API.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "realtimekit_AIConfig": realtimekit_AIConfig$,
+        "realtimekit_AudioConfig": realtimekit_AudioConfig$,
+        "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig$,
+        "realtimekit_RecordingConfig": realtimekit_RecordingConfig$,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig$,
+        "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig$,
+        "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig$,
+        "realtimekit_VideoConfig": realtimekit_VideoConfig$,
+        "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig$,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/realtimekit_Meeting"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "recording_config": {
+                  "$ref": "#/$defs/realtimekit_RecordingConfig"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "data": {
+              "properties": {
+                "ai_config": {
+                  "$ref": "#/$defs/realtimekit_AIConfig"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_AIConfig": realtimekit_AIConfig,
+        "realtimekit_AudioConfig": realtimekit_AudioConfig,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+        "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
+        "realtimekit_Meeting": realtimekit_Meeting,
+        "realtimekit_MeetingSip": realtimekit_MeetingSip,
+        "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
+        "realtimekit_StorageConfig": realtimekit_StorageConfig,
+        "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,
+        "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig,
+        "realtimekit_VideoConfig": realtimekit_VideoConfig,
+        "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update a meeting"
+    },
+    [OPERATION]: {
+      method: "PATCH",
+      path: "/accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}",
+      pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/meetings/${"meeting_id"}`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Realtime Admin",
+          "Realtime"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+              },
+              {
+                "properties": {
+                  "data": {
+                    "$ref": "#/$defs/realtimekit_Meeting"
+                  }
+                },
+                "type": "object"
+              },
+              {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "recording_config": {
+                        "$ref": "#/$defs/realtimekit_RecordingConfig"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "ai_config": {
+                        "$ref": "#/$defs/realtimekit_AIConfig"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "4XX": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "500": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          }
+        },
+        $defs: {
+          "realtimekit_AIConfig": realtimekit_AIConfig,
+          "realtimekit_AudioConfig": realtimekit_AudioConfig,
+          "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+          "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+          "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
+          "realtimekit_Meeting": realtimekit_Meeting,
+          "realtimekit_MeetingSip": realtimekit_MeetingSip,
+          "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
+          "realtimekit_StorageConfig": realtimekit_StorageConfig,
+          "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,
+          "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig,
+          "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
+          "realtimekit_VideoConfig": realtimekit_VideoConfig,
+          "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig,
+        },
+      },
+    },
+  },
+  {
     name: "realtime_kit_meetings_get",
     title: "Fetch a meeting for an App",
     description: "Returns a meeting details in an App for the given meeting ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}",
@@ -889,251 +1134,6 @@ export const tools: readonly Tool[] = [
             ]
           },
           "4XX": {
-            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
-          }
-        },
-        $defs: {
-          "realtimekit_AIConfig": realtimekit_AIConfig,
-          "realtimekit_AudioConfig": realtimekit_AudioConfig,
-          "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
-          "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
-          "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
-          "realtimekit_Meeting": realtimekit_Meeting,
-          "realtimekit_MeetingSip": realtimekit_MeetingSip,
-          "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
-          "realtimekit_StorageConfig": realtimekit_StorageConfig,
-          "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,
-          "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig,
-          "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
-          "realtimekit_VideoConfig": realtimekit_VideoConfig,
-          "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig,
-        },
-      },
-    },
-  },
-  {
-    name: "realtime_kit_meetings_update",
-    title: "Update a meeting",
-    description: "Updates a meeting in an App for the given meeting ID.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "description": "Update meeting body",
-          "properties": {
-            "ai_config": {
-              "$ref": "#/$defs/realtimekit_AIConfig",
-              "description": "The AI Config allows you to customize the behavior of meeting transcriptions and summaries"
-            },
-            "enable_sip": {
-              "description": "Turns SIP dial-in on or off. Turning it off deletes the SIP URI and credentials; calls already in progress continue. Turning it on again creates a new SIP URI and credentials.",
-              "type": "boolean"
-            },
-            "live_stream_on_start": {
-              "description": "Specifies if the meeting should start getting livestreamed on start.",
-              "type": "boolean"
-            },
-            "persist_chat": {
-              "description": "If a meeting is updated to persist_chat, meeting chat would remain for a week within the meeting space.",
-              "type": "boolean"
-            },
-            "record_on_start": {
-              "description": "Specifies if the meeting should start getting recorded as soon as someone joins the meeting.",
-              "type": "boolean"
-            },
-            "recording_config": {
-              "$ref": "#/$defs/realtimekit_RecordingConfig",
-              "description": "Recording Configurations to be used for this meeting. This level of configs takes higher preference over App level configs on the RealtimeKit developer portal."
-            },
-            "session_keep_alive_time_in_secs": {
-              "description": "Time in seconds, for which a session remains active, after the last participant has left the meeting.",
-              "type": "number"
-            },
-            "status": {
-              "description": "Whether the meeting is `ACTIVE` or `INACTIVE`. Users will not be able to join an `INACTIVE` meeting.",
-              "enum": [
-                "ACTIVE",
-                "INACTIVE"
-              ],
-              "type": "string"
-            },
-            "summarize_on_end": {
-              "description": "Automatically generate summary of meetings using transcripts. Requires Transcriptions to be enabled, and can be retrieved via Webhooks or summary API.",
-              "type": "boolean"
-            },
-            "title": {
-              "description": "Title of the meeting",
-              "type": "string"
-            },
-            "transcribe_on_end": {
-              "description": "Automatically generate transcripts when the meeting ends.",
-              "type": "boolean"
-            }
-          },
-          "type": "object"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "The account identifier tag.",
-              "type": "string"
-            },
-            "app_id": {
-              "description": "The app identifier tag.",
-              "type": "string"
-            },
-            "meeting_id": {
-              "description": "ID of the meeting. Fetch the meeting ID using the create a meeting API.",
-              "format": "uuid",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "app_id",
-            "meeting_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "realtimekit_AIConfig": realtimekit_AIConfig$,
-        "realtimekit_AudioConfig": realtimekit_AudioConfig$,
-        "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig$,
-        "realtimekit_RecordingConfig": realtimekit_RecordingConfig$,
-        "realtimekit_StorageConfig": realtimekit_StorageConfig$,
-        "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig$,
-        "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig$,
-        "realtimekit_VideoConfig": realtimekit_VideoConfig$,
-        "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig$,
-      },
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
-        },
-        {
-          "properties": {
-            "data": {
-              "$ref": "#/$defs/realtimekit_Meeting"
-            }
-          },
-          "type": "object"
-        },
-        {
-          "properties": {
-            "data": {
-              "properties": {
-                "recording_config": {
-                  "$ref": "#/$defs/realtimekit_RecordingConfig"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        {
-          "properties": {
-            "data": {
-              "properties": {
-                "ai_config": {
-                  "$ref": "#/$defs/realtimekit_AIConfig"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "realtimekit_AIConfig": realtimekit_AIConfig,
-        "realtimekit_AudioConfig": realtimekit_AudioConfig,
-        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
-        "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
-        "realtimekit_Meeting": realtimekit_Meeting,
-        "realtimekit_MeetingSip": realtimekit_MeetingSip,
-        "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
-        "realtimekit_StorageConfig": realtimekit_StorageConfig,
-        "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,
-        "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig,
-        "realtimekit_VideoConfig": realtimekit_VideoConfig,
-        "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update a meeting"
-    },
-    [OPERATION]: {
-      method: "PATCH",
-      path: "/accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}",
-      pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/meetings/${"meeting_id"}`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Realtime Admin",
-          "Realtime"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
-              },
-              {
-                "properties": {
-                  "data": {
-                    "$ref": "#/$defs/realtimekit_Meeting"
-                  }
-                },
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "data": {
-                    "properties": {
-                      "recording_config": {
-                        "$ref": "#/$defs/realtimekit_RecordingConfig"
-                      }
-                    },
-                    "type": "object"
-                  }
-                },
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "data": {
-                    "properties": {
-                      "ai_config": {
-                        "$ref": "#/$defs/realtimekit_AIConfig"
-                      }
-                    },
-                    "type": "object"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "4XX": {
-            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
-          },
-          "500": {
             "$ref": "#/$defs/realtimekit_GenericErrorResponse"
           }
         },

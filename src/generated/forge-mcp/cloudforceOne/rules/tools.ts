@@ -213,7 +213,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_deleteAll",
     title: "Delete all rules",
-    description: "Delete all rules in an account.\n\nDELETE /accounts/{account_id}/cloudforce-one/rules",
+    description: "Delete all rules in an account.\n\nConfirm with the user before calling this tool. Are you sure you want to delete all rules in this account?\n\nDELETE /accounts/{account_id}/cloudforce-one/rules",
     inputSchema: {
       type: "object",
       properties: {
