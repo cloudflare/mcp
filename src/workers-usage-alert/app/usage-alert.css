@@ -67,20 +67,21 @@ body {
 .hd {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  column-gap: 12px;
+  column-gap: 8px;
   /* A wrapped title keeps the mark on its last line: the mark has no text, so its baseline is its bottom edge. */
   align-items: last baseline;
 }
-/* The family's mark: 16 px tall, its width from the glyph's 49:22 viewBox, its flat base on the title's baseline. */
+/* The family's mark: 16 px tall, its width from the glyph's 49:22 viewBox, its flat base on the title's baseline,
+   8 px before the title's 15 px / 500 text. */
 .cf {
   width: calc(16px * 49 / 22);
   height: 16px;
 }
 .title {
   margin: 0;
-  font-size: var(--text-lg);
+  font-size: 15px;
   font-weight: 500;
-  line-height: 24px;
+  line-height: 20px;
   text-wrap: balance;
 }
 /* Outcome, under the month axis as the chart's legend: two facts, one row on wide cards, two fixed rows on narrow
