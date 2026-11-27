@@ -58,7 +58,9 @@ describe('workers-spend preset', () => {
 
   it('starts on the email, and says what a limit stops before Create', () => {
     expect(actionOf(WORKERS_SPEND).id).toBe('notification')
-    expect(actionOf(WORKERS_SPEND, 'usage_block').caution).toMatch(/every Worker/)
+    expect(actionOf(WORKERS_SPEND, 'usage_block').caution?.('Spend Co')).toBe(
+      'At the line, every Worker on Spend Co stops taking new requests until the next billing period.'
+    )
     expect(actionOf(WORKERS_SPEND, 'notification').caution).toBeUndefined()
     // An unknown choice falls back to the default rather than writing something else.
     expect(actionOf(WORKERS_SPEND, 'delete_everything').id).toBe('notification')
@@ -235,18 +237,20 @@ describe.each([
     })
   })
 
-  it('previews a spend policy on Workers charges by month, in cents, counting only Workers', async () => {
+  it('previews a spend policy on Workers charges by month, in dollars, counting only Workers', async () => {
     const result = await call({ as_of: AS_OF })
 
     expect(result?.isError).toBeUndefined()
-    // $1.50 a day: a 31-day October is $46.50, November's 18 days so far $27.
+    // $1.50 a day: a 31-day October is $46.50, November's 18 days so far $27. The summary is in
+    // the dollars the model names; the days and existing policies keep the policy's cents.
     expect(result?.structuredContent).toMatchObject({
       kind: 'workers_spend_limit_preview',
       action: 'notification',
+      accountName: 'Spend Co',
       alertAvailable: true,
       existingAlerts: [{ id: POLICY_ID, kind: 'spend_limit', limit: 20000, enabled: true }],
       otherPolicies: { 'spend_policy:durable_objects': 1 },
-      summary: { thisMonth: 2700, busiestMonth: 4650 }
+      summary: { thisMonth: 27, busiestMonth: 46.5 }
     })
     const days = result?.structuredContent?.days as [string, number][]
     expect(days).toHaveLength(89)
@@ -254,11 +258,20 @@ describe.each([
   })
 
   it('starts on a spending limit when the user asked to stop Workers', async () => {
-    const result = await call({ as_of: AS_OF, action: 'usage_block', limit: 10000 })
+    const result = await call({ as_of: AS_OF, action: 'usage_block', limit: 100 })
     expect(result?.structuredContent).toMatchObject({
       action: 'usage_block',
-      summary: { suggestedLimit: 10000 }
+      summary: { suggestedLimit: 100 }
     })
+  })
+
+  it('takes the amount the user named in dollars: $50 is 50, never 50 cents', async () => {
+    const result = await call({ as_of: AS_OF, limit: 50 })
+    expect(result?.structuredContent).toMatchObject({ summary: { suggestedLimit: 50 } })
+    // The busiest month ($46.50) is under $50, so the named amount stands and nothing says otherwise.
+    expect(JSON.stringify(result?.structuredContent?.limitations)).not.toContain(
+      'not at the number'
+    )
   })
 
   it('is an error, naming Cloudflare’s refusal, when billable usage cannot be read', async () => {

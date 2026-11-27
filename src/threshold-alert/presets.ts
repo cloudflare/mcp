@@ -151,6 +151,12 @@ export interface Unit {
   readonly noun: string
   /** How a value is written: a count ("1.35B"), bytes ("1.5 TB") or cents ("$50"). */
   readonly format: UnitFormat
+  /**
+   * How many of the unit one of the model's is, when the model names amounts in
+   * a bigger one: the tool's `limit` and its summary are in dollars, 100 cents
+   * each, so "$50" is `50`, never 50 cents. Omitted: the model uses the unit.
+   */
+  readonly modelScale?: number
 }
 
 /**
@@ -176,8 +182,11 @@ export interface PresetAction {
   readonly noun: string
   /** The over-the-line warning: what happens if it is already over. */
   readonly alreadyOver: string
-  /** A consequence the card must say before Create, such as stopping every Worker. */
-  readonly caution?: string
+  /**
+   * A consequence the user confirms before Create, such as stopping every
+   * Worker, naming the account it happens on.
+   */
+  caution?(account: string): string
   /** What the setting does, for the model: "emails a@b.c", "stops Workers and emails a@b.c". */
   does(email: string): string
 }
@@ -387,7 +396,7 @@ export const WORKERS_REQUESTS_BILLING: ThresholdAlertPreset = {
   actions: [
     emailAction(
       'Email me when billed Workers requests pass the line',
-      'Likely over this month: emails once billing counts it'
+      'Likely over: emails once billing counts it'
     )
   ],
   policy: (_accountId, limit, email) =>
@@ -445,7 +454,7 @@ export const R2_STORAGE_BILLING: ThresholdAlertPreset = {
   actions: [
     emailAction(
       'Email me when billed R2 storage passes the line',
-      'Likely over this month: emails once billing counts it'
+      'Likely over: emails once billing counts it'
     )
   ],
   policy: (_accountId, limit, email) =>
@@ -463,7 +472,7 @@ export type SpendProduct = 'workers' | 'durable_objects'
 /** A spend policy's `action`: email at 80% and 100%, or also block the product at 100%. */
 export type SpendAction = 'notification' | 'usage_block'
 
-const DOLLARS: Unit = { noun: 'in Workers charges', format: 'cents' }
+const DOLLARS: Unit = { noun: 'in Workers charges', format: 'cents', modelScale: 100 }
 
 const spendName = (limit: string, action: string) =>
   action === 'usage_block' ? `Workers spending limit ${limit}` : `Workers spend over ${limit}`
@@ -520,9 +529,9 @@ export const WORKERS_SPEND: ThresholdAlertPreset = {
       save: 'Save limit',
       done: 'Limit on',
       noun: 'spending limit',
-      alreadyOver: 'Already over: Workers stop once it’s evaluated',
-      caution:
-        'At the line, every Worker on this account stops taking new requests until the next billing period.',
+      alreadyOver: 'Already over: Workers stop once evaluated',
+      caution: (account) =>
+        `At the line, every Worker on ${account} stops taking new requests until the next billing period.`,
       does: (email) =>
         `stops new Worker invocations on the account at 100% and emails ${email} at 80% and 100%`
     }

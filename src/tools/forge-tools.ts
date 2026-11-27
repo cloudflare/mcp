@@ -25,6 +25,7 @@ import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import { SUBMIT_FEEDBACK_TOOL, feedbackTools, runSubmitFeedbackTool } from './submit-feedback'
 import {
   MCP_APP_GENERATED_TOOLS,
+  appToolCallAllowed,
   MCP_APP_TEXT_TOOLS,
   MCP_APP_TOOLS,
   mcpAppNamed
@@ -172,7 +173,8 @@ export async function callGeneratedTool(
 export function registerAppGeneratedTools(
   server: McpServer,
   context: AppContext,
-  tools: ReadonlyArray<Tool> = MCP_APP_GENERATED_TOOLS
+  tools: ReadonlyArray<Tool> = MCP_APP_GENERATED_TOOLS,
+  allowed: (name: string, args: ToolArguments) => boolean = appToolCallAllowed
 ): void {
   for (const tool of tools) {
     server.registerTool(
@@ -185,11 +187,16 @@ export function registerAppGeneratedTools(
         inputSchema: listedAs(tool.inputSchema)
       },
       (args: ToolArguments, ctx: ServerContext) =>
-        callGeneratedTool(tool.name, args, context.props, stringifyResponse, ctx, {
-          connection: context.connection,
-          scopeChallenge: context.scopeChallenge,
-          structured: false
-        })
+        // Listed for the App only, which hides the tool but doesn't limit it: only what an App's view writes.
+        allowed(tool.name, args)
+          ? callGeneratedTool(tool.name, args, context.props, stringifyResponse, ctx, {
+              connection: context.connection,
+              scopeChallenge: context.scopeChallenge,
+              structured: false
+            })
+          : toolError(
+              `${tool.name} is served here only for the MCP App views that write with it, and only with the bodies those views send. Use execute for any other call.`
+            )
     )
   }
 }

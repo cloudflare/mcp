@@ -377,6 +377,50 @@ describe.each([
     })
   })
 
+  it('serves the app-only writes only with a body a card builds (Code Mode); the direct tools serve any', async () => {
+    const sent: unknown[] = []
+    server.use(
+      http.post(`${ALERTING}/policies`, async ({ request }) => {
+        sent.push(await request.json())
+        return HttpResponse.json(cfSuccess({ id: 'e'.repeat(32) }))
+      })
+    )
+    // Not a card's body: an account-wide budget alert, and a billing alert whose name hides its limit.
+    const foreign = [
+      {
+        name: 'Budget',
+        alert_type: 'billing_budget_alert',
+        enabled: true,
+        filters: { limit: ['1'] },
+        mechanisms: { email: [{ id: 'me@example.com' }] }
+      },
+      {
+        ...WORKERS_REQUESTS_BILLING.policy(ACCOUNT, 50_000_000, 'me@example.com', 'alert'),
+        name: 'Billed Workers requests over 1B'
+      }
+    ]
+    const results = []
+    for (const body of foreign) {
+      const response = await exports.default.fetch(
+        modernMcpRequest(
+          TOKEN,
+          'tools/call',
+          { name: 'alerting_policies_create', arguments: { path: { account_id: ACCOUNT }, body } },
+          { url, mcpApps: true }
+        )
+      )
+      results.push(((await parseMcpResult(response)) as { result: { isError?: boolean } }).result)
+    }
+    if (url === MCP_URL) {
+      expect(results.map((r) => r.isError)).toEqual([true, true])
+      expect(JSON.stringify(results[0])).toContain('only with the bodies those views send')
+      expect(sent).toEqual([])
+    } else {
+      expect(results.map((r) => r.isError)).toEqual([undefined, undefined])
+      expect(sent).toEqual(foreign)
+    }
+  })
+
   it('serves its own App resource, the shared view', async () => {
     const response = await exports.default.fetch(
       modernMcpRequest(TOKEN, 'resources/read', {

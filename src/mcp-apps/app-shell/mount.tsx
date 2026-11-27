@@ -102,7 +102,9 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
       root.render(last())
     }
   }
+  // role="status" rather than <output>: an explicit live region is announced in every screen reader; <output>'s implicit one isn't.
   const pending = () =>
+    // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- See above.
     draw(() => options.renderPending?.(toolName()) ?? <p role="status">{copy.pending}</p>)
   // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The tool's arguments as the host sent them, replayed unchanged on retry.
   let input: Record<string, unknown> | undefined
@@ -140,6 +142,7 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
     followHost()
     show(result)
   }
+  // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- An explicit live region, as for the pending message.
   app.ontoolcancelled = () => draw(() => <p role="status">{copy.cancelled}</p>)
   app
     .connect()

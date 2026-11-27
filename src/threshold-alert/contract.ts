@@ -44,7 +44,7 @@ export const ExistingAlertSchema = z.object({
    * also stops the product (`usage_block`).
    */
   kind: z.enum(['monitor', 'billing', 'spend_alert', 'spend_limit']),
-  /** Its threshold, when it has one. */
+  /** Its threshold, when it has one, as the policy stores it: requests, bytes, or a spend policy's US cents. */
   limit: z.number().optional()
 })
 export type ExistingAlert = z.infer<typeof ExistingAlertSchema>
@@ -58,6 +58,11 @@ export const previewHead = {
   nextStep: z.string(),
   checkedAt: z.iso.datetime(),
   accountId: z.string(),
+  /**
+   * The account's name, when the session knows it. The card names the account
+   * Create writes to, since the model may have picked it.
+   */
+  accountName: z.string().optional(),
   /** The signed-in user's own email, for a user credential: the view's default recipient. */
   userEmail: z.string().optional(),
   /** The day treated as today, `YYYY-MM-DD`. It is still counting, so it isn't in `days`. */

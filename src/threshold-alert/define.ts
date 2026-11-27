@@ -13,6 +13,7 @@
 import type { ToolAnnotations } from '@modelcontextprotocol/server'
 import { z } from 'zod'
 import { autoResolvedAccountId, missingAccountMessage } from '../auth/account-access'
+import type { AuthProps } from '../auth/types'
 import { ScopeChallenge } from '../scope-challenge'
 import { ApiReadError, isUnsupportedRead, apiReader } from '../mcp-apps/api-read'
 import type { ApiReader } from '../mcp-apps/api-read'
@@ -20,6 +21,7 @@ import { defineMcpApp } from '../mcp-apps/define'
 import type { AppContext, AppOutcome, McpApp } from '../mcp-apps/define'
 import { tools as alertingPolicyTools } from '../generated/forge-mcp/alerting/policies/tools'
 import { tools as spendPolicyTools } from '../generated/forge-mcp/billing/spendPolicies/tools'
+import { isPresetWrite } from './write-guard'
 import { clamp, deriveModel } from './model'
 import type { Day, Model } from './model'
 import { recogniseAmong } from './presets'
@@ -34,6 +36,8 @@ export type { ExistingAlert, ThresholdAlertInput } from './contract'
 export interface Collected {
   readonly checkedAt: string
   readonly accountId: string
+  /** The account's name, when the session knows it: the card names the account it writes to. */
+  readonly accountName?: string
   readonly userEmail?: string
   readonly today: string
   readonly days: Array<Day>
@@ -143,6 +147,14 @@ export function thresholdAlertModelText(value: { readonly days: ReadonlyArray<Da
   })
 }
 
+/** The account's name from the session's account list, when the list has it. */
+function accountNameOf(props: AuthProps, accountId: string): string | undefined {
+  if (props.type === 'account_token') {
+    return props.account.id === accountId ? props.account.name : undefined
+  }
+  return props.accounts.find((account) => account.id === accountId)?.name
+}
+
 /**
  * Define a threshold alert App: the preset's tool, its static view and a
  * read-only collector. The generated policy write tools are its `appTools`.
@@ -158,7 +170,9 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
     context: AppContext,
     signal: AbortSignal
   ): Promise<AppOutcome<z.output<Output>>> {
-    const { account_id, limit, as_of } = input as ThresholdAlertInput
+    const { account_id, limit: namedLimit, as_of } = input as ThresholdAlertInput
+    // The model names an amount in its own unit (dollars); the chart and the policy count the preset's (cents).
+    const limit = namedLimit === undefined ? undefined : namedLimit * (preset.unit.modelScale ?? 1)
     const accountId = account_id ?? autoResolvedAccountId(context.props)
     if (!accountId) {
       return { ok: false, text: missingAccountMessage(context.props, 'Use GET /accounts.') }
@@ -310,6 +324,7 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
       {
         checkedAt: now.toISOString(),
         accountId,
+        accountName: accountNameOf(context.props, accountId),
         userEmail: context.props.type === 'user_token' ? context.props.user.email : undefined,
         today,
         days,
@@ -337,6 +352,8 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
     appTools: TARGET_TOOLS[preset.target.kind].filter((tool) =>
       preset.target.tools.includes(tool.name)
     ),
+    // Only the bodies this card builds, and deletes by id: see `isPresetWrite`.
+    allowsAppToolCall: (name, args) => isPresetWrite(preset, { name, arguments: args }),
     modelText: thresholdAlertModelText,
     run: collect
   })

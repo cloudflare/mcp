@@ -95,12 +95,17 @@ body {
   line-height: 20px;
   color: var(--text-color-kumo-subtle);
 }
+/* The past fact is short by design ("Below a typical month (~1.4 TB)") and never gives way: the now fact, whose
+   warnings run longer, takes what is left, so the figure that explains the line is never the one cut. */
 .sub-i {
   display: flex;
   align-items: center;
   gap: 8px;
   min-width: 0;
   max-width: 100%;
+}
+.sub-i[data-slot='past'] {
+  flex: none;
 }
 .sub-i > span {
   display: block;
@@ -192,6 +197,10 @@ body {
 .hc {
   --h: 200px;
   position: relative;
+  /* A fieldset, for its grouping: none of its own border, padding or min-content width. */
+  min-inline-size: 0;
+  border: 0;
+  padding: 0;
   height: var(--h);
   /* No extra top margin: the card's 16px gap is the space between the facts and the chart. */
   margin-block: 0;
@@ -1082,4 +1091,9 @@ body {
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+/* The account Create writes to, and the tick that confirms a setting which stops something on it. */
+.caution {
+  color: var(--text-color-kumo-warning);
 }

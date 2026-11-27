@@ -14,7 +14,7 @@ export { ExistingAlertSchema }
 export const WORKERS_SPEND_RESOURCE_URI = 'ui://cloudflare/workers-spend-limit.html'
 
 export const WorkersSpendInputSchema = thresholdAlertInput(
-  'Workers usage charges in a billing period to start the threshold at, in US cents ($50 is 5000), when the user named an amount. Otherwise the App suggests one.',
+  'Workers usage charges in a billing period to start the threshold at, in whole US dollars ($50 is 50), when the user named an amount. Otherwise the App suggests one.',
   HISTORY_DAYS
 ).extend({
   action: z
@@ -35,15 +35,18 @@ export const WorkersSpendPreviewSchema = z.object({
   ...previewHead,
   /** The action the card starts on: what the user asked for, or `notification`. */
   action: z.enum(['notification', 'usage_block']),
-  /** US cents in a month: the policy's unit. `null` with under a week of history. */
+  /**
+   * US dollars in a month, to the cent, as `limit` takes them; the days and
+   * the policy are in cents. `null` with under a week of history.
+   */
   summary: z.object({
-    /** The median day × an average month's days, in cents. */
+    /** The median 7-day total scaled to an average month, at most the busiest month, in dollars. */
     typicalMonth: z.number().nullable(),
-    /** This calendar month so far, to yesterday, in cents. */
+    /** This calendar month so far, to yesterday, in dollars. */
     thisMonth: z.number(),
-    /** The busiest whole month charted, this month projected to its end, in cents. */
+    /** The busiest whole month charted, this month projected to its end, in dollars. */
     busiestMonth: z.number(),
-    /** Where the threshold starts, in cents: the input `limit`, or a tenth above the busiest month. */
+    /** Where the threshold starts, in dollars: the input `limit`, or a tenth above the busiest month. */
     suggestedLimit: z.number().nullable()
   }),
   /** Whether the account's spend policies could be read, so it can have one. `null`: not read. */

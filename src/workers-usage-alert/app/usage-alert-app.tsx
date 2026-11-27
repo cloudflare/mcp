@@ -5,7 +5,7 @@ import type { CSSProperties, KeyboardEvent, PointerEvent } from 'react'
 type VarStyle = CSSProperties & { readonly [name: `--${string}`]: string | number }
 /** A style for an element whose bar height or delay the stylesheet reads from custom properties. */
 const varStyle = (style: VarStyle): CSSProperties => style
-import { Button, CloudflareLogo, Collapsible, LayerCard, Radio } from '@cloudflare/kumo'
+import { Button, Checkbox, CloudflareLogo, Collapsible, LayerCard, Radio } from '@cloudflare/kumo'
 import type { App } from '@modelcontextprotocol/ext-apps'
 import { mountMcpApp } from '../../mcp-apps/app-shell/mount'
 import { WorkersThresholdPreviewSchema } from '../contract'
@@ -29,31 +29,23 @@ import {
 } from '../../threshold-alert/presets'
 import type { PresetAction, SettingRef, ThresholdAlertPreset } from '../../threshold-alert/presets'
 import { createSetting, deleteSetting, updateSetting } from '../../threshold-alert/create'
-import type { CallTool } from '../../threshold-alert/create'
+import type { CallTool, WriteResult } from '../../threshold-alert/create'
+import {
+  EDITING,
+  afterCreate,
+  afterSave,
+  afterUndo,
+  buttonLabel,
+  failureReason,
+  handoffOf,
+  hintFor,
+  undoFailureLine,
+  unconfirmedNote
+} from '../../threshold-alert/form'
+import type { Phase, Step, WriteContext } from '../../threshold-alert/form'
 import { EMAIL, fmtDay, fmtDays, formatsFor, monthShort, sig as ratio } from './format'
 import './usage-alert.css'
 
-/**
- * Where the form is, with what only that step knows. The click is the user's
- * confirmation, so the App creates the policy itself with a tool this server
- * already lists (`createPolicy`): `created`. A host that can't call server
- * tools gets the alert handed to the chat (`sent`), or else the request to
- * send (`review`).
- */
-type Phase =
-  /** `deleted`: Undo just deleted the alert this card made; the field says so until the next edit. */
-  | { readonly kind: 'editing'; readonly deleted?: true }
-  | { readonly kind: 'sending' }
-  /** `undo`: Undo is deleting it, or Cloudflare refused, with the reason. */
-  | { readonly kind: 'created'; readonly undo?: 'deleting' | { readonly failed: string } }
-  /**
-   * A refused write, with Cloudflare's reason, or one that got no answer
-   * (`unconfirmed`): that create may have been made, so the card never says nothing was.
-   */
-  | { readonly kind: 'failed'; readonly reason: string; readonly unconfirmed: boolean }
-  | { readonly kind: 'sent' }
-  | { readonly kind: 'review' }
-const EDITING: Phase = { kind: 'editing' }
 type Tone = '' | 'hit' | 'now' | 'warn' | 'bad'
 /** Plain text, or a figure shown bold and direction-isolated. */
 type FactPart = string | { readonly b: string }
@@ -109,7 +101,8 @@ function FactLine({ fact, slot }: { fact: Fact; slot: 'past' | 'now' }) {
   return (
     <span className="sub-i" data-tone={fact[0]} data-slot={slot}>
       <i aria-hidden="true" />
-      <span>
+      {/* A fact that doesn't fit is ellipsized; the whole sentence stays a hover away. */}
+      <span title={plain(fact[1]).trim() || undefined}>
         {fact[1].map((part, i) =>
           typeof part === 'string' ? (
             part
@@ -183,7 +176,9 @@ function tipBody(m: Model, w: Week, limit: number, preset: ThresholdAlertPreset)
  * skeleton in the same boxes), `error` when it failed, with Try again when the
  * host can call the tool again.
  */
-type Pending = { kind: 'loading' } | { kind: 'error'; retry: (() => void) | undefined }
+type Pending =
+  | { kind: 'loading' }
+  | { kind: 'error'; reason: string; retry: (() => void) | undefined }
 
 /**
  * The card's one content state: still reading, failed, an alert this account
@@ -223,7 +218,14 @@ function UsageAlertCard({
         : 'empty'
   const ready = view === 'chart'
   const [limit, setLimitState] = useState(() =>
-    clamp(p.summary.suggestedLimit ?? m.suggested ?? m.minLimit, m.minLimit, m.maxLimit)
+    clamp(
+      // The summary is in the model's unit (a spend policy's dollars); the chart counts the preset's.
+      p.summary.suggestedLimit === null
+        ? (m.suggested ?? m.minLimit)
+        : p.summary.suggestedLimit * (preset.unit.modelScale ?? 1),
+      m.minLimit,
+      m.maxLimit
+    )
   )
   const [entered, setEntered] = useState(false)
   const [dragging, setDragging] = useState(false)
@@ -234,9 +236,15 @@ function UsageAlertCard({
   const [actionId, setActionId] = useState(() => actionOf(preset, startAction(p)).id)
   const action = actionOf(preset, actionId)
   const [touched, setTouched] = useState(false)
+  // A setting that stops something is confirmed with a tick naming the account, not only the button.
+  const [confirmed, setConfirmed] = useState(false)
+  const [confirmAsked, setConfirmAsked] = useState(false)
+  const account = p.accountName ?? p.accountId
+  const caution = action.caution?.(account)
+  const handoff = handoffOf(app?.getHostCapabilities())
   const ids = { title: useId(), sub: useId(), err: useId(), hint: useId() }
 
-  const plotEl = useRef<HTMLDivElement>(null)
+  const plotEl = useRef<HTMLFieldSetElement>(null)
   const gridEl = useRef<HTMLDivElement>(null)
   const lineEl = useRef<HTMLDivElement>(null)
   const knobEl = useRef<HTMLDivElement>(null)
@@ -274,7 +282,7 @@ function UsageAlertCard({
   const unconfirmed = phase.kind === 'failed' && phase.unconfirmed
   const undo = phase.kind === 'created' ? phase.undo : undefined
   const undoing = undo === 'deleting'
-  const undoFailed = typeof undo === 'object' ? undo.failed : ''
+  const undoFailure = typeof undo === 'object' ? undo : undefined
   // The legend under the chart, shimmering while it loads. An empty or failed card has no chart, so no legend:
   // its message says it all.
   const facts: readonly [Fact, Fact] | null =
@@ -471,7 +479,7 @@ function UsageAlertCard({
   }, [draw])
 
   // ── Drag: the line follows the pointer 1:1; the value snaps; release glides to the step ──
-  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+  const onPointerDown = (e: PointerEvent<HTMLFieldSetElement>) => {
     if (locked || e.button !== 0 || draggingRef.current) {
       return
     }
@@ -540,20 +548,27 @@ function UsageAlertCard({
     kick()
   }
 
-  // ── Hand-off: editing → sending → sent | review ──
+  // ── Writes: editing → sending → created | failed, or hand-off → sent | review ──
   // The policy's name is stored in Cloudflare and read by everyone on the account: one fixed format.
   const name = preset.name(fmtPolicy(limit), action.id)
   const policy = preset.policy(p.accountId, limit, address, action.id)
-  const what = preset.passes(limit)
-  const does = action.does(address)
-  const request = preset.target.request(p.accountId, policy)
   const target = preset.target
+  const request = target.request(p.accountId, policy)
+  const written: WriteContext = {
+    preset,
+    action,
+    accountId: p.accountId,
+    account,
+    name,
+    does: action.does(address),
+    what: preset.passes(limit)
+  }
   const settle = (next: Phase) => {
     setPhase(next)
-    requestAnimationFrame(() => doneEl.current?.focus({ preventScroll: true }))
+    if (next.kind !== 'failed') {
+      requestAnimationFrame(() => doneEl.current?.focus({ preventScroll: true }))
+    }
   }
-  const fail = (reason: string, unconfirmed = false) =>
-    setPhase({ kind: 'failed', reason, unconfirmed })
   /**
    * The setting this card created and hasn't deleted, by the id (and, for a
    * spend policy, the version) its write returned: Undo deletes it. Once Edit
@@ -567,37 +582,28 @@ function UsageAlertCard({
   const noun = action.noun
   const tell = (text: string) =>
     void app?.updateModelContext?.({ content: [{ type: 'text', text }] }).catch(() => {})
-  /**
-   * The field's trailing message: a fixed short phrase, so it never crowds the
-   * address, or nothing. `say` is the full sentence a screen reader hears.
-   */
-  const hint: { tone: '' | 'bad'; text: string; say: string } | null = invalid
-    ? address
-      ? {
-          tone: 'bad',
-          text: 'Invalid email',
-          say: 'Enter a full email address, like name@example.com.'
-        }
-      : { tone: 'bad', text: 'Required', say: `Enter the email address to send ${noun} emails to.` }
-    : unconfirmed
-      ? {
-          tone: 'bad',
-          text: 'May have saved',
-          say: `No answer from Cloudflare: the ${noun} may have been created. Check this account before trying again.`
-        }
-      : phase.kind === 'failed'
-        ? {
-            tone: 'bad',
-            text: 'Didn’t save',
-            say: `Didn’t save: ${failureReason(phase.reason)}. ${saving ? `The ${noun} wasn’t changed` : 'Nothing was created'}. Try again.`
-          }
-        : phase.kind === 'editing' && phase.deleted
-          ? {
-              tone: '',
-              text: 'Deleted',
-              say: `The ${noun} was deleted. Nothing will happen at the line.`
-            }
-          : null
+  /** Apply what a write's answer did: the form's phase, the setting it made, and what the model is told. */
+  const step = (next: Step) => {
+    if (next.made !== undefined) {
+      setMade(next.made)
+    }
+    if (next.tell) {
+      tell(next.tell)
+    }
+    if (next.phase.kind === 'created') {
+      createdAt.current = performance.now()
+    }
+    settle(next.phase)
+  }
+  const askedConfirm = confirmAsked && caution !== undefined && !confirmed
+  const hint = hintFor({
+    phase,
+    noun,
+    invalid,
+    address,
+    unconfirmedCaution: askedConfirm ? caution : undefined
+  })
+  const missedNote = unconfirmedNote(phase, noun)
   const submit = async () => {
     if (locked || !app) {
       return
@@ -606,47 +612,21 @@ function UsageAlertCard({
     if (!EMAIL.test(address)) {
       return emailEl.current?.focus()
     }
+    if (caution && !confirmed) {
+      return setConfirmAsked(true)
+    }
     const caps = app.getHostCapabilities()
     setPhase({ kind: 'sending' })
     const call: CallTool = (c) => app.callServerTool(c)
     if (saving && made) {
-      const saved = await updateSetting(call, target, p.accountId, made, policy).catch(
-        (error: unknown) => ({ status: 'refused' as const, error: String(error) })
-      )
-      if (saved.status === 'done') {
-        // A spend policy's update returns its next version, which the next write must send.
-        setMade(saved.ref ? { ...made, ...saved.ref } : made)
-        tell(
-          `${capital(noun)} ${made.id} updated: it ${does} when ${what}. The user clicked ${action.save} in the ${preset.toolName} App. It's done: don't change it again or ask to confirm it.`
-        )
-        createdAt.current = performance.now()
-        return settle({ kind: 'created' })
-      }
-      return fail(
-        saved.status === 'unavailable' ? `this connection can’t update the ${noun}` : saved.error
-      )
+      const saved = await updateSetting(call, target, p.accountId, made, policy).catch(refused)
+      return step(afterSave(saved, made, written))
     }
     if (caps?.serverTools) {
-      const created = await createSetting(call, target, p.accountId, policy).catch(
-        (error: unknown) => ({ status: 'refused' as const, error: String(error) })
-      )
-      if (created.status === 'done') {
-        // Tell the model, so it doesn't offer to create it again.
-        tell(
-          `${capital(noun)} created${created.ref ? ` (${created.ref.id})` : ''}: it ${does} when ${what}. The user clicked ${action.create} in the ${preset.toolName} App. It's done: don't create it again or ask to confirm it.`
-        )
-        setMade(created.ref ?? null)
-        createdAt.current = performance.now()
-        return settle({ kind: 'created' })
-      }
-      if (created.status === 'refused') {
-        return fail(created.error)
-      }
-      if (created.status === 'unknown') {
-        tell(
-          `${action.create} got no answer from Cloudflare (${failureReason(created.error)}): the ${noun} may have been created on account ${p.accountId}. Before creating it again, list the account's ${target.kind === 'spend_policy' ? 'spend policies' : 'notification policies'} and check for "${name}".`
-        )
-        return fail(created.error, true)
+      const created = await createSetting(call, target, p.accountId, policy).catch(refused)
+      const next = afterCreate(created, written)
+      if (next !== 'handoff') {
+        return step(next)
       }
     }
     if (!caps?.message) {
@@ -668,7 +648,7 @@ function UsageAlertCard({
         content: [
           {
             type: 'text',
-            text: `Create the ${noun} on account ${p.accountId}: it ${does} when ${what}.`
+            text: `Create the ${noun} on account ${account} (${p.accountId}): it ${written.does} when ${written.what}.`
           }
         ]
       })
@@ -690,17 +670,18 @@ function UsageAlertCard({
       target,
       p.accountId,
       made
-    ).catch((error: unknown) => ({ status: 'refused' as const, error: String(error) }))
-    if (deleted.status !== 'done') {
-      const failed = deleted.status === 'refused' ? failureReason(deleted.error) : 'try again'
-      return setPhase({ kind: 'created', undo: { failed } })
+    ).catch(refused)
+    const next = afterUndo(deleted, made, written)
+    if (next.made !== undefined) {
+      setMade(next.made)
     }
-    tell(
-      `${capital(noun)} ${made.id} deleted: no ${noun} from this card exists now. The user clicked Undo in the ${preset.toolName} App. Don't recreate it unless the user asks.`
-    )
-    setMade(null)
-    setPhase({ kind: 'editing', deleted: true })
-    requestAnimationFrame(() => createEl.current?.focus({ preventScroll: true }))
+    if (next.tell) {
+      tell(next.tell)
+    }
+    setPhase(next.phase)
+    if (next.phase.kind === 'editing') {
+      requestAnimationFrame(() => createEl.current?.focus({ preventScroll: true }))
+    }
   }
 
   const n = m.weeks.length
@@ -751,10 +732,10 @@ function UsageAlertCard({
           </div>
         </header>
         <div className="chart">
-          <div
+          {/* The chart and its slider, named as one group: a fieldset, reset to a plain box in the CSS. */}
+          <fieldset
             className="hc"
             ref={plotEl}
-            role="group"
             aria-label={copy.chartLabel}
             data-locked={locked || undefined}
             data-hl={tip !== null || undefined}
@@ -802,7 +783,10 @@ function UsageAlertCard({
                 <>
                   <div className="es-copy">
                     <h3>Couldn’t read your usage</h3>
-                    <p id={ids.sub}>{copy.source} didn’t answer. Nothing was changed.</p>
+                    {/* Cloudflare's own reason, as D1 Studio shows it: a refusal reads differently from an outage. */}
+                    <p id={ids.sub}>
+                      {copy.source}: <bdi>{pending.reason}</bdi>. Nothing was changed.
+                    </p>
                     {pending.retry && (
                       <Button variant="outline" size="sm" className="retry" onClick={pending.retry}>
                         Try again
@@ -833,9 +817,12 @@ function UsageAlertCard({
               )}
             </div>
             <div className="hc-line" ref={lineEl}>
+              {/* A vertical slider whose axis rescales while it moves: no <input type="range"> can be drawn
+                  or driven like this, so it is ARIA's slider pattern on a div. */}
               <div
                 className="hc-knob"
                 ref={knobEl}
+                // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- See above: a native range input can't rescale its axis mid-drag.
                 role="slider"
                 tabIndex={locked ? -1 : 0}
                 aria-disabled={locked}
@@ -850,7 +837,7 @@ function UsageAlertCard({
                 <span aria-hidden="true">{approx(limit)}</span>
               </div>
             </div>
-          </div>
+          </fieldset>
           <div className="hc-x" aria-hidden="true">
             {ready &&
               m.months
@@ -877,11 +864,10 @@ function UsageAlertCard({
             <FactLine fact={facts[1]} slot="now" />
           </p>
         )}
-        {/* A create with no answer may have been made: say so where everyone sees it, before Create anyway. */}
-        {unconfirmed && (
+        {/* A write with no answer may have been made: say so where everyone sees it, before the button. */}
+        {missedNote && (
           <p className="note" data-tone="bad">
-            No answer from Cloudflare, so this {noun} may already exist. Check this account before
-            creating it again.
+            {missedNote}
           </p>
         )}
         {/* A choice of what happens at the line, when the preset has one: email, or stop the product. */}
@@ -895,6 +881,8 @@ function UsageAlertCard({
             disabled={locked}
             onValueChange={(id) => {
               setActionId(id)
+              setConfirmed(false)
+              setConfirmAsked(false)
               if (phase.kind === 'failed' && !unconfirmed) {
                 setPhase(EDITING)
               }
@@ -905,29 +893,43 @@ function UsageAlertCard({
             ))}
           </Radio.Group>
         )}
-        {/* What a setting that stops something does, said before Create, where it can't be missed. */}
-        {ready && action.caution && (
-          <p className="note" data-tone="warn">
-            {action.caution}
-          </p>
+        {/* What a setting that stops something does, naming the account, confirmed with a tick before the
+            button does anything: the button alone is not enough for stopping every Worker. */}
+        {ready && caution && (
+          <Checkbox
+            className="caution"
+            variant={askedConfirm ? 'error' : 'default'}
+            label={caution}
+            checked={confirmed}
+            disabled={locked}
+            onCheckedChange={(checked) => {
+              setConfirmed(checked === true)
+              setConfirmAsked(false)
+            }}
+          />
         )}
-        {ready && existing.length > 0 && (
+        {/* Create writes to this account: name it before the click, since the model may have picked it.
+            What already watches the same number there follows in the same line. */}
+        {ready && account && (
           <p className="note">
-            Already on this account:{' '}
+            Account: <bdi>{account}</bdi>
+            {existing.length > 0 && '. Already on it: '}
             {existing.map((a, i) => (
               <span key={i}>
                 {i > 0 && '; '}
                 {/* A name someone typed, in any script: isolated so it can't reorder what's around it. */}
                 <bdi>{a.name}</bdi>
-                {a.limit ? ` (${approx(a.limit, 2)})` : ''}
+                {/* The card's names carry their threshold ("over $40"); only a name that doesn't gets it after. */}
+                {a.limit && !a.name.includes(fmtPolicy(a.limit)) ? ` (${approx(a.limit, 2)})` : ''}
                 {a.enabled ? '' : ', off'}
               </span>
             ))}
           </p>
         )}
       </LayerCard.Primary>
-      {/* An alert this account can't create has nothing to fill in: no form, not a disabled one. */}
-      {view !== 'unavailable' && (
+      {/* An alert this account can't create, or a card with no history read, has nothing to fill in:
+          no form, not a disabled one. */}
+      {view !== 'unavailable' && view !== 'error' && (
         <div className="foot">
           <div className="f-layer f-form" inert={done}>
             <label className="to">
@@ -948,7 +950,7 @@ function UsageAlertCard({
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value)
-                  // A create with no answer stays unconfirmed: editing the address doesn't settle it.
+                  // A write with no answer stays unconfirmed: editing the address doesn't settle it.
                   if (
                     phase.kind === 'editing'
                       ? phase.deleted
@@ -958,7 +960,7 @@ function UsageAlertCard({
                   }
                 }}
                 onBlur={() => address && setTouched(true)}
-                // Not after a create that got no answer: sending it again takes the button's own click.
+                // Not after a write that got no answer: sending it again takes the button's own click.
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !unconfirmed) {
                     void submit()
@@ -982,19 +984,15 @@ function UsageAlertCard({
               disabled={!ready}
               onClick={() => void submit()}
             >
-              {unconfirmed
-                ? 'Create anyway'
-                : phase.kind === 'failed'
-                  ? 'Try again'
-                  : saving
-                    ? action.save
-                    : action.create}
+              {buttonLabel({ phase, action, saving, handoff })}
             </Button>
             <p className="sr" id={ids.err} role="alert">
               {hint?.say}
             </p>
           </div>
           <div className="f-layer f-done" inert={!done}>
+            {/* role="status" rather than <output>: an explicit live region is announced in every screen reader. */}
+            {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- See above. */}
             <div className="done" ref={doneEl} tabIndex={-1} role="status">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
                 <circle
@@ -1024,17 +1022,17 @@ function UsageAlertCard({
               </span>
               <span
                 className="done-2"
-                data-tone={undoFailed ? 'bad' : undefined}
+                data-tone={undoFailure ? 'bad' : undefined}
                 title={
-                  undoFailed
-                    ? `Didn’t delete: ${undoFailed}`
-                    : `Past ${fmt(limit)} ${copy.per} · ${address}`
+                  undoFailure
+                    ? undoFailureLine(undoFailure, noun)
+                    : `Past ${fmt(limit)} ${copy.per} · ${address} · ${account}`
                 }
               >
                 {undoing ? (
                   'Deleting…'
-                ) : undoFailed ? (
-                  'Didn’t delete. Try again.'
+                ) : undoFailure ? (
+                  undoFailureLine(undoFailure, noun)
                 ) : (
                   <>
                     Past <b>{fmt(limit)}</b> {copy.per} · <bdi>{address}</bdi>
@@ -1084,11 +1082,8 @@ function UsageAlertCard({
   )
 }
 
-/** Cloudflare's reason for a refused create, short enough for one line: its message, not the whole tool error. */
-function failureReason(text: string): string {
-  const message = /"message"\s*:\s*"([^"]+)"/.exec(text)?.[1]
-  return (message ?? (text.split('\n').find(Boolean) || 'try again')).slice(0, 120)
-}
+/** A write that threw before it was sent: the host refused the call, so nothing was written. */
+const refused = (error: unknown): WriteResult => ({ status: 'refused', error: String(error) })
 
 const plain = (parts: ReadonlyArray<FactPart>) =>
   parts.map((part) => (typeof part === 'string' ? part : part.b)).join('')
@@ -1206,6 +1201,14 @@ function placeholder(toolName: string | undefined): WorkersThresholdPreview {
     otherPolicies: {},
     limitations: []
   }
+  if (toolName === WORKERS_SPEND.toolName) {
+    return {
+      kind: 'workers_spend_limit_preview',
+      ...common,
+      action: 'notification',
+      summary: { typicalMonth: null, thisMonth: 0, busiestMonth: 0, suggestedLimit: null }
+    }
+  }
   if (toolName === R2_STORAGE_BILLING.toolName) {
     return {
       kind: 'r2_storage_alert_preview',
@@ -1246,12 +1249,12 @@ mountMcpApp({
       pending={{ kind: 'loading' }}
     />
   ),
-  renderError: (_text, retry, toolName) => (
+  renderError: (text, retry, toolName) => (
     <UsageAlertCard
       key="error"
       preview={placeholder(toolName)}
       app={undefined}
-      pending={{ kind: 'error', retry }}
+      pending={{ kind: 'error', reason: failureReason(text), retry }}
     />
   ),
   copy: {

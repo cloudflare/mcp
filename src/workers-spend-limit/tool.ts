@@ -19,7 +19,8 @@ import { readWorkersSpend } from './read'
 // The one view every threshold App shares.
 import { appHtml } from '../workers-usage-alert/app-html.generated'
 
-const round = (n: number | null) => (n === null ? null : Math.round(n))
+/** Cents as the dollars the model reads and names, to the cent. */
+const dollars = (cents: number) => Math.round(cents) / 100
 
 export const workersSpendLimitApp = defineThresholdAlertApp({
   preset: WORKERS_SPEND,
@@ -36,7 +37,7 @@ export const workersSpendLimitApp = defineThresholdAlertApp({
   limitations: [
     'The chart is Workers usage charges from billable usage (requests and CPU time, after included usage) by calendar month. The spend policy counts the subscription billing period, which can start on another day; its count is billing’s.',
     'The Workers Paid subscription fee, Durable Objects, Workers AI, KV and R2 aren’t counted.',
-    'Amounts are US cents. A spending limit stops new Worker invocations once billing evaluates it, which takes time, so it doesn’t guarantee a maximum invoice.'
+    'Amounts in `limit` and `summary` are US dollars; the policy stores them as cents. A spending limit stops new Worker invocations once billing evaluates it, which takes time, so it doesn’t guarantee a maximum invoice.'
   ],
   readHistory: readWorkersSpend,
   shape: (c, input): WorkersSpendPreview => {
@@ -49,15 +50,18 @@ export const workersSpendLimitApp = defineThresholdAlertApp({
       days: c.days,
       action: input.action ?? 'notification',
       summary: {
-        typicalMonth: round(c.model.typical),
-        thisMonth: Math.round(c.model.current),
-        busiestMonth: Math.round(c.model.peak),
-        suggestedLimit: c.suggestedLimit
+        typicalMonth: c.model.typical === null ? null : dollars(c.model.typical),
+        thisMonth: dollars(c.model.current),
+        busiestMonth: dollars(c.model.peak),
+        suggestedLimit: c.suggestedLimit === null ? null : dollars(c.suggestedLimit)
       },
       alertAvailable: c.alertAvailable,
       existingAlerts: c.existingAlerts,
       otherPolicies: c.otherPolicies,
       limitations: c.limitations
+    }
+    if (c.accountName) {
+      preview.accountName = c.accountName
     }
     if (c.userEmail) {
       preview.userEmail = c.userEmail

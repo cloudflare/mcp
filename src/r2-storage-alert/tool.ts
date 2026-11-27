@@ -43,6 +43,7 @@ export const r2StorageAlertApp = defineThresholdAlertApp({
     nextStep: R2_STORAGE_ALERT_NEXT_STEP,
     checkedAt: c.checkedAt,
     accountId: c.accountId,
+    accountName: c.accountName,
     userEmail: c.userEmail,
     today: c.today,
     days: c.days,

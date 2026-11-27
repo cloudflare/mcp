@@ -31,6 +31,10 @@ export interface AppContext {
   readonly view?: boolean
 }
 
+/** A call's arguments to one of an App's `appTools`, as the view sent them. */
+// oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The generated tool's input schema owns these arguments.
+export type AppToolArguments = Record<string, unknown>
+
 /** What an App's collector returns: its validated result, or a tool error. */
 export type AppOutcome<Output> =
   | { readonly ok: true; readonly value: Output; readonly meta?: CallToolResult['_meta'] }
@@ -44,6 +48,8 @@ export interface McpApp {
   readonly resource: StaticResource
   /** The generated tools the App's view calls with `callServerTool`; see {@link McpAppDefinition.appTools}. */
   readonly appTools: ReadonlyArray<GeneratedTool>
+  /** Whether Code Mode serves this call to one of the `appTools`; see {@link McpAppDefinition.allowsAppToolCall}. */
+  allowsAppToolCall(name: string, args: AppToolArguments): boolean
   /** The zod schemas Code Mode registers, JSON Schema conversion cached per isolate. */
   readonly inputSchema: z.ZodObject
   readonly outputSchema: z.ZodType
@@ -78,6 +84,14 @@ export interface McpAppDefinition<Input extends z.ZodObject, Output extends z.Zo
    * the index pulls in every generated tool.
    */
   readonly appTools?: ReadonlyArray<GeneratedTool>
+  /**
+   * Which calls to its `appTools` Code Mode serves. App-only visibility hides
+   * the tools from the model but doesn't limit them, so an App whose view
+   * writes only a few shapes says which: anything else is refused before it
+   * is planned. Defaults to every call. The direct tools list every generated
+   * tool anyway, so they don't ask.
+   */
+  readonly allowsAppToolCall?: (name: string, args: AppToolArguments) => boolean
   /**
    * The result's text for a client that renders the view, which the model
    * reads and re-reads on every later turn. Defaults to the whole result as
@@ -194,6 +208,7 @@ export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType
     tool,
     resource,
     appTools: definition.appTools ?? [],
+    allowsAppToolCall: definition.allowsAppToolCall ?? (() => true),
     inputSchema: withCachedJsonSchema(definition.input, compactJsonSchema),
     outputSchema: withCachedJsonSchema(definition.output, compactJsonSchema),
     async call(args, context, ctx) {

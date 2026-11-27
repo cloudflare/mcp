@@ -5,16 +5,19 @@ import type { StaticResource } from '../skills/handlers'
 import { workersBillingAlertApp, workersUsageAlertApp } from '../workers-usage-alert/tool'
 import { r2StorageAlertApp } from '../r2-storage-alert/tool'
 import { workersSpendLimitApp } from '../workers-spend-limit/tool'
-import type { AppContext, McpApp } from './define'
+import type { AppContext, AppToolArguments, McpApp } from './define'
 import { withoutAppView } from './capability'
 
 const apps: Array<McpApp> = []
 // Each App adds its import above and one push here; nothing else in the server
 // changes. One statement per App, on either side of this comment, so Apps in
 // flight at once merge in any order.
-apps.push(workersUsageAlertApp, workersBillingAlertApp)
-// oxlint-disable-next-line unicorn/prefer-single-call -- One push per App keeps concurrent App branches mergeable.
-apps.push(r2StorageAlertApp, workersSpendLimitApp)
+// oxlint-disable unicorn/prefer-single-call -- One push per App keeps concurrent App branches mergeable.
+apps.push(workersUsageAlertApp)
+apps.push(workersBillingAlertApp)
+apps.push(r2StorageAlertApp)
+apps.push(workersSpendLimitApp)
+// oxlint-enable unicorn/prefer-single-call
 
 /** Every MCP App this Worker serves, in listing order. */
 export const MCP_APPS: ReadonlyArray<McpApp> = apps
@@ -42,6 +45,22 @@ export function mcpAppNamed(name: string): McpApp | undefined {
 export const MCP_APP_GENERATED_TOOLS: ReadonlyArray<Tool> = [
   ...new Map(MCP_APPS.flatMap((app) => app.appTools).map((tool) => [tool.name, tool])).values()
 ].map((tool) => appOnly(cloudflareTool(tool)))
+
+/**
+ * Whether Code Mode serves a call to an App-only generated tool: when an App
+ * that writes with that tool allows these arguments. Several Apps can share
+ * one tool (every notification-policy preset writes with
+ * `alerting_policies_create`), so any of them is enough.
+ */
+export function appToolCallAllowed(
+  name: string,
+  args: AppToolArguments,
+  apps: ReadonlyArray<McpApp> = MCP_APPS
+): boolean {
+  return apps.some(
+    (app) => app.appTools.some((tool) => tool.name === name) && app.allowsAppToolCall(name, args)
+  )
+}
 
 /** A generated tool as an App's view sees it in Code Mode: listed for the App only. */
 export function appOnly<T extends Tool>(tool: T): T {
