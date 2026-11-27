@@ -8,6 +8,13 @@ import {
   refreshAuthToken
 } from './cloudflare-auth'
 import {
+  DELEGATED_CONSENT_MAX_TOKEN_LEN,
+  evaluateDelegatedConsentRollout,
+  loadDelegatedConsentSigningKey,
+  resolveDelegatedDefaultTemplate,
+  signDelegatedConsentAssertion
+} from './delegated-consent'
+import {
   ALL_SCOPES,
   DEFAULT_TEMPLATE,
   REQUIRED_SCOPES,
@@ -37,6 +44,11 @@ import type {
 
 interface AuthEnv extends Env {
   OAUTH_PROVIDER: OAuthHelpers
+}
+
+interface UpstreamSessionData {
+  codeVerifier: string
+  consentFlow?: 'delegated' | 'local'
 }
 
 // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The OAuth provider attaches this helper binding at runtime.
@@ -132,7 +144,8 @@ async function redirectToCloudflare(
   stateToken: string,
   codeChallenge: string,
   scopes: Array<string>,
-  additionalHeaders: Record<string, string> = {}
+  additionalHeaders: Record<string, string> = {},
+  delegatedClientToken?: string
 ): Promise<Response> {
   const { authUrl } = await getAuthorizationURL({
     client_id: env.CLOUDFLARE_CLIENT_ID,
@@ -140,7 +153,8 @@ async function redirectToCloudflare(
     stateToken,
     scopes,
     codeChallenge,
-    oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
+    oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN,
+    delegatedClientToken
   })
 
   return new Response(null, {
@@ -224,11 +238,111 @@ export function createAuthHandlers() {
       )
       oauthReqInfo.scope = scopesToRequest
 
+      // Resolve client identity before mutating KV so CIMD fetch failures leave no state behind.
+      const consentDetails = await env.OAUTH_PROVIDER.describeConsent(oauthReqInfo)
+      const rollout = await evaluateDelegatedConsentRollout(
+        c.req.raw,
+        oauthReqInfo,
+        consentDetails,
+        env
+      )
+
+      if (rollout.enabled) {
+        const signingKey = await loadDelegatedConsentSigningKey(env.DELEGATED_CONSENT_SIGNING_KEY)
+        if (!signingKey) {
+          console.warn(
+            JSON.stringify({
+              event: 'oauth_consent_flow',
+              flow: 'local',
+              reason: 'missing_signing_key_fallback',
+              rollout_reason: rollout.reason,
+              client_type: consentDetails.clientDomain ? 'cimd' : 'registered'
+            })
+          )
+        } else {
+          const delegatedTemplate = resolveDelegatedDefaultTemplate(
+            env.DELEGATED_CONSENT_DEFAULT_SCOPES
+          )
+          const upstreamScopes = choseScopes
+            ? scopesToRequest
+            : Array.from(
+                new Set([...SCOPE_TEMPLATES[delegatedTemplate].scopes, ...REQUIRED_SCOPES])
+              )
+          // When the client did not choose explicit scopes, pre-select only the Minimal default
+          // template on dash.cloudflare.com while exposing the full template pool under Edit Permissions.
+          const initialScopes = choseScopes ? undefined : defaultScopes
+
+          const { codeChallenge, codeVerifier } = await generatePKCECodes()
+          const delegatedReqInfo: AuthRequest = {
+            ...oauthReqInfo,
+            scope: upstreamScopes
+          }
+          const upstream = await env.OAUTH_PROVIDER.beginUpstream(delegatedReqInfo, {
+            data: { codeVerifier, consentFlow: 'delegated' } satisfies UpstreamSessionData
+          })
+
+          let delegatedToken: string | null = null
+          try {
+            const signed = await signDelegatedConsentAssertion(signingKey, {
+              issuer: env.CLOUDFLARE_CLIENT_ID,
+              oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN,
+              stateToken: upstream.state,
+              codeChallenge,
+              scopes: upstreamScopes,
+              consent: consentDetails,
+              requiredScopes: REQUIRED_SCOPES,
+              initialScopes
+            })
+            if (signed.length <= DELEGATED_CONSENT_MAX_TOKEN_LEN) {
+              delegatedToken = signed
+            } else {
+              console.warn(
+                JSON.stringify({
+                  event: 'oauth_consent_flow',
+                  flow: 'local',
+                  reason: 'assertion_too_large_fallback',
+                  token_length: signed.length,
+                  client_type: consentDetails.clientDomain ? 'cimd' : 'registered'
+                })
+              )
+            }
+          } catch (signError) {
+            console.error('Failed to sign delegated consent assertion, falling back:', signError)
+          }
+
+          if (delegatedToken) {
+            console.log(
+              JSON.stringify({
+                event: 'oauth_consent_flow',
+                flow: 'delegated',
+                reason: rollout.reason,
+                client_type: consentDetails.clientDomain ? 'cimd' : 'registered',
+                requested_scope_count: upstreamScopes.length,
+                initial_scope_count: initialScopes?.length ?? upstreamScopes.length
+              })
+            )
+
+            const redirectResponse = await redirectToCloudflare(
+              c.req.url,
+              upstream.state,
+              codeChallenge,
+              upstreamScopes,
+              { 'Cache-Control': 'no-store' },
+              delegatedToken
+            )
+            for (const cookie of upstream.headers.getSetCookie()) {
+              redirectResponse.headers.append('Set-Cookie', cookie)
+            }
+            return redirectResponse
+          }
+        }
+      }
+
       // The request stays server-side; the dialog posts back only this browser-bound handle.
       const consent = await env.OAUTH_PROVIDER.beginConsent(oauthReqInfo)
 
       return renderApprovalDialog(c.req.raw, {
-        consent: await env.OAUTH_PROVIDER.describeConsent(oauthReqInfo),
+        consent: consentDetails,
         server: {
           name: 'Cloudflare API MCP',
           logo: 'https://www.cloudflare.com/favicon.ico',
@@ -283,7 +397,7 @@ export function createAuthHandlers() {
       // Create the upstream state only now, after consent, bound to this browser.
       const { codeChallenge, codeVerifier } = await generatePKCECodes()
       const upstream = await env.OAUTH_PROVIDER.beginUpstream(approved.request, {
-        data: { codeVerifier },
+        data: { codeVerifier, consentFlow: 'local' } satisfies UpstreamSessionData,
         headers: approved.headers
       })
 
@@ -326,12 +440,20 @@ export function createAuthHandlers() {
       // Recover the approved request (single use, bound to this browser by its cookie).
       const {
         request: oauthReqInfo,
-        data: { codeVerifier },
+        data: { codeVerifier, consentFlow },
         headers
-      } = await env.OAUTH_PROVIDER.finishUpstream<{ codeVerifier: string }>(c.req.raw)
+      } = await env.OAUTH_PROVIDER.finishUpstream<UpstreamSessionData>(c.req.raw)
 
       // The user declined (or sign-in failed) at Cloudflare: tell the MCP client.
       if (c.req.query('error')) {
+        console.log(
+          JSON.stringify({
+            event: 'oauth_callback_complete',
+            flow: consentFlow ?? 'local',
+            outcome: 'denied',
+            upstream_error: c.req.query('error')
+          })
+        )
         const redirect = new URL(oauthReqInfo.redirectUri)
         redirect.searchParams.set('error', 'access_denied')
         if (oauthReqInfo.state) {
@@ -366,6 +488,11 @@ export function createAuthHandlers() {
         oauthDomain: env.CLOUDFLARE_OAUTH_DOMAIN
       })
 
+      if (consentFlow === 'delegated' && !upstreamScope.trim()) {
+        throw new OAuthError('server_error', 'Upstream token response omitted granted scopes', 502)
+      }
+
+      const finalScopes = grantedScopes(oauthReqInfo.scope, upstreamScope)
       const identity = await getCloudflareOAuthUser(access_token)
 
       // Complete authorization
@@ -373,7 +500,7 @@ export function createAuthHandlers() {
         request: oauthReqInfo,
         userId: identity.user.id,
         metadata: { label: identity.user.email },
-        scope: grantedScopes(oauthReqInfo.scope, upstreamScope),
+        scope: finalScopes,
         props: {
           type: 'user_token',
           user: identity.user,
@@ -386,6 +513,14 @@ export function createAuthHandlers() {
       })
 
       metrics.logEvent(new AuthUser({ userId: identity.user.id }))
+      console.log(
+        JSON.stringify({
+          event: 'oauth_callback_complete',
+          flow: consentFlow ?? 'local',
+          outcome: 'success',
+          granted_scope_count: finalScopes.length
+        })
+      )
 
       headers.set('Location', redirectTo)
       return new Response(null, { status: 302, headers })

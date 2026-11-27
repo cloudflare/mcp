@@ -23,7 +23,12 @@
 		"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
 		"CLOUDFLARE_OAUTH_DOMAIN": "https://dash.cloudflare.com",
 		"MCP_RESOURCE": "http://localhost:2529/mcp",
-		"RESPONSE_VALIDATION_SAMPLE_RATE": "1"
+		"RESPONSE_VALIDATION_SAMPLE_RATE": "1",
+		"DELEGATED_CONSENT_MODE": "off",
+		"DELEGATED_CONSENT_ROLLOUT_PERCENT": "0",
+		"DELEGATED_CONSENT_CLIENT_ALLOWLIST": "",
+		"DELEGATED_CONSENT_CLIENT_DENYLIST": "",
+		"DELEGATED_CONSENT_DEFAULT_SCOPES": "full-access"
 	},
 	"worker_loaders": [
 		{
@@ -131,7 +136,12 @@
 				"CLOUDFLARE_API_BASE": "https://api.staging.cloudflare.com/client/v4",
 				"CLOUDFLARE_OAUTH_DOMAIN": "https://dash.staging.cloudflare.com",
 				"MCP_RESOURCE": "https://staging.mcp.cloudflare.com/mcp",
-				"RESPONSE_VALIDATION_SAMPLE_RATE": "1"
+				"RESPONSE_VALIDATION_SAMPLE_RATE": "1",
+				"DELEGATED_CONSENT_MODE": "off",
+				"DELEGATED_CONSENT_ROLLOUT_PERCENT": "0",
+				"DELEGATED_CONSENT_CLIENT_ALLOWLIST": "",
+				"DELEGATED_CONSENT_CLIENT_DENYLIST": "",
+				"DELEGATED_CONSENT_DEFAULT_SCOPES": "full-access"
 			}
 		},
 		"production": {
@@ -193,7 +203,12 @@
 				"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
 				"CLOUDFLARE_OAUTH_DOMAIN": "https://dash.cloudflare.com",
 				"MCP_RESOURCE": "https://mcp.cloudflare.com/mcp",
-				"RESPONSE_VALIDATION_SAMPLE_RATE": "1"
+				"RESPONSE_VALIDATION_SAMPLE_RATE": "1",
+				"DELEGATED_CONSENT_MODE": "off",
+				"DELEGATED_CONSENT_ROLLOUT_PERCENT": "0",
+				"DELEGATED_CONSENT_CLIENT_ALLOWLIST": "",
+				"DELEGATED_CONSENT_CLIENT_DENYLIST": "",
+				"DELEGATED_CONSENT_DEFAULT_SCOPES": "full-access"
 			}
 		}
 	}

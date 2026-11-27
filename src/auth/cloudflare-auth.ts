@@ -97,6 +97,7 @@ export async function getAuthorizationURL(params: {
   scopes: Array<string>
   codeChallenge: string
   oauthDomain: string
+  delegatedClientToken?: string
 }): Promise<{ authUrl: string }> {
   const urlParams = new URLSearchParams({
     response_type: 'code',
@@ -107,6 +108,9 @@ export async function getAuthorizationURL(params: {
     code_challenge_method: 'S256',
     scope: params.scopes.join(' ')
   })
+  if (params.delegatedClientToken) {
+    urlParams.set('delegated_client', params.delegatedClientToken)
+  }
 
   return {
     authUrl: `${params.oauthDomain}/oauth2/auth?${urlParams.toString()}`
