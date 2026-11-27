@@ -37,9 +37,10 @@
 .dq {
   --text: 40px;
   --pad-r: 8px;
-  /* A 15 px title (not 14) and the mark 16 px tall (~36 px wide), the family's one mark size. */
+  /* The family's title: 15 px / 500 on a 20 px line, after a 16 px mark (~36 px wide) and an 8 px gap. */
   --title: 15px;
   --mark: 16px;
+  --mark-gap: 8px;
   --ease: cubic-bezier(0.23, 1, 0.32, 1);
   --bg: light-dark(
     var(--color-kumo-base),
@@ -186,7 +187,7 @@ button.dq-glyph {
   grid-area: title;
   display: flex;
   align-items: baseline;
-  gap: 0.35em;
+  gap: var(--mark-gap);
   min-width: 0;
   font-size: var(--title);
   font-weight: 500;
@@ -215,8 +216,8 @@ button.dq-glyph {
   display: flex;
   align-items: center;
   gap: 8px;
-  /* 12 px, which the 0.75em mark leaves room for. */
-  padding-left: 12px;
+  /* 8 px: the title and its 16 px mark need the room at 560. */
+  padding-left: 8px;
 }
 .dq-count {
   flex: none;
@@ -2428,7 +2429,7 @@ button.dq-diff {
 .cx-title {
   display: flex;
   align-items: baseline;
-  gap: 0.4em;
+  gap: var(--mark-gap);
   min-width: 0;
   font-size: var(--title);
   font-weight: 500;
