@@ -66,16 +66,15 @@ body {
 /* Header: static words wrap however they like, the number has its own fixed slot, so dragging can't rewrap anything. */
 .hd {
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
   column-gap: 12px;
-  align-items: end;
+  /* A wrapped title keeps the mark on its last line: the mark has no text, so its baseline is its bottom edge. */
+  align-items: last baseline;
 }
-/* The logo stands on the title's last baseline, like a word. An 18px font in a 24px line has its baseline ~5px
-   above the line box's bottom. */
+/* The family's mark: 16 px tall, its width from the glyph's 49:22 viewBox, its flat base on the title's baseline. */
 .cf {
-  width: 40px;
-  height: auto;
-  margin-bottom: 5px;
+  width: calc(16px * 49 / 22);
+  height: 16px;
 }
 .title {
   margin: 0;
