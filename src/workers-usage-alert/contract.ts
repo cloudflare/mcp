@@ -52,7 +52,7 @@ export const UsageAlertPreviewSchema = z.object({
   ...head,
   /** Requests in 7 days: the alert's unit. `null` with under a week of history. */
   summary: z.object({
-    /** The median day × 7. */
+    /** The median 7-day total in `days`. */
     typicalWeek: z.number().nullable(),
     /** The last 7 complete days. */
     last7Days: z.number(),
@@ -72,7 +72,7 @@ export const BillingAlertPreviewSchema = z.object({
   ...head,
   /** Requests in a month: the alert's unit. `null` with under a week of history. */
   summary: z.object({
-    /** The median day × an average month's days. */
+    /** The median 7-day total scaled to an average month, at most the busiest month. */
     typicalMonth: z.number().nullable(),
     /** This calendar month so far, to yesterday. */
     thisMonth: z.number(),

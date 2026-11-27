@@ -28,7 +28,7 @@ export const R2StorageAlertPreviewSchema = z.object({
   ...previewHead,
   /** Storage in bytes averaged over a month: the alert's unit (GB-months × 10⁹). `null` with under a week of history. */
   summary: z.object({
-    /** The median day's peak storage, in bytes: what a typical billing period averages to. */
+    /** The median 7 days of daily peaks ÷ 30, scaled to a month, in bytes: what a typical billing period averages to. */
     typicalMonth: z.number().nullable(),
     /** This calendar month so far: each day's peak ÷ 30, summed, in bytes. */
     thisMonth: z.number(),

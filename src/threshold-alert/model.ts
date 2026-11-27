@@ -37,7 +37,7 @@ export type Cadence = { readonly kind: 'rolling'; readonly days: 7 } | { readonl
 export const ROLLING_7_DAYS: Cadence = { kind: 'rolling', days: 7 }
 export const CALENDAR_MONTH: Cadence = { kind: 'month' }
 
-/** Days in a typical period: what a median day is multiplied by. */
+/** Days in a typical period: what a typical week is scaled to. */
 const typicalDays = (cadence: Cadence) => (cadence.kind === 'rolling' ? cadence.days : MONTH_DAYS)
 
 // ── Scale: nice numbers, 1, 2, 5 × 10ⁿ, so steps and ticks suit any account size ──
@@ -100,21 +100,25 @@ export function measured(days: ReadonlyArray<Day>, cadence: Cadence): Map<string
 }
 
 /**
- * The median day × the period's days. An account idle most days falls back
- * to the mean, so only true silence, or under a week of history, has no
- * typical period.
+ * The median 7-day total, scaled to the period's days. Every 7-day window
+ * holds one of each weekday, so quiet weekends count as they do in a real
+ * week or month; a median day × the period's days would count every day as a
+ * weekday and run 10–15% high on a weekday-heavy account. An account idle
+ * most weeks falls back to the mean, so only true silence, or under a week of
+ * history, has no typical period.
  */
 export function typicalPeriod(days: ReadonlyArray<Day>, cadence: Cadence = ROLLING_7_DAYS) {
   if (days.length < MIN_DAYS) {
     return null
   }
-  const sorted = days.map(([, n]) => n).sort((a, b) => a - b)
-  const median = sorted[sorted.length >> 1]
-  const mean = sorted.reduce((a, b) => a + b, 0) / sorted.length
-  return (median || mean) * typicalDays(cadence) || null
+  const weeks = [...measured(days, ROLLING_7_DAYS).values()].sort((a, b) => a - b)
+  const median = weeks[weeks.length >> 1]
+  const mean = days.reduce((a, [, n]) => a + n, 0) / days.length
+  const scale = typicalDays(cadence) / 7
+  return (median ? median * scale : mean * typicalDays(cadence)) || null
 }
 
-/** The median day × 7. */
+/** The median 7-day total. */
 export const typicalWeek = (days: ReadonlyArray<Day>) => typicalPeriod(days, ROLLING_7_DAYS)
 
 export interface Email {
@@ -347,7 +351,6 @@ export function deriveModel(
     }
   }
 
-  const typical = typicalPeriod(days, cadence)
   const lastDate = lastDay?.[0]
   const current = !lastDate
     ? 0
@@ -362,6 +365,13 @@ export function deriveModel(
   const projected =
     cadence.kind === 'month' ? placed.flatMap((w) => (w.partial ? [] : [w.total])) : []
   const peak = Math.max(0, ...rolling.values(), ...projected)
+  // A typical month is never above the busiest one charted: on a growing account the median
+  // week, scaled to a month, can pass every whole month read.
+  const typicalRaw = typicalPeriod(days, cadence)
+  const typical =
+    typicalRaw !== null && cadence.kind === 'month' && peak > 0
+      ? Math.min(typicalRaw, peak)
+      : typicalRaw
   const totals = placed.map((w) => w.total).sort((a, b) => b - a)
   const dataTop = Math.max(
     current,
