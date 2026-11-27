@@ -2,6 +2,7 @@ import type { McpServer, Tool } from '@modelcontextprotocol/server'
 import { cloudflareTool } from '../forge-tools/cloudflare'
 import type { StaticResource } from '../skills/handlers'
 // App imports, one per line.
+import { d1StudioApp } from '../d1-studio/tool'
 import { workersBillingAlertApp, workersUsageAlertApp } from '../workers-usage-alert/tool'
 import type { AppContext, McpApp } from './define'
 import { withoutAppView } from './capability'
@@ -12,6 +13,7 @@ const apps: McpApp[] = []
 // flight at once merge in any order.
 apps.push(workersUsageAlertApp)
 apps.push(workersBillingAlertApp)
+apps.push(d1StudioApp)
 
 /** Every MCP App this Worker serves, in listing order. */
 export const MCP_APPS: readonly McpApp[] = apps
@@ -39,6 +41,19 @@ export function mcpAppNamed(name: string): McpApp | undefined {
 export const MCP_APP_GENERATED_TOOLS: readonly Tool[] = [
   ...new Map(MCP_APPS.flatMap((app) => app.appTools).map((tool) => [tool.name, tool])).values()
 ].map((tool) => appOnly(cloudflareTool(tool)))
+
+/**
+ * Why an App's view may not make this call in Code Mode, or `undefined`: the
+ * first refusal of the Apps that list the tool among their `appTools`.
+ */
+export function appToolRefusal(tool: string, args: Record<string, unknown>): string | undefined {
+  for (const app of MCP_APPS) {
+    if (!app.appToolCheck || !app.appTools.some((t) => t.name === tool)) continue
+    const refusal = app.appToolCheck(tool, args)
+    if (refusal) return refusal
+  }
+  return undefined
+}
 
 /** A generated tool as an App's view sees it in Code Mode: listed for the App only. */
 export function appOnly<T extends Tool>(tool: T): T {

@@ -44,6 +44,8 @@ export interface McpApp {
   readonly resource: StaticResource
   /** The generated tools the App's view calls with `callServerTool`; see {@link McpAppDefinition.appTools}. */
   readonly appTools: readonly GeneratedTool[]
+  /** Why the view may not make this call of one of its `appTools`; see {@link McpAppDefinition.appToolCheck}. */
+  readonly appToolCheck?: (tool: string, args: Record<string, unknown>) => string | undefined
   /** The zod schemas Code Mode registers, JSON Schema conversion cached per isolate. */
   readonly inputSchema: z.ZodObject
   readonly outputSchema: z.ZodType
@@ -78,6 +80,14 @@ export interface McpAppDefinition<Input extends z.ZodObject, Output extends z.Zo
    * the index pulls in every generated tool.
    */
   readonly appTools?: readonly GeneratedTool[]
+  /**
+   * Why the view may not make this call of one of its `appTools`, or
+   * `undefined` when it may. Code Mode runs it on the server before planning
+   * the call, so what the view promises (such as D1 Studio's reads only)
+   * holds whatever the view sends. The direct tools list the same generated
+   * tools for the model, unchecked, under the Cloudflare policy as ever.
+   */
+  readonly appToolCheck?: (tool: string, args: Record<string, unknown>) => string | undefined
   /**
    * The result's text for a client that renders the view, which the model
    * reads and re-reads on every later turn. Defaults to the whole result as
@@ -176,6 +186,7 @@ export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType
     tool,
     resource,
     appTools: definition.appTools ?? [],
+    ...(definition.appToolCheck && { appToolCheck: definition.appToolCheck }),
     inputSchema: withCachedJsonSchema(definition.input, compactJsonSchema),
     outputSchema: withCachedJsonSchema(definition.output, compactJsonSchema),
     async call(args, context, ctx) {

@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { env } from 'cloudflare:workers'
 import type { CallToolResult } from '@modelcontextprotocol/server'
 import { acceptedPermissions, authorize, explainRefusal, findOperation } from '../api-permissions'
+import { refusalFor } from '../api-refusals'
 import { getPermissionPaths } from '../isolate-cache'
 import { apiCallResult } from '../tools/api-call-result'
 import { WWW_AUTHENTICATE_META_KEY } from '../scope-challenge'
@@ -99,6 +100,16 @@ export interface ApiReader {
    */
   get<S extends z.ZodType>(path: string, schema: S): Promise<z.output<S>>
   /**
+   * POST a JSON body to an endpoint that only reads with it, such as D1's
+   * `/raw` with a statement the caller has proved is a read. Every answer but
+   * a refusal comes back as it is, so the caller reads the product's own
+   * errors (D1 answers a SQL error with 400).
+   *
+   * @throws {ApiReadError} for a refusal, explained like the direct tools.
+   * @throws {ApiReadUnsupported} for an oversized or non-JSON body.
+   */
+  postRead(path: string, body: unknown): Promise<{ status: number; body: unknown }>
+  /**
    * POST a GraphQL Analytics query and parse its `data` with `schema`.
    *
    * @param dataset - Which permission the query's datasets need: `account` or `zone`.
@@ -158,6 +169,35 @@ export function apiReader(context: AppContext, signal: AbortSignal, caller: stri
       )
       if (result.isError) throw new ApiReadError(result)
       return schema.parse(body)
+    },
+
+    async postRead(path, payload) {
+      const response = await send(path, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      const body = await readBounded(response)
+      const requestPath = new URL(base + path).pathname.slice(basePath.length)
+      const match = findOperation(getPermissionPaths(), 'POST', requestPath)
+      const permissions = acceptedPermissions(match?.operation)
+      const call = { method: 'POST', path: requestPath }
+      const authorization = authorize(context.connection, call, permissions)
+      if (refusalFor(response.status, body, 'POST', authorization, permissions))
+        throw new ApiReadError(
+          apiCallResult(
+            {
+              ...call,
+              template: match?.template ?? requestPath,
+              permissions,
+              status: response.status,
+              body
+            },
+            [],
+            { ...context, formatResult: truncateResponse }
+          )
+        )
+      return { status: response.status, body }
     },
 
     async graphql(query, variables, dataset, schema) {
