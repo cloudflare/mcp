@@ -37,9 +37,9 @@
 .dq {
   --text: 40px;
   --pad-r: 8px;
-  /* A 15 px title (not 14) and the mark at 0.85em of it (~28 px wide). */
+  /* A 15 px title (not 14) and the mark 16 px tall (~36 px wide), the family's one mark size. */
   --title: 15px;
-  --mark: 0.75em;
+  --mark: 16px;
   --ease: cubic-bezier(0.23, 1, 0.32, 1);
   --bg: light-dark(
     var(--color-kumo-base),
@@ -202,10 +202,9 @@ button.dq-glyph {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-/* Q1, the family rule: the mark is set like a capital, as the title's first word. It is 0.75em tall (the cap height
-   plus the overshoot a round, bottom-heavy shape needs to look as tall as the capitals), its flat base stands on the
-   title's baseline (a flex item without text synthesises its baseline from its bottom edge), and a 0.4em word space
-   follows. Here: 23 x 10.5 px and 6 px. Beside the sibling's 18 px title: 30 x 13.5 px and 7 px. */
+/* Q1, the family rule: the mark is the title's first word. It is 16 px tall in every App, its width follows the
+   glyph's 49:22 viewBox (~36 px), and its flat base stands on the title's baseline: a flex item without text
+   synthesises its baseline from its bottom edge, so `align-items: baseline` places it with no transform or margin. */
 .dq-mark {
   flex: none;
   width: calc(var(--mark) * 49 / 22);
