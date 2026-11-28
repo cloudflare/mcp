@@ -1739,6 +1739,10 @@ button.dq-diff {
   height: 18px;
   margin: 1px;
 }
+.cx-n-ink {
+  /* Center the visible numeral without moving the ring or changing the row layout. */
+  translate: -0.5px -0.75px;
+}
 [aria-current] > .cx-n,
 [aria-selected='true'] > .cx-n {
   color: var(--text-color-kumo-strong);

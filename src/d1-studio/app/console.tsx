@@ -538,7 +538,11 @@ function StepGlyph({ e, n }: { e: Entry; n: number }) {
     )
   if (e.who === 'you')
     return <ClockCounterClockwiseIcon size={14} className="cx-gl" aria-hidden="true" />
-  return <span className="cx-n">{n}</span>
+  return (
+    <span className="cx-n">
+      <span className="cx-n-ink">{n}</span>
+    </span>
+  )
 }
 
 const countLine = (o: D1Outcome) =>
