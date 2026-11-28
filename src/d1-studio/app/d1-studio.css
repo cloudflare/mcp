@@ -1916,6 +1916,11 @@ button.dq-diff {
 .cx-edpre {
   display: block;
   color: var(--text-color-kumo-default);
+  pointer-events: none;
+}
+.cx-ed:has(.cx-edinput:not([readonly]):focus) {
+  outline: 2px solid var(--color-kumo-brand);
+  outline-offset: -2px;
 }
 .cx-l {
   position: relative;
@@ -1933,6 +1938,7 @@ button.dq-diff {
   font-variant-numeric: tabular-nums;
 }
 .cx-edinput {
+  z-index: 1;
   resize: none;
   overflow: hidden;
   background: transparent;

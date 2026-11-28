@@ -927,6 +927,16 @@ function Editor({
           Ln {pos[0]}, Col {pos[1]}
         </span>
         <span className="dq-grow" />
+        {state.editable && (
+          <Ghost
+            onClick={() => {
+              taRef.current?.focus({ preventScroll: true })
+              taRef.current?.select()
+            }}
+          >
+            Edit SQL
+          </Ghost>
+        )}
         {!copyIsPrimary(state) && <CopySql sql={draft} plain />}
         {state.editable && (
           <span className="cx-run">
