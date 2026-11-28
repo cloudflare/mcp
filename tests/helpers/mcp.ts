@@ -67,6 +67,11 @@ export function mcpToolCallRequest(
   })
 }
 
+/** The client capabilities an MCP Apps host declares. */
+export const MCP_APPS_CAPABILITIES = {
+  extensions: { 'io.modelcontextprotocol/ui': { mimeTypes: ['text/html;profile=mcp-app'] } }
+}
+
 /** Build an MCP 2026-07-28 request with its required per-request envelope. */
 export function modernMcpRequest(
   token: string,
@@ -78,6 +83,8 @@ export function modernMcpRequest(
     origin?: string
     host?: string
     headers?: Record<string, string>
+    /** Declare MCP Apps (`io.modelcontextprotocol/ui`) in the client's capabilities. */
+    mcpApps?: boolean
     clientCapabilities?: Record<string, unknown>
   } = {}
 ): Request {
@@ -113,7 +120,10 @@ export function modernMcpRequest(
             name: 'cloudflare-mcp-tests',
             version: '1.0.0'
           },
-          'io.modelcontextprotocol/clientCapabilities': options.clientCapabilities ?? {}
+          'io.modelcontextprotocol/clientCapabilities': {
+            ...(options.mcpApps && MCP_APPS_CAPABILITIES),
+            ...options.clientCapabilities
+          }
         }
       }
     })

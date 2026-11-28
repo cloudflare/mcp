@@ -10,7 +10,8 @@ import {
   hostHeaderValidationResponse,
   localhostAllowedHostnames,
   localhostAllowedOrigins,
-  originValidationResponse
+  originValidationResponse,
+  readRequestBody
 } from '@modelcontextprotocol/server'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { createServer } from './server'
@@ -23,6 +24,7 @@ import { AuthProps as AuthPropsSchema } from './auth/types'
 import type { AuthProps } from './auth/types'
 import { cachedToolListResponse } from './tools/tool-list-response'
 import { getForgeToolList } from './isolate-cache'
+import { declaresMcpApps, mcpAppsLogLine } from './mcp-apps/capability'
 
 export const MCP_ROUTE = '/mcp'
 
@@ -63,6 +65,26 @@ function serverOptionsFromUrl(url: string): ServerOptions {
 function challengeDeliveryOverride(url: string): ClientBehavior['scopeChallenge'] | undefined {
   const value = new URL(url).searchParams.get('scopeChallenge')
   return value === 'http' || value === 'tool' ? value : undefined
+}
+
+/** The share of requests `mcpAppsLogLine` is logged for. */
+const MCP_APPS_LOG_SAMPLE_RATE = 0.01
+
+/**
+ * A POST's JSON-RPC body, read from a clone so the request stays readable, or
+ * `undefined` when it isn't JSON or is too large; the SDK answers those.
+ */
+// oxlint-disable-next-line quality/no-unknown-returns -- An untrusted JSON-RPC body; its readers narrow the fields they use.
+async function parsedBodyOf(request: Request): Promise<unknown> {
+  if (request.method !== 'POST') {
+    return undefined
+  }
+  try {
+    const read = await readRequestBody(request.clone())
+    return read.tooLarge || read.text.length === 0 ? undefined : JSON.parse(read.text)
+  } catch {
+    return undefined
+  }
 }
 
 function createAuthenticatedHandler(props: AuthProps, context: RequestContext) {
@@ -230,6 +252,16 @@ export async function handleAuthenticatedMcpRequest(
       return withCors(listed, request)
     }
   }
+  const body = await parsedBodyOf(request)
+  const mcpApps = declaresMcpApps(body)
+  // A 1% sample of which clients declare MCP Apps, to check that the hosts
+  // that render them (Claude, ChatGPT) do.
+  if (Math.random() < MCP_APPS_LOG_SAMPLE_RATE) {
+    const line = mcpAppsLogLine(body, mcpApps)
+    if (line) {
+      console.log(line)
+    }
+  }
   const connection = connectionFromAuth(auth)
   // Only tokens this server issued can step up; their tools can ask for a scope.
   const issued = connection.kind === 'oauth' ? auth : undefined
@@ -238,6 +270,7 @@ export async function handleAuthenticatedMcpRequest(
   const context: RequestContext = {
     connection,
     scopeChallenge,
+    mcpApps,
     ...(env && {
       events: {
         env,
@@ -247,7 +280,7 @@ export async function handleAuthenticatedMcpRequest(
   }
 
   const response =
-    request.method === 'POST' && (await isLegacyRequest(request))
+    request.method === 'POST' && (await isLegacyRequest(request, body))
       ? await serveLegacyAsJson(request, createServer(props, options, context))
       : await createAuthenticatedHandler(props, context).fetch(request)
 

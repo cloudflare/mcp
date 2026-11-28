@@ -1,0 +1,30 @@
+/*
+ * Shared base for every MCP App. Each App's own CSS imports this first:
+ *   @import '../../mcp-apps/app-shell/base.css';
+ *   @source './<app>.tsx';
+ * Kumo tokens come from @cloudflare/kumo; the host's theme sets data-mode.
+ *
+ * Kumo's classes are scanned from the JavaScript the view ships, which
+ * `scripts/build-mcp-apps.ts` writes to `.mcp-apps-build/shipped/` before it
+ * builds the App, not from every Kumo module: the view renders a handful of
+ * components, and the full scan put every component's classes in its CSS.
+ */
+@import '@cloudflare/kumo/styles/tailwind';
+@import 'tailwindcss' source(none);
+@source '../../../.mcp-apps-build/shipped';
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text-color-kumo-default);
+  font:
+    14px/1.5 ui-sans-serif,
+    system-ui,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+#root {
+  padding: 12px;
+}

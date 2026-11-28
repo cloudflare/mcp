@@ -14,6 +14,7 @@ import {
   toolText
 } from './helpers/mcp'
 import { server } from './setup/msw'
+import { MCP_APP_TOOLS } from '../src/mcp-apps/registry'
 
 /**
  * The generated direct tools at /mcp?codemode=false,
@@ -66,12 +67,13 @@ afterEach(async () => {
 })
 
 describe('generated direct tools (?codemode=false)', () => {
-  it('lists docs, whoami and every generated tool, without their request code or response schemas', async () => {
+  it('lists the local tools and every generated tool, without their request code or response schemas', async () => {
     const tools = await listForgeTools(ACCOUNT_TOKEN)
 
     expect(tools.map((tool) => tool.name)).toEqual([
       'docs',
       'whoami',
+      ...MCP_APP_TOOLS.map((tool) => tool.name),
       ...generatedTools.map((tool) => tool.name)
     ])
     const d1 = tools.find((tool) => tool.name === 'd1_list')!
@@ -424,7 +426,13 @@ describe('generated direct tools (?codemode=false)', () => {
     const codemode = (await listTools(ACCOUNT_TOKEN, MCP_URL)).map((t) => t.name)
 
     expect(direct).toContain('d1_list')
-    expect(codemode).toEqual(['docs', 'search', 'execute', 'whoami'])
+    expect(codemode).toEqual([
+      'docs',
+      'search',
+      'execute',
+      'whoami',
+      ...MCP_APP_TOOLS.map((tool) => tool.name)
+    ])
   })
 
   describe('results', () => {
@@ -488,6 +496,7 @@ describe('generated direct tools (?codemode=false)', () => {
       expect(tools.filter((tool) => tool.outputSchema).map((tool) => tool.name)).toEqual([
         'docs',
         'whoami',
+        ...MCP_APP_TOOLS.map((tool) => tool.name),
         ...withOutput
       ])
     })
@@ -501,7 +510,7 @@ describe('generated direct tools (?codemode=false)', () => {
 
       expect(tools.length).toBeGreaterThan(0)
       const named = tools.filter((tool) => tool.outputSchema).map((tool) => tool.name)
-      expect(named.filter((name) => name !== 'docs' && name !== 'whoami')).toEqual([])
+      expect(named).toEqual(['docs', 'whoami', ...MCP_APP_TOOLS.map((tool) => tool.name)])
     })
 
     describe('calls', () => {

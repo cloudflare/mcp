@@ -13,9 +13,15 @@ export interface RetryOptions {
   /**
    * Whether a 429 is retried here. `execute` turns it off: its sandbox waits out rate limits
    * itself, where the wait is held against the run's other requests and its wait budget.
-   * Network errors are retried either way.
+   * Network errors are retried either way, unless `retryNetworkErrors` is off.
    */
   retryRateLimited?: boolean
+  /**
+   * Whether a network error is retried. Off for a request that isn't idempotent (a POST that
+   * creates something): the first attempt may have reached the server, and sending it again could
+   * create a second one. A 429 is still retried, since the server didn't act on it.
+   */
+  retryNetworkErrors?: boolean
   caller?: string
 }
 
@@ -27,7 +33,8 @@ const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller'>> = {
   // wait is worse than failing fast with the server's Retry-After.
   maxDelayMs: 5000,
   jitter: true,
-  retryRateLimited: true
+  retryRateLimited: true,
+  retryNetworkErrors: true
 }
 
 /**
@@ -175,6 +182,13 @@ export async function fetchWithRetry(
       }
     } catch (error) {
       lastError = error
+      // Even after a 429: this attempt is a new request, and it may have reached the server.
+      if (!opts.retryNetworkErrors) {
+        console.warn(
+          `fetchWithRetry: network error${caller} url=${url}, not retried: the request may have been received: ${error instanceof Error ? error.message : String(error)}`
+        )
+        throw error
+      }
 
       if (attempt < opts.maxRetries) {
         const delay = computeRetryDelay(attempt, opts)

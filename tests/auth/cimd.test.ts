@@ -5,6 +5,7 @@ import { cfAccountsSuccess, cfSuccess } from '../helpers/cloudflare-api'
 import { clearKv } from '../helpers/kv'
 import { modernMcpRequest, parseMcpResult } from '../helpers/mcp'
 import { server } from '../setup/msw'
+import { MCP_APP_TOOLS } from '../../src/mcp-apps/registry'
 
 const MCP_ORIGIN = 'https://mcp.cloudflare.com'
 const MCP_RESOURCE = `${MCP_ORIGIN}/mcp`
@@ -217,7 +218,8 @@ describe('Client ID Metadata Documents', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      ...MCP_APP_TOOLS.map((tool) => tool.name)
     ])
 
     expect(metadataFetches).toBeGreaterThan(0)

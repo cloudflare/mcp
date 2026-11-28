@@ -4,6 +4,7 @@ import { mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { MCP_HOST, MCP_URL, parseMcpResult } from './helpers/mcp'
+import { MCP_APP_TOOLS } from '../src/mcp-apps/registry'
 
 /**
  * The direct-tool `tools/list` fast path (src/tools/tool-list-response.ts)
@@ -83,8 +84,9 @@ describe('direct tools/list fast path', () => {
       expect(fast.response.headers.get('Content-Type')).toBe('application/json')
       expect(fast.message).toEqual(sdk.message)
       const tools = (fast.message.result as { tools: Array<{ name: string }> }).tools
-      expect(tools.slice(0, 2).map((tool) => tool.name)).toEqual(['docs', 'whoami'])
-      expect(tools.length).toBeGreaterThan(2)
+      const local = ['docs', 'whoami', ...MCP_APP_TOOLS.map((tool) => tool.name)]
+      expect(tools.slice(0, local.length).map((tool) => tool.name)).toEqual(local)
+      expect(tools.length).toBeGreaterThan(local.length)
     })
   }
 

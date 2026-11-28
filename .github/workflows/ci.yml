@@ -19,6 +19,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check MCP App HTML is fresh
+        run: npm run app:check
+
       - name: Check formatting
         run: npm run format:check
 

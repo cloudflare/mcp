@@ -5,7 +5,9 @@ import type {
   McpServer,
   CallToolResult,
   InputRequiredResult,
-  ServerContext
+  ServerContext,
+  StandardSchemaWithJSON,
+  Tool
 } from '@modelcontextprotocol/server'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
@@ -21,6 +23,15 @@ import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import { SUBMIT_FEEDBACK_TOOL, feedbackTools, runSubmitFeedbackTool } from './submit-feedback'
+import {
+  MCP_APP_GENERATED_TOOLS,
+  appToolCallAllowed,
+  MCP_APP_TEXT_TOOLS,
+  MCP_APP_TOOLS,
+  mcpAppNamed
+} from '../mcp-apps/registry'
+import type { AppContext } from '../mcp-apps/define'
+import { stringifyResponse } from '../truncate'
 import type { AuthProps } from '../auth/types'
 import { acceptedPermissions } from '../api-permissions'
 import type { Connection } from '../api-permissions'
@@ -32,6 +43,22 @@ import type { CallPlan } from '../forge-tools/plan'
 import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE, PERMISSIONS_EXTENSION } from '../forge-tools/policy'
 import { policyRefusalHint, subscriptionCreate } from '../policy-guards'
 import { DECLINED_HINT, askToConfirm, canConfirm, confirmationOf } from '../charge-confirmation'
+
+/**
+ * The tools this Worker serves itself in direct mode, listed before the
+ * generated ones: `docs`, `whoami`, `submit_feedback` when it is configured,
+ * and the MCP Apps, linked to their views only for a client that declared MCP
+ * Apps. Both `tools/list` paths (the SDK's and `cachedToolListResponse`) send
+ * this list.
+ */
+export function localDirectTools({ mcpApps = false }: { mcpApps?: boolean } = {}): Array<Tool> {
+  return [
+    DOCS_TOOL,
+    WHOAMI_TOOL,
+    ...feedbackTools(),
+    ...(mcpApps ? MCP_APP_TOOLS : MCP_APP_TEXT_TOOLS)
+  ]
+}
 
 /** The forge tools service, which holds the generated tools (`src/forge-tools/worker.ts`). */
 function forgeTools() {
@@ -63,13 +90,11 @@ export function registerForgeTools(
   formatResult: FormatToolResult,
   connection: Connection,
   scopeChallenge: ScopeChallenge,
-  { outputSchema = false }: { outputSchema?: boolean } = {}
+  { outputSchema = false, mcpApps = false }: { outputSchema?: boolean; mcpApps?: boolean } = {}
 ): void {
   server.server.setRequestHandler('tools/list', async (_request, ctx) => ({
     tools: [
-      DOCS_TOOL,
-      WHOAMI_TOOL,
-      ...feedbackTools(),
+      ...localDirectTools({ mcpApps }),
       ...(await getForgeToolList({ outputSchema: outputSchema && isModern(ctx) }))
     ]
   }))
@@ -78,6 +103,7 @@ export function registerForgeTools(
     const name = request.params.name
     const args = request.params.arguments ?? {}
     let result: CallToolResult | InputRequiredResult
+    const app = mcpAppNamed(name)
 
     try {
       if (name === DOCS_TOOL.name) {
@@ -92,13 +118,10 @@ export function registerForgeTools(
           : toolError(`Invalid arguments for tool ${name}: ${parsed.error.message}`)
       } else if (name === SUBMIT_FEEDBACK_TOOL.name && feedbackTools().length > 0) {
         result = await runSubmitFeedbackTool(args, 'direct', props)
+      } else if (app) {
+        result = await app.call(args, { props, connection, scopeChallenge, view: mcpApps }, ctx)
       } else {
-        const sessionAccountId = autoResolvedAccountId(props)
-        const plan = await forgeTools().plan(name, args, {
-          baseUrl: env.CLOUDFLARE_API_BASE,
-          ...(sessionAccountId && { sessionAccountId })
-        })
-        result = await callForgeTool(name, plan, props, formatResult, ctx, {
+        result = await callGeneratedTool(name, args, props, formatResult, ctx, {
           connection,
           scopeChallenge,
           structured: outputSchema && isModern(ctx)
@@ -111,6 +134,88 @@ export function registerForgeTools(
     recordToolCall(props, name, 'isError' in result && result.isError === true)
     return result
   })
+}
+
+/** A tool call's arguments as the client sent them; the forge tools service checks them against the tool's schema. */
+// oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The generated tool's input schema owns these arguments.
+type ToolArguments = Record<string, unknown>
+
+/**
+ * Call one generated tool: the forge tools service plans the request from
+ * `args`, checked against the tool's input schema, and this Worker sends it
+ * with the session's token. The direct tools call every generated tool this
+ * way, and Code Mode the few an MCP App's view calls (`appTools`).
+ */
+export async function callGeneratedTool(
+  name: string,
+  args: ToolArguments,
+  props: AuthProps,
+  formatResult: FormatToolResult,
+  ctx: ServerContext,
+  options: { connection: Connection; scopeChallenge: ScopeChallenge; structured: boolean }
+): Promise<CallToolResult | InputRequiredResult> {
+  const sessionAccountId = autoResolvedAccountId(props)
+  const plan = await forgeTools().plan(name, args, {
+    baseUrl: env.CLOUDFLARE_API_BASE,
+    ...(sessionAccountId && { sessionAccountId })
+  })
+  return callForgeTool(name, plan, props, formatResult, ctx, options)
+}
+
+/**
+ * Register, on a Code Mode server, the generated tools MCP Apps' views call
+ * (`appTools` in `defineMcpApp`), app-only so the model never sees them.
+ * Each is served as the direct tools serve it: planned and checked against
+ * its input schema by the forge tools service, sent with the session's token,
+ * with the same refusal explanations and step-up, and never truncated, since
+ * the view reads the result.
+ */
+export function registerAppGeneratedTools(
+  server: McpServer,
+  context: AppContext,
+  tools: ReadonlyArray<Tool> = MCP_APP_GENERATED_TOOLS,
+  allowed: (name: string, args: ToolArguments) => boolean = appToolCallAllowed
+): void {
+  for (const tool of tools) {
+    server.registerTool(
+      tool.name,
+      {
+        ...(tool.title !== undefined && { title: tool.title }),
+        ...(tool.description !== undefined && { description: tool.description }),
+        ...(tool.annotations && { annotations: { ...tool.annotations } }),
+        ...(tool._meta && { _meta: tool._meta }),
+        inputSchema: listedAs(tool.inputSchema)
+      },
+      (args: ToolArguments, ctx: ServerContext) =>
+        // Listed for the App only, which hides the tool but doesn't limit it: only what an App's view writes.
+        allowed(tool.name, args)
+          ? callGeneratedTool(tool.name, args, context.props, stringifyResponse, ctx, {
+              connection: context.connection,
+              scopeChallenge: context.scopeChallenge,
+              structured: false
+            })
+          : toolError(
+              `${tool.name} is served here only for the MCP App views that write with it, and only with the bodies those views send. Use execute for any other call.`
+            )
+    )
+  }
+}
+
+/**
+ * A generated tool's JSON Schema as the SDK takes an input schema: listed as
+ * it is, and accepting every value, since the forge tools service checks the
+ * arguments when it plans the call, as it does for the direct tools.
+ */
+function listedAs(schema: Tool['inputSchema']): StandardSchemaWithJSON<ToolArguments> {
+  return {
+    '~standard': {
+      version: 1,
+      vendor: 'cloudflare-mcp',
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Accepted as sent; the forge tools service checks the arguments when it plans the call.
+      validate: (value) => ({ value: value as ToolArguments }),
+      jsonSchema: { input: () => schema, output: () => schema }
+    }
+  }
 }
 
 async function callForgeTool(
@@ -162,7 +267,11 @@ async function callForgeTool(
       headers: { ...plan.headers, authorization: `Bearer ${props.accessToken}` },
       body: plan.body
     },
-    { caller: 'forge_tool_call' }
+    {
+      caller: 'forge_tool_call',
+      // A POST or PATCH that may have reached Cloudflare isn't sent again: it could create a second policy.
+      retryNetworkErrors: !['POST', 'PATCH'].includes(plan.method.toUpperCase())
+    }
   )
   // A 429's headers say how long to wait; the agent only sees the body.
   const rateLimit = rateLimitHint(response.status, response.headers)

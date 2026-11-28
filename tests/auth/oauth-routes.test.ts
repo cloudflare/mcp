@@ -7,6 +7,7 @@ import { clearKv } from '../helpers/kv'
 import { modernMcpRequest, parseMcpResult } from '../helpers/mcp'
 import { ALL_SCOPES } from '../../src/auth/scopes'
 import { server } from '../setup/msw'
+import { MCP_APP_TOOLS } from '../../src/mcp-apps/registry'
 
 /**
  * Worker-seam tests for the OAuth route layer (`createAuthHandlers` in
@@ -950,7 +951,8 @@ describe('GET /oauth/callback', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      ...MCP_APP_TOOLS.map((tool) => tool.name)
     ])
     expect((await env.OAUTH_KV.list({ prefix: 'client:' })).keys).toHaveLength(1)
   })
