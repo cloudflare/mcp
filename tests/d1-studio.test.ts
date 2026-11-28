@@ -264,7 +264,9 @@ describe('re-runs from the view (Code Mode)', () => {
     ['a write', { sql: 'DELETE FROM appointments' }],
     [
       'a write hidden after replace()',
-      { sql: "WITH x AS (SELECT replace(a,'b','c') AS n FROM t) REPLACE INTO t2(n) SELECT n FROM x" }
+      {
+        sql: "WITH x AS (SELECT replace(a,'b','c') AS n FROM t) REPLACE INTO t2(n) SELECT n FROM x"
+      }
     ],
     ['two statements', { sql: 'SELECT 1; DROP TABLE t' }],
     ['a batch', { batch: [{ sql: 'SELECT 1' }, { sql: 'DELETE FROM t' }] }]

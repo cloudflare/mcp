@@ -52,7 +52,6 @@ export const D1StudioInputSchema = z.object({
       'Earlier read-only queries that led to the answer, oldest first. Each is run again and shown, in order, as the train of thought behind the answer.'
     )
 })
-export type D1StudioInput = z.infer<typeof D1StudioInputSchema>
 
 /** One value in a result row, as D1 returns it. Blobs and objects arrive as JSON text. */
 export const D1CellSchema = z.union([z.string(), z.number(), z.boolean(), z.null()])
@@ -66,7 +65,6 @@ export const D1MetaSchema = z.object({
   rowsRead: z.number().nullable(),
   rowsWritten: z.number().nullable()
 })
-export type D1Meta = z.infer<typeof D1MetaSchema>
 
 /**
  * How one statement ended. Every case is explicit, so the view never infers a

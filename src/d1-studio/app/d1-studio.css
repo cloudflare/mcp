@@ -115,26 +115,12 @@
 .dq-grow {
   flex: 1 1 auto;
 }
-.dq-subtle {
-  color: var(--text-color-kumo-subtle);
-}
 .dq-danger {
   color: var(--text-color-kumo-danger);
-}
-.dq-warn {
-  color: var(--text-color-kumo-warning);
 }
 .dq-mono {
   font-family: var(--font-mono);
   font-size: 12px;
-}
-.dq-sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
 }
 
 /* ── Title line: glyph · title · count · action ── */
@@ -179,8 +165,7 @@ button.dq-glyph {
 :is(button.dq-glyph, .dq-ib, .dq-ghost, .dq-run, .dq-cue):active:not([aria-disabled]) {
   scale: 0.96;
 }
-.dq-receipt[data-open] > .dq-head .dq-caret,
-.dq-train[data-open] > .dq-trainbar .dq-caret {
+.dq-receipt[data-open] > .dq-head .dq-caret {
   rotate: 90deg;
 }
 .dq-title {
@@ -211,14 +196,6 @@ button.dq-glyph {
   width: calc(var(--mark) * 49 / 22);
   height: var(--mark);
 }
-.dq-meta {
-  grid-area: meta;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  /* 8 px: the title and its 16 px mark need the room at 560. */
-  padding-left: 8px;
-}
 .dq-count {
   flex: none;
   font-size: 12.5px;
@@ -228,24 +205,12 @@ button.dq-glyph {
 }
 /* Beside the trio (data, and running) the count is as wide as "Running", measured by a hidden copy of it, so its left
    edge stays put from "Running" to "10 rows". */
-/* The count ends ~24 px from "Markdown" in loading and data alike (this gap + the segment’s 8 px padding + the
-   3 px "Running" is wider than "10 rows"): close enough to read as the trio's label, not a fourth segment. */
-.dq-meta[data-trio] {
-  /* 8 px, and the count is as wide as its text (no hidden "Running" sizer): the room the 15 px title and its 0.85em
-     mark need at 560. The count's text ends 16 px from "Markdown", which reads as the trio's label; its right edge
-     holds from loading to data, its left edge moves ~4 px. With the title gap at 12, 15 px here cuts "Tables in
-     partner_scheduling" by 7 px at 560; 8 keeps it whole. */
-  gap: 8px;
-}
 .dq-count[data-sized] {
   display: inline-grid;
   justify-items: start;
 }
 .dq-count[data-sized] > * {
   grid-area: 1 / 1;
-}
-.dq-countsizer {
-  display: none;
 }
 /* While running the trio is already in place, in inactive ink: disabled for real, no hover, no seams lit. */
 .dq-trio[data-disabled] .dq-fmt {
@@ -262,15 +227,6 @@ button.dq-glyph {
   .dq-trio[data-disabled] .dq-fmt:hover + .dq-fmt::before {
     opacity: 1;
   }
-}
-/* With no button after it, the count's text ends where a button's label does. */
-.dq-head > .dq-meta > .dq-count:last-child {
-  padding-right: 8px;
-}
-.dq-slot {
-  display: inline-flex;
-  flex: none;
-  justify-content: flex-end;
 }
 .dq-spin {
   width: 12px;
@@ -335,13 +291,6 @@ button.dq-glyph {
 .dq-t {
   color: var(--sq-t);
 }
-/* A plain underline: it sits inside the 18 px line box, so nothing clips it. */
-.dq-err {
-  color: var(--text-color-kumo-danger);
-  text-decoration: underline solid var(--text-color-kumo-danger);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-}
 .dq-fold {
   display: inline-block;
   padding: 0 4px;
@@ -378,7 +327,6 @@ button.dq-glyph {
   box-shadow: inset 0 0 0 1px var(--color-kumo-line);
   background: var(--tray);
 }
-/* The pill's focus vocabulary, an inset 1.5 px brand ring. */
 /* The editor keeps 6 px of air on its right, so a word that wraps late ("FROM Product") never touches the
    tray's edge. */
 .dq-editor {
@@ -554,12 +502,6 @@ button.dq-glyph {
 .dq-cue .dq-swap > * {
   gap: 4px;
 }
-.dq-spin-cue {
-  width: 10px;
-  height: 10px;
-  border-color: color-mix(in oklch, var(--cue-ink) 30%, transparent);
-  border-top-color: var(--cue-ink);
-}
 
 /* Studio's Run: the one primary button in the card. */
 .dq-run {
@@ -592,15 +534,6 @@ button.dq-glyph {
 .dq-run[aria-disabled] {
   opacity: 0.6;
   cursor: default !important;
-}
-.dq-fullbar {
-  font-variant-numeric: tabular-nums;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  margin: 6px 0 0;
-  font-size: 12.5px;
-  color: var(--text-color-kumo-subtle);
 }
 
 /* ── State lines: one line on the text edge, under the SQL ── */
@@ -801,16 +734,8 @@ button.dq-glyph {
     opacity: 0;
   }
 }
-.dq-trio[aria-hidden],
-.dq-slot-ghost[data-hidden] {
+.dq-trio[aria-hidden] {
   visibility: hidden;
-}
-.dq-stack {
-  display: inline-grid;
-  justify-items: end;
-}
-.dq-stack > * {
-  grid-area: 1 / 1;
 }
 
 /* ── Rows, opened under the SQL; nothing above them moves ── */
@@ -964,37 +889,6 @@ button.dq-glyph {
   font-family: var(--font-sans);
   color: var(--text-color-kumo-subtle);
 }
-.dq-foot {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 40px;
-  /* The receipt starts on the content edge (40 px), like the band's. */
-  padding: 0 var(--pad-r) 0 calc(var(--text) - 8px);
-  border-top: 1px solid var(--grid-line);
-  font-size: 12px;
-  color: var(--text-color-kumo-default);
-}
-/* Studio's stats: a semibold label, its help mark, then the value. */
-.dq-stats {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  padding-left: 8px;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-.dq-foot > .dq-ghost:first-child + .dq-stats {
-  padding-left: 2px;
-}
-.dq-stat {
-  display: inline-flex;
-  align-items: center;
-}
-.dq-stat b {
-  font-weight: 600;
-}
 .dq-help {
   display: grid !important;
   place-items: center;
@@ -1046,181 +940,6 @@ button.dq-glyph {
 .dq-help:focus-visible + .dq-helptip {
   transition-delay: 0ms;
 }
-
-/* ── The train ── */
-.dq-train {
-  border-top: 1px solid var(--color-kumo-hairline);
-}
-.dq-trainbar {
-  display: flex !important;
-  align-items: center;
-  width: 100%;
-  height: 36px;
-  padding-right: var(--pad-r) !important;
-  transition: background-color 120ms ease;
-}
-@media (hover: hover) and (pointer: fine) {
-  .dq-trainbar:hover {
-    background: var(--hover) !important;
-  }
-}
-.dq-trainbar .dq-glyph {
-  flex: none;
-  margin-right: 4px;
-}
-.dq-traintext {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  font-size: 12.5px;
-  white-space: nowrap;
-}
-.dq-trainlead {
-  font-weight: 500;
-  color: var(--text-color-kumo-default);
-}
-/* One mark per query, in order: the failed one red, the answer in ink. Beside the count it explains. */
-.dq-pips {
-  display: inline-flex;
-  flex: none;
-  gap: 3px;
-}
-.dq-pips i {
-  width: 10px;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--text-color-kumo-inactive);
-}
-.dq-pips i[data-last] {
-  background: var(--text-color-kumo-default);
-}
-.dq-pips i[data-bad] {
-  background: var(--text-color-kumo-danger);
-}
-.dq-trainfail {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--text-color-kumo-subtle);
-}
-.dq-steps {
-  margin: 0;
-  padding: 0 0 6px;
-  list-style: none;
-}
-/* A step: the agent's sentence, then its count right after it, on one line. The sentence gives way (ellipsis) only
-   when sentence and count can't both fit. */
-.dq-steprow {
-  display: grid !important;
-  grid-template-columns: var(--text) minmax(0, 1fr);
-  align-items: center;
-  width: 100%;
-  min-height: 32px;
-  padding-right: var(--pad-r) !important;
-}
-.dq-steprow .dq-glyph {
-  grid-area: auto;
-}
-/* A step row's focus ring is the tray's own (brand, 1.5 px), inset from the card's sides and rounded to
-   nest in its 12 px radius (12 − 4), never a square box running into the card's border. */
-.dq-steprow {
-  position: relative;
-}
-.dq .dq-steprow:is(:focus-visible, [data-focus]) {
-  outline: none;
-}
-.dq-steprow:is(:focus-visible, [data-focus])::after {
-  content: '';
-  position: absolute;
-  inset: 2px 4px;
-  border-radius: 8px;
-  box-shadow: inset 0 0 0 1.5px var(--color-kumo-brand);
-  pointer-events: none;
-}
-@media (hover: hover) and (pointer: fine) {
-  .dq-steprow:hover .dq-saytext {
-    color: var(--text-color-kumo-strong);
-  }
-}
-@media (hover: hover) and (pointer: fine) {
-  .dq-steprow:hover .dq-caret {
-    color: var(--text-color-kumo-default);
-  }
-}
-.dq-say {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  min-width: 0;
-  padding-right: 8px;
-}
-.dq-saytext {
-  flex: 0 1 auto;
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-size: 13.5px;
-  color: var(--text-color-kumo-default);
-}
-.dq-say .dq-count {
-  flex: none;
-}
-.dq-step[data-open] .dq-caret {
-  rotate: 90deg;
-}
-/* Opened: the step's title and its copy share one row under the sentence; the copy ends where the answer's does. */
-.dq-stepsub {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  column-gap: 12px;
-  min-height: 26px;
-  margin: -2px 0 4px;
-  padding: 0 var(--pad-r) 0 var(--text);
-}
-.dq-steptitle {
-  flex: 1 1 auto;
-  max-width: 100%;
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--text-color-kumo-subtle);
-}
-.dq-stepsub > .dq-slot {
-  margin-left: auto;
-}
-.dq-steprun {
-  display: none;
-}
-.dq-stepbody {
-  padding: 0 0 8px;
-}
-.dq-rows-step {
-  margin: 8px 0 0;
-  border-top: 1px solid var(--grid-line);
-}
-.dq-step[data-open]:has(.dq-rows-step) .dq-stepbody {
-  padding-bottom: 0;
-}
-.dq-step[data-open]:not(:first-child) {
-  border-top: 1px solid var(--color-kumo-hairline);
-}
-.dq-step[data-open] + .dq-step {
-  border-top: 1px solid var(--color-kumo-hairline);
-}
-.dq-step:last-child .dq-foot {
-  margin-bottom: -6px;
-}
-/* An open step that ends the train on its own lines (no rows) ends 16 px of white above the card's edge, as every
-   other bottom inset: its last line's leading (3 px) + 7 + the list's 6. */
-.dq-step[data-open]:last-child:not(:has(.dq-rows-step)) .dq-stepbody {
-  padding-bottom: 7px;
-}
 .dq-full .dq-line2 {
   padding: 0;
   margin-top: 4px !important;
@@ -1232,20 +951,6 @@ button.dq-glyph {
   .dq-head {
     grid-template-columns: var(--text) minmax(0, 1fr);
     grid-template-areas: 'glyph title' '. meta';
-  }
-  .dq-meta {
-    justify-content: flex-end;
-    padding-left: 0;
-  }
-  /* Data and running: the count starts on the 40 px text edge and the trio sits at the right edge. The edge pins the
-     count, so it needs no width of its own. A failed card follows the same rule: "Failed" on the text edge, Copy SQL
-     at the right edge. */
-  .dq-meta[data-trio],
-  .dq-receipt[data-kind='error'] > .dq-head > .dq-meta {
-    justify-content: space-between;
-  }
-  .dq-countsizer {
-    display: none;
   }
   .dq-receipt {
     padding: 6px 0 6px;
@@ -1263,9 +968,6 @@ button.dq-glyph {
     grid-template-areas: 'glyph title meta';
     grid-template-rows: 26px;
   }
-  .dq-receipt:is([data-kind='none'], [data-kind='empty-db']) .dq-meta {
-    padding-left: 12px;
-  }
   .dq-short,
   .dq-pre,
   .dq-cell {
@@ -1275,8 +977,7 @@ button.dq-glyph {
   .dq-cue {
     font-size: 11.5px !important;
   }
-  .dq-wide,
-  .dq-wide-flex {
+  .dq-wide {
     display: none !important;
   }
   /* The error and its hint each take a whole line rather than wrapping one word over. */
@@ -1285,17 +986,6 @@ button.dq-glyph {
   }
   .dq-sep {
     display: none;
-  }
-  .dq-trainbar {
-    height: 32px;
-  }
-  /* A step's sentence and its count share the line at 352 too: a size down, a tighter gap, no trailing pad. */
-  .dq-saytext {
-    font-size: 13px;
-  }
-  .dq-say {
-    gap: 6px;
-    padding-right: 0;
   }
   /* The copy segments tighten a little (the answer's and a step's alike, so they still line up), and an opened step's
      title wraps to a second line rather than being cut. */
@@ -1308,49 +998,13 @@ button.dq-glyph {
   .dq-trio {
     --rsv: 16px;
   }
-  /* An opened step's title stays one line: when it and the copy can't share the row, the copy takes the row under it,
-     still ending at the answer's right edge. */
-  .dq-stepsub {
-    column-gap: 8px;
-  }
-  /* A step with rows: a two-line head. The title, then its duration and the trio on one row, set tight under it so
-     the two lines read as one block (title over its stat, copy at the answer's edge). */
-  .dq-stepsub:has(.dq-steprun) {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: 'title title' 'run slot';
-    align-items: center;
-    margin-top: -4px;
-  }
-  .dq-stepsub:has(.dq-steprun) > .dq-steptitle {
-    grid-area: title;
-    line-height: 16px;
-  }
-  .dq-steprun {
-    display: block;
-    grid-area: run;
-    font-size: 12.5px;
-    font-variant-numeric: tabular-nums;
-    color: var(--text-color-kumo-subtle);
-    white-space: nowrap;
-  }
-  .dq-stepsub:has(.dq-steprun) > .dq-slot {
-    grid-area: slot;
-    margin-left: 0;
-  }
-  /* Opened, the step's count moves beside its trio (like the answer's "10 rows · trio"), so it shows once. */
-  .dq-step[data-open][data-kind='rows'] .dq-say .dq-count {
-    display: none;
-  }
 }
 
 /* Reduced motion: movement goes (disclosures, caret, press, the check's pop, the tooltip's rise); fades and tints
    stay, since they carry state. The spinner pulses instead of turning, so a busy Run still reads as working. */
 @media (prefers-reduced-motion: reduce) {
   .dq .dq-caret,
-  .dq .dq-rows,
-  .dq .dq-collapse,
-  .dq .dq-layerwrap {
+  .dq .dq-rows {
     transition: none !important;
   }
   .dq :is(button.dq-glyph, .dq-ib, .dq-ghost, .dq-run, .dq-cue):active {
@@ -1362,9 +1016,6 @@ button.dq-glyph {
   }
   .dq .dq-helptip {
     translate: none;
-  }
-  .dq :is(.dq-layerwrap, .dq-collapse) > * {
-    transition-delay: 0s !important;
   }
   .dq .dq-spin {
     animation: dq-pulse 1s ease-in-out infinite alternate;
@@ -1387,36 +1038,6 @@ button.dq-glyph {
 .dq {
   transition: background-color 220ms var(--ease);
 }
-.dq:has(> .dq-layerwrap[data-on]) {
-  background: var(--tray);
-}
-/* The band comes and goes with what it belongs to (the rows' stats, the editor's bar) on the rows' own curve, instead
-   of appearing 42 px tall at t=0 while the rows ease open. The train's list and a step's body open the same way. */
-.dq-layerwrap,
-.dq-collapse {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 220ms var(--ease);
-}
-.dq-layerwrap[data-on],
-.dq-train[data-open] > .dq-collapse,
-.dq-step[data-open] > .dq-collapse {
-  grid-template-rows: 1fr;
-}
-.dq-layerwrap > *,
-.dq-collapse > * {
-  min-height: 0;
-  overflow: hidden;
-  transition: overflow 0s allow-discrete;
-}
-/* Clipped only while it moves: once open, nothing is cut (the help tooltip rises out of the band, a step's outlined
-   Copy SQL sits on its body's top edge). Closing clips at once. */
-.dq-layerwrap[data-on] > *,
-.dq-train[data-open] > .dq-collapse > *,
-.dq-step[data-open] > .dq-collapse > * {
-  overflow: visible;
-  transition: overflow 0s 220ms allow-discrete;
-}
 .dq-receipt {
   background: var(--bg);
   transition:
@@ -1428,14 +1049,6 @@ button.dq-glyph {
   background: var(--bg);
   box-shadow: 0 0 0 1px var(--color-kumo-hairline);
 }
-.dq-layer {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 8px var(--pad-r) 8px var(--text);
-  font-size: 12.5px;
-  color: var(--text-color-kumo-subtle);
-}
 .dq-ranhere {
   margin-right: 6px;
   padding-left: 6px;
@@ -1446,27 +1059,6 @@ button.dq-glyph {
 /* ── The bottom of an open card: a recessed band under the rows too. ── */
 .dq-receipt[data-layered] {
   overflow: clip;
-}
-.dq-layer[data-v] {
-  min-height: 42px;
-  padding: 8px var(--pad-r) 8px calc(var(--text) - 8px);
-  color: var(--text-color-kumo-default);
-  font-size: 12px;
-}
-.dq-layer-note {
-  font-variant-numeric: tabular-nums;
-  padding: 0 8px;
-  font-size: 12.5px;
-  color: var(--text-color-kumo-subtle);
-  white-space: nowrap;
-}
-.dq-layer .dq-ranhere {
-  margin: 0;
-  padding: 0 8px;
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--text-color-kumo-success);
-  white-space: nowrap;
 }
 
 /* One receipt phrase on the left. */
@@ -1487,7 +1079,6 @@ button.dq-glyph {
   white-space: nowrap;
   color: var(--text-color-kumo-default);
 }
-.dq-layer-note + .dq-statsc,
 .dq-ranhere + .dq-statsc {
   padding-left: 0;
 }
@@ -1503,28 +1094,12 @@ button.dq-glyph {
 .dq-statsc + .dq-ghost {
   margin-left: 4px;
 }
-.dq-ico-narrow {
-  display: none;
-}
 .dq-acts {
   display: flex;
   align-items: center;
   flex: none;
   gap: 2px;
   margin-left: auto;
-}
-.dq-rcpt {
-  display: flex;
-  align-items: center;
-  min-width: 0;
-}
-.dq-layer[data-two] {
-  flex-wrap: wrap;
-  row-gap: 2px;
-}
-.dq-layer[data-two] > .dq-rcpt {
-  flex: 1 0 100%;
-  min-height: 26px;
 }
 @container dq (width < 440px) {
   .dq-wide-in {
@@ -1535,9 +1110,6 @@ button.dq-glyph {
 /* One right edge, 12 px in: the tray's corner pill, the state line's action, a failed card's Copy SQL. */
 .dq-line2-act {
   padding-right: calc(var(--pad-r) + 4px) !important;
-}
-.dq-receipt[data-kind='error'] .dq-head .dq-slot {
-  margin-right: 4px;
 }
 /* A last clause folded at its top-level AND hangs 2ch past the clause's own indent, like a wrapped clause. */
 .dq-line[data-cont] {
@@ -1552,10 +1124,6 @@ button.dq-glyph {
 }
 
 /* ── One right edge per situation ── */
-/* Closed: a failed step's Copy SQL ends on the pill's edge, like the failed answer's. */
-.dq-step[data-kind='error'] .dq-stepsub > .dq-slot {
-  margin-right: 4px;
-}
 /* Editor open: the pill is gone, so the state line's action ends on the editor's and Run's edge. */
 .dq-full .dq-line2-act {
   padding-right: 0 !important;
@@ -1690,38 +1258,6 @@ button.dq-diff {
   outline: 2px solid var(--color-kumo-focus, #2563eb);
   outline-offset: -2px;
 }
-/* The old value: a tip over the cell on hover and while the cell has focus (keyboard, tap, or the receipt's button).
-   It opens upward, over the header row, inside the table's own scroll box, right-aligned with the number. */
-.dq-was {
-  position: absolute;
-  right: 4px;
-  bottom: calc(100% - 4px);
-  z-index: 3;
-  padding: 4px 7px;
-  border-radius: 6px;
-  background: var(--color-kumo-contrast, light-dark(#171717, #fafafa));
-  color: light-dark(#fff, #171717);
-  font: 500 11.5px/14px var(--font-sans);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  translate: 0 2px;
-  transition:
-    opacity 120ms ease,
-    translate 120ms ease;
-}
-.dq-grid td[data-changed][data-tip] .dq-was {
-  opacity: 1;
-  translate: 0;
-}
-@media (hover: hover) and (pointer: fine) {
-  .dq-grid td[data-changed]:hover .dq-was {
-    opacity: 1;
-    translate: 0;
-    transition-delay: 250ms;
-  }
-}
 /* Rows read is the one stat that gives way at 352 when the receipt has more to say; the note never does. */
 @container dq (width < 440px) {
   .dq-statsc[data-brief] .dq-rd {
@@ -1730,14 +1266,6 @@ button.dq-diff {
 }
 
 /* ── Paging the open table ── */
-/* A slim row on the table's surface, under its last row: the position on the text edge, the arrows on the right. */
-.dq-pagerow {
-  display: flex;
-  align-items: center;
-  height: 34px;
-  padding: 0 var(--pad-r) 0 calc(var(--text) - 8px);
-  border-top: 1px solid var(--grid-line);
-}
 .dq-pos {
   display: inline-grid;
   flex: none;
@@ -1749,9 +1277,6 @@ button.dq-diff {
 }
 .dq-pos > * {
   grid-area: 1 / 1;
-}
-.dq-possizer {
-  visibility: hidden;
 }
 .dq-arrows {
   display: inline-flex;
@@ -1790,25 +1315,6 @@ button.dq-diff {
 }
 .dq-grid th[data-busy] .dq-th {
   color: var(--text-color-kumo-strong) !important;
-}
-.dq-sorting {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-/* The band's notes before the stats keep the same 6 px as "✓ Ran here" does, so every receipt's first dot sits alike. */
-.dq-layer-note:is(.dq-readage, .dq-sorting) {
-  padding-right: 6px;
-}
-
-/* ── Pagers ── */
-.a17-narrow-in {
-  display: none;
-}
-@container dq (width < 440px) {
-  .a17-narrow-in {
-    display: inline;
-  }
 }
 /* The first row number as a field: text at rest (no box), a hairline field on hover, a focus ring and a tint while
    typed into. Tabular, as wide as the total's digits, so nothing beside it moves. */
@@ -1851,76 +1357,6 @@ button.dq-diff {
     inset 0 0 0 1px var(--color-kumo-line),
     0 0 0 2px var(--color-kumo-focus);
 }
-/* 'band': a hairline between the pager's arrows and the ways out, so ‹ › don't read as two more icon buttons. */
-.a17-sep {
-  width: 1px;
-  height: 14px;
-  margin: 0 4px;
-  background: var(--color-kumo-line);
-}
-.a17-handoff {
-  height: 26px;
-  color: var(--text-color-kumo-default) !important;
-}
-
-/* ── Filling a host frame taller than the card. Only a card that holds a filler stretches; every other
-   card keeps its own height, so a gap under it is measured, not hidden. ── */
-/* In the App the frame is the iframe: a card holding a filler is the viewport's height (the host's minimum, which the
-   view never reports as its own size: see useHostSize). */
-.dq:has(> .a17-fill) {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.dq:has(> .a17-fill) > :not(.a17-fill) {
-  flex: none;
-}
-.a17-fill {
-  position: relative;
-  flex: 1 1 0;
-  min-height: 0;
-}
-.a17-fill-in {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-.a17-fill[data-peek] > .a17-fill-in {
-  cursor: pointer;
-}
-.a17-peek {
-  border-top: 1px solid var(--grid-line);
-}
-.a17-peek .dq-grid {
-  overflow: hidden;
-}
-/* An open card (rows, editor, both) in a frame taller than itself fills it too: the recessed band grows from
-   the card's bottom up, so the slack is tray between the raised receipt and the band's row, never a dead band under
-   the card. In a frame exactly the card's height (Claude) there is nothing to fill. */
-.dq:not(.dq-toolerror):has(> .dq-layerwrap[data-on]) {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.dq:has(> .dq-layerwrap[data-on]) > * {
-  flex: none;
-}
-.dq > .dq-layerwrap[data-on] {
-  flex: 1 1 auto;
-}
-.dq > .dq-layerwrap[data-on] > * {
-  align-self: end;
-}
-/* The band filler is the open card's recessed band: the card's surface becomes the tray, the receipt is raised on it,
-   and the band's line sits at the frame's bottom edge. */
-.dq:has(> .a17-fill[data-band]) {
-  background: var(--tray);
-}
-.a17-fill[data-band] > .a17-fill-in {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
 /* 'band': rows read gives the pager its room (the ⓘ tip carries the number). */
 .dq-statsc[data-paged] .dq-rd {
   display: none;
@@ -1932,47 +1368,6 @@ button.dq-diff {
 .a17-rowfield[data-typing] {
   margin: -3px 5px;
 }
-
-/* The peek is whole rows only, drawn from the card's bottom edge up: the last row's hairline is the card's own
-   border (its radius below it), the column rules stop there, and leftover px are tray padding above the peek. */
-.a17-peekbtn {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  outline: none;
-}
-.a17-peekbtn > div {
-  transition: background-color 120ms ease;
-}
-.a17-peek tbody tr:last-child > td {
-  border-bottom: 0 !important;
-}
-@media (hover: hover) and (pointer: fine) {
-  .a17-peekbtn:hover > div,
-  .a17-peekbtn:hover .dq-gutter,
-  .a17-peekbtn:hover th {
-    background: var(--hover) !important;
-  }
-}
-/* Focus: the tray's own ring, inset, around the whole peek, so Enter's target is the rows. */
-.a17-peekbtn:focus-visible::after,
-.a17-peekbtn[data-focus]::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  border-radius: 0 0 var(--radius, 12px) var(--radius, 12px);
-  box-shadow: inset 0 0 0 1.5px var(--color-kumo-brand);
-  pointer-events: none;
-}
-.a17-peekbtn:focus-visible > div,
-.a17-peekbtn[data-focus] > div {
-  background: var(--hover);
-}
-/* The band, once chosen, keeps its height: where the frame has less room the card grows to it. */
-.a17-fill[data-band] {
-  min-height: 42px;
-}
 /* ‹ ›: 26 px faces, 32 px targets. */
 .dq-pg {
   position: relative;
@@ -1982,29 +1377,12 @@ button.dq-diff {
   position: absolute;
   inset: -3px;
 }
-/* A paged user run: the "Ran here" check, in its success ink, before the position. */
-.dq-ranmark {
-  display: inline-flex;
-  flex: none;
-  padding-left: 8px;
-  margin-right: -4px;
-  color: var(--text-color-kumo-success);
-}
-.dq-limdot {
-  margin: 0 6px;
-}
 /* A dot that leads the stats (after the position) has the flex gap's 6 px on both sides, like every dot. */
 .dq-statsc[data-lead] {
   padding-left: 6px;
 }
-.dq-layer-note + .dq-statsc[data-lead],
 .dq-ranhere + .dq-statsc[data-lead] {
   padding-left: 0;
-}
-.dq-limit {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  color: var(--text-color-kumo-subtle);
 }
 .dq-pos,
 .a17-posline {
@@ -2084,99 +1462,6 @@ button.dq-diff {
   }
 }
 
-/* At 352, while D1 sorts, the band's slot says so and the old time steps aside (it is about to change), so
-   "Sorting all 1,284 in D1", ‹ › and the ways out fit inside the card's edge. */
-@container dq (width < 440px) {
-  .dq-sorting ~ .dq-statsc {
-    display: none;
-  }
-}
-
-/* ── One rule for every short card in a frame taller than itself ── */
-/* The band: its row centred in whatever height the slack gives it, 34 px at least (its 26 px row, 4 px either side). */
-.a17-fill[data-band] > .a17-fill-in {
-  justify-content: center;
-}
-.a17-fill[data-band] .dq-layer[data-v] {
-  min-height: 34px;
-  padding-block: 4px;
-}
-/* The closed card's one more line of content, exactly RICH_H (24 px), its outlined fix right-aligned like
-   `Try 'no_show'`. At 352 the failed card's hint already has its own line, so the fix joins it at no cost. */
-.dq-receipt > .dq-line2.b18-rich {
-  height: 20px;
-  margin-top: 4px !important;
-}
-.dq-receipt > .dq-line2.b18-rich[data-tight] {
-  margin-top: 0 !important;
-}
-.dq-receipt > .b18-rich .dq-ghost {
-  height: 20px;
-}
-.b18-trainfix .dq-line2-text {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-/* An edited card. The action row keeps its height, right under the raised panel; the agent's band follows it as its
-   own strip (a hairline between; its numbers in the closed card's ink, its ⓘ says whose run they are), and the
-   editor takes what is left. */
-.dq:has(> .a17-fill[data-mode='edit']) > .dq-layerwrap[data-on] {
-  flex: none;
-}
-.dq:has(> .a17-fill[data-mode='edit']) > .dq-layerwrap[data-on] > * {
-  align-self: start;
-}
-.a17-fill[data-mode='edit'][data-band] {
-  box-shadow: inset 0 1px 0 var(--color-kumo-hairline);
-}
-/* Where the 34 px band can't be made, the 28 px one: a 16 px row (icons stay 16 px, their hover faces may
-   reach into the 6 px above and below). The band is one of the two heights in every short card, closed or edited. */
-.a17-fill[data-slim] .dq-layer[data-v] {
-  min-height: 28px;
-  padding-block: 6px;
-  line-height: 16px;
-}
-.a17-fill[data-slim] .dq-layer[data-v] :is(.dq-ib, .dq-help) {
-  margin-block: -5px;
-}
-/* The slack spread. Fill sets each of these on the raised panel only where the card took px, as absolute px, so the
-   base rules (and every Claude card) stay as they are. */
-/* (The SQL's own margin, not the head's: the editor's -2 px collapses through it.) */
-.dq-receipt[style*='--fill-hg'] > .dq-full {
-  margin-top: calc(6px - var(--fill-hg)) !important;
-}
-.dq-receipt[style*='--fill-ti'] {
-  padding-top: var(--fill-ti) !important;
-}
-.dq-receipt[style*='--fill-pb'] {
-  padding-bottom: var(--fill-pb) !important;
-}
-.dq-receipt[style*='--fill-nt'] > .dq-full > .s5-line {
-  margin-top: var(--fill-nt) !important;
-}
-/* The head's text to the SQL, where the slack is left after every other step (closed or edited). */
-.dq-receipt[style*='--fill-hd'] > :is(.dq-cell, .dq-full) {
-  margin-top: var(--fill-hd) !important;
-}
-/* A write card's one-line note in the two-line note's box, its line where the two lines' middle is, so the
-   editor, the note and the action row keep one y through sending, timeout, sent and no-send. */
-.dq-receipt[style*='--fill-slot'] > .dq-full > .s5-line[data-write] {
-  min-height: var(--fill-slot);
-}
-.dq-receipt[style*='--fill-slot'] > .dq-full > .s5-line[data-write] > * {
-  position: relative;
-  top: var(--fill-slot-dy);
-}
-.dq-receipt[style*='--fill-m1'] > p.dq-line2:nth-of-type(1) {
-  margin-top: var(--fill-m1) !important;
-}
-.dq-receipt[style*='--fill-m2'] > p.dq-line2:nth-of-type(2) {
-  margin-top: var(--fill-m2) !important;
-}
-.dq-receipt[style*='--fill-m3'] > p.dq-line2:nth-of-type(3) {
-  margin-top: var(--fill-m3) !important;
-}
 .dq-editor > .dq-edpre {
   padding-bottom: var(--ed-grow, 0px);
 }
@@ -2187,49 +1472,6 @@ button.dq-diff {
 .dq-pos ~ .dq-statsc {
   color: var(--text-color-kumo-subtle);
 }
-
-/* The copy's scope, said after the click ("Copied the first 200 of 1,284 rows as CSV"): a pill at the frame's foot for
-   a moment. Hosts draw no clipboard feedback of their own; the trio's check says that it worked, this says what. */
-.dq-toast {
-  position: fixed;
-  left: 50%;
-  bottom: 10px;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  max-width: calc(100vw - 24px);
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: var(--text-color-kumo-default);
-  color: var(--color-kumo-base);
-  font-size: 12.5px;
-  font-weight: 400;
-  white-space: nowrap;
-  translate: -50% 6px;
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity 160ms ease,
-    translate 200ms var(--ease);
-}
-.dq-toast > span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.dq-toast[data-show] {
-  opacity: 1;
-  translate: -50% 0;
-}
-@media (prefers-reduced-motion: reduce) {
-  .dq-toast {
-    transition: opacity 160ms ease;
-    translate: -50% 0;
-  }
-}
-
-/* The lines under the editor (what the draft is, how a send went, D1's own error), the marked span in the SQL, the
-   blocked Run, and the "ask D1 for more" row. */
 
 /* One line under the SQL, on the editor's text edge, the state line's size. */
 .s5-line {
@@ -2304,45 +1546,6 @@ button.dq-diff {
 .dq-run[data-blocked] svg {
   opacity: 0.7;
 }
-
-/* The reason in the band, in the danger ink unless it is a write. */
-.s5-bandwhy:not([data-kind='write']) {
-  color: var(--text-color-kumo-danger);
-}
-
-/* "Ask D1 for more": the pager row's surface and type. */
-.s5-more {
-  gap: 8px;
-}
-.s5-more-pos {
-  display: inline;
-}
-.s5-more-acts {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  margin-left: auto;
-}
-.s5-more-acts .dq-ghost {
-  height: 24px;
-  padding: 0 7px !important;
-  color: var(--text-color-kumo-link) !important;
-}
-@container dq (width < 440px) {
-  .s5-more-acts .dq-ghost {
-    padding: 0 5px !important;
-  }
-}
-/* The narrow face of "All columns": what it runs, in SQL. */
-.s5-narrow-in {
-  display: none;
-  font-size: 11.5px;
-}
-@container dq (width < 440px) {
-  .s5-narrow-in {
-    display: inline;
-  }
-}
 @container dq (width < 440px) {
   /* 15 px SQL lines at 352: the wave sits closer so it never touches the line under it. */
   .s5-mark {
@@ -2364,17 +1567,8 @@ button.dq-diff {
 .s5-ico {
   height: 18px;
 }
-
-/* useHostSize measures the card's own height with these off for one synchronous layout: what fills the frame's
-   slack is never reported as the card's size, so a host that sizes the frame to the card can still shrink it. */
-:root[data-measuring] .a17-fill {
-  display: none !important;
-}
 :root[data-measuring] .dq {
   min-height: 0 !important;
-}
-:root[data-measuring] .dq > .dq-layerwrap[data-on] {
-  flex: none !important;
 }
 
 /* ── The fullscreen console: what the view becomes in the host's fullscreen. ── */
@@ -2388,7 +1582,6 @@ button.dq-diff {
   height: 100vh;
 }
 
-/* ── The fullscreen console: what the view becomes in the host's fullscreen. ── */
 /* The card's tokens (--bg, --tray, --hover, --grid-line, Studio's SQL and cell colours, Paper Mono) on a panel the
    host fills. One grid: 16 px outer inset; the side is 248 px; rows
    are 30 px (the grid's), side rows 28; every divider is the grid's own line; radii nest (controls 6, the editor 8).
@@ -2448,19 +1641,6 @@ button.dq-diff {
   gap: 6px;
   font: 12px/1 var(--font-mono);
   color: var(--text-color-kumo-subtle);
-}
-.cx-count {
-  font-size: 12.5px;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-color-kumo-subtle);
-  margin-right: 4px;
-}
-/* 'card': the mark starts on the editor's text edge (52 px), as inline the card's content starts at the mark's edge. */
-.cx-head-card {
-  padding-left: 12px;
-}
-.cx-drawerbtn {
-  margin-right: 6px;
 }
 
 /* ── Body: the side, then the main column ── */
@@ -2704,108 +1884,6 @@ button.dq-diff {
   }
 }
 
-/* ── Tabs (layout 'tabs'): Studio's query tabs on the recessed tone; the open one joins the editor ── */
-.cx-tabs {
-  display: flex;
-  align-items: stretch;
-  flex: none;
-  height: 38px;
-  background: var(--recess);
-  border-bottom: 1px solid var(--grid-line);
-  overflow: hidden;
-}
-.cx-tab {
-  display: inline-flex !important;
-  align-items: center;
-  gap: 7px;
-  min-width: 0;
-  max-width: 230px;
-  padding: 0 12px 0 10px !important;
-  border-right: 1px solid var(--grid-line) !important;
-  font-size: 12.5px !important;
-  color: var(--text-color-kumo-subtle) !important;
-  white-space: nowrap;
-  transition: background-color 120ms ease;
-}
-@media (hover: hover) and (pointer: fine) {
-  .cx-tab:hover {
-    background: var(--hover) !important;
-  }
-}
-.cx-tab[aria-selected='true'] {
-  background: var(--tray) !important;
-  color: var(--text-color-kumo-strong) !important;
-  margin-bottom: -1px;
-  font-weight: 500 !important;
-}
-.cx-tabtext {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.cx-tabtag {
-  flex: none;
-  padding: 0 5px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 16px;
-  color: var(--text-color-kumo-subtle);
-  box-shadow: inset 0 0 0 1px var(--color-kumo-line);
-}
-.cx-tabnew {
-  flex: none;
-  border-right: 0 !important;
-  gap: 5px;
-}
-
-/* ── Steps (layout 'card'): the card's train as one row under the head ── */
-.cx-steps {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex: none;
-  height: 40px;
-  padding: 0 var(--inset) 0 52px;
-  border-bottom: 1px solid var(--grid-line);
-  overflow: hidden;
-}
-.cx-stepslead {
-  flex: none;
-  margin-right: 6px;
-  font-size: 12.5px;
-  color: var(--text-color-kumo-subtle);
-}
-.cx-chip {
-  display: inline-flex !important;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-  max-width: 220px;
-  height: 28px;
-  padding: 0 10px 0 5px !important;
-  border-radius: 6px;
-  font-size: 12.5px !important;
-  color: var(--text-color-kumo-default) !important;
-  white-space: nowrap;
-}
-@media (hover: hover) and (pointer: fine) {
-  .cx-chip:hover {
-    background: var(--hover) !important;
-  }
-}
-.cx-chip[aria-selected='true'] {
-  background: var(--tray) !important;
-  box-shadow: inset 0 0 0 1px var(--color-kumo-line);
-  color: var(--text-color-kumo-strong) !important;
-  font-weight: 500 !important;
-}
-.cx-chiptext {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 /* ── Editor: line numbers in a 52 px gutter, Studio's SQL on the tray. The SQL is the receipt, so it shows whole while
    the result keeps at least 240 px (7 rows); past that the editor scrolls, with a fade at its foot. ── */
 .cx-edpane {
@@ -3002,23 +2080,11 @@ button.dq-diff {
   align-items: center;
   gap: 2px;
 }
-.cx-pos {
-  margin-right: 6px;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-color-kumo-default);
-}
 .cx-sep {
   width: 1px;
   height: 16px;
   margin: 0 8px;
   background: var(--color-kumo-line);
-}
-
-.cx-fixed {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--text-color-kumo-subtle);
 }
 
 .cx-reading {
@@ -3068,20 +2134,11 @@ button.dq-diff {
   height: 28px;
   padding: 0 12px;
 }
-.cx-hierr {
-  color: var(--text-color-kumo-subtle);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  overflow-wrap: anywhere;
-}
 .cx-erracts {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-top: 4px !important;
-}
-.cx-fixed .dq-dot {
-  margin: 0 2px;
 }
 /* The console's Go to row field is shown openly: a hairline field at rest. */
 .cx-foot .a17-rowfield {
@@ -3127,8 +2184,6 @@ button.dq-diff {
 .cx-foot .a17-rowfield:not([data-typing]) {
   padding-right: 3px;
 }
-
-/* The console's result edges, the rail's failed step, the fix line. */
 
 /* ── Edges. The whole-row rules stay (whole rows, the strip under them, the shadow over the last row). ── */
 .cx-result[data-edge]::after {
@@ -3182,33 +2237,6 @@ button.dq-diff {
     var(--grid-line) 29px 30px
   );
 }
-/* 4b · endmark: the scroll ends on one quiet line, on the editor's and the foot's text edge. */
-.cx .c18-end {
-  position: sticky;
-  left: 0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 100cqw;
-  height: 30px;
-  margin: 0;
-  padding: 0 0 0 52px;
-  border-top: 1px solid var(--grid-line);
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-color-kumo-subtle);
-}
-.c18-endnext {
-  background: none;
-  border: 0;
-  border-top: 1px solid var(--grid-line);
-  cursor: pointer;
-  font: inherit;
-  font-size: 12px;
-  color: var(--text-color-kumo-default);
-}
 /* 5 · share: the rows take the leftover px (at most 2 each) and snap, so a resting view ends flush with the foot. */
 .cx-result[data-edge='share'] .dq-grid {
   scroll-snap-type: y mandatory;
@@ -3235,11 +2263,6 @@ button.dq-diff {
   gap: 0.3em;
   min-width: 0;
   white-space: nowrap;
-}
-.cx-hisub[data-rail='cut'] .cx-hierr {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .cx-hisub[data-rail='cut'] > span:first-child {
   flex: none;
@@ -3298,9 +2321,6 @@ button.dq-diff {
 }
 .c18-erracts {
   margin-top: 8px !important;
-}
-.c18-footfix {
-  padding-left: 8px;
 }
 
 /* ── Inline, within ChatGPT's and Claude's card rules ──

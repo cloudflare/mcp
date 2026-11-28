@@ -441,7 +441,11 @@ describe('refresh, paging and D1 sort', () => {
     expect(run(s, { type: 'fetch.done', id: first, rows: many(200, 0) })).toBe(s)
     const id = (s.fetch as { id: number }).id
     s = run(s, { type: 'fetch.done', id, rows: many(200, 400) })
-    expect(s).toMatchObject({ page: 50, sort: { column: 1, dir: 'asc' }, fetch: { status: 'idle' } })
+    expect(s).toMatchObject({
+      page: 50,
+      sort: { column: 1, dir: 'asc' },
+      fetch: { status: 'idle' }
+    })
     expect(pageRows(s, 50)[0]![0]).toBe('r500')
     expect(heldIsContiguous(s)).toBe(false)
   })

@@ -388,7 +388,8 @@ function Main({
   const opened = useRef(shown)
   useEffect(() => {
     // The re-read an entry opens on (above) already landed, and one shown from the history (below) is already there.
-    if (shown.source !== 'rerun' || shown === opened.current || shown.outcome === entry.latest) return
+    if (shown.source !== 'rerun' || shown === opened.current || shown.outcome === entry.latest)
+      return
     const same = shown.sql.trim() === entry.query.sql.trim()
     onRan(
       {

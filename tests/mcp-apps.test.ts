@@ -4,7 +4,7 @@ import { InMemoryTransport, McpServer } from '@modelcontextprotocol/server'
 import { http, HttpResponse } from 'msw'
 import { z } from 'zod'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
+import { type AuthProps } from '../src/auth/types'
 import { DIRECT_CONNECTION, type Connection } from '../src/api-permissions'
 import { ScopeChallenge } from '../src/scope-challenge'
 import {

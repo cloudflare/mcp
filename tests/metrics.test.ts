@@ -11,7 +11,7 @@ import {
 } from '../src/metrics'
 import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
-import { clearSpec, seedSpec } from './helpers/spec'
+import { clearSpec } from './helpers/spec'
 import { MCP_URL, callTool, mcpToolCallRequest, parseMcpResult } from './helpers/mcp'
 import { server } from './setup/msw'
 
