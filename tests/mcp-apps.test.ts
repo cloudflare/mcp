@@ -113,6 +113,15 @@ describe('defineMcpApp', () => {
     })
   })
 
+  it('declares the Cloudflare icon on the tool, for the host to draw in place of a logo in the card', () => {
+    expect(fixture.tool.icons).toEqual([
+      expect.objectContaining({
+        mimeType: 'image/svg+xml',
+        src: expect.stringMatching(/^data:image\/svg\+xml;base64,/)
+      })
+    ])
+  })
+
   it('lists in Code Mode with the same definition the direct tools send', async () => {
     const client = await connected()
     const listed = (await client.listTools()).tools

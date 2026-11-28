@@ -88,7 +88,7 @@ export function registerMcpApps(
   { view = true }: { view?: boolean } = {}
 ): void {
   for (const app of apps) {
-    const { name, title, description, annotations, _meta } = view
+    const { name, title, description, annotations, icons, _meta } = view
       ? app.tool
       : withoutAppView(app.tool)
     server.registerTool(
@@ -97,6 +97,7 @@ export function registerMcpApps(
         title,
         description,
         annotations: { ...annotations },
+        ...(icons && { icons }),
         ...(_meta && { _meta }),
         inputSchema: app.inputSchema,
         outputSchema: app.outputSchema

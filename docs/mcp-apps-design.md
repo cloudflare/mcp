@@ -42,7 +42,7 @@ The card carries no Cloudflare logo. Both hosts draw the app's name and icon the
 - **ChatGPT**: "Do not include your logo as part of the response. ChatGPT will always append your logo and app name before the widget is rendered" (Apps SDK UI guidelines, Icons & imagery).
 - **Claude** shows the app's icon in the view's title bar. Icons inside the view are monochrome and outlined, in the host's icon colours, never a coloured logo.
 
-A mark in the card shows the logo twice. The title starts the card on its own, in the text column. To change the icon a host shows, declare it on the server (`serverInfo.icons`) or on the tool (`icons`), not in the view.
+A mark in the card shows the logo twice. The title starts the card on its own, in the text column. The server and every App tool declare the Cloudflare glyph as their icon (`CLOUDFLARE_ICONS` in `src/constants.ts`, a data URI, so no host fetches anything), and `defineMcpApp()` puts it on each App's tool. ChatGPT draws it in the row above the card; without it, ChatGPT falls back to a generic grid icon.
 
 ### Icons
 

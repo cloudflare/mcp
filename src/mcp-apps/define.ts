@@ -6,6 +6,7 @@ import type {
 } from '@modelcontextprotocol/server'
 import { z } from 'zod'
 import type { AuthProps } from '../auth/types'
+import { CLOUDFLARE_ICONS } from '../constants'
 import type { Connection } from '../api-permissions'
 import type { ScopeChallenge } from '../scope-challenge'
 import type { StaticResource } from '../skills/handlers'
@@ -191,6 +192,8 @@ export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType
     title: definition.title,
     description: definition.description,
     annotations: definition.annotations,
+    // The host draws the mark in its own chrome, so the view carries no logo.
+    icons: CLOUDFLARE_ICONS,
     _meta: meta,
     inputSchema: listedJsonSchema(definition.input),
     outputSchema: listedJsonSchema(definition.output)
