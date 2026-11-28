@@ -117,6 +117,21 @@ function Studio({ result, app }: { result: D1StudioResult; app: App }) {
   // flight, and the console's runs, outlive going fullscreen and back.
   const answer = useAnswerCard(result.answer, result.readAt, env)
   const history = useConsoleHistory(result)
+  const shown = answer[0].shown
+  const recordedInlineRun = useRef<typeof shown>(undefined)
+  const { land } = history
+  useEffect(() => {
+    // Record a completed read once. Opening or closing the card, or switching display modes,
+    // does not create a new result. Keep the selected console entry where it is.
+    if (shown.source !== 'rerun' || shown === recordedInlineRun.current) return
+    recordedInlineRun.current = shown
+    land(
+      { purpose: 'query', title: result.answer.title, sql: shown.sql, outcome: shown.outcome },
+      undefined,
+      false,
+      shown.readAt
+    )
+  }, [shown, land, result.answer.title])
   // Back from fullscreen: the card is the closed card again (its draft kept), focus on the ⛶.
   const sectionRef = useRef<HTMLElement>(null)
   const was = useRef(display)

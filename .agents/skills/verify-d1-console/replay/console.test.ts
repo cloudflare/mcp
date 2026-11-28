@@ -419,13 +419,15 @@ const last = (s: StudioSim) => s.reads[s.reads.length - 1]!
 // ── Source checks ──
 
 describe('the transcription still matches the code', () => {
+  const ignoreWrapping = (text: string) => text.replace(/\s+/g, ' ')
+
   it('has every transcribed line of console.tsx', () => {
-    const src = readFileSync(CONSOLE_SRC, 'utf8')
-    expect(CONSOLE_LINES.filter((line) => !src.includes(line))).toEqual([])
+    const src = ignoreWrapping(readFileSync(CONSOLE_SRC, 'utf8'))
+    expect(CONSOLE_LINES.filter((line) => !src.includes(ignoreWrapping(line)))).toEqual([])
   })
   it('has every transcribed line of d1-studio-app.tsx', () => {
-    const src = readFileSync(STUDIO_SRC, 'utf8')
-    expect(STUDIO_LINES.filter((line) => !src.includes(line))).toEqual([])
+    const src = ignoreWrapping(readFileSync(STUDIO_SRC, 'utf8'))
+    expect(STUDIO_LINES.filter((line) => !src.includes(ignoreWrapping(line)))).toEqual([])
   })
 })
 
