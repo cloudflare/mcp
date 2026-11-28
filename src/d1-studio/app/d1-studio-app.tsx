@@ -11,10 +11,8 @@ import {
   type ReactNode
 } from 'react'
 import {
-  ArrowSquareOutIcon,
   CaretLeftIcon,
   CaretRightIcon,
-  CaretUpIcon,
   CheckIcon,
   CopyIcon,
   CornersOutIcon,
@@ -27,7 +25,6 @@ import {
   SortDescendingIcon,
   WarningCircleIcon
 } from '@phosphor-icons/react'
-import { CloudflareLogo } from '@cloudflare/kumo'
 import type { App } from '@modelcontextprotocol/ext-apps'
 import { mountMcpApp } from '../../mcp-apps/app-shell/mount'
 import {
@@ -40,9 +37,8 @@ import {
   type D1StudioResult
 } from '../contract'
 import { Console, useConsoleHistory } from './console'
-import { CopyToastHost, copyRows, copyText, useCopyToast } from './copy'
-import { FIX_H, Fill, NO_PLAN, RICH_H, type Plan } from './fill'
-import { FORMAT_LABEL, columnType, count, duration } from './format'
+import { CopyToastHost, copyAllRows, copyRows, copyScope, copyText, useCopyToast } from './copy'
+import { FORMAT_LABEL, columnType, count, duration, fitColumns } from './format'
 import {
   PAGE_ROWS,
   SEND_TIMEOUT_MS,
@@ -52,20 +48,15 @@ import {
   cardReducer,
   copyReducer,
   foundWords,
-  heldIsContiguous,
   heldRows,
   initialCard,
   isBusy,
   isEdited,
   isStale,
   keptOutcome,
-  limitPaging,
   moved,
-  pageCount,
-  pageRows,
   shownOutcome,
   shownSql,
-  sortRows,
   type CardEvent,
   type CardKind,
   type CardState,
@@ -87,21 +78,19 @@ import { closest, fixOf, markOf, reasonOf, verdictOf } from './verdict'
 import './d1-studio.css'
 
 /**
- * D1 Studio: one card per `d1_studio` call, after the dashboard's Studio.
- * The card is compact by default: the Cloudflare mark as the title's first word, the row count and
- * the copy trio, then the query folded a clause per line on the editor's tray,
- * with Run (or Edit, when running it as is can't help) in the tray's corner.
- * The rows open under it as Studio's table. An open card ends in one recessed
- * band: the receipt on the left, the actions on the right, Run last. Earlier
- * queries that led to the answer sit below it as a train of steps.
+ * D1 Studio: one card per `d1_studio` call, after the dashboard's Studio,
+ * within ChatGPT's and Claude's inline card rules: the title and the row
+ * count, the query folded a clause per line on the editor's tray, the first
+ * ten rows when open (columns that don't fit leave; nothing scrolls), and a
+ * band at the bottom with at most two actions and ⛶. No logo (the host draws
+ * the declared icon), no popovers, the host's colours, fonts and frame.
  *
  * The answer's SQL can be edited and re-run in the view: a read goes through
  * the host (`callServerTool('d1_raw')`) with no model turn, and a write is
  * handed to the chat for the user to approve. The editor renders only once
- * the user opens the query. Past ten rows the band pages them (Go to row
- * included); a query's own small LIMIT pages by writing OFFSET into its SQL.
- * In a host frame taller than the card the card fills it (fill.tsx); in the
- * host's fullscreen the view is the console (console.tsx).
+ * the user opens the query, in the card, or on Claude in fullscreen. Paging,
+ * sorting, Markdown, the dashboard link and the earlier queries are in the
+ * host's fullscreen, where the view is the console (console.tsx).
  */
 
 /** What the card needs from the host, fixed for the card's life. */
@@ -159,10 +148,7 @@ function Studio({ result, app }: { result: D1StudioResult; app: App }) {
           ref={sectionRef}
           key={display}
         >
-          <Card state={answer[0]} dispatch={answer[1]} env={env} steps={result.steps} />
-          {result.steps.length > 0 && (
-            <Train steps={result.steps} answer={result.answer} env={env} />
-          )}
+          <Card state={answer[0]} dispatch={answer[1]} env={env} />
         </section>
       )}
       <CopyToastHost />
@@ -219,7 +205,10 @@ function useKeyboardModality() {
   }, [])
 }
 
-/** While the agent's call runs: its title and SQL from the tool input, the trio in place but disabled. */
+/**
+ * While the agent's call runs: its title and SQL from the tool input, then
+ * skeleton rows and band in the card's own layout. No spinner inline.
+ */
 function Pending({ input }: { input: Record<string, unknown> | undefined }) {
   const parsed = D1StudioInputSchema.safeParse(input)
   const title = parsed.success
@@ -229,12 +218,7 @@ function Pending({ input }: { input: Record<string, unknown> | undefined }) {
   return (
     <section className="dq" aria-label={`D1 query: ${title}`} aria-busy="true">
       <div className="dq-receipt" data-kind="running">
-        <Head
-          kind="running"
-          title={title}
-          count={<CountText kind="running" rows={0} />}
-          action={<Trio disabled />}
-        />
+        <Head kind="running" title={title} count={<CountText kind="running" rows={0} />} />
         {sql && (
           <div className="dq-cell" aria-hidden="true">
             <div className="dq-sql dq-sql-cell">
@@ -242,6 +226,16 @@ function Pending({ input }: { input: Record<string, unknown> | undefined }) {
             </div>
           </div>
         )}
+        <div className="dq-skel" aria-hidden="true">
+          {[64, 48, 56].map((w, i) => (
+            <i key={i} style={{ width: `${w}%` }} />
+          ))}
+        </div>
+      </div>
+      <div className="dq-band" aria-hidden="true">
+        <span className="dq-cap">
+          <i className="dq-skelbar" />
+        </span>
       </div>
     </section>
   )
@@ -300,7 +294,8 @@ export function useRunEffects(
       const outcome = runRead(env.app, env.database, run.sql, abort.signal)
       outcome.then(
         (o) => {
-          if (mounted.current) dispatch({ type: 'run.done', id: run.id, outcome: o, at: Date.now() })
+          if (mounted.current)
+            dispatch({ type: 'run.done', id: run.id, outcome: o, at: Date.now() })
         },
         (error: unknown) => {
           if (mounted.current && !abort.signal.aborted)
@@ -397,26 +392,38 @@ function useMinute(): number {
   return now
 }
 
-/** The first page shown: rows 1–10, or (paged) "rows 1–10 of 1,284". */
-const showLabel = (paged: boolean, total: number) =>
-  paged ? `Show rows 1–${PAGE_ROWS} of ${count(total)}` : `Show ${count(total)} rows`
+/** What opening the rows shows: "Show 10 rows", "Show the first 10 of 1,284 rows". */
+const showLabel = (total: number) =>
+  total > PAGE_ROWS
+    ? `Show the first ${PAGE_ROWS} of ${count(total)} rows`
+    : `Show ${count(total)} ${total === 1 ? 'row' : 'rows'}`
 
+/** The most columns the inline table shows; the rest are fullscreen's (and every copy's). */
+const FIT_COLUMNS = 5
+
+/** Open the host's fullscreen: the console, with paging, sorting, the earlier queries and the editor. */
+const openFullscreen = (env: Env) =>
+  void env.app.requestDisplayMode({ mode: 'fullscreen' }).catch(() => undefined)
+
+/**
+ * The answer card, inline: the title line, the SQL on its tray, a state line
+ * when one is needed, the first PAGE_ROWS rows when open (columns that don't
+ * fit leave, nothing scrolls), and the band. No paging, sorting or earlier
+ * queries inline: fullscreen has them, one tap away.
+ */
 function Card({
   state,
   dispatch,
-  env,
-  steps
+  env
 }: {
   state: CardState
   dispatch: Dispatch<CardEvent>
   env: Env
-  steps: readonly D1Query[]
 }) {
   const outcome = shownOutcome(state)
   const kind = cardKind(state.query.purpose, outcome)
   const rowsId = useId()
   const reasonId = `${useId()}-why`
-  const rowsRef = useRef<HTMLDivElement>(null)
   const now = useMinute()
   const held = useMemo(() => heldRows(state), [state.shown, state.sort, state.held])
   // A read the user ran that D1 refused keeps the agent's rows under its error, dimmed.
@@ -424,13 +431,14 @@ function Card({
   const columns = outcome.status === 'rows' ? outcome.columns : (kept?.columns ?? [])
   const total = outcome.status === 'rows' ? outcome.rowCount : 0
   const [focus, setFocus] = useState<Focus>()
+  const [hidden, setHidden] = useState(0)
+  // On Claude the SQL is edited in fullscreen (freeform text entry belongs to the chat or fullscreen there).
+  const editElsewhere = state.editable && env.host.editInFullscreen
   const openEditor = (at: Focus) => {
+    if (editElsewhere) return openFullscreen(env)
     setFocus(at)
     if (state.pane === 'short') dispatch({ type: 'pane.toggle' })
   }
-  // The card's share of a taller host frame (fill.tsx), shared by its two fillers.
-  const [plan, setPlan] = useState<Plan>(NO_PLAN)
-  const [filled, setFilled] = useState('none')
 
   const ranAny = state.found.kind !== 'agent'
   const changed = state.draft !== state.query.sql
@@ -457,133 +465,36 @@ function Card({
   const editorOpen = state.pane === 'full'
   const rowsBlock = kind === 'rows' || !!kept
   const rowsOpen = state.rows === 'open' && rowsBlock
-  const resultOpen = rowsOpen && kind === 'rows'
+  const visible = (kept ? kept.rows : held).slice(0, PAGE_ROWS)
 
-  // ── The open table pages ten rows at a time. The gutter counts from the result's start. ──
-  const paged = kind === 'rows' && total > PAGE_ROWS
-  const limited = limitPaging(state)
-  const from = state.page * PAGE_ROWS
-  const visible = kept ? kept.rows : paged ? pageRows(state, state.page) : held
-  // A short last page keeps ten rows' height: the pager never moves under the pointer.
-  const pad = paged ? PAGE_ROWS - visible.length : 0
-  const sorting = state.fetch.status === 'sorting'
-  const pager = paged ? pagerOf(state, total, visible.length, dispatch) : undefined
-  const contiguous = heldIsContiguous(state)
-
-  // "2 values changed" brings a changed cell into view and shows its old value: the first one off the table's scroll
-  // edge (at 352 a column can be), else the next, so every press shows something.
-  const markAt = useRef(-1)
-  const showMark = () => {
-    const grid = rowsRef.current?.querySelector<HTMLElement>('.dq-grid')
-    const cells = Array.from(grid?.querySelectorAll<HTMLElement>('td[data-changed]') ?? [])
-    if (!grid || !cells.length) return
-    const gutter = grid.querySelector<HTMLElement>('.dq-gutter')?.offsetWidth ?? 0
-    const inView = (c: HTMLElement) =>
-      c.offsetLeft >= grid.scrollLeft + gutter &&
-      c.offsetLeft + c.offsetWidth <= grid.scrollLeft + grid.clientWidth - 8
-    const hidden = cells.findIndex((c) => !inView(c))
-    markAt.current = hidden >= 0 ? hidden : (markAt.current + 1) % cells.length
-    const cell = cells[markAt.current]!
-    if (!inView(cell))
-      grid.scrollTo({
-        left:
-          cell.offsetLeft < grid.scrollLeft + gutter
-            ? cell.offsetLeft - gutter
-            : cell.offsetLeft + cell.offsetWidth - grid.clientWidth + 24,
-        behavior: 'smooth'
-      })
-    for (const c of cells) c.removeAttribute('data-tip')
-    cell.setAttribute('data-tip', '')
-    cell.focus({ preventScroll: true })
-  }
-
-  /** "Copy all": `d1_raw`, `SELECT * FROM (<sql>) [ORDER BY …] LIMIT n OFFSET m`, one block at a time. */
-  const readRest =
-    env.host.run && outcome.status === 'rows' && total > held.length
-      ? (offset: number, limit: number) =>
-          readRows(env.app, env.database, shownSql(state), { sort: state.sort, offset, limit })
-      : undefined
-  const action =
-    kind === 'rows' ? (
-      <Trio
-        columns={columns}
-        rows={held}
-        total={total}
-        contiguous={contiguous}
-        readRest={readRest}
-        env={env}
-      />
-    ) : kind === 'error' && !(editorOpen && state.editable) ? (
-      // With the editor open its band carries Copy SQL, so the title line doesn't repeat it.
-      <CopySql sql={shownSql(state)} />
-    ) : null
-
-  // ── Filling a taller frame (fill.tsx). A closed card takes the slack; an edited card (editor open, rows closed)
-  //    shows the agent's band under its action row. ──
-  const closed = !editorOpen && state.rows === 'closed'
-  const fillable = closed && (kind === 'rows' || kind === 'none' || kind === 'error')
-  const editFill = editorOpen && !rowsOpen && state.editable
-  // The one more line a closed card adds where the frame has room: a failed answer's fix (a read the view runs), or the
-  // answer naming the failed step it fixes.
-  const failedAt = steps.findIndex((s) => s.outcome.status === 'failed')
+  // A failed answer whose missing name has a close match offers the read that uses it.
   const fix = outcome.status === 'failed' ? outcome.fix : undefined
   const fixSql =
     fix && outcome.status === 'failed' && outcome.token
       ? replaceIdentifier(shownSql(state), outcome.token, fix.use)
       : undefined
-  const richKind: 'fix' | 'train' | undefined = !fillable
-    ? undefined
-    : kind === 'error' && fixSql && !changed && !ranAny && env.host.run
-      ? 'fix'
-      : kind === 'rows' && failedAt >= 0 && !ranAny
-        ? 'train'
-        : undefined
-  const rich = fillable && plan.rich && !!richKind
-  const trainRef = useRef<HTMLParagraphElement>(null)
+  const offerFix = kind === 'error' && !!fixSql && !changed && !ranAny && env.host.run
 
-  const stale = kind === 'rows' && isStale(state, now)
-  const layered = editorOpen || rowsOpen
-  const band = layered ? (
-    <Band
-      state={state}
-      dispatch={dispatch}
-      env={env}
-      outcome={outcome}
-      editorOpen={editorOpen}
-      rowsOpen={resultOpen}
-      kept={!!kept && rowsOpen}
-      stale={stale}
-      now={now}
-      pager={pager}
-      limited={limited}
-      reasonId={reasonId}
-      onShowMark={showMark}
-    />
-  ) : null
-  const lastBand = useRef<ReactNode>(null)
-  if (band) lastBand.current = band
-  const links = <ResultLinks env={env} />
+  /** The copy's rows past those held: `d1_raw`, `SELECT * FROM (<sql>) LIMIT n OFFSET m`, one block at a time. */
+  const readRest =
+    env.host.run && outcome.status === 'rows' && total > held.length
+      ? (offset: number, limit: number) =>
+          readRows(env.app, env.database, shownSql(state), { sort: state.sort, offset, limit })
+      : undefined
 
   return (
     <>
-      <div
-        className="dq-receipt"
-        data-open={rowsOpen ? '' : undefined}
-        data-kind={kind}
-        data-layered={layered || filled === 'band' ? '' : undefined}
-        style={editFill && plan.grow ? { ['--ed-grow' as string]: `${plan.grow}px` } : undefined}
-      >
+      <div className="dq-receipt" data-open={rowsOpen ? '' : undefined} data-kind={kind}>
         <Head
           kind={kind}
           title={state.query.title}
           count={<CountText kind={kind} rows={total} />}
-          action={action}
           disclosure={
             kind === 'rows'
               ? {
                   open: rowsOpen,
                   controls: rowsId,
-                  label: showLabel(paged, total),
+                  label: showLabel(total),
                   onToggle: () => dispatch({ type: 'rows.toggle' })
                 }
               : undefined
@@ -598,163 +509,72 @@ function Card({
           focus={focus}
           reasonId={reasonId}
           onFold={() => setFocus(undefined)}
+          onEdit={editElsewhere ? () => openFullscreen(env) : undefined}
         />
         {!editorOpen &&
-          (rich && richKind === 'fix' && fix && fixSql && outcome.status === 'failed' ? (
+          (offerFix && fix && fixSql && outcome.status === 'failed' ? (
             <FixLines
               outcome={outcome}
               fix={fix}
               busy={isBusy(state.run)}
-              tight={plan.tight}
               onUse={() => dispatch({ type: 'run.sql', sql: fixSql })}
             />
           ) : (
             <StateLine outcome={outcome} kind={kind} env={env} />
           ))}
         {!editorOpen && <RunLine state={state} />}
-        {rich && richKind === 'train' && (
-          <p className="dq-line2 dq-line2-act b18-rich b18-trainfix" ref={trainRef}>
-            <span className="dq-line2-text">
-              {/* The answer succeeded: the error it fixes is quoted in plain ink, not as a new failure. */}
-              Fixes query {failedAt + 1}:{' '}
-              <span className="dq-mono">
-                {(steps[failedAt]!.outcome as { error: string }).error}
-              </span>
-            </span>
-            <Ghost
-              outline
-              onClick={() =>
-                trainRef.current
-                  ?.closest('section.dq')
-                  ?.dispatchEvent(new CustomEvent(OPEN_STEP, { detail: failedAt }))
-              }
-            >
-              Open {failedAt + 1}
-            </Ghost>
-          </p>
-        )}
         {rowsBlock && (
-          <div className="dq-rows" id={rowsId} ref={rowsRef} inert={!rowsOpen || undefined}>
+          <div className="dq-rows" id={rowsId} inert={!rowsOpen || undefined}>
             <div className="dq-rows-in">
               <Grid
                 columns={columns}
                 rows={visible}
                 widthRows={kept ? kept.rows : held}
-                offset={kept ? 0 : from + (limited?.offset ?? 0)}
-                pad={kept ? 0 : pad}
-                count={kept ? kept.rowCount : total + (limited?.offset ?? 0)}
-                sort={sorting && state.fetch.status === 'sorting' ? state.fetch.sort : state.sort}
-                busy={sorting}
+                count={kept ? kept.rowCount : total}
+                sort={null}
                 dim={!!kept}
-                label={pager ? `Rows ${pager.label}` : undefined}
-                onPage={pager && ((d) => dispatch({ type: 'page', page: state.page + d }))}
+                label={`${count(visible.length)} of ${count(kept ? kept.rowCount : total)} rows`}
                 was={state.found.kind === 'changed' ? state.found.was : undefined}
-                onSort={(column) => !kept && dispatch({ type: 'sort', column })}
+                onSort={() => undefined}
+                fit={{ max: FIT_COLUMNS, onHidden: setHidden }}
               />
             </div>
           </div>
         )}
       </div>
-      {fillable && (
-        <Fill
-          mode="closed"
-          peekable={kind === 'rows'}
-          richH={richKind ? (richKind === 'fix' ? FIX_H : RICH_H) : 0}
-          richTight={richKind === 'fix'}
-          plan={plan}
-          onPlan={setPlan}
-          onFilled={setFilled}
-          max={Math.min(2, held.length)}
-          onOpen={() => dispatch({ type: 'rows.toggle' })}
-          label={showLabel(paged, total)}
-          peek={(n) => (
-            <div className="dq-rows-in a17-peek">
-              <Grid
-                columns={columns}
-                rows={held.slice(0, n)}
-                widthRows={held}
-                count={Math.min(PAGE_ROWS, total)}
-                sort={state.sort}
-                onSort={() => undefined}
-              />
-            </div>
-          )}
-          band={
-            <div className="dq-layer" data-v="4">
-              <span className="dq-rcpt">
-                {outcome.status === 'rows' && <StatsCompact outcome={outcome} />}
-              </span>
-              <span className="dq-acts">{links}</span>
-            </div>
-          }
-        />
-      )}
-      {/* Always mounted, holding its last content while it collapses, so it leaves the way it came. */}
-      <div
-        className="dq-layerwrap"
-        data-on={layered ? '' : undefined}
-        inert={!layered || undefined}
-      >
-        <div>{lastBand.current}</div>
-      </div>
-      {editFill && (
-        <Fill
-          mode="edit"
-          peekable={false}
-          plan={plan}
-          onPlan={setPlan}
-          onFilled={setFilled}
-          max={0}
-          onOpen={() => undefined}
-          label=""
-          peek={() => null}
-          band={
-            <div className="dq-layer" data-v="4">
-              <span className="dq-rcpt">
-                {ranAny && state.found.kind !== 'failed' && <RanMark />}
-                {(outcome.status === 'rows' ? outcome : kept) && (
-                  <StatsCompact
-                    outcome={(outcome.status === 'rows' ? outcome : kept)!}
-                    who={ranAny && outcome.status === 'rows' ? 'you' : 'agent'}
-                  />
-                )}
-              </span>
-              <span className="dq-acts">{links}</span>
-            </div>
-          }
-        />
-      )}
+      <Band
+        state={state}
+        dispatch={dispatch}
+        env={env}
+        outcome={outcome}
+        kind={kind}
+        editing={editorOpen && state.editable}
+        rowsOpen={rowsOpen}
+        shown={visible.length}
+        hidden={rowsOpen ? hidden : 0}
+        stale={kind === 'rows' && isStale(state, now)}
+        now={now}
+        held={held}
+        readRest={readRest}
+        reasonId={reasonId}
+      />
     </>
   )
 }
 
-/** The event the answer's "Open 3" sends its card's section, to open the train at that step. */
-const OPEN_STEP = 'dq-open-step'
-
-/** The receipt's first mark once a re-read's rows are on screen: ✓, "Ran here" in its name. */
-function RanMark() {
-  return (
-    <span className="dq-ranmark" role="img" aria-label="Ran here" title="Ran here">
-      <CheckIcon size={12} weight="bold" aria-hidden="true" />
-    </span>
-  )
-}
-
 /**
- * A failed card with room for one more line: D1's words on their own line,
- * then what the name likely meant and the fix the view can run (a read).
+ * A failed card whose missing name has a close match: D1's words on their own
+ * line, then what the name likely meant and the fix the view can run (a read).
  */
 function FixLines({
   outcome,
   fix,
   busy,
-  tight,
   onUse
 }: {
   outcome: Extract<D1Outcome, { status: 'failed' }>
   fix: { use: string; table?: string }
   busy: boolean
-  tight: boolean
   onUse: () => void
 }) {
   const name = fix.use.split('.').pop()!
@@ -763,7 +583,7 @@ function FixLines({
       <p className="dq-line2" role="alert">
         <span className="dq-mono dq-danger">{outcome.error}</span>
       </p>
-      <p className="dq-line2 dq-line2-act b18-rich" data-tight={tight ? '' : undefined}>
+      <p className="dq-line2 dq-line2-act">
         <span className="dq-line2-text">
           {fix.table ? `${fix.table} has ${name}` : `Did you mean ${name}?`}
         </span>
@@ -787,7 +607,7 @@ export function emptier(sql: string): [number, number] | undefined {
   return [start, start + m[1].length]
 }
 
-// ── The band pager: past ten rows the open band says where you are and carries ‹ › ──
+// ── The fullscreen console's pager: where you are, and ‹ › ──
 
 export interface PagerState {
   readonly from: number
@@ -803,51 +623,6 @@ export interface PagerState {
   readonly busy?: 'next' | 'prev' | 'sort'
   readonly prevLabel: string
   readonly nextLabel: string
-}
-
-function pagerOf(
-  state: CardState,
-  total: number,
-  shownRows: number,
-  dispatch: Dispatch<CardEvent>
-): PagerState {
-  const pages = pageCount(state)
-  const page = state.page
-  const from = page * PAGE_ROWS
-  const range = (a: number, b: number) => `${count(a + 1)}–${count(b)}`
-  const span = (p: number) => [p * PAGE_ROWS, Math.min(total, (p + 1) * PAGE_ROWS)] as const
-  const busy =
-    state.fetch.status === 'paging'
-      ? state.fetch.page < page
-        ? 'prev'
-        : 'next'
-      : state.fetch.status === 'sorting'
-        ? 'sort'
-        : undefined
-  return {
-    from: from + 1,
-    to: from + shownRows,
-    total,
-    label: `${range(from, from + shownRows)} of ${count(total)}`,
-    canPrev: page > 0,
-    canNext: page < pages - 1,
-    prev: () => dispatch({ type: 'page', page: page - 1 }),
-    next: () => dispatch({ type: 'page', page: page + 1 }),
-    toRow: (n) =>
-      dispatch({
-        type: 'page',
-        page: Math.max(0, Math.min(pages - 1, Math.floor((n - 1) / PAGE_ROWS)))
-      }),
-    busy,
-    prevLabel:
-      page > 0
-        ? `Previous ${PAGE_ROWS} rows, ${range(...span(page - 1))}`
-        : `Previous ${PAGE_ROWS} rows`,
-    nextLabel:
-      page < pages - 1
-        ? `Next ${span(page + 1)[1] - span(page + 1)[0]} rows, ${range(...span(page + 1))}`
-        : `Next ${PAGE_ROWS} rows`
-  }
 }
 
 /**
@@ -962,261 +737,166 @@ export function PagerArrows({ p }: { p: ArrowsState }) {
 }
 
 /**
- * The open card's one recessed band: one band, one receipt.
- * Left, a receipt of what's on screen: `✓ Ran here · 2 values changed · 38.4
- * ms · 48,212 rows read`, `Read 3h ago`, `Sorting all 1,284 in D1`, or, past
- * ten rows, where you are (`Rows 11–20 of 1,284`, or `Rows 1–10 · LIMIT 10`
- * for a query's own LIMIT). Right, the actions: the editor's (Short form,
- * Copy SQL, then Run, last and bottom-right) or the table's (‹ ›, full
- * screen, Studio, and Run when the rows are old). With both open, the receipt
- * sits over the actions.
+ * The card's band, always its last element. Left, one line of what is on
+ * screen: `10 of 1,284 rows · 42.7 ms`, `✓ Ran here · 2 values changed · …`,
+ * `Read 3h ago · …`, `Editing · rows below are from the last run`. D1's rows
+ * read and the copy's scope are in its hover hint (the browser's own, never a
+ * popover the card draws). Right, at most two actions, then ⛶: a result's CSV
+ * and JSON (the whole result), a failed query's Copy SQL, and while editing
+ * Revert (Cancel when there is nothing to revert) and Run.
  */
 function Band({
   state,
   dispatch,
   env,
   outcome,
-  editorOpen,
+  kind,
+  editing,
   rowsOpen,
-  kept,
+  shown,
+  hidden,
   stale,
   now,
-  pager,
-  limited,
-  reasonId,
-  onShowMark
+  held,
+  readRest,
+  reasonId
 }: {
   state: CardState
   dispatch: Dispatch<CardEvent>
   env: Env
   outcome: D1Outcome
-  editorOpen: boolean
+  kind: CardKind
+  /** The editor is open on an editable card. */
+  editing: boolean
   rowsOpen: boolean
-  /** The agent's rows are open under a refused read. */
-  kept: boolean
+  /** The rows the open table shows, and the columns it left out. */
+  shown: number
+  hidden: number
   stale: boolean
   now: number
-  pager?: PagerState
-  limited?: { limit: number; offset: number }
+  held: readonly (readonly D1Cell[])[]
+  readRest?: (offset: number, limit: number) => Promise<readonly (readonly D1Cell[])[]>
   reasonId: string
-  onShowMark: () => void
 }) {
-  const ranAny = state.found.kind !== 'agent'
-  const ranOk = ranAny && state.found.kind !== 'failed'
-  const changed = state.draft !== state.query.sql
-  const sql = state.editable ? state.draft : shownSql(state)
-  const lines = sql.split('\n').length
+  const ranOk = state.found.kind !== 'agent' && state.found.kind !== 'failed'
   const words = foundWords(state.found)
+  const changed = state.draft !== state.query.sql
   const total = outcome.status === 'rows' ? outcome.rowCount : 0
-  const sorting = state.fetch.status === 'sorting'
-  const fetchFailed = state.fetch.status === 'failed' ? state.fetch.error : undefined
-  const status = sorting ? (
-    <span className="dq-layer-note dq-sorting" role="status">
-      <span className="dq-spin" aria-hidden="true" />
-      Sorting all {count(total)} in D1
-    </span>
-  ) : fetchFailed ? (
-    <span className="dq-layer-note dq-danger" role="alert">
-      {fetchFailed}
-    </span>
-  ) : ranOk ? (
+  const meta = outcome.status === 'rows' ? outcome.meta : undefined
+  const time = meta?.durationMs != null ? duration(meta.durationMs) : undefined
+  const lead = ranOk ? (
     <span className="dq-ranhere dq-ranhere-ok">
       <CheckIcon size={12} weight="bold" aria-hidden="true" />
       Ran here
-      {words &&
-        (state.found.kind === 'changed' ? (
-          <>
-            <span className="dq-dot">·</span>
-            <button
-              type="button"
-              className="dq-diff"
-              data-changed=""
-              title="Show the changed values"
-              onClick={onShowMark}
-            >
-              {words}
-            </button>
-          </>
-        ) : (
-          <span className="dq-diff" data-changed={moved(state.found) ? '' : undefined}>
-            <span className="dq-dot">·</span>
-            {words}
-          </span>
-        ))}
+      {words && (
+        <span className="dq-diff" data-changed={moved(state.found) ? '' : undefined}>
+          {` · ${words}`}
+        </span>
+      )}
     </span>
-  ) : editorOpen && changed ? (
-    <span className="dq-layer-note">
-      Edited
-      {kept && <span className="dq-wide-in"> · the agent’s rows below</span>}
-    </span>
-  ) : stale && rowsOpen && !editorOpen ? (
-    // Old rows: the age is said where the rows are looked at, beside the Run that renews them. Never on a closed card.
-    <span className="dq-layer-note dq-readage">Read {ageWords(now - state.shown.readAt, now)}</span>
-  ) : editorOpen && !rowsOpen && lines > 1 ? (
-    // A one-line draft can still wrap to several lines on screen, so "1 line" would read wrong: the count is for drafts
-    // written over several lines.
-    <span className="dq-layer-note">
-      {lines} {lines === 1 ? 'line' : 'lines'}
-    </span>
+  ) : editing ? (
+    `${changed ? 'Edited' : 'Editing'}${rowsOpen ? ' · rows below are from the last run' : ''}`
+  ) : stale ? (
+    `Read ${ageWords(now - state.shown.readAt, now)}`
   ) : null
-  // The rows' band holds the primary Run (bottom-right, where the editor's band has it) only while the rows are old.
-  const bandRun = !editorOpen && rowsOpen && state.editable && !changed && stale && env.host.run
-  const revert = canRevert(state) && (
-    <Ghost onClick={() => dispatch({ type: 'revert' })}>Revert</Ghost>
+  const rowsWords =
+    kind === 'none'
+      ? 'No rows'
+      : kind !== 'rows'
+        ? undefined
+        : rowsOpen && total > shown
+          ? `${count(shown)} of ${count(total)} rows`
+          : `${count(total)} ${total === 1 ? 'row' : 'rows'}`
+  const tail =
+    editing && !ranOk
+      ? []
+      : [rowsWords, hidden > 0 && `+${hidden} ${hidden === 1 ? 'column' : 'columns'}`, time].filter(
+          (p): p is string => !!p
+        )
+  const copies = copyScope(held.length, total, !!readRest)
+  const hint =
+    kind === 'rows' && !editing
+      ? `${[time, meta?.rowsRead != null && `${count(meta.rowsRead)} rows read`].filter(Boolean).join(' · ')}. CSV and JSON copy ${copyWords(copies, total)} and every column.`
+      : undefined
+
+  const sep = <span className="dq-bsep" aria-hidden="true" />
+  const expand = env.host.fullscreen && (
+    <IconButton className="dq-ex" label="Open full screen" fs onClick={() => openFullscreen(env)}>
+      <CornersOutIcon size={16} aria-hidden="true" />
+    </IconButton>
   )
-  const links = <ResultLinks env={env} />
-  // A re-read of the agent's own SQL says what it found where the position was, on the first page; paging on, the
-  // position comes back.
-  const foundFirst = !!words && ranOk && state.page === 0 && !limited?.offset
-
-  // A query's own LIMIT: OFFSET is written into the SQL (old rows keep their age beside the Run that renews them).
-  if (limited && rowsOpen && !editorOpen && !sorting && !bandRun && outcome.status === 'rows') {
-    const { limit, offset } = limited
-    return (
-      <div className="dq-layer" data-v="4">
-        <span className="dq-rcpt">
-          {foundFirst ? (
-            status
-          ) : (
-            <>
-              {ranOk && <RanMark />}
-              <span className="dq-pos" role="status" aria-live="polite">
-                <span className="a17-posline">
-                  <span className="dq-wide-in">Rows </span>
-                  {count(offset + 1)}–{count(offset + outcome.rows.length)}
-                  <span className="dq-dot dq-limdot">·</span>
-                  <span className="dq-limit">LIMIT {limit}</span>
-                </span>
-              </span>
-            </>
-          )}
-          <StatsCompact outcome={outcome} lead brief paged />
-          {revert}
-        </span>
-        <span className="dq-acts">
-          <PagerArrows
-            p={{
-              prevLabel: `Previous ${limit} rows, OFFSET ${Math.max(0, offset - limit)}`,
-              nextLabel: `Next ${limit} rows: OFFSET ${offset + limit}, written into the SQL`,
-              canPrev: offset > 0,
-              canNext: outcome.rows.length === limit,
-              prev: () => dispatch({ type: 'offset', offset: Math.max(0, offset - limit) }),
-              next: () => dispatch({ type: 'offset', offset: offset + limit }),
-              busy: state.run.status === 'running' ? 'next' : undefined
+  const withExpand = (acts: ReactNode) => (
+    <>
+      {acts}
+      {expand && (
+        <>
+          {sep}
+          {expand}
+        </>
+      )}
+    </>
+  )
+  const back = canRevert(state)
+  const actions = editing
+    ? withExpand(
+        <>
+          <Ghost
+            onClick={() => {
+              if (back) dispatch({ type: 'revert' })
+              dispatch({ type: 'pane.toggle' })
             }}
-          />
-          <span className="a17-sep" aria-hidden="true" />
-          {links}
-        </span>
-      </div>
-    )
-  }
-
-  // Past ten rows the pager is the band's receipt. A user's run that came back past ten rows pages too: the check
-  // stays as the receipt's first mark, the position follows.
-  const ranPaged = !!pager && rowsOpen && !editorOpen && !sorting && ranOk
-  if (pager && rowsOpen && !editorOpen && (!status || sorting || ranPaged || !!fetchFailed))
-    return (
-      <div className="dq-layer" data-v="4">
-        <span className="dq-rcpt">
-          {/* While D1 sorts, the band says so where the position was; the arrows stay, dimmed. */}
-          {sorting || foundFirst || fetchFailed ? (
-            status
-          ) : (
-            <>
-              {ranPaged && <RanMark />}
-              <PagerPos p={pager} />
-            </>
-          )}
-          {outcome.status === 'rows' && <StatsCompact outcome={outcome} lead brief paged />}
-          {ranPaged && revert}
-        </span>
-        <span className="dq-acts">
-          <PagerArrows p={pager} />
-          <span className="a17-sep" aria-hidden="true" />
-          {links}
-        </span>
-      </div>
-    )
-
+          >
+            {back ? 'Revert' : 'Cancel'}
+          </Ghost>
+          <RunButton state={state} dispatch={dispatch} host={env.host} reasonId={reasonId} />
+        </>
+      )
+    : kind === 'rows' && outcome.status === 'rows'
+      ? withExpand(
+          <>
+            {(['csv', 'json'] as const).map((f, i) => (
+              <span key={f} className="dq-actg">
+                {i > 0 && sep}
+                <CopyAll
+                  format={f}
+                  columns={outcome.columns}
+                  rows={held}
+                  total={total}
+                  readRest={readRest}
+                />
+              </span>
+            ))}
+          </>
+        )
+      : kind === 'error'
+        ? withExpand(<CopySql sql={shownSql(state)} plain />)
+        : expand || null
+  if (!lead && !tail.length && !actions) return null
   return (
-    // Both open: two rows in the one band, the receipt over the actions, so nothing crowds and Run stays bottom-right.
-    <div className="dq-layer" data-v="4" data-two={editorOpen && rowsOpen ? '' : undefined}>
-      <span className="dq-rcpt">
-        {status}
-        {rowsOpen && outcome.status === 'rows' && (
-          <StatsCompact outcome={outcome} lead={!!status} brief={!!words || bandRun || sorting} />
-        )}
-        {/* Only when the SQL that ran differs from the agent's: a re-read of its own SQL has nothing to revert. */}
-        {editorOpen && revert}
+    <div className="dq-band" data-editing={editing ? '' : undefined}>
+      <span className="dq-cap" title={hint}>
+        {lead}
+        {tail.map((t, i) => (
+          <span key={i}>{lead || i > 0 ? ` · ${t}` : t}</span>
+        ))}
       </span>
-      <span className="dq-acts">
-        {editorOpen ? (
-          <>
-            {/* Always offered: it is the editor's way back to the folded SQL. A one-line draft can wrap and folds too,
-                and without it the band had no way out but Escape. */}
-            <Ghost
-              icon={
-                <CaretUpIcon size={12} weight="bold" className="dq-ico-narrow" aria-hidden="true" />
-              }
-              onClick={() => dispatch({ type: 'pane.toggle' })}
-            >
-              <span className="dq-lbl">Short form</span>
-            </Ghost>
-            {/* When Copy SQL is the primary (a write the chat can't take, or didn't confirm), the band doesn't repeat it. */}
-            {!(state.editable && copyIsPrimary(state)) && <CopySql sql={sql} plain />}
-            {state.editable && (
-              <RunButton state={state} dispatch={dispatch} host={env.host} reasonId={reasonId} />
-            )}
-          </>
-        ) : (
-          <>
-            {links}
-            {bandRun && (
-              <RunButton state={state} dispatch={dispatch} host={env.host} reasonId={reasonId} />
-            )}
-          </>
-        )}
-      </span>
+      <span className="dq-acts">{actions}</span>
     </div>
   )
 }
 
-function ResultLinks({ env }: { env: Env }) {
-  return (
-    <>
-      {env.host.fullscreen && (
-        <IconButton
-          className="dq-wide-flex"
-          label="Open full screen"
-          fs
-          onClick={() =>
-            void env.app.requestDisplayMode({ mode: 'fullscreen' }).catch(() => undefined)
-          }
-        >
-          <CornersOutIcon size={15} aria-hidden="true" />
-        </IconButton>
-      )}
-      {env.host.openLinks && (
-        <IconButton
-          label="Open in D1 Studio on the dashboard"
-          onClick={() =>
-            void env.app.openLink({ url: studioUrl(env.database) }).catch(() => undefined)
-          }
-        >
-          <ArrowSquareOutIcon size={15} aria-hidden="true" />
-        </IconButton>
-      )}
-    </>
-  )
+/** What the card's copy takes, in words: "all 1,284 rows", "the first 10,000 of 50,000 rows". */
+function copyWords(copies: number, total: number): string {
+  if (copies >= total) return total === 1 ? 'the 1 row' : `all ${count(total)} rows`
+  return `the first ${count(copies)} of ${count(total)} rows`
 }
 
-// ── The title line: glyph · title · count · action, the same slots in every state ──
+// ── The title line: glyph · title · count, the same slots in every state (actions are the band's) ──
 
 interface Disclosure {
   open: boolean
   controls: string
-  /** What opening it shows: "Show 10 rows", "Show rows 1–10 of 47". */
+  /** What opening it shows: "Show 10 rows", "Show the first 10 of 47 rows". */
   label: string
   onToggle: () => void
 }
@@ -1225,16 +905,13 @@ function Head({
   kind,
   title,
   count: countNode,
-  action,
   disclosure
 }: {
   kind: CardKind
   title: string
   count: ReactNode
-  action: ReactNode
   disclosure?: Disclosure
 }) {
-  const trio = kind === 'rows' || kind === 'running'
   return (
     <div className="dq-head">
       {disclosure ? (
@@ -1253,43 +930,36 @@ function Head({
           <Glyph kind={kind} />
         </span>
       )}
-      {/* The mark is the title's first word: set like a capital, on the title's baseline. Once per card. */}
+      {/* No mark: the host draws the tool's declared icon. */}
       <span
         className="dq-title"
         data-click={disclosure ? '' : undefined}
         onClick={disclosure?.onToggle}
         title={title}
       >
-        <CloudflareLogo variant="glyph" className="dq-mark" aria-hidden />
         <span className="dq-titletext">{title}</span>
       </span>
-      <span className="dq-meta" data-trio={trio ? '' : undefined}>
-        {/* Beside the trio the count is sized by a hidden "Running", so its left edge holds from loading to data. */}
-        <span
-          className="dq-count"
-          role={kind === 'running' ? 'status' : undefined}
-          data-sized={trio ? '' : undefined}
-        >
-          {trio && (
-            <span className="dq-countsizer" aria-hidden="true">
-              Running
-            </span>
-          )}
-          <span>{countNode}</span>
-        </span>
-        {action && <span className="dq-slot">{action}</span>}
+      <span className="dq-count" role={kind === 'running' ? 'status' : undefined}>
+        {countNode}
       </span>
     </div>
   )
 }
 
+/** The title's glyph. Running is the caret in inactive ink: the card skeletons, it doesn't spin. */
 export function Glyph({ kind }: { kind: CardKind }) {
-  if (kind === 'running') return <span className="dq-spin" aria-hidden="true" />
   if (kind === 'error')
     return <WarningCircleIcon size={16} weight="fill" className="dq-danger" aria-hidden="true" />
   if (kind === 'none' || kind === 'empty-db')
     return <MinusCircleIcon size={16} aria-hidden="true" />
-  return <CaretRightIcon size={12} weight="bold" className="dq-caret" aria-hidden="true" />
+  return (
+    <CaretRightIcon
+      size={12}
+      weight="bold"
+      className={kind === 'running' ? 'dq-caret dq-wait' : 'dq-caret'}
+      aria-hidden="true"
+    />
+  )
 }
 
 function CountText({ kind, rows }: { kind: CardKind; rows: number }) {
@@ -1369,7 +1039,8 @@ function SqlPane({
   cue,
   focus,
   reasonId,
-  onFold
+  onFold,
+  onEdit
 }: {
   state: CardState
   dispatch: Dispatch<CardEvent>
@@ -1380,6 +1051,8 @@ function SqlPane({
   /** The reason line's id, which a blocked Run is described by. */
   reasonId: string
   onFold: () => void
+  /** The SQL is edited elsewhere (Claude: fullscreen): the tray opens that, not the editor in place. */
+  onEdit?: () => void
 }) {
   const squiggle = outcome.status === 'failed' ? outcome.token : undefined
   if (state.pane === 'short')
@@ -1392,9 +1065,19 @@ function SqlPane({
         <button
           type="button"
           className="dq-sql dq-sql-cell"
-          aria-label={state.editable ? 'Edit and run this SQL' : 'Show the query as written'}
+          aria-label={
+            onEdit
+              ? 'Edit the SQL in full screen'
+              : state.editable
+                ? 'Edit and run this SQL'
+                : 'Show the query as written'
+          }
           title={
-            state.editable ? 'Edit and run here. Reads only; the agent isn’t called.' : undefined
+            onEdit
+              ? 'Edit and run it in full screen. Reads only; the agent isn’t called.'
+              : state.editable
+                ? 'Edit and run here. Reads only; the agent isn’t called.'
+                : undefined
           }
           // Focus shown after keyboard use even where :focus-visible can't tell (see useKeyboardModality).
           onFocus={(e) =>
@@ -1403,6 +1086,7 @@ function SqlPane({
           }
           onBlur={(e) => e.currentTarget.removeAttribute('data-focus')}
           onClick={() => {
+            if (onEdit) return onEdit()
             onFold()
             dispatch({ type: 'pane.toggle' })
           }}
@@ -1412,7 +1096,7 @@ function SqlPane({
             tables={env.tables}
             squiggle={squiggle}
             tail={!!cue}
-            hint={state.editable && !cue}
+            hint={state.editable && !cue ? (onEdit ? 'fullscreen' : 'edit') : undefined}
           />
         </button>
         {cue?.kind === 'note' && (
@@ -1474,6 +1158,8 @@ function CueButton({ onClick }: { onClick: () => void }) {
 
 /** Room kept at the end of the last line for the tray's corner action, in px: the widest face ("✎ Edit") and a gap. */
 const CUE_ROOM = 64
+/** The face's room where Edit opens fullscreen ("⛶ Edit in full screen"). */
+const CUE_ROOM_FS = 148
 
 /** Measures how many mono characters fit, and folds the SQL to that. */
 function ShortSql({
@@ -1488,8 +1174,8 @@ function ShortSql({
   squiggle?: string
   /** Keep room at the last line's end for the corner's Edit or note. */
   tail?: boolean
-  /** Draw the Edit face shown on pointer over and keyboard focus. */
-  hint?: boolean
+  /** Draw the Edit face shown on pointer over and keyboard focus: in place, or in fullscreen (Claude). */
+  hint?: 'edit' | 'fullscreen'
 }) {
   const ref = useRef<HTMLElement>(null)
   const [cpl, setCpl] = useState(70)
@@ -1516,7 +1202,7 @@ function ShortSql({
   // The Edit face takes the lowest line with room for it, so it never costs height; only where no line has room does it
   // lie over the last line's end, on a fade.
   const lastI = folded.lines.length - 1
-  const faceCh = Math.ceil(CUE_ROOM / ch)
+  const faceCh = Math.ceil((hint === 'fullscreen' ? CUE_ROOM_FS : CUE_ROOM) / ch)
   const roomy = folded.flow
     ? -1
     : folded.lines.map((l) => widthOf(l) <= cpl - faceCh).lastIndexOf(true)
@@ -1550,8 +1236,17 @@ function ShortSql({
           style={{ bottom: `calc(4px + ${lastI - hintLine} * var(--sql-lh))` }}
           aria-hidden="true"
         >
-          <PencilSimpleIcon size={12} weight="bold" />
-          Edit
+          {hint === 'fullscreen' ? (
+            <>
+              <CornersOutIcon size={12} weight="bold" />
+              Edit in full screen
+            </>
+          ) : (
+            <>
+              <PencilSimpleIcon size={12} weight="bold" />
+              Edit
+            </>
+          )}
         </span>
       )}
     </code>
@@ -1688,17 +1383,6 @@ function RunLine({ state }: { state: CardState }) {
   )
 }
 
-/** A step's bar under its SQL as written: back to the short form, and Copy SQL. */
-function StepBar({ sql, onFold }: { sql: string; onFold: () => void }) {
-  return (
-    <div className="dq-fullbar">
-      <span className="dq-grow" />
-      {sql.includes('\n') && <Ghost onClick={onFold}>Short form</Ghost>}
-      <CopySql sql={sql} plain />
-    </div>
-  )
-}
-
 /** The draft, with the span the reason line is about wavy-underlined, as a compiler marks it. */
 export function MarkedSql({
   sql,
@@ -1787,8 +1471,7 @@ export function S5Lines({
   const warn = <WarningCircleIcon size={13} weight="fill" aria-hidden="true" />
   // The host couldn't run the read (not a SQL error): its own words.
   if (run.status === 'failed') return line('danger', warn, run.error)
-  if (run.status === 'running')
-    return line('quiet', <span className="dq-spin" aria-hidden="true" />, 'Running…')
+  if (run.status === 'running') return line('quiet', info, 'Running…')
   if (verdict.kind === 'write')
     return !env.host.send
       ? line(
@@ -1797,7 +1480,7 @@ export function S5Lines({
           'This chat doesn’t take messages from the view. Copy the SQL and paste it to the agent.'
         )
       : run.status === 'sending'
-        ? line('quiet', <span className="dq-spin" aria-hidden="true" />, 'Sending to the chat…')
+        ? line('quiet', info, 'Sending to the chat…')
         : run.status === 'unconfirmed'
           ? line(
               'note',
@@ -1921,12 +1604,8 @@ export function RunButton({
         title={`${reasonOf(verdict)} It goes to the chat as your message (⌘↵).`}
         onClick={() => !sending && submit()}
       >
-        {sending ? (
-          <span className="dq-spin dq-spin-on" aria-hidden="true" />
-        ) : (
-          <PaperPlaneRightIcon size={12} weight="fill" aria-hidden="true" />
-        )}
-        {sending ? 'Sending' : 'Send to chat'}
+        {!sending && <PaperPlaneRightIcon size={12} weight="fill" aria-hidden="true" />}
+        {sending ? 'Sending…' : 'Send to chat'}
       </button>
     )
   }
@@ -1950,11 +1629,16 @@ export function RunButton({
       onClick={() => !busy && !blocked && submit()}
     >
       {busy ? (
-        <span className="dq-spin dq-spin-on" aria-hidden="true" />
+        'Running…'
       ) : (
-        <PlayIcon size={12} weight="fill" aria-hidden="true" />
+        <>
+          <PlayIcon size={12} weight="fill" aria-hidden="true" />
+          Run
+          <span className="dq-kbd" aria-hidden="true">
+            ⌘↵
+          </span>
+        </>
       )}
-      Run
     </button>
   )
 }
@@ -2009,12 +1693,12 @@ export function Trio({
   // No ✓ beside a toast that says a copy is still running or failed.
   const marked =
     t?.busy || t?.failed
-    ? null
-    : mine
-      ? t.done!.format
-      : state.status === 'copied'
-        ? state.format
-        : null
+      ? null
+      : mine
+        ? t.done!.format
+        : state.status === 'copied'
+          ? state.format
+          : null
   const openStudio =
     env?.host.openLinks &&
     (() => void env.app.openLink({ url: studioUrl(env.database) }).catch(() => undefined))
@@ -2093,6 +1777,92 @@ export function CopySql({ sql, plain }: { sql: string; plain?: boolean }) {
     >
       <span aria-live="polite">{label}</span>
     </Ghost>
+  )
+}
+
+/**
+ * One of the card's two copy buttons: the whole result as CSV or JSON, every
+ * column, not just the rows shown. Its name says the scope ("Copy all 1,284
+ * rows as CSV"), as the pointer's hover hint and to a screen reader. While D1
+ * reads the rows past those held it counts in place ("Copying 600 of
+ * 1,284"), then confirms ("Copied 1,284"); there is no toast inline.
+ */
+function CopyAll({
+  format,
+  columns,
+  rows,
+  total,
+  readRest
+}: {
+  format: 'csv' | 'json'
+  columns: readonly string[]
+  rows: readonly (readonly D1Cell[])[]
+  total: number
+  readRest?: (offset: number, limit: number) => Promise<readonly (readonly D1Cell[])[]>
+}) {
+  type Face =
+    | { readonly kind: 'idle' }
+    | { readonly kind: 'busy'; readonly n: number }
+    | { readonly kind: 'done'; readonly n: number }
+    | { readonly kind: 'blocked' }
+    | { readonly kind: 'failed'; readonly error: string }
+  const [face, setFace] = useState<Face>({ kind: 'idle' })
+  useEffect(() => {
+    if (face.kind === 'idle' || face.kind === 'busy') return undefined
+    const t = window.setTimeout(() => setFace({ kind: 'idle' }), COPY_FEEDBACK_MS)
+    return () => window.clearTimeout(t)
+  }, [face])
+  const want = copyScope(rows.length, total, !!readRest)
+  const label = FORMAT_LABEL[format]
+  const name = `Copy ${copyWords(want, total)} as ${label}`
+  return (
+    <button
+      type="button"
+      className="dq-act"
+      aria-label={name}
+      title={face.kind === 'failed' ? `D1 didn’t read the rest: ${face.error}` : name}
+      aria-disabled={face.kind === 'busy' || undefined}
+      data-face={face.kind}
+      onClick={() => {
+        if (face.kind === 'busy') return
+        if (want > rows.length) setFace({ kind: 'busy', n: rows.length })
+        void copyAllRows({
+          format,
+          columns,
+          rows,
+          total,
+          readRest,
+          onProgress: (n) => setFace({ kind: 'busy', n })
+        }).then((r) =>
+          setFace(
+            !r
+              ? { kind: 'idle' }
+              : r.status === 'copied'
+                ? { kind: 'done', n: r.rows }
+                : r.status === 'blocked'
+                  ? { kind: 'blocked' }
+                  : { kind: 'failed', error: r.error }
+          )
+        )
+      }}
+    >
+      <span aria-live="polite">
+        {face.kind === 'busy' ? (
+          `Copying ${count(face.n)} of ${count(want)}`
+        ) : face.kind === 'done' ? (
+          <>
+            <CheckIcon size={14} weight="bold" aria-hidden="true" />
+            {`Copied ${count(face.n)}`}
+          </>
+        ) : face.kind === 'blocked' ? (
+          'Clipboard blocked'
+        ) : face.kind === 'failed' ? (
+          'Copy failed'
+        ) : (
+          label
+        )}
+      </span>
+    </button>
   )
 }
 
@@ -2184,7 +1954,8 @@ export function Grid({
   was,
   onSort,
   dim,
-  padPx
+  padPx,
+  fit
 }: {
   columns: readonly string[]
   rows: readonly (readonly D1Cell[])[]
@@ -2205,12 +1976,59 @@ export function Grid({
   dim?: boolean
   /** An empty row this tall under the last, so the column rules run on to the pane's foot (the console). */
   padPx?: number
+  /**
+   * The inline card's table: nothing scrolls. Columns that don't fit leave
+   * from the right (at most `max` stay; the first text column gives way with an ellipsis),
+   * `onHidden` hears how many left, and the headers don't sort.
+   */
+  fit?: { readonly max: number; readonly onHidden?: (n: number) => void }
 }) {
   const ref = useRef<HTMLDivElement>(null)
+  const chRef = useRef<HTMLSpanElement>(null)
   const [more, setMore] = useState(false)
+  const cells = useMemo(
+    () =>
+      columns.map((c, i) => ({
+        name: c.length,
+        cell: Math.min(
+          38,
+          widthRows.reduce((m, r) => {
+            const v = r[i]
+            return Math.max(m, v === null || v === undefined ? 4 : String(v).split('\n')[0]!.length)
+          }, 0)
+        )
+      })),
+    [columns, widthRows]
+  )
+  const digits = count(total ?? offset + rows.length).length
+  // The inline table's column that gives way: the first text column (a name, a title), never a number.
+  const flex = useMemo(
+    () => (fit ? columns.findIndex((_, i) => columnType(widthRows, i) === 'TEXT') : -1),
+    [columns, widthRows, !!fit]
+  )
+  const [fitted, setFitted] = useState(() =>
+    fit ? Math.min(fit.max, columns.length) : columns.length
+  )
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!fit || !el) return undefined
+    const measure = () => {
+      const ch = (chRef.current?.getBoundingClientRect().width ?? 72) / 10 || 7.2
+      const k = fitColumns(cells, ch, el.clientWidth, Math.max(34, digits * ch + 16), fit.max, flex)
+      setFitted((n) => (n === k ? n : k))
+    }
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [cells, digits, flex, !!fit])
+  const hiddenCols = fit ? columns.length - fitted : 0
+  const onHidden = fit?.onHidden
+  useEffect(() => onHidden?.(hiddenCols), [hiddenCols, onHidden])
+  const shownCols = fit ? columns.slice(0, fitted) : columns
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || fit) return
     const check = () => setMore(el.scrollLeft + el.clientWidth < el.scrollWidth - 1)
     check()
     el.addEventListener('scroll', check, { passive: true })
@@ -2221,30 +2039,28 @@ export function Grid({
       ro.disconnect()
     }
   }, [])
-  const widths = useMemo(
-    () =>
-      columns.map((c, i) => {
-        const cell = Math.min(
-          38,
-          widthRows.reduce((m, r) => {
-            const v = r[i]
-            return Math.max(m, v === null || v === undefined ? 4 : String(v).split('\n')[0]!.length)
-          }, 0)
-        )
-        return `max(calc(${c.length}ch + 26px), calc(${cell}ch + 16px))`
-      }),
-    [columns, widthRows]
+  const widths = cells.map(
+    ({ name, cell }) => `max(calc(${name}ch + ${fit ? 16 : 26}px), calc(${cell}ch + 16px))`
   )
-  const gutterW = `max(34px, calc(${count(total ?? offset + rows.length).length}ch + 16px))`
+  const gutterW = `max(34px, calc(${digits}ch + 16px))`
   return (
-    <div className="dq-gridwrap" data-more={more ? '' : undefined}>
+    <div className="dq-gridwrap" data-more={more ? '' : undefined} data-fit={fit ? '' : undefined}>
+      {fit && (
+        <span className="dq-chm" ref={chRef} aria-hidden="true">
+          0000000000
+        </span>
+      )}
       <div
         className="dq-grid"
         ref={ref}
-        tabIndex={0}
+        tabIndex={fit ? undefined : 0}
         role="region"
         aria-label={
-          label ? `${label}. Page Down and Page Up turn the page` : `${count(rows.length)} rows`
+          fit
+            ? `${label ?? `${count(rows.length)} rows`}${hiddenCols ? `, ${hiddenCols} more ${hiddenCols === 1 ? 'column' : 'columns'} in full screen` : ''}`
+            : label
+              ? `${label}. Page Down and Page Up turn the page`
+              : `${count(rows.length)} rows`
         }
         aria-busy={busy || undefined}
         data-dim={busy || dim ? '' : undefined}
@@ -2259,7 +2075,18 @@ export function Grid({
           <thead>
             <tr>
               <th className="dq-gutter" aria-hidden="true" style={{ minWidth: gutterW }} />
-              {columns.map((c, i) => {
+              {shownCols.map((c, i) => {
+                if (fit)
+                  return (
+                    <th
+                      key={i}
+                      className={i === flex ? 'dq-flex' : undefined}
+                      style={i === flex ? undefined : { minWidth: widths[i] }}
+                      title={`${c} · ${columnType(widthRows, i)}`}
+                    >
+                      <span className="dq-thname">{c}</span>
+                    </th>
+                  )
                 const dir = sort?.column === i ? sort.dir : undefined
                 const next = !dir
                   ? 'ascending'
@@ -2307,25 +2134,20 @@ export function Grid({
                 // view still has a mark on screen.
                 <tr key={offset + i} data-changed={old ? '' : undefined}>
                   <td className="dq-gutter">{count(offset + i + 1)}</td>
-                  {columns.map((_, c) =>
+                  {shownCols.map((_, c) =>
                     old?.has(c) ? (
-                      // The old value is reachable without hover: the cell takes focus (Tab, tap, or "2 values
-                      // changed") and its tip shows while it has it.
+                      // The old value is in the browser's own hint and the cell's name: no tip drawn over the card.
                       <td
                         key={c}
+                        className={c === flex ? 'dq-flex' : undefined}
                         data-changed=""
-                        tabIndex={0}
+                        title={`Was ${cellText(old.get(c))}`}
                         aria-label={`${cellText(r[c])}, was ${cellText(old.get(c))}`}
-                        onFocus={(e) => e.currentTarget.setAttribute('data-tip', '')}
-                        onBlur={(e) => e.currentTarget.removeAttribute('data-tip')}
                       >
                         <Cell value={r[c]} />
-                        <span className="dq-was" aria-hidden="true">
-                          Was {cellText(old.get(c))}
-                        </span>
                       </td>
                     ) : (
-                      <td key={c}>
+                      <td key={c} className={c === flex ? 'dq-flex' : undefined}>
                         <Cell value={r[c]} />
                       </td>
                     )
@@ -2336,7 +2158,7 @@ export function Grid({
             {(pad > 0 || (padPx ?? 0) > 0) && (
               <tr className="dq-padrow" aria-hidden="true">
                 <td className="dq-gutter" style={{ height: padPx ?? pad * 30 }} />
-                {columns.map((_, c) => (
+                {shownCols.map((_, c) => (
                   <td key={c} />
                 ))}
               </tr>
@@ -2422,201 +2244,6 @@ export function StatsCompact({
   )
 }
 
-/** A step's footer under its rows: the same receipt as the answer's band, flat (a band mid-card is a stripe). */
-function Footer({ outcome, env }: { outcome: Extract<D1Outcome, { status: 'rows' }>; env: Env }) {
-  return (
-    <div className="dq-foot">
-      <StatsCompact outcome={outcome} />
-      <span className="dq-grow" />
-      <ResultLinks env={env} />
-    </div>
-  )
-}
-
-// ── The train: the earlier queries that led to the answer, in order, one line per step ──
-
-function Train({ steps, answer, env }: { steps: readonly D1Query[]; answer: D1Query; env: Env }) {
-  const [open, setOpen] = useState(false)
-  const listId = useId()
-  const k = steps.length
-  const failed = steps.filter((s) => s.outcome.status === 'failed').length
-  const fixed = failed > 0 && answer.outcome.status !== 'failed'
-  // The answer's "Open 3" opens the train at that step and moves focus to it.
-  const trainRef = useRef<HTMLDivElement>(null)
-  const [opened, setOpened] = useState<{ i: number }>()
-  useEffect(() => {
-    const section = trainRef.current?.closest('section.dq')
-    if (!section) return undefined
-    const on = (e: Event) => {
-      setOpen(true)
-      setOpened({ i: (e as CustomEvent<number>).detail })
-    }
-    section.addEventListener(OPEN_STEP, on)
-    return () => section.removeEventListener(OPEN_STEP, on)
-  }, [])
-  return (
-    <div className="dq-train" data-open={open ? '' : undefined} ref={trainRef}>
-      <button
-        type="button"
-        className="dq-trainbar"
-        aria-expanded={open}
-        aria-controls={listId}
-        onClick={() => setOpen((o) => !o)}
-      >
-        <span className="dq-glyph">
-          <CaretRightIcon size={12} weight="bold" className="dq-caret" aria-hidden="true" />
-        </span>
-        <span className="dq-traintext">
-          <span className="dq-trainlead">
-            {k} {k === 1 ? 'query' : 'queries'} led here
-          </span>
-          <span className="dq-pips" aria-hidden="true">
-            {steps.map((s, i) => (
-              <i key={i} data-bad={s.outcome.status === 'failed' ? '' : undefined} />
-            ))}
-          </span>
-          {failed > 0 && (
-            <span className="dq-trainfail">
-              {failed} failed{fixed ? ', then fixed' : ''}
-            </span>
-          )}
-        </span>
-      </button>
-      {/* Always mounted, so the list opens and closes on the rows' curve (and aria-controls points at something). */}
-      <div className="dq-collapse" inert={!open || undefined}>
-        <div>
-          <ol
-            className="dq-steps"
-            id={listId}
-            aria-label="Queries the agent ran before the answer, in order"
-          >
-            {steps.map((s, i) => (
-              <Step key={i} query={s} env={env} opened={opened?.i === i ? opened : undefined} />
-            ))}
-          </ol>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-/**
- * One step: the agent's note and its count on one line, opening into the
- * step's own card body. A step is a receipt: it reads, sorts and copies, but
- * isn't edited (only the answer is).
- */
-function Step({ query, env, opened }: { query: D1Query; env: Env; opened?: { i: number } }) {
-  const [state, dispatch] = useReducer(cardReducer, undefined, () => initialCard(query, false))
-  const [open, setOpen] = useState(false)
-  // Opened from the answer's "Open 3": the step opens and its row takes focus, ringed (the button that asked is gone
-  // from view, so the ring says where focus went).
-  const rowRef = useRef<HTMLButtonElement>(null)
-  useEffect(() => {
-    if (!opened) return undefined
-    setOpen(true)
-    const t = window.setTimeout(() => {
-      const row = rowRef.current
-      if (!row) return
-      row.focus({ preventScroll: true })
-      row.setAttribute('data-focus', '')
-      row.scrollIntoView({ block: 'nearest' })
-    }, 260)
-    return () => window.clearTimeout(t)
-  }, [opened])
-  const bodyId = useId()
-  const outcome = state.query.outcome
-  const kind = cardKind(query.purpose, outcome)
-  const rows = useMemo(
-    () => (outcome.status === 'rows' ? sortRows(outcome.rows, state.sort) : []),
-    [outcome, state.sort]
-  )
-  const copy =
-    outcome.status === 'rows' && kind === 'rows' ? (
-      <Trio columns={outcome.columns} rows={rows} total={outcome.rowCount} env={env} />
-    ) : kind === 'error' ? (
-      <CopySql sql={query.sql} />
-    ) : null
-  return (
-    <li className="dq-step" data-open={open ? '' : undefined} data-kind={kind}>
-      <button
-        ref={rowRef}
-        type="button"
-        className="dq-steprow"
-        aria-expanded={open}
-        aria-controls={bodyId}
-        onClick={() => setOpen((o) => !o)}
-      >
-        <span className="dq-glyph">
-          {kind === 'error' ? (
-            <Glyph kind="error" />
-          ) : (
-            <CaretRightIcon size={12} weight="bold" className="dq-caret" aria-hidden="true" />
-          )}
-        </span>
-        <span className="dq-say">
-          <span className="dq-saytext">{query.note ?? query.title}</span>
-          <span className="dq-count">
-            <CountText kind={kind} rows={outcome.status === 'rows' ? outcome.rowCount : 0} />
-          </span>
-        </span>
-      </button>
-      <div className="dq-collapse" inert={!open || undefined}>
-        <div>
-          <div id={bodyId} className="dq-stepbody">
-            <div className="dq-stepsub">
-              <span className="dq-steptitle">{query.title}</span>
-              {/* The row count, as the closed step shows it; at 352 it moves beside the trio. */}
-              {outcome.status === 'rows' && kind === 'rows' && (
-                <span className="dq-steprun">
-                  <CountText kind={kind} rows={outcome.rowCount} />
-                </span>
-              )}
-              {copy && <span className="dq-slot">{copy}</span>}
-            </div>
-            {/* A failed step opens as written: the full statement, the token underlined, the error under it. */}
-            {kind === 'error' || state.pane === 'full' ? (
-              <div className="dq-full">
-                <AsWritten
-                  sql={query.sql}
-                  tables={env.tables}
-                  squiggle={outcome.status === 'failed' ? outcome.token : undefined}
-                />
-                <StateLine outcome={outcome} kind={kind} env={env} />
-                {kind !== 'error' && (
-                  <StepBar sql={query.sql} onFold={() => dispatch({ type: 'pane.toggle' })} />
-                )}
-              </div>
-            ) : (
-              <>
-                <button
-                  type="button"
-                  className="dq-sql"
-                  aria-label="Show the query as written"
-                  onClick={() => dispatch({ type: 'pane.toggle' })}
-                >
-                  <ShortSql sql={query.sql} tables={env.tables} />
-                </button>
-                <StateLine outcome={outcome} kind={kind} env={env} />
-              </>
-            )}
-            {kind === 'rows' && outcome.status === 'rows' && (
-              <div className="dq-rows-in dq-rows-step">
-                <Grid
-                  columns={outcome.columns}
-                  rows={rows}
-                  sort={state.sort}
-                  onSort={(column) => dispatch({ type: 'sort', column })}
-                />
-                <Footer outcome={outcome} env={env} />
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </li>
-  )
-}
-
 function ToolError({ text, retry }: { text: string; retry?: () => void }) {
   return (
     <section className="dq dq-toolerror" aria-label="D1 Studio error">
@@ -2625,7 +2252,6 @@ function ToolError({ text, retry }: { text: string; retry?: () => void }) {
           kind="error"
           title="D1 Studio couldn’t run the query"
           count={<CountText kind="error" rows={0} />}
-          action={null}
         />
         <p className="dq-line2 dq-line2-act" role="alert">
           <span className="dq-line2-text dq-errtext">{text}</span>

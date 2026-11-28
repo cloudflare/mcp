@@ -97,7 +97,7 @@ export const d1StudioApp = defineMcpApp({
   ...D1_STUDIO_TOOL_CONFIG,
   input: D1StudioInputSchema,
   output: D1StudioResultSchema,
-  resource: { uri: D1_STUDIO_RESOURCE_URI, name: 'D1 Studio', html: appHtml },
+  resource: { uri: D1_STUDIO_RESOURCE_URI, name: 'D1 Studio', html: appHtml, prefersBorder: true },
   appTools: d1Tools.filter((tool) => tool.name === D1_RUN_TOOL),
   appToolCheck: rawCallRefusal,
   modelText,

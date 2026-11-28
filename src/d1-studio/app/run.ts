@@ -24,16 +24,27 @@ export interface HostAbilities {
   readonly openLinks: boolean
   /** Tell the model what the view now shows (`ui/update-model-context`). */
   readonly context: boolean
+  /**
+   * Edit the SQL in fullscreen, not in the card: Claude sends freeform text
+   * entry to the chat or fullscreen, where ChatGPT allows basic edits inline.
+   * Only where fullscreen is offered; elsewhere the card edits in place.
+   */
+  readonly editInFullscreen: boolean
 }
+
+/** Claude (claude.ai, the desktop and mobile apps), by the name it gives in `ui/initialize`. */
+export const isClaudeHost = (name: string | undefined) => !!name && /claude/i.test(name)
 
 export function hostAbilities(app: App): HostAbilities {
   const caps = app.getHostCapabilities()
+  const fullscreen = !!app.getHostContext()?.availableDisplayModes?.includes('fullscreen')
   return {
     run: !!caps?.serverTools,
     send: !!caps?.message,
-    fullscreen: !!app.getHostContext()?.availableDisplayModes?.includes('fullscreen'),
+    fullscreen,
     openLinks: !!caps?.openLinks,
-    context: !!caps?.updateModelContext
+    context: !!caps?.updateModelContext,
+    editInFullscreen: fullscreen && isClaudeHost(app.getHostVersion()?.name)
   }
 }
 
@@ -71,7 +82,10 @@ export async function runRead(
     )
     .catch((error: unknown) => {
       // The SDK's "Request timed out", in the view's words; an abort (Revert, a newer read) stays as it is.
-      if (!signal?.aborted && /timed out/i.test(error instanceof Error ? error.message : String(error)))
+      if (
+        !signal?.aborted &&
+        /timed out/i.test(error instanceof Error ? error.message : String(error))
+      )
         throw new Error(`No answer from D1 in ${READ_TIMEOUT_MS / 1000} s.`)
       throw error
     })

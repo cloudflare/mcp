@@ -3303,3 +3303,190 @@ button.dq-diff {
   padding-left: 8px;
 }
 
+/* ── Inline, within ChatGPT's and Claude's card rules ──
+   The host draws the card's frame (the resource's prefersBorder), so the card draws no ring of its own. Text takes the
+   host's colours where the host sends them (applyHostStyleVariables), Kumo's otherwise. The band is always the card's
+   last element, one line: what is on screen on the left, at most two actions and ⛶ on the right. Nothing in the card
+   scrolls sideways or spins; a call still running is drawn as skeleton rows. */
+.dq::after {
+  content: none;
+}
+.dq {
+  color: var(--color-text-primary, var(--text-color-kumo-default));
+  font-family: var(--font-sans, inherit);
+}
+.dq-band {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 44px;
+  padding: 4px var(--pad-r) 4px var(--text);
+  border-top: 1px solid var(--color-kumo-hairline);
+  background: var(--tray);
+  font-size: 12.5px;
+  color: var(--color-text-secondary, var(--text-color-kumo-subtle));
+}
+.dq-cap {
+  flex: 1;
+  min-width: 0;
+  margin-right: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.dq-cap .dq-ranhere {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  font-weight: 500;
+  color: var(--text-color-kumo-success);
+}
+.dq-cap .dq-diff {
+  color: var(--color-text-secondary, var(--text-color-kumo-subtle));
+  font-weight: 400;
+}
+.dq-band .dq-acts {
+  gap: 0;
+}
+.dq-actg {
+  display: inline-flex;
+  align-items: center;
+}
+.dq-act {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-primary, var(--text-color-kumo-default));
+  transition:
+    background-color 120ms ease,
+    scale 160ms var(--ease);
+}
+.dq-act > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.dq-act[data-face='done'] {
+  color: var(--text-color-kumo-success);
+}
+.dq-act[data-face='failed'],
+.dq-act[data-face='blocked'] {
+  color: var(--text-color-kumo-danger);
+}
+.dq-act[aria-disabled] {
+  cursor: progress;
+}
+@media (hover: hover) and (pointer: fine) {
+  .dq-act:hover {
+    background: var(--hover);
+  }
+}
+.dq-act:active:not([aria-disabled]) {
+  scale: 0.97;
+}
+.dq-bsep {
+  width: 1px;
+  height: 16px;
+  margin: 0 4px;
+  background: var(--color-kumo-line);
+}
+.dq-ex {
+  width: 32px;
+  height: 32px;
+}
+.dq-kbd {
+  opacity: 0.7;
+  font-size: 11px;
+}
+.dq-band .dq-run {
+  height: 32px;
+}
+@media (pointer: coarse) {
+  .dq-act,
+  .dq-band .dq-run,
+  .dq-band .dq-ghost {
+    height: 44px;
+  }
+  .dq-ex {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* The title line without the trio: the count sits after the title. */
+.dq-head > .dq-count {
+  grid-area: meta;
+  flex: none;
+  padding-left: 12px;
+  font-size: 12.5px;
+  color: var(--color-text-secondary, var(--text-color-kumo-subtle));
+  white-space: nowrap;
+}
+.dq-title {
+  color: var(--color-text-primary, var(--text-color-kumo-strong));
+}
+.dq-caret.dq-wait {
+  opacity: 0.4;
+}
+
+/* A call still running: skeleton rows, then the band's skeleton. */
+.dq-skel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px var(--pad-r) 14px var(--text);
+}
+.dq-skel > i,
+.dq-skelbar {
+  display: block;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--color-kumo-line);
+  animation: dq-pulse 1.2s ease-in-out infinite alternate;
+}
+.dq-skelbar {
+  width: 9em;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dq-skel > i,
+  .dq-skelbar {
+    animation: none;
+  }
+}
+
+/* The inline table fits its frame: no scroll box; the first column gives way with an ellipsis. */
+.dq-gridwrap[data-fit] .dq-grid {
+  max-height: none;
+  overflow: hidden;
+}
+.dq-gridwrap[data-fit] .dq-flex {
+  width: 100%;
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dq-gridwrap[data-fit] th {
+  padding: 0 8px;
+  font-weight: 400;
+  color: var(--color-text-secondary, var(--text-color-kumo-subtle));
+}
+.dq-gridwrap[data-fit] .dq-thname {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dq-chm {
+  position: absolute;
+  visibility: hidden;
+  font: 12px/1 var(--font-mono);
+  white-space: pre;
+  pointer-events: none;
+}

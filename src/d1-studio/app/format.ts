@@ -63,3 +63,29 @@ export function columnType(rows: readonly (readonly D1Cell[])[], column: number)
   if (typeof v === 'boolean') return 'INTEGER'
   return 'TEXT'
 }
+
+/**
+ * How many of a result's columns the inline table shows in `width` px: from
+ * the left, at most `max`, while they fit beside the gutter. A column is as
+ * wide as its name or its widest value (in mono characters of `ch` px, as
+ * the table sets them); the `flex` column (-1 for none) gives way to an
+ * ellipsis, down to 12 characters. At least one column always shows.
+ */
+export function fitColumns(
+  cells: readonly { readonly name: number; readonly cell: number }[],
+  ch: number,
+  width: number,
+  gutter: number,
+  max: number,
+  flex = 0
+): number {
+  if (!cells.length) return 0
+  const px = (i: number) => {
+    const w = Math.max(cells[i]!.name * ch + 16, cells[i]!.cell * ch + 16)
+    return i === flex ? Math.min(w, 12 * ch + 16) : w
+  }
+  let used = gutter + px(0)
+  let k = 1
+  while (k < Math.min(max, cells.length) && used + px(k) <= width) used += px(k++)
+  return k
+}

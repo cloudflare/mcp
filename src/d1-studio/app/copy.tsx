@@ -1,4 +1,8 @@
 /**
+ * The card copies the whole result from its two buttons and says how it went
+ * on the button ({@link copyAllRows}): the inline card draws no toast, as
+ * Claude allows no popovers inline. The fullscreen console keeps the toast.
+ *
  * The copy toast. The trio copies every row the view holds, in the order
  * shown; when that is less than D1's count the toast says the scope and offers
  * the rest. "Copy all 1,284" reads the rows past those held with `d1_raw` in
@@ -11,7 +15,7 @@
 import { useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import { CheckIcon, WarningCircleIcon } from '@phosphor-icons/react'
-import type { D1Cell } from '../contract'
+import { MAX_ROWS, type D1Cell } from '../contract'
 import { FORMAT_LABEL, count, serializeRows } from './format'
 import type { CopyFormat } from './machines'
 
@@ -124,10 +128,73 @@ export async function copyText(
   const copy = start()
   const ok = await write(Promise.resolve(text))
   if (!speaks(copy)) return undefined
-  if (ok) toast(words, from)
-  else toast('The host blocked the clipboard', from, true)
+  // Only in the console: the inline card says it on the button, with no popover.
+  if (insideOf(from)) {
+    if (ok) toast(words, from)
+    else toast('The host blocked the clipboard', from, true)
+  }
   return ok
 }
+
+/** How a card's copy of the whole result went. `undefined` from {@link copyAllRows}: a newer copy took over. */
+export type CopiedAll =
+  | { readonly status: 'copied'; readonly rows: number }
+  | { readonly status: 'blocked' }
+  | { readonly status: 'failed'; readonly error: string }
+
+/**
+ * The card's CSV and JSON: every row of the result and every column, up to
+ * COPY_CAP rows. The rows held are written at once; the rest are read with
+ * `readRest`, MAX_ROWS at a time, each block counted through `onProgress`
+ * (the rows read so far), into one promise-backed ClipboardItem, so the
+ * click's permission holds while D1 answers. Without `readRest` (a host
+ * that can't run reads) only the rows held are copied, and the button's
+ * name says so. A newer copy supersedes one still reading: it writes nothing
+ * and resolves `undefined`.
+ */
+export async function copyAllRows({
+  format,
+  columns,
+  rows,
+  total,
+  readRest,
+  onProgress
+}: {
+  format: CopyFormat
+  columns: readonly string[]
+  rows: Rows
+  total: number
+  readRest?: (offset: number, limit: number) => Promise<Rows>
+  onProgress?: (copied: number) => void
+}): Promise<CopiedAll | undefined> {
+  const copy = start()
+  // Its own words from now on: an older copy that lands while this one reads stays silent.
+  speaks(copy)
+  const want = copyScope(rows.length, total, !!readRest)
+  const out: (readonly D1Cell[])[] = rows.slice(0, want)
+  const text = (async () => {
+    for (let off = out.length; off < want; off += MAX_ROWS) {
+      if (!isLatest(copy)) throw new Superseded()
+      onProgress?.(off)
+      out.push(...(await readRest!(off, Math.min(MAX_ROWS, want - off))))
+    }
+    if (!isLatest(copy)) throw new Superseded()
+    return serializeRows(format, columns, out)
+  })()
+  const written = await write(text)
+  const read = await text.then(
+    () => true as const,
+    (error: unknown) => error
+  )
+  if (!isLatest(copy) || !speaks(copy) || read instanceof Superseded) return undefined
+  if (read !== true)
+    return { status: 'failed', error: read instanceof Error ? read.message : String(read) }
+  return written ? { status: 'copied', rows: out.length } : { status: 'blocked' }
+}
+
+/** How many rows the card's copy takes: every row, up to COPY_CAP, or only those held when no more can be read. */
+export const copyScope = (held: number, total: number, canRead: boolean) =>
+  canRead ? Math.max(held, Math.min(total, COPY_CAP)) : held
 
 /**
  * Copy what is held; say the scope; offer the rest.

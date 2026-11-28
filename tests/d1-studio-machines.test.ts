@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { D1Outcome, D1Query } from '../src/d1-studio/contract'
-import { serializeRows } from '../src/d1-studio/app/format'
+import { fitColumns, serializeRows } from '../src/d1-studio/app/format'
 import {
   CONSOLE_PAGE_ROWS,
   PAGE_ROWS,
@@ -696,5 +696,27 @@ describe('console paging', () => {
     expect(pageRows(s, 10)[0]![0]).toBe('r1000')
     // A hole between the first block and the one read: what is held is no longer "the first N".
     expect(heldIsContiguous(s)).toBe(false)
+  })
+})
+
+describe('the inline card', () => {
+  // Mono at 7 px: a column is max(name, widest value) characters, plus 16 px of padding.
+  const cells = [
+    { name: 7, cell: 20 }, // partner: 156 px, 100 as the flex column
+    { name: 8, cell: 8 }, // location: 72 px
+    { name: 6, cell: 3 }, // booked: 58 px
+    { name: 8, cell: 2 } // no_shows: 72 px
+  ]
+
+  it('shows the columns that fit, the text column giving way first', () => {
+    expect(fitColumns(cells, 7, 34 + 156 + 72 + 58 + 72, 34, 5, -1)).toBe(4)
+    expect(fitColumns(cells, 7, 34 + 100 + 72 + 58, 34, 5, 0)).toBe(3)
+    expect(fitColumns(cells, 7, 34 + 156 + 72 + 58, 34, 5, -1)).toBe(3)
+  })
+
+  it('keeps at most max columns, and always one', () => {
+    expect(fitColumns(cells, 7, 10_000, 34, 2)).toBe(2)
+    expect(fitColumns(cells, 7, 10, 34, 5)).toBe(1)
+    expect(fitColumns([], 7, 500, 34, 5)).toBe(0)
   })
 })
