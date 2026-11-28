@@ -5,7 +5,7 @@ import type { CSSProperties, KeyboardEvent, PointerEvent } from 'react'
 type VarStyle = CSSProperties & { readonly [name: `--${string}`]: string | number }
 /** A style for an element whose bar height or delay the stylesheet reads from custom properties. */
 const varStyle = (style: VarStyle): CSSProperties => style
-import { Button, Checkbox, CloudflareLogo, Collapsible, LayerCard, Radio } from '@cloudflare/kumo'
+import { Button, Checkbox, Collapsible, LayerCard, Radio } from '@cloudflare/kumo'
 import type { App } from '@modelcontextprotocol/ext-apps'
 import { mountMcpApp } from '../../mcp-apps/app-shell/mount'
 import { WorkersThresholdPreviewSchema } from '../contract'
@@ -724,12 +724,9 @@ function UsageAlertCard({
     >
       <LayerCard.Primary className="lc-primary">
         <header className="hd">
-          <CloudflareLogo variant="glyph" className="cf" aria-hidden />
-          <div>
-            <h2 className="title" id={ids.title}>
-              {action.title}
-            </h2>
-          </div>
+          <h2 className="title" id={ids.title}>
+            {action.title}
+          </h2>
         </header>
         <div className="chart">
           {/* The chart and its slider, named as one group: a fieldset, reset to a plain box in the CSS. */}

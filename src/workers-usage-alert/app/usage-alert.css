@@ -63,19 +63,9 @@ body {
   box-shadow: 0 0 0 1px var(--color-kumo-fill);
 }
 
-/* Header: static words wrap however they like, the number has its own fixed slot, so dragging can't rewrap anything. */
+/* Header: the title alone. The host draws the app's name and icon above the card, so the card carries no logo. */
 .hd {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  column-gap: 8px;
-  /* A wrapped title keeps the mark on its last line: the mark has no text, so its baseline is its bottom edge. */
-  align-items: last baseline;
-}
-/* The family's mark: 16 px tall, its width from the glyph's 49:22 viewBox, its flat base on the title's baseline,
-   8 px before the title's 15 px / 500 text. */
-.cf {
-  width: calc(16px * 49 / 22);
-  height: 16px;
+  display: block;
 }
 .title {
   margin: 0;

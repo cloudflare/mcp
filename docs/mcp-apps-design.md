@@ -1,6 +1,6 @@
 # MCP Apps design system
 
-Every MCP App should look like one family when a host puts them next to each other. Kumo provides the components, colours and type scale. This page covers what Kumo doesn't decide for us: how big a card's title is, how big the Cloudflare mark is, where text starts, and how tall controls are.
+Every MCP App should look like one family when a host puts them next to each other. Kumo provides the components, colours and type scale. This page covers what Kumo doesn't decide for us: how big a card's title is, where text starts, and how tall controls are.
 
 **D1 Studio (`src/d1-studio/app/`) is the reference.** Its values below were measured in the playground (`?view=release`, 560 px inline, light theme) and come from `d1-studio.css`.
 
@@ -35,32 +35,14 @@ All sizes are px. Kumo's `--text-xs/sm/base/lg` are 12/13/14/16.
 
 Use `font-variant-numeric: tabular-nums` on anything that counts or ticks.
 
-### The Cloudflare mark
+### No logo in the card
 
-Use `<CloudflareLogo variant="glyph" aria-hidden />` from Kumo. It is set as the first word of the title:
+The card carries no Cloudflare logo. Both hosts draw the app's name and icon themselves, above or around the view:
 
-- **16 px tall and about 36 px wide** in every App, whatever the title's size. Width is `calc(16px * 49 / 22)`, from the glyph's 49:22 viewBox.
-- In the title's row with `align-items: baseline` (`last baseline` when the title can wrap, so the mark stays on its last line), so its flat base stands on the text baseline.
-- An **8 px** gap before the title text.
-- Never in its own column.
+- **ChatGPT**: "Do not include your logo as part of the response. ChatGPT will always append your logo and app name before the widget is rendered" (Apps SDK UI guidelines, Icons & imagery).
+- **Claude** shows the app's icon in the view's title bar. Icons inside the view are monochrome and outlined, in the host's icon colours, never a coloured logo.
 
-```css
-.title-row {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  column-gap: 8px;
-  align-items: last baseline;
-}
-.mark {
-  width: calc(16px * 49 / 22);
-  height: 16px;
-}
-.title {
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 20px;
-}
-```
+A mark in the card shows the logo twice. The title starts the card on its own, in the text column. To change the icon a host shows, declare it on the server (`serverInfo.icons`) or on the tool (`icons`), not in the view.
 
 ### Icons
 
@@ -123,7 +105,7 @@ There is one primary button per card. Press feedback is `scale: 0.96` with a 160
 
 ## Where the Apps differ today
 
-Measured on 27 November 2026 with the same settings as above. Every App now shares the title line (15 / 20, 500, the 16 px mark on its baseline, 8 px gap).
+Measured on 27 November 2026 with the same settings as above. Every App now shares the title line (15 / 20, 500). The 16 px Cloudflare mark these Apps put before the title was removed from the threshold alerts on 27 November 2026 (see [No logo in the card](#no-logo-in-the-card)); D1 Studio and Worker deployment status still carry it until they change.
 
 |                   | D1 Studio (reference) | Threshold alerts (Workers usage, billing, R2, spend) | Worker deployment status |
 | ----------------- | --------------------- | ---------------------------------------------------- | ------------------------ |
@@ -142,7 +124,7 @@ Measured on 27 November 2026 with the same settings as above. Every App now shar
 
 - [ ] Imports `app-shell/base.css` and doesn't override `html`/`body` font or size.
 - [ ] Title is 15 / 20, weight 500, `text-kumo-strong`, one line.
-- [ ] The mark is `CloudflareLogo variant="glyph"`, 16 px tall, on the title's baseline, 8 px before it, as its first word.
+- [ ] No logo or `CloudflareLogo` in the card: the host shows the app's name and icon.
 - [ ] Text starts at 40 px and controls end 8 px from the right edge.
 - [ ] Card is 12 px radius with an inside 1 px `kumo-line` ring, no shadow, `#root` padding 0.
 - [ ] Controls are 26 px tall with 6 px radius, and there is one primary button.
