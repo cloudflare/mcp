@@ -5,6 +5,7 @@ import { mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { MCP_HOST, MCP_URL, MODERN_MCP_VERSION } from './helpers/mcp'
 import { clearSpec, seedSpec } from './helpers/spec'
+import { CLOUDFLARE_ICONS } from '../src/constants'
 import { MCP_APP_TOOLS } from '../src/mcp-apps/registry'
 
 const API_TOKEN = 'modern-client-token'
@@ -61,7 +62,11 @@ describe('automatic protocol negotiation', () => {
 
       expect(client.getProtocolEra()).toBe('modern')
       expect(client.getNegotiatedProtocolVersion()).toBe(MODERN_MCP_VERSION)
-      expect(client.getServerVersion()).toEqual({ name: 'cloudflare-api', version: '0.1.0' })
+      expect(client.getServerVersion()).toEqual({
+        name: 'cloudflare-api',
+        version: '0.1.0',
+        icons: CLOUDFLARE_ICONS
+      })
       expect(client.getDiscoverResult()?.supportedVersions).toEqual([MODERN_MCP_VERSION])
 
       const listed = await client.listTools()

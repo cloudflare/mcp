@@ -6,6 +6,7 @@ import type {
 } from '@modelcontextprotocol/server'
 import { z } from 'zod'
 import type { AuthProps } from '../auth/types'
+import { CLOUDFLARE_ICONS } from '../constants'
 import type { Connection } from '../api-permissions'
 import type { ScopeChallenge } from '../scope-challenge'
 import type { StaticResource } from '../skills/handlers'
@@ -68,6 +69,12 @@ export interface McpAppDefinition<Input extends z.ZodObject, Output extends z.Zo
     readonly name: string
     /** The self-contained HTML `npm run app:build` generates. */
     readonly html: string
+    /**
+     * Ask the host to draw the frame (`_meta.ui.prefersBorder`): its border,
+     * background and radius, so the view draws no ring of its own. Omitted, the
+     * host decides.
+     */
+    readonly prefersBorder?: boolean
   }
   /**
    * Generated tools (such as `alerting_policies_create`, imported from its
@@ -162,13 +169,15 @@ export function toolSignal(ctx: ServerContext): AbortSignal {
 export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType>(
   definition: McpAppDefinition<Input, Output>
 ): McpApp {
-  const { uri, name: resourceName, html } = definition.resource
+  const { uri, name: resourceName, html, prefersBorder } = definition.resource
   const meta = { ui: { resourceUri: uri }, 'ui/resourceUri': uri }
   const tool: Tool = {
     name: definition.name,
     title: definition.title,
     description: definition.description,
     annotations: definition.annotations,
+    // The host draws the mark in its own chrome, so the view carries no logo.
+    icons: CLOUDFLARE_ICONS,
     _meta: meta,
     inputSchema: listedJsonSchema(definition.input) as Tool['inputSchema'],
     outputSchema: listedJsonSchema(definition.output) as Tool['outputSchema']
@@ -179,7 +188,12 @@ export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType
       uri,
       mimeType: MCP_APP_MIME,
       text: html,
-      _meta: { ui: { csp: { connectDomains: [], resourceDomains: [] } } }
+      _meta: {
+        ui: {
+          csp: { connectDomains: [], resourceDomains: [] },
+          ...(prefersBorder !== undefined && { prefersBorder })
+        }
+      }
     }
   }
   return {

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { App } from '@modelcontextprotocol/ext-apps'
+import { App, applyHostFonts, applyHostStyleVariables } from '@modelcontextprotocol/ext-apps'
 import type { CallToolResult } from '@modelcontextprotocol/client'
 import type { z } from 'zod'
 import { applyLocale } from './apply-locale'
@@ -64,6 +64,25 @@ function applyTheme(mode: string | undefined) {
   document.documentElement.style.colorScheme = mode
 }
 
+/**
+ * The host's own look, which both hosts' App guidelines ask a view to use:
+ * its CSS variables (`--color-background-primary`, `--font-sans`,
+ * `--border-radius-md`, …) on the root, its fonts, and its safe area as
+ * `--safe-top` / `--safe-right` / `--safe-bottom` / `--safe-left`. A host
+ * that sends none (ChatGPT) leaves each App's CSS fallbacks in force.
+ */
+function applyHostStyles(context: ReturnType<App['getHostContext']>) {
+  const variables = context?.styles?.variables
+  if (variables) applyHostStyleVariables(variables)
+  const fonts = context?.styles?.css?.fonts
+  if (fonts) applyHostFonts(fonts)
+  const insets = context?.safeAreaInsets
+  const root = document.documentElement.style
+  for (const side of ['top', 'right', 'bottom', 'left'] as const)
+    if (insets) root.setProperty(`--safe-${side}`, `${insets[side]}px`)
+    else root.removeProperty(`--safe-${side}`)
+}
+
 /** Set `data-display` (`inline`, `fullscreen`, `pip`) for CSS. True when it changed, so the view redraws. */
 function applyDisplayMode(mode: string | undefined): boolean {
   if (!mode || document.documentElement.dataset.display === mode) return false
@@ -111,6 +130,7 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
   const followHost = () => {
     const context = app.getHostContext()
     applyTheme(context?.theme)
+    applyHostStyles(context)
     const relocalised = applyLocale(resolveLocale(context?.locale, options.languages ?? ['en']))
     const redisplayed = applyDisplayMode(context?.displayMode)
     if (relocalised || redisplayed || toolName() !== drawnFor) root.render(last())
